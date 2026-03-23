@@ -1,0 +1,12 @@
+---
+description: General coding style for the project
+globs: ["**/*.tf", "**/*.tfvars", "**/*.yaml", "**/*.yml", "**/*.md"]
+alwaysApply: false
+---
+
+# General Style
+
+- **Line Length:** 100–120 characters where feasible.
+- **Comments:** Clear, concise; avoid restating code. Use `TODO:` / `FIXME:` for follow-ups.
+- **Naming:** Follow language-specific conventions (see terraform.mdc, helm.mdc for infra).
+- **Formatting:** Use language-appropriate linters and formatters.

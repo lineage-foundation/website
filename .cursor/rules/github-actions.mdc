@@ -1,0 +1,14 @@
+---
+description: GitHub Actions workflow conventions for lineage-foundation/platform
+globs: [".github/workflows/*.yml", ".github/workflows/*.yaml"]
+alwaysApply: false
+---
+
+# GitHub Actions
+
+- **Structure:** One purpose per workflow (build, test, deploy); use `workflow_call` for reuse.
+- **Naming:** Descriptive workflow/job/step names; kebab-case files (e.g., `ci-build.yml`).
+- **Secrets:** Use GitHub secrets; limit scope via environments; never log secrets.
+- **Permissions:** Minimum required for `GITHUB_TOKEN` per workflow/job.
+- **Actions:** Pin to SHA (e.g., `actions/checkout@v3.0.2`); prefer official/verified.
+- **Efficiency:** Use caching; optimize job execution.
