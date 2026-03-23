@@ -1,0 +1,46 @@
+---
+description: Git conventions, workflow, and commit messages for lineage-foundation/platform
+alwaysApply: true
+---
+
+# Git Conventions
+
+Repository: github.com/lineage-foundation/platform. All git-related text (commits, branches, PRs, issues) in English.
+
+## Commit Messages
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+[optional footer]
+```
+
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`
+
+**Scope:** Component affected (e.g., `terraform`, `helm`, `ci`, `platform`).
+
+**Description:** Imperative, present tense, lowercase, no trailing period.
+
+**Examples:** `feat(auth): add login with Google` · `fix(api): handle null response`
+
+## Branch Naming
+
+```
+<type>/<short-description>
+<type>/<ticket>-<short-description>
+```
+
+Examples: `feat/add-google-auth`, `fix/PROJ-123-handle-null-responses`
+
+## Workflow
+
+- Protected: `main` (or `master`). No direct commits.
+- Use feature branches and Pull Requests.
+- Squash commits when merging. Require reviews.
+
+## Pull Request Creation
+
+When creating a PR after pushing a feature branch, use the **GitHub MCP** `create_pull_request` tool if available. Ensure the GitHub MCP server is configured globally (`~/.cursor/mcp.json`) with `GITHUB_PERSONAL_ACCESS_TOKEN` in your environment. Fallback: share the compare URL for manual PR creation.
