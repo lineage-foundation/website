@@ -1,0 +1,293 @@
+:root {
+    --black-void: #050505; /* was used for background - changed */
+
+    --signal-yellow: #FFD300; /* replaced with insightsignal-yellow */
+    --signal-yellow: rgb(221, 255, 194);
+    --accent-cyan: #00C8FF; /* replaced flowelectricnetwork-cyan */
+    --accent-magenta: #FF00BE; /* no longer in use */
+    --hazard-yellow: #FFEA00; /* not in use */
+    /* core colours */
+
+
+    --main-white: hsl(200,0%,99%); /* added new */
+
+    --groundsystem-black: rgb(10,10,10);
+    --insightsignal-yellow: #FFD400;
+    --flowelectricnetwork-cyan: rgb(0, 229,255);
+    --executiontech-green: rgb(0,255,102);
+    --ash-gray: #9A9AA0; /* used in nav tabs, hero paragraph, card paragraphs */
+    /* /core colours */
+
+    --carbon-black: #0B0B0E; /* used in cards background transitions */
+    --steel-gray: #2A2A2E; /* used in cards background transitions */
+    --gunmetal: #16161A; /* used in cards background transitions */
+    /* adding */
+    --herbal-vapours: #ddffc2;
+    --primary: #ddffc2;
+    --primary: #d0fc37;
+    --primary: rgb(208, 252, 55);
+    --sandworm: #fbea87;
+    --secondary: #fbea87;
+    --blue-light: rgb(0, 186, 238);
+    --blue-dark: rgb(0, 136, 177);
+    --color4-light: rgb(242, 146, 205);
+    --color4-dark: rgb(225, 96, 180);
+    --main-white: rgb(248, 248, 248);
+    --main-white-darker: rgb(225, 225, 225);
+    --neon-glow-yellow: 0 0 8px rgba(255, 211, 0, 0.7), 0 0 22px rgba(255, 211, 0, 0.4);
+    --glow-primary: 0 0 8px rgba(221, 255, 194, 0.7), 0 0 22px rgba(221, 255, 194, 0.4);
+    --glow-primary: 0 0 8px rgba(208, 252, 55, 0.7), 0 0 22px rgba(221, 255, 194, 0.4);
+    --glow-secondary: 0 0 8px rgba(251, 234, 135, 0.7), 0 0 22px rgba(251, 234, 135, 0.4);
+    /* start of new defintions in phase 2 */
+    --gold: rgb(208, 252, 55); /* #D0FC37; */
+    --blue-energy: #3a8dff;
+    --white: #ffffff;
+    --onyx: #0a0a0a;
+    --onyx-2: #121212;
+    --card-text: #c9c9c9;
+    --grey-text: #c9c9c9;
+    --grey-text-light: hsl(0, 0%, 94%); /* custom choice for certain parts like text, darker than white */
+    /* new version 5 changes */
+    --primary: #effd5c;
+    --background-primary: #110f2a;
+}
+
+
+/* inner graph properties - must be smaller than graph holder */
+
+div.graph {
+    width: 430px;
+    height: 430px;
+}
+
+/* this is the main graph holder that displays in the central portion */
+
+
+/* each graph holder can move depending on the market state, be visible or hidden */
+
+div.graph-holder {
+}
+
+    /* whatever graph is assigned to the main class is going to be in the central place */
+
+
+    /* main-highlight is assigned when its an event */
+
+    div.graph-holder.main, div.graph-holder.main-highlight {
+        display: block;
+        position: absolute;
+        top: 445px;
+        left: 15%;
+        width: 440px; /* bigger than graphs it must hold */
+        height: 440px;
+        padding: 5px; /* padding take into consideration graph size, and its own size */
+        border-radius: 8px;
+    }
+
+    div.graph-holder.main {
+        border: 2px solid hsl(194, 50%, 37%); /* color for default border */
+    }
+
+    div.graph-holder.main-highlight {
+        border: 2px solid hsl(58, 50%, 55%); /* color when highlighted during an event */
+    }
+
+
+
+
+    /* this is the graph that is occupying the central position */
+
+    /* general graph attributes being inside a graph holder */
+
+    div.graph-holder div.graph {
+        display: block;
+        position: relative;
+        /*
+                    width: 100%;
+                    height: 100%;
+                    */
+
+        padding: 0px;
+    }
+
+    /* this is the key display graph inside the main graph holder */
+    /*
+            div.graph-holder.main div.graph, div.graph-holder.main-highlight div.graph {
+                display: block;
+                position: relative;
+                padding: 0px;
+            }
+            */
+
+
+    /* this would be a graph holder that has moved out of central position or is hidden */
+    div.graph-holder.stage-1-off {
+        display: block;
+        display: none;
+        position: absolute;
+        top: 350px;
+        left: 70%;
+    }
+
+    div.graph-holder.stage-2-off {
+        display: block;
+        display: none;
+        position: absolute;
+        top: 600px;
+        left: 70%;
+    }
+
+    div.graph-holder.stage-3-off {
+        display: block;
+        display: none;
+        position: absolute;
+        top: 1200px;
+        left: 70%;
+    }
+
+
+
+
+hr.divide {
+    top: 400px;
+}
+
+
+/* new nav changes for new design */
+
+img.lineage-logo {
+    height: 50px;
+}
+
+
+nav {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+div.nav-left {
+    padding: 5px 0px;
+    padding-top: 12px;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 28px;
+}
+
+    .nav-tabs a {
+        color: var(--ash-gray);
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        position: relative;
+    }
+
+        .nav-tabs a:hover {
+            color: var(--insightsignal-yellow);
+        }
+
+        .nav-tabs a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0%;
+            height: 2px;
+            background: var(--insightsignal-yellow);
+            transition: width 0.25s ease;
+        }
+
+        .nav-tabs a:hover::after {
+            width: 100%;
+        }
+
+
+
+
+    .nav-tabs a {
+        color: var(--main-white-darker);
+    }
+
+        .nav-tabs a:hover {
+            color: var(--primary);
+            color: var(--secondary);
+            color: var(--insightsignal-yellow);
+        }
+
+        .nav-tabs a::after {
+            background: var(--primary);
+            background: var(--secondary);
+            color: var(--insightsignal-yellow);
+        }
+
+
+/* /new nav changes for new design */
+
+
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background: var(--onyx);
+}
+
+    body nav {
+        line-height: 1.6; /* just add the line hieght so nav both matches */
+    }
+
+
+
+
+
+/* new adds 5 */
+
+body, .hub-card {
+    background-color: var(--background-primary);
+}
+
+.hub-card {
+    background-color: var(--background-primary);
+}
+
+.nav-tabs a:hover {
+    color: var(--primary);
+}
+
+.nav-tabs a::after {
+    background: var(--primary);
+}
+
+
+.card {
+    border: 1px solid var(--card-border);
+}
+
+.hub-card {
+    border: 1px solid var(--hub-card-border);
+}
+
+img.lineage-logo {
+    padding: 0px;
+    height: 20px;
+}
+
+.nav-left {
+    padding: 0px 0px;
+    min-height: 65px;
+}
+
+/* /new adds 5 */
+
+#codeWindow {
+    background-color: #080715;
+    background-color: var(--background-primary);
+    background-color: #110f2a;
+    background-color: hsl(240, 50%, 14%);
+    background-color: #000000;
+    background-color: var(--background-primary);
+    background-color: hsl(240, 95%, 7%);
+}
+
+div.info {
+    line-height: 1.6;
+}
