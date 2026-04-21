@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { Container } from "./Container";
 import { Eyebrow } from "./Eyebrow";
 import { Heading, type HeadingLevel, type HeadingVariant } from "./Heading";
 import styles from "./Section.module.css";
@@ -10,6 +11,7 @@ export type SectionProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
   headingLevel?: HeadingLevel;
   headingVariant?: HeadingVariant;
   spacing?: "default" | "tight" | "loose";
+  containerWidth?: "default" | "wide" | "narrow";
   children: ReactNode;
 };
 
@@ -19,6 +21,7 @@ export function Section({
   headingLevel = 2,
   headingVariant,
   spacing = "default",
+  containerWidth = "default",
   className,
   children,
   ...rest
@@ -32,17 +35,19 @@ export function Section({
 
   return (
     <section className={classes.join(" ")} {...rest}>
-      {hasHeader ? (
-        <header className={styles.header}>
-          {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-          {heading ? (
-            <Heading level={headingLevel} variant={headingVariant}>
-              {heading}
-            </Heading>
-          ) : null}
-        </header>
-      ) : null}
-      <div className={styles.body}>{children}</div>
+      <Container width={containerWidth}>
+        {hasHeader ? (
+          <header className={styles.header}>
+            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+            {heading ? (
+              <Heading level={headingLevel} variant={headingVariant}>
+                {heading}
+              </Heading>
+            ) : null}
+          </header>
+        ) : null}
+        <div className={styles.body}>{children}</div>
+      </Container>
     </section>
   );
 }

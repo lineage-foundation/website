@@ -197,7 +197,7 @@ body {
 }
 
 /* =========================================================================
- * Legacy helpers — kept until each consumer migrates. See tasks 2.x / 3.x.
+ * Base layout scaffolding.
  * ========================================================================= */
 .siteMain {
   flex: 1;
@@ -206,10 +206,4 @@ body {
   max-width: none;
   margin: 0;
   padding: 0;
-}
-
-html body .homePage .hero p.heroLead {
-  min-width: 100%;
-  max-width: none !important;
-  width: 100% !important;
 }
