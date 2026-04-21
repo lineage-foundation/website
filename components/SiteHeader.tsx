@@ -9,7 +9,7 @@ import { URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 import styles from "./SiteHeader.module.css";
 
 const NAV_ITEMS = [
-  { label: "Technology", href: "/learn", external: false },
+  { label: "Technology", href: "/technology", external: false },
   { label: "Developers", href: "/developers", external: false },
   { label: "Ecosystem", href: "/ecosystem", external: false },
   { label: "Research", href: "/research", external: false },

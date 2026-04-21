@@ -21,7 +21,7 @@ export function SiteFooter() {
             <h2 className={styles.columnTitle}>Project</h2>
             <ul className={styles.list}>
               <li>
-                <Link href="/learn">Technology</Link>
+                <Link href="/technology">Technology</Link>
               </li>
               <li>
                 <Link href="/tokenomics">Tokenomics</Link>

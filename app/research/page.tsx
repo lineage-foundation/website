@@ -67,8 +67,9 @@ export default function ResearchPage() {
               execute fixed rules — Lineage performs bounded search over
               policy space and verifies results cryptographically, so the
               mechanisms themselves evolve under deterministic selection
-              pressure. The ARCO simulation on <a href="/learn">/learn</a>
-              {" "}walks through a single step of this loop.
+              pressure. The ARCO simulation on{" "}
+              <a href="/technology">/technology</a> walks through a single step
+              of this loop.
             </p>
           </Prose>
         </div>

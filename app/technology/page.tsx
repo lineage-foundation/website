@@ -9,21 +9,21 @@ import "./arco-responsive.css";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Learn | Lineage",
+    absolute: "Technology | Lineage",
   },
   description:
     "Interactive ARCO flow — sensor, relay, compute, actuator, and market optimization.",
   alternates: {
-    canonical: "/learn",
+    canonical: "/technology",
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Learn | Lineage",
+    title: "Technology | Lineage",
     description: "Interactive ARCO flow and market state visualization.",
-    url: `${SITE_ORIGIN}/learn`,
+    url: `${SITE_ORIGIN}/technology`,
     type: "website",
     images: [
       {
@@ -36,17 +36,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Learn | Lineage",
+    title: "Technology | Lineage",
     description: "Interactive ARCO flow and market state visualization.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
 
-export default function ArcoPage() {
+export default function TechnologyPage() {
   return (
     <>
       <Section
-        eyebrow="Learn — interactive"
+        eyebrow="Technology — interactive"
         heading="ARCO: the compute loop"
         headingLevel={1}
         headingVariant="display"

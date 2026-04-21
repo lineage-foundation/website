@@ -30,7 +30,7 @@
   /* Color — focus */
   --color-focus-ring: rgba(239, 253, 92, 0.6);
 
-  /* Effect — accent glow (used sparingly, e.g. highlighted headline on /learn) */
+  /* Effect — accent glow (used sparingly, e.g. highlighted headline on /technology) */
   --glow-accent: 0 0 8px rgba(239, 253, 92, 0.7),
     0 0 22px rgba(239, 253, 92, 0.4);
 

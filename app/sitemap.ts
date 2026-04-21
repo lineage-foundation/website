@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { SITE_ORIGIN } from "@/lib/constants";
 
-/** Primary URLs for indexing (canonical paths; `/arco` mirrors `/learn` with same canonical). */
+/** Primary URLs for indexing. `/learn` and `/arco` 301 → `/technology` (see next.config.ts). */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE_ORIGIN;
   const now = new Date();
@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${base}/learn`,
+      url: `${base}/technology`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
