@@ -289,11 +289,14 @@ button.secondary {
     color: var(--color-text);
 }
 
-.arcoLearnRoot {
-            margin: 0;
-        }
+/* Previously there was a `.arcoLearnRoot { margin: 0 }` override here that
+   cancelled the `margin: 0 auto` declared above (line ~263), leaving the
+   1000px-max-width container pinned to the left of the viewport. The override
+   was historically masked by `#diagram { width: 100vw }`, which escaped the
+   container but caused horizontal overflow. Now that #diagram uses
+   `width: 100%`, we need the container to actually center, so the override
+   is removed. */
 
-    
 #runBtn {
     position: absolute;
     top: 100px;
