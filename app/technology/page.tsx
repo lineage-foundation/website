@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 
-import { ArcoLearnDynamic } from "@/components/arco/ArcoLearnDynamic";
+import { ArcoSimulatorDynamic } from "@/components/arco-sim/ArcoSimulatorDynamic";
 import { Prose, Section } from "@/components/ui";
 import { SITE_ORIGIN } from "@/lib/constants";
-
-import "./arco.css";
-import "./arco-responsive.css";
 
 export const metadata: Metadata = {
   title: {
@@ -55,14 +52,14 @@ export default function TechnologyPage() {
         <Prose>
           <p>
             A single step of the Lineage loop: sensor, relay, compute, actuator,
-            event. Click any node to walk through the logic; press Run to step
-            through the sequence and see market state evolve in the graphs
-            below.
+            event. Press Run to advance through the sequence and watch market
+            state evolve across three iterations — from initial to fully
+            optimized.
           </p>
         </Prose>
       </Section>
 
-      <ArcoLearnDynamic />
+      <ArcoSimulatorDynamic />
     </>
   );
 }
