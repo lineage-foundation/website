@@ -118,14 +118,41 @@ Derived from [`prd-site-redesign.md`](prd-site-redesign.md).
   - [x] **5.5** Chart interaction logic (hover states, node/legend clicks, slider, canvas draw loop) lives entirely in `TokenomicsChart.tsx`, which was not modified — only class values changed. Responsiveness preserved (`.wrap max-width: 480px`, `.timeline/.legend max-width: 420px`, `@media (min-width: 520px)` breakpoint intact).
   - [x] **5.6** `npm run lint` ✓, `npm run build` ✓ (11 static routes: `/`, `/arco`, `/learn`, `/tokenomics`, `/developers`, `/ecosystem`, `/research`, plus `_not-found`, `robots.txt`, `sitemap.xml`). Commit: `refactor(pages): restyle learn and tokenomics to new system`.
 
-- [ ] **6.0** SEO, accessibility, motion, and performance verification
-  - [ ] **6.1** Confirm each of the six routes (`/`, `/learn`, `/tokenomics`, `/developers`, `/ecosystem`, `/research`) exports a unique `title`, `description`, canonical, and OG image.
-  - [ ] **6.2** Verify `app/sitemap.ts` lists all six routes and `app/robots.ts` allows indexing in production.
-  - [ ] **6.3** With `prefers-reduced-motion: reduce` enabled in the browser, confirm the hero shader shows its static fallback and `useReveal` does not animate.
-  - [ ] **6.4** Run axe DevTools (or `@axe-core/cli`) on all six routes; fix any critical/serious issues (landmarks, headings, contrast, alt text, form labels, focus visible).
-  - [ ] **6.5** Run Lighthouse mobile on `/` and record scores: target **Performance ≥ 90**, **Accessibility ≥ 95**, **Best Practices ≥ 95**, **SEO ≥ 95**. Note any deltas attributable to Plotly (acceptable on `/learn`, must not regress on `/`).
-  - [ ] **6.6** Check WCAG AA contrast on body text, muted text, and CTA text against their backgrounds; adjust tokens in §1 if any fail.
-  - [ ] **6.7** Fix any regressions surfaced by 6.1–6.6; re-run lint + build.
+- [~] **6.0** SEO, accessibility, motion, and performance verification (static portions done; 6.4/6.5 need browser)
+  - [x] **6.1** Static audit of `app/**/page.tsx` confirms six unique `Metadata` exports. The three placeholder pages (`/developers`, `/ecosystem`, `/research`) use plain-string `title` so the root layout's `template: "%s | Lineage"` suffixes correctly. The three original pages (`/`, `/learn`, `/tokenomics`) use `title: { absolute: ... }` to keep their bespoke titles. Every page has its own `description`, `alternates.canonical` (each pointing at its own path — `/learn`'s `canonical` is `/learn`, not `/arco`, so `/arco` rel-canonicalises to `/learn`), and OG/Twitter cards reusing `/images/open-graph-lineage-1200x630.png` with per-page title/description.
+  - [x] **6.2** `app/sitemap.ts` now lists all six routes (`/` priority 1, `/learn` + `/tokenomics` priority 0.9, `/developers` + `/ecosystem` + `/research` priority 0.8). `app/robots.ts` keeps `{ userAgent: "*", allow: "/" }` with `sitemap: ${SITE_ORIGIN}/sitemap.xml` and `host: SITE_ORIGIN` — indexing allowed. Root layout's `metadata.robots: { index: true, follow: true }` backs it up for every page.
+  - [x] **6.3** Code audit of `components/home/HeroShader.tsx` and `hooks/useReveal.ts`:
+    - **HeroShader** reads the `prefers-reduced-motion` media query in the `useState` initializer (SSR-safe), subscribes for runtime toggles via `matchMedia.addEventListener`, and gates both point integration AND `requestAnimationFrame` recursion behind `if (!reducedMotion)`. Under reduced motion it draws exactly one static frame.
+    - **Fixed** a latent bug: the `ResizeObserver` called `resize()` (which reassigns `canvas.width`, clearing the bitmap) but did not redraw. In the animated path the RAF loop repaints on the next tick; in reduced motion it never does, so a window resize produced a blank canvas. The observer callback now calls `draw()` after `resize()` when `reducedMotion` is true.
+    - **useReveal** synchronously stamps `data-revealed="true"` and short-circuits (no observer) when `prefers-reduced-motion: reduce` is set OR `IntersectionObserver` is unavailable. The CSS under `@media (prefers-reduced-motion: reduce)` also disables the transition and forces `opacity: 1; transform: none;` defensively. Double-gated.
+    - Note: `useReveal` is exported but **not yet consumed** by any component in this branch — so runtime motion is driven solely by `HeroShader`.
+  - [ ] **6.4** Browser-side axe audit. Run against a local build so CSS/routes resolve like production:
+    ```
+    npm run build && npm run start &
+    npx -y @axe-core/cli http://localhost:3000 http://localhost:3000/learn \
+      http://localhost:3000/tokenomics http://localhost:3000/developers \
+      http://localhost:3000/ecosystem http://localhost:3000/research \
+      --exit
+    ```
+    Expected surfaces to audit: landmarks (root layout emits `<header>`/`<main>`/`<footer>`; each page has a single `<h1>` inside a `Section`), alt text (all `<img>` tags have `alt`, decorative shader canvas has `aria-hidden`), focus-visible (global rule in `globals.css`), color-contrast (proven by 6.6 below for tokens — but axe re-validates on actually-rendered nodes). Fix any `critical` or `serious` findings and re-run.
+  - [ ] **6.5** Browser-side Lighthouse mobile, local build:
+    ```
+    npm run build && npm run start &
+    npx -y lighthouse http://localhost:3000 --preset=desktop --quiet \
+      --chrome-flags="--headless" --output=html --output-path=./lighthouse-home.html
+    npx -y lighthouse http://localhost:3000 --emulated-form-factor=mobile --quiet \
+      --chrome-flags="--headless" --output=html --output-path=./lighthouse-home-mobile.html
+    ```
+    Targets: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95 on `/`. Plotly's bundle and canvas work on `/learn` will likely dent Performance (acceptable per PRD); the `/` score must not regress because of the HeroShader — it's `next/dynamic({ ssr: false })` and off the critical path.
+  - [x] **6.6** Computed WCAG 2.1 AA contrast via `scripts/contrast.mjs` (checked into the repo so this is reproducible). All *required* pairs pass 4.5:1 body-text AA:
+    - body text `#f2f3f5` on `#0b0c10 / #141620 / #1c1f2a` → 17.6 / 16.2 / 14.8 : 1
+    - muted text `#a7acb3` on same → 8.6 / 7.9 / 7.2 : 1
+    - subtle text `#8a8f98` on `#0b0c10 / #141620` → 6.0 / 5.6 : 1 (after bump; was `#6b7079` at 3.9 / 3.6 — **failed**)
+    - CTA primary: `#0b0c10` ink on `#effd5c` accent / `#d0fc37` accent-strong → 17.6 / 16.4 : 1
+    - Accent link/outline `#effd5c` on `#0b0c10` → 17.6 : 1
+    - Decorative borders (`#262a33`, `#363b47`) on bg come in at 1.4 / 1.7 : 1 — below WCAG 1.4.11's 3:1, **but** they don't identify interactive UI components on this site (cards communicate affordance via hover + focus-visible accent at 17.6 : 1; there are no form inputs). Reported as "informational" by the script; not a WCAG AA failure.
+    - Token change applied: `--color-text-subtle: #6b7079 → #8a8f98` in `app/globals.css`.
+  - [~] **6.7** Regressions surfaced by the static audits (6.1 / 6.3 / 6.6) fixed: bumped `--color-text-subtle`, patched `HeroShader` resize-in-reduced-motion. `npm run lint` ✓, `npm run build` ✓. 6.4 / 6.5 findings will be folded in when the browser runs happen.
 
 - [ ] **7.0** Cleanup, documentation, and merge readiness
   - [ ] **7.1** Remove orphaned CSS/classes made unused by the redesign (e.g. legacy `.homePage .hero*`, `.heroBlock`, `.hubGrid`, `.hubCard*`, `.actionsHolder*` that no component consumes).

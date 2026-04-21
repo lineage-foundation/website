@@ -118,7 +118,13 @@ export default function HeroShader() {
       }
     };
 
-    const ro = new ResizeObserver(resize);
+    const ro = new ResizeObserver(() => {
+      resize();
+      // Assigning canvas.width clears the bitmap. In the animated path the
+      // RAF loop will repaint on its next tick; in reduced-motion there is
+      // no loop, so we have to repaint the single static frame ourselves.
+      if (reducedMotion) draw();
+    });
     ro.observe(canvas);
 
     const onVisibility = () => {
