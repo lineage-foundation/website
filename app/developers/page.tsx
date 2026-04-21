@@ -1,0 +1,114 @@
+import type { Metadata } from "next";
+
+import { Button, Card, Prose, Section } from "@/components/ui";
+import {
+  SITE_ORIGIN,
+  URL_DISCOURSE_RESEARCH,
+  URL_GITHUB_ORG,
+  URL_ZENODO_WHITEPAPER,
+} from "@/lib/constants";
+
+import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "Developers",
+  description:
+    "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
+  alternates: { canonical: "/developers" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Developers | Lineage",
+    description:
+      "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
+    url: `${SITE_ORIGIN}/developers`,
+    type: "website",
+    images: [
+      {
+        url: "/images/open-graph-lineage-1200x630.png",
+        width: 1200,
+        height: 630,
+        alt: "Lineage Foundation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Developers | Lineage",
+    description: "Build on Lineage.",
+    images: ["/images/open-graph-lineage-1200x630.png"],
+  },
+};
+
+export default function DevelopersPage() {
+  return (
+    <>
+      <Section
+        eyebrow="For builders"
+        heading="Build on Lineage"
+        headingLevel={1}
+        headingVariant="display"
+        spacing="loose"
+      >
+        <Prose>
+          <p>
+            Lineage is a Layer-1 where market policy itself is programmable.
+            The network performs bounded search over policy space and verifies
+            results cryptographically — so the mechanisms governing markets
+            can evolve without changing the chain.
+          </p>
+          <p>
+            Everything is open. Evaluate the protocol against the whitepaper,
+            clone the repos, and prototype.
+          </p>
+        </Prose>
+      </Section>
+
+      <Section eyebrow="Start with the code" heading="Source material">
+        <div className={styles.grid}>
+          <Card
+            title="Lineage Foundation on GitHub"
+            href={URL_GITHUB_ORG}
+            external
+          >
+            Every repository is open for review, issues, and contributions.
+          </Card>
+          <Card
+            title="Lineage: The Living Economy"
+            href={URL_ZENODO_WHITEPAPER}
+            external
+          >
+            The full technical and economic specification, archived on Zenodo.
+          </Card>
+        </div>
+      </Section>
+
+      <Section eyebrow="Next step" heading="Have questions?">
+        <Prose>
+          <p>
+            Specification and research questions live in the Lineage Discourse
+            forum. Implementation questions belong in the repo issue trackers
+            on GitHub.
+          </p>
+        </Prose>
+        <div className={styles.actions}>
+          <Button
+            variant="primary"
+            size="md"
+            href={URL_DISCOURSE_RESEARCH}
+            external
+          >
+            Join the Discourse forum
+          </Button>
+          <Button
+            variant="secondary"
+            size="md"
+            href={URL_GITHUB_ORG}
+            external
+          >
+            Open GitHub repos
+          </Button>
+        </div>
+      </Section>
+    </>
+  );
+}

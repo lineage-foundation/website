@@ -1,0 +1,30 @@
+.heading {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: var(--ls-heading);
+  text-wrap: balance;
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  font-weight: 600;
+}
+
+.h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  font-weight: 500;
+}

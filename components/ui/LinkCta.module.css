@@ -1,0 +1,31 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border-strong);
+  padding-bottom: 2px;
+  transition: border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+}
+
+.link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.link:hover .arrow {
+  transform: translateX(2px);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease-standard);
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}

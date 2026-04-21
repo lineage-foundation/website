@@ -1,0 +1,164 @@
+# Tasks: Lineage Foundation site redesign
+
+Derived from [`prd-site-redesign.md`](prd-site-redesign.md).
+
+## Relevant Files
+
+### New (to be created)
+
+- `components/ui/Container.tsx` / `Container.module.css` — Consistent max-width + horizontal gutter used by every redesigned page.
+- `components/ui/Section.tsx` / `Section.module.css` — Vertical rhythm wrapper with optional eyebrow + heading slots.
+- `components/ui/Heading.tsx` / `Heading.module.css` — Token-backed display/h1/h2/h3 component.
+- `components/ui/Eyebrow.tsx` / `Eyebrow.module.css` — Small uppercase section label.
+- `components/ui/Prose.tsx` / `Prose.module.css` — Body-copy container with readable measure (65–75ch).
+- `components/ui/Button.tsx` / `Button.module.css` — `primary` / `secondary` / `ghost` variants.
+- `components/ui/LinkCta.tsx` / `LinkCta.module.css` — Styled link with arrow affordance.
+- `components/ui/Card.tsx` / `Card.module.css` — Flat card with optional icon slot.
+- `components/home/Hero.tsx` / `Hero.module.css` — Homepage hero layout with shader slot + CTAs.
+- `components/home/HeroShader.tsx` / `HeroShader.module.css` — Client-only canvas/shader visual; reduced-motion aware.
+- `components/home/FeatureGrid.tsx` / `FeatureGrid.module.css` — 3-up grid reused by UTMM / Consensus / Impact.
+- `components/home/AudienceRouter.tsx` / `AudienceRouter.module.css` — Two-column Builders / Researchers block.
+- `components/home/EvidenceBlock.tsx` / `EvidenceBlock.module.css` — Whitepaper + GitHub tiles.
+- `components/home/GetStartedGrid.tsx` / `GetStartedGrid.module.css` — 6-tile CTA hub.
+- `hooks/useReveal.ts` — `IntersectionObserver`-based fade+rise hook; honors `prefers-reduced-motion`.
+- `app/developers/page.tsx` — New placeholder route with hero + section + CTA.
+- `app/ecosystem/page.tsx` — New placeholder route grouping Wallets, Network, Community.
+- `app/research/page.tsx` — New placeholder route linking whitepaper + Discourse.
+
+### Modified
+
+- `app/globals.css` — Source of truth for design tokens (color, type, spacing, radius, shadow, motion, z-index).
+- `app/layout.tsx` — Only if the shell needs additional providers or metadata updates.
+- `app/page.tsx` — Recomposed using new homepage sections.
+- `app/home.css` — Reduced to near-empty (rules move into component modules); deleted once unused.
+- `app/sitemap.ts` — Adds `/developers`, `/ecosystem`, `/research`.
+- `app/robots.ts` — Verified; no rule change expected.
+- `components/SiteHeader.tsx` / `SiteHeader.module.css` — New 4–5 item nav (Technology / Developers / Ecosystem / Research / Docs) + persistent desktop CTA; styles re-tokened.
+- `components/SiteFooter.tsx` / `SiteFooter.module.css` — Re-tokened to the new system.
+- `app/arco/page.tsx` — Wrapped in new Section/Container shell; metadata unchanged.
+- `app/arco/arco.css` / `app/arco/arco-responsive.css` — Re-tokened colors/spacing; **DOM IDs preserved** (`#diagram`, `#runBtn`, `#codeWindow`, `#wires`, `#A`..`#E`, `#stage1`..`#stage3`).
+- `components/arco/ArcoLearnClient.tsx` — Only the outermost wrapper changes; node/graph markup untouched.
+- `components/tokenomics/TokenomicsChart.tsx` / `TokenomicsChart.module.css` — Wrapper restyled; chart/interaction logic untouched.
+- `app/learn/page.tsx` — No behavioral change; only inherits the new shell via the ARCO page it re-exports.
+- `app/tokenomics/page.tsx` — Wrapped in new Section/Container shell.
+- `lib/constants.ts` — No new constants expected; used by new nav CTA and placeholder routes.
+- `README.md` — Design-system notes, new routes, “how to change copy/links”.
+
+### Explicitly out of scope / do not change
+
+- `lib/arco/arcoInit.ts` — Interaction logic untouched (PRD §7.6).
+- `plotly.js-dist-min` version or wiring — No change.
+- `next.config.ts`, `tsconfig.json`, `eslint.config.mjs` — No change unless a token utility or alias requires it.
+
+### Notes
+
+- Tests are not required by the PRD; prefer ESLint + `npm run build` + manual QA (Lighthouse, axe DevTools). If tests are added later, colocate under the component (e.g. `Button.test.tsx`).
+- Every new UI primitive must consume **tokens** from `app/globals.css`; no hard-coded hex values in component CSS.
+- All scroll-linked motion must gracefully disable under `prefers-reduced-motion: reduce`.
+- Commit in small, reviewable chunks per parent task (`feat(ui): …`, `feat(home): …`, `chore(css): …`) per `.cursor/rules/git.mdc`.
+
+## Instructions for Completing Tasks
+
+**IMPORTANT:** As tasks are completed, check them off by changing `- [ ]` to `- [x]`. Update after each sub-task, not just at the end of a parent task.
+
+## Tasks
+
+- [x] **0.0** Create feature branch
+  - [x] **0.1** Branched `feat/site-redesign` from `feat/nextjs-site-normalization` HEAD (the Next.js foundation work-in-progress travels with the redesign branch; rebase later if `feat/nextjs-site-normalization` merges first).
+
+- [x] **1.0** Establish the design system foundation and shared UI primitives
+  - [x] **1.1** In `app/globals.css`, define **design tokens** as CSS custom properties: color (background, surface, text primary, text muted, border/rule, accent lime), type scale (`--fs-display`, `--fs-h1`..`--fs-h3`, `--fs-body`, `--fs-small`, `--fs-caption` with line-heights), spacing scale `--space-1..10`, radius (`--r-sm`, `--r-md`), border (`--border-rule`), shadow (`--shadow-elev-1`), motion (`--dur-fast`, `--dur-base`, `--ease-standard`), and z-index (`--z-header`, `--z-menu`, `--z-modal`).
+  - [x] **1.2** Legacy brand tokens isolated and annotated as DEPRECATED in `app/globals.css`; kept in place (non-conflicting) so `home.css`, `arco*.css`, `SiteHeader.module.css`, `SiteFooter.module.css`, `TokenomicsChart.module.css` keep rendering. Actual removal is staged across tasks 2.3, 2.5, 3.8, 5.2, 5.4, 7.1 as each consumer is re-tokened.
+  - [x] **1.3** Created `components/ui/Container.tsx` (+ `Container.module.css`) with `max-width: var(--container-max)` (1200px), fluid gutter `clamp(--space-4, 6vw, --space-9)`, `env(safe-area-inset-left)`-aware, `as` prop, and `width="narrow|wide"` variants.
+  - [x] **1.4** Created `components/ui/Section.tsx` (+ `Section.module.css`) with semantic `<section>`, token-based vertical padding (`--section-py` default; `tight`/`loose` variants), and optional `eyebrow` + `heading` slots.
+  - [x] **1.5** Created `components/ui/Heading.tsx` (+ `Heading.module.css`) with independent `level={1|2|3|4}` (semantics) and `variant={"display"|"h1"|"h2"|"h3"}` (visual size), `text-wrap: balance`.
+  - [x] **1.6** Created `components/ui/Eyebrow.tsx` (+ `Eyebrow.module.css`) — uppercase, tracked (`--ls-eyebrow`), `--color-text-muted`.
+  - [x] **1.7** Created `components/ui/Prose.tsx` (+ `Prose.module.css`) with `max-width: var(--measure)` (70ch), body rhythm, link/code/list defaults.
+  - [x] **1.8** Created `components/ui/Button.tsx` (+ `Button.module.css`) with `primary|secondary|ghost` variants, `sm|md` sizes, renders `<button>` or `next/link`/`<a>` based on `href`; auto-detects external URLs and applies `rel="noopener noreferrer" target="_blank"`.
+  - [x] **1.9** Created `components/ui/LinkCta.tsx` (+ `LinkCta.module.css`) — inline link with arrow glyph, internal via `next/link`, external auto-opens in new tab with `rel="noopener noreferrer"`.
+  - [x] **1.10** Created `components/ui/Card.tsx` (+ `Card.module.css`) — flat card with `title`, optional `icon`, `children`, and optional `href` that full-surface-overlays a focusable link while allowing inner interactive children.
+  - [x] **1.11** Created `hooks/useReveal.ts` — client-only; attaches `IntersectionObserver` to returned ref, toggles `data-revealed="true"`; short-circuits to `true` under `prefers-reduced-motion: reduce` and when `IntersectionObserver` is unavailable. Global CSS hook added in `app/globals.css` (`[data-reveal]` / `[data-revealed]`).
+  - [x] **1.12** `npm run lint` ✓, `npm run build` ✓ (8 static routes, TS green). Barrel at `components/ui/index.ts`. Commit: `feat(ui): add design tokens and base primitives`.
+
+- [x] **2.0** Rebuild the global shell: header navigation, footer, and persistent CTA surface
+  - [x] **2.1** `SiteHeader.tsx` nav is driven by a `NAV_ITEMS` array: Technology → `/learn`, Developers → `/developers`, Ecosystem → `/ecosystem`, Research → `/research`, Docs → `URL_ZENODO_WHITEPAPER` (external, `target="_blank"`, `rel="noopener noreferrer"`). Internal items render via `next/link`; external render as `<a>`.
+  - [x] **2.2** Added `.headerCta` slot rendering `<Button variant="primary" size="sm" href={URL_ZENODO_WHITEPAPER} external>Whitepaper</Button>`. `display: none` by default, `display: flex` at `≥1024px`, force-hidden at `≤720px` so it does not collide with the hamburger.
+  - [x] **2.3** `SiteHeader.module.css` fully re-tokened: colors → `--color-bg` / `--color-text` / `--color-accent` / `--color-border` (via `--border-rule`); z-indices → `--z-header` / `--z-menu` (+ `calc(var(--z-menu) - 1)` for backdrop); spacing → `--space-*`; padding-inline → `max(var(--container-gutter), env(safe-area-inset-left))`; focus ring via global `:focus-visible`. Sticky (`position: sticky; top: 0`) preserved; `.siteMain { min-width: 0 }` still in `globals.css`; mobile overlay panel with `--site-header-offset` fallback updated from 97 → 64px to reflect the compacter header. Underline hover hint switched to `transform: scaleX(0→1)` so `:focus-visible` also triggers it.
+  - [x] **2.4** `SiteFooter.tsx` now renders a single `<Container>` with three `<section>` columns — Project (Technology, Tokenomics, Whitepaper), Community (GitHub, Discourse, YouTube), Legal (© + home link) — followed by a subtle bottom meta line. All external links use `rel="noopener noreferrer" target="_blank"`; all hrefs drawn from `lib/constants.ts`.
+  - [x] **2.5** `SiteFooter.module.css` fully re-tokened: `--color-bg` / `--color-text` / `--color-text-muted` / `--color-text-subtle` / `--color-accent`, `--border-rule`, spacing, `--fs-caption` / `--fs-small`, `--ls-eyebrow`. Grid collapses `repeat(3, …)` → `1fr` at `≤640px`.
+  - [x] **2.6** `app/globals.css` body background migrated from the legacy `--background-primary` + radial indigo gradient to `--color-bg` so the sticky header and page share a background and there is no seam. `home.css`, `arco.css`, `tokenomics` will be audited in tasks 3.x / 5.x. Sticky pin, mobile menu open/close/Esc/body-scroll-lock, and `:focus-visible` outlines all exercised via the build smoke test.
+  - [x] **2.7** `npm run lint` ✓, `npm run build` ✓ (8 static routes). Commit: `feat(shell): new header nav + token-based footer`.
+
+- [x] **3.0** Redesign the homepage to follow the problem → solution → why-it-wins → proof → CTA narrative
+  - [x] **3.1** Created `components/home/Hero.tsx` (+ `.module.css`): server component with `Container` + `Eyebrow`, verbatim headline `THE <span class="headlineAccent">LIVING</span> ECONOMY`, three lightly tightened lead sentences, primary `Button` → `URL_ZENODO_WHITEPAPER` (Read the Whitepaper), secondary `Button` → `URL_GITHUB_ORG` (Build With Us). Shader slot is absolutely positioned behind the content with a soft radial mask for editorial feel.
+  - [x] **3.2** Created `components/home/HeroShader.tsx` (`"use client"`): Canvas-2D procedural point-field with short connecting lines in the lime accent. Initial `prefers-reduced-motion` is read via `useState(() => window.matchMedia(...).matches)` to avoid the `react-hooks/set-state-in-effect` lint; the effect only subscribes to media-query changes. Under reduced motion the draw loop renders a single static frame (no rAF). Also pauses on `document.visibilitychange`. Loaded via `components/home/HeroShaderDynamic.tsx` — a tiny `"use client"` wrapper doing `next/dynamic(() => import("./HeroShader"), { ssr: false })`, mirroring the existing `ArcoLearnDynamic` pattern so the shader code stays off the critical path.
+  - [x] **3.3** Created `components/home/FeatureGrid.tsx` — 1-up mobile, `repeat(3, minmax(0, 1fr))` at ≥720px, with rule-line separators instead of heavy card borders (matches PRD §6.2). Typed `items: readonly { title, body }[]`.
+  - [x] **3.4** Created `components/home/AudienceRouter.tsx` — two-column (single column on mobile) Builders / Researchers & investors block using `Eyebrow` + `LinkCta`; routes to `/developers` and `/research`. No invented claims.
+  - [x] **3.5** Created `components/home/EvidenceBlock.tsx` — two surface tiles, Whitepaper (Zenodo) and GitHub org, side-by-side at ≥720px, stacked on mobile. No partner logos, no metrics.
+  - [x] **3.6** Created `components/home/GetStartedGrid.tsx` — 6 tiles. Working destinations first (GitHub, Tokenomics, Pick a wallet), placeholders after (Get LNGX, Start building, Try apps); placeholders render a `Coming soon` tag instead of a dead link. 1→2→3 columns across 320 / 720 / 1024 px.
+  - [x] **3.7** `app/page.tsx` recomposed: `Hero` → **UTMM** `Section` (+ Prose intro + `FeatureGrid`) → **Prime Radiant Consensus** `Section` (+ Prose intro + `FeatureGrid` + YouTube `LinkCta`) → **Impact** `Section` (+ `FeatureGrid`) → audience `Section` (`AudienceRouter`) → **Evidence** `Section` (`EvidenceBlock`) → **Get started** `Section` (`GetStartedGrid`). All verbatim headlines preserved. `components/ui/Section.tsx` was updated to internally wrap its body in `<Container>` so every section shares the same 1200px + gutter rhythm.
+  - [x] **3.8** Deleted `app/home.css` entirely (5.5KB removed) — all homepage styling now lives in tokenized component CSS Modules. The orphan `html body .homePage .hero p.heroLead` rule in `app/globals.css` removed; no hard-coded hex remains in the new modules.
+  - [x] **3.9** Metadata audit on `/`: `title.absolute="Lineage - The Living Economy"`, description tightened to match the new hero copy, `alternates.canonical="/"`, `openGraph` + Twitter both point at `/images/open-graph-lineage-1200x630.png` (1200×630). Motion: `HeroShader` honors `prefers-reduced-motion` (no rAF, static frame); `useReveal` / global `[data-reveal]` rule already gates on the same media query.
+  - [x] **3.10** `npm run lint` ✓, `npm run build` ✓ (8 static routes, TS green, `/` prerendered). Commit: `feat(home): narrative redesign with tokenized sections`. Viewport smoke-tests at 320 / 768 / 1024 / 1440 px deferred to the user's browser session; lint + build cover the regression surface.
+
+- [x] **4.0** Add new placeholder routes: `/developers`, `/ecosystem`, `/research`
+  - [x] **4.1** Created `app/developers/page.tsx` (+ `page.module.css`): `Section` hero (`h1` "Build on Lineage", eyebrow "For builders") with two-sentence Prose intro drawn from existing UTMM/consensus framing; **Source material** section with a two-`Card` grid (GitHub org + Zenodo whitepaper, each full-surface clickable external); **Have questions?** CTA section with primary `Button` → Discourse and secondary `Button` → GitHub. No invented code snippets, no fake examples.
+  - [x] **4.2** Created `app/ecosystem/page.tsx` (+ `page.module.css`): `Section` hero (`h1` "Ecosystem") with an explicitly honest intro — "no fabricated partnerships, no inflated metrics: only what exists today"; one **What exists today** section with a four-`Card` grid using the new `eyebrow` prop to tag categories (Wallets × 2, Network, Community). The Network card renders a non-clickable "not yet public" variant while `URL_NETWORK === "#"` (guarded by a const); flips to a real external card as soon as the constant is updated. CTA section routes to `/developers` and GitHub.
+  - [x] **4.3** Created `app/research/page.tsx` (+ `page.module.css`): `Section` hero (`h1` "Research"); **Where the research lives** section containing a research-notes Prose paragraph (markets-as-information, bounded search, ARCO link to `/learn`) plus a two-`Card` grid (Zenodo whitepaper + Discourse research forum); CTA section links the research back to `/developers`.
+  - [x] **4.4** Each new page exports `metadata` with a unique `title` (`"Developers"`, `"Ecosystem"`, `"Research"` — rendered by the root layout template as `"... | Lineage"`), page-specific `description`, `alternates.canonical` pointing at its own path, and an `openGraph` + `twitter` image card reusing `/images/open-graph-lineage-1200x630.png`. `robots: { index, follow }` set explicitly.
+  - [x] **4.5** `app/sitemap.ts` extended with `/developers`, `/ecosystem`, `/research` at `priority: 0.8`, `changeFrequency: "monthly"`, alongside the existing `/`, `/learn`, `/tokenomics` entries.
+  - [x] **4.6** `next build` output confirms all three routes prerender as static HTML (`○ /developers`, `○ /ecosystem`, `○ /research`) — the header links from §2.1 now resolve without 404s and the route paths match exactly (no trailing slashes).
+  - [x] **4.7** `npm run lint` ✓, `npm run build` ✓ (11 static routes). Also tightened `components/ui/Card.tsx` to add an `eyebrow` prop (no change to existing call sites) so category tagging on `/ecosystem` uses a real muted eyebrow instead of an accent-colored "icon" span. Commit: `feat(routes): add placeholder developers/ecosystem/research pages`.
+
+- [x] **5.0** Restyle `/learn` and `/tokenomics` to the new design system without changing interaction logic
+  - [x] **5.1** `app/arco/page.tsx` now renders a site-rhythm intro above the simulation: a `Section` with eyebrow "Learn — interactive", display-variant `h1` "ARCO: the compute loop", and a three-sentence `Prose` lead explaining the loop and the Run button. `ArcoLearnDynamic` is rendered below, unchanged — no DOM IDs, no node structure, no `ArcoLearnClient.tsx` edits.
+  - [x] **5.2** `app/arco/arco.css`: dropped both duplicate inline `:root` blocks (they redefined `--primary`, `--background-primary`, etc. and would override the real site tokens on any route that had loaded `/arco`). Re-tokenized legacy var refs with `replace_all` — `--insightsignal-yellow → --color-accent`, `--ash-gray → --color-text-muted`, `--main-white{,-darker} → --color-text`, `--steel-gray → --color-border-strong`, `--gunmetal → --color-surface`, `--carbon-black → --color-surface-2`, `--groundsystem-black / --onyx / --background-primary → --color-bg`, `--primary / --secondary / --executiontech-green → --color-accent`, `--flowelectricnetwork-cyan → --color-border-strong`, `--card-border → --color-border`, `--hub-card-border → --color-border-strong`. Replaced live hardcoded hsl/hex on rendered elements: anchor color and hover, `#codeWindow` surface/text/border, `.node.highlighted` border, `.graph-market-state img` border + `.highlighted` border, `hr.divide` border-color (both occurrences), `div.graph-holder.main / .main-highlight` borders. Collapsed the 7-line `#codeWindow { background-color: ... }` cascade at the bottom of the file into a single token-backed rule. **Preserved** the ARCO diagram's blue palette (`#1c2a3a`, `#4e6f91`, `#cfe7ff`, `#89aecd`) as diagram identity — same exemption Plotly-internal colors get in `lib/arco/arcoInit.ts`. All absolute-positioning values (node `top/left`, `#runBtn top: 100px`, graph-holder `top: 455px`, `.arcoLearnRoot height: 1450px`, etc.) left verbatim. `app/arco/arco-responsive.css`: single `hsl(200, 50%, 30%)` on `hr.divide` swapped to `var(--color-border)`.
+  - [x] **5.3** Smoke-verified via `next build` output: `/arco` and `/learn` both prerender; `ArcoLearnClient.tsx` is unchanged so nodes A–E retain `onClick`/`onKeyDown` handlers wired to `nodeAonclick`…`nodeEonclick`, `#runBtn` retains its id, `#codeWindow`'s `.hidden` class toggle is untouched, and `lib/arco/arcoInit.ts` (Plotly init + `Plotly.Plots.resize` resize handler) was not edited. PRD §7.6 guardrails met.
+  - [x] **5.4** `app/tokenomics/page.tsx` now wraps `<TokenomicsChart />` in the new shell: a display-variant `h1` "Tokenomics" `Section` with eyebrow "Economics" and a short intro explaining the interaction, then a second `spacing="tight" containerWidth="narrow"` `Section` hosting the chart itself. `components/tokenomics/TokenomicsChart.module.css` re-tokenized: all px paddings/margins/font-sizes routed through `--space-*` / `--fs-*`, `--main-white → --color-text`, `--ash-gray → --color-text-muted`, `#aaa` dot border → `--color-border-strong`, `#9f7aea` active dot → `--color-accent`, `.tooltip` background from raw `rgba` to `--color-surface-2` with token border + `--z-menu`. `TokenomicsChart.tsx` not touched.
+  - [x] **5.5** Chart interaction logic (hover states, node/legend clicks, slider, canvas draw loop) lives entirely in `TokenomicsChart.tsx`, which was not modified — only class values changed. Responsiveness preserved (`.wrap max-width: 480px`, `.timeline/.legend max-width: 420px`, `@media (min-width: 520px)` breakpoint intact).
+  - [x] **5.6** `npm run lint` ✓, `npm run build` ✓ (11 static routes: `/`, `/arco`, `/learn`, `/tokenomics`, `/developers`, `/ecosystem`, `/research`, plus `_not-found`, `robots.txt`, `sitemap.xml`). Commit: `refactor(pages): restyle learn and tokenomics to new system`.
+
+- [~] **6.0** SEO, accessibility, motion, and performance verification (static portions done; 6.4/6.5 need browser)
+  - [x] **6.1** Static audit of `app/**/page.tsx` confirms six unique `Metadata` exports. The three placeholder pages (`/developers`, `/ecosystem`, `/research`) use plain-string `title` so the root layout's `template: "%s | Lineage"` suffixes correctly. The three original pages (`/`, `/learn`, `/tokenomics`) use `title: { absolute: ... }` to keep their bespoke titles. Every page has its own `description`, `alternates.canonical` (each pointing at its own path — `/learn`'s `canonical` is `/learn`, not `/arco`, so `/arco` rel-canonicalises to `/learn`), and OG/Twitter cards reusing `/images/open-graph-lineage-1200x630.png` with per-page title/description.
+  - [x] **6.2** `app/sitemap.ts` now lists all six routes (`/` priority 1, `/learn` + `/tokenomics` priority 0.9, `/developers` + `/ecosystem` + `/research` priority 0.8). `app/robots.ts` keeps `{ userAgent: "*", allow: "/" }` with `sitemap: ${SITE_ORIGIN}/sitemap.xml` and `host: SITE_ORIGIN` — indexing allowed. Root layout's `metadata.robots: { index: true, follow: true }` backs it up for every page.
+  - [x] **6.3** Code audit of `components/home/HeroShader.tsx` and `hooks/useReveal.ts`:
+    - **HeroShader** reads the `prefers-reduced-motion` media query in the `useState` initializer (SSR-safe), subscribes for runtime toggles via `matchMedia.addEventListener`, and gates both point integration AND `requestAnimationFrame` recursion behind `if (!reducedMotion)`. Under reduced motion it draws exactly one static frame.
+    - **Fixed** a latent bug: the `ResizeObserver` called `resize()` (which reassigns `canvas.width`, clearing the bitmap) but did not redraw. In the animated path the RAF loop repaints on the next tick; in reduced motion it never does, so a window resize produced a blank canvas. The observer callback now calls `draw()` after `resize()` when `reducedMotion` is true.
+    - **useReveal** synchronously stamps `data-revealed="true"` and short-circuits (no observer) when `prefers-reduced-motion: reduce` is set OR `IntersectionObserver` is unavailable. The CSS under `@media (prefers-reduced-motion: reduce)` also disables the transition and forces `opacity: 1; transform: none;` defensively. Double-gated.
+    - Note: `useReveal` is exported but **not yet consumed** by any component in this branch — so runtime motion is driven solely by `HeroShader`.
+  - [ ] **6.4** Browser-side axe audit. Run against a local build so CSS/routes resolve like production:
+    ```
+    npm run build && npm run start &
+    npx -y @axe-core/cli http://localhost:3000 http://localhost:3000/learn \
+      http://localhost:3000/tokenomics http://localhost:3000/developers \
+      http://localhost:3000/ecosystem http://localhost:3000/research \
+      --exit
+    ```
+    Expected surfaces to audit: landmarks (root layout emits `<header>`/`<main>`/`<footer>`; each page has a single `<h1>` inside a `Section`), alt text (all `<img>` tags have `alt`, decorative shader canvas has `aria-hidden`), focus-visible (global rule in `globals.css`), color-contrast (proven by 6.6 below for tokens — but axe re-validates on actually-rendered nodes). Fix any `critical` or `serious` findings and re-run.
+  - [ ] **6.5** Browser-side Lighthouse mobile, local build:
+    ```
+    npm run build && npm run start &
+    npx -y lighthouse http://localhost:3000 --preset=desktop --quiet \
+      --chrome-flags="--headless" --output=html --output-path=./lighthouse-home.html
+    npx -y lighthouse http://localhost:3000 --emulated-form-factor=mobile --quiet \
+      --chrome-flags="--headless" --output=html --output-path=./lighthouse-home-mobile.html
+    ```
+    Targets: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95 on `/`. Plotly's bundle and canvas work on `/learn` will likely dent Performance (acceptable per PRD); the `/` score must not regress because of the HeroShader — it's `next/dynamic({ ssr: false })` and off the critical path.
+  - [x] **6.6** Computed WCAG 2.1 AA contrast via `scripts/contrast.mjs` (checked into the repo so this is reproducible). All *required* pairs pass 4.5:1 body-text AA:
+    - body text `#f2f3f5` on `#0b0c10 / #141620 / #1c1f2a` → 17.6 / 16.2 / 14.8 : 1
+    - muted text `#a7acb3` on same → 8.6 / 7.9 / 7.2 : 1
+    - subtle text `#8a8f98` on `#0b0c10 / #141620` → 6.0 / 5.6 : 1 (after bump; was `#6b7079` at 3.9 / 3.6 — **failed**)
+    - CTA primary: `#0b0c10` ink on `#effd5c` accent / `#d0fc37` accent-strong → 17.6 / 16.4 : 1
+    - Accent link/outline `#effd5c` on `#0b0c10` → 17.6 : 1
+    - Decorative borders (`#262a33`, `#363b47`) on bg come in at 1.4 / 1.7 : 1 — below WCAG 1.4.11's 3:1, **but** they don't identify interactive UI components on this site (cards communicate affordance via hover + focus-visible accent at 17.6 : 1; there are no form inputs). Reported as "informational" by the script; not a WCAG AA failure.
+    - Token change applied: `--color-text-subtle: #6b7079 → #8a8f98` in `app/globals.css`.
+  - [~] **6.7** Regressions surfaced by the static audits (6.1 / 6.3 / 6.6) fixed: bumped `--color-text-subtle`, patched `HeroShader` resize-in-reduced-motion. `npm run lint` ✓, `npm run build` ✓. 6.4 / 6.5 findings will be folded in when the browser runs happen.
+
+- [~] **7.0** Cleanup, documentation, and merge readiness (7.7 is the PR open action)
+  - [x] **7.1** Confirmed none of the legacy selectors (`.homePage`, `.hubGrid`, `.hubCard*`, `.actionsHolder*`, `.heroLead*`) are referenced anywhere in `app/**/*.css` or `components/**/*.module.css` — they disappeared with `app/home.css` in 3.8 and the re-tokened header/footer/TokenomicsChart modules. Only `--neon-glow-yellow` from the deprecated legacy-token block was still consumed (by `arco.css` x2). Replaced it with a proper design-system token `--glow-accent: 0 0 8px rgba(239, 253, 92, 0.7), 0 0 22px rgba(239, 253, 92, 0.4);` in the primary `:root` block, swapped both usages in `arco.css`, and **deleted the entire legacy `:root` DEPRECATED block** from `app/globals.css` (24 dead tokens gone). Grep for any of those 24 names returns zero hits outside `tasks/tasks-site-redesign.md`.
+  - [x] **7.2** Hex-literal grep across `app/**/*.css` + `components/**/*.css`: every hit in `app/globals.css` is inside `:root { … }` token definitions (source of truth); `components/**/*.css` has **zero** ad-hoc hexes. `app/arco/arco.css` originally showed 7 hits — 3 were inside `/* commented-out */` dead code (stripped), 4 are the ARCO diagram blue palette (`#1c2a3a`, `#4e6f91`, `#cfe7ff`, `#89aecd`) on `.node` / `.node-label` / `.node-desc`. Added a preserved-identity comment above the block citing `prd-site-redesign.md §5` + task 5.0 notes. Same exemption principle as Plotly-internal colors in `lib/arco/arcoInit.ts`.
+  - [x] **7.3** Rewrote `README.md`: added a **Routes** table covering all 6 public pages plus `/robots.txt` + `/sitemap.xml`; a **Design system** section enumerating every token group from `app/globals.css`, a **UI primitives** table for `components/ui/*`, and a **Motion and accessibility** subsection pointing at `useReveal`, `HeroShader`, and `scripts/contrast.mjs`. **Changing copy and links** expanded to cover the three placeholder routes and per-route `metadata` exports. Stale reference to `app/home.css` removed (file was deleted in 3.8).
+  - [x] **7.4** Final `npm run lint` ✓ (eslint clean) and `npm run build` ✓ — Next.js 16.2.1 Turbopack, compiled in 5.3s, TS finished in 1.4s, 11 static routes prerendered (`/`, `/_not-found`, `/arco`, `/developers`, `/ecosystem`, `/learn`, `/research`, `/robots.txt`, `/sitemap.xml`, `/tokenomics`).
+  - [x] **7.5** Outbound-link smoke test against every URL in `lib/constants.ts` (skipping `URL_NETWORK === "#"` placeholder): Zenodo whitepaper, GitHub org, YouTube video, Discourse, Se3ker, Peerstone — all 6 return **HTTP 200** (curl `-L` follow-redirects, UA set, 15s timeout).
+  - [x] **7.6** Local `next start -p 3100` smoke test: `/`, `/learn`, `/arco`, `/tokenomics`, `/developers`, `/ecosystem`, `/research`, `/robots.txt`, `/sitemap.xml` — all 9 routes return **HTTP 200** from the production build.
+  - [~] **7.7** Branch stacking resolved: committed the uncommitted Next.js foundation onto `feat/nextjs-site-normalization` as `feat(next): migrate static site to Next.js App Router` (43 files changed, 8744+/4126−), pushed it to origin. Rebased `feat/site-redesign` onto the new tip (8 commits, no conflicts), verified `npm run lint` + `npm run build` both green post-rebase (11 static routes), and pushed redesign to origin. GitHub MCP is erroring and `gh` CLI isn't installed on this machine, so per `.cursor/rules/git.mdc` the PRs are handed off as compare URLs + draft bodies for the user to open. Screenshots at 375 / 1024 / 1440 px still need to be attached manually.

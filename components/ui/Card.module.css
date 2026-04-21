@@ -1,0 +1,76 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  color: var(--color-text);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+    background-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-2);
+}
+
+.clickable:has(a:focus-visible) {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.icon {
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.eyebrow {
+  color: var(--color-text-muted);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: var(--ls-heading);
+}
+
+.body {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+/* Full-surface overlay link, so anywhere in the card is clickable while the
+   inner <a> stays individually focusable. Real links inside the card should
+   use position: relative; z-index: 1 to remain clickable if needed. */
+.overlayLink {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+.overlayLink:focus-visible {
+  outline: none;
+}

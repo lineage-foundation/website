@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* =========================================================================
+ * Design tokens — neutral editorial dark, single accent (lime).
+ * Source of truth for color, type, spacing, radius, shadow, motion, z-index.
+ * Consumed by app/**\/*.css and components/**\/*.module.css.
+ * PRD: tasks/prd-site-redesign.md §6.4
+ * ========================================================================= */
+:root {
+  /* Color — surface */
+  --color-bg: #0b0c10;
+  --color-surface: #141620;
+  --color-surface-2: #1c1f2a;
+
+  /* Color — text */
+  --color-text: #f2f3f5;
+  --color-text-muted: #a7acb3;
+  --color-text-subtle: #8a8f98;
+  --color-text-inverse: #0b0c10;
+
+  /* Color — border / rule */
+  --color-border: #262a33;
+  --color-border-strong: #363b47;
+
+  /* Color — accent (single accent per PRD) */
+  --color-accent: #effd5c;
+  --color-accent-strong: #d0fc37;
+  --color-accent-ink: #0b0c10;
+
+  /* Color — focus */
+  --color-focus-ring: rgba(239, 253, 92, 0.6);
+
+  /* Effect — accent glow (used sparingly, e.g. highlighted headline on /technology) */
+  --glow-accent: 0 0 8px rgba(239, 253, 92, 0.7),
+    0 0 22px rgba(239, 253, 92, 0.4);
+
+  /* Typography — fluid scale */
+  --fs-display: clamp(2.5rem, 4.5vw + 1rem, 4.5rem);
+  --fs-h1: clamp(2rem, 2.5vw + 1rem, 3rem);
+  --fs-h2: clamp(1.5rem, 1.5vw + 0.9rem, 2.25rem);
+  --fs-h3: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+
+  /* Typography — rhythm */
+  --lh-display: 1.05;
+  --lh-tight: 1.15;
+  --lh-heading: 1.3;
+  --lh-body: 1.65;
+
+  /* Typography — tracking */
+  --ls-display: -0.02em;
+  --ls-heading: -0.01em;
+  --ls-body: 0;
+  --ls-eyebrow: 0.08em;
+
+  /* Spacing — 4px base */
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem;  /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem;    /* 16px */
+  --space-5: 1.5rem;  /* 24px */
+  --space-6: 2rem;    /* 32px */
+  --space-7: 3rem;    /* 48px */
+  --space-8: 4rem;    /* 64px */
+  --space-9: 6rem;    /* 96px */
+  --space-10: 8rem;   /* 128px */
+
+  /* Radius */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  /* Border */
+  --border-rule: 1px solid var(--color-border);
+  --border-rule-strong: 1px solid var(--color-border-strong);
+
+  /* Shadow — used sparingly for elevation on hover only */
+  --shadow-elev-1: 0 1px 2px rgba(0, 0, 0, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* Motion */
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+  --dur-slow: 380ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-accel: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Z-index */
+  --z-header: 100;
+  --z-menu: 110;
+  --z-modal: 200;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-gutter: clamp(var(--space-4), 6vw, var(--space-9));
+  --measure: 70ch;
+  --section-py: var(--space-9);
+}
+
+/* =========================================================================
+ * Base / reset
+ * ========================================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+}
+
+:where(a) {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Reveal animation target. Elements decorated with useReveal() get
+   data-revealed="true" once in view. Under prefers-reduced-motion the hook
+   sets the attribute synchronously so there is no animation. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease-standard),
+    transform var(--dur-slow) var(--ease-standard);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================================================
+ * Base layout scaffolding.
+ * ========================================================================= */
+.siteMain {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
