@@ -150,12 +150,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--background-primary);
-  background-image: radial-gradient(
-    ellipse 120% 70% at 50% -25%,
-    rgba(58, 48, 120, 0.35) 0%,
-    transparent 55%
-  );
+  background-color: var(--color-bg);
   color: var(--color-text);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
