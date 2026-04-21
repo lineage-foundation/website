@@ -33,6 +33,10 @@
   line-height: 1;
 }
 
+.eyebrow {
+  color: var(--color-text-muted);
+}
+
 .title {
   margin: 0;
   font-size: var(--fs-h3);

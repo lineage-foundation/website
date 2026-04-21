@@ -1,10 +1,12 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 
+import { Eyebrow } from "./Eyebrow";
 import styles from "./Card.module.css";
 
 export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
   title: ReactNode;
+  eyebrow?: ReactNode;
   icon?: ReactNode;
   href?: string;
   external?: boolean;
@@ -13,6 +15,7 @@ export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
 
 export function Card({
   title,
+  eyebrow,
   icon,
   href,
   external,
@@ -35,6 +38,7 @@ export function Card({
           {icon}
         </span>
       ) : null}
+      {eyebrow ? <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow> : null}
       <h3 className={styles.title}>{title}</h3>
       {children ? <div className={styles.body}>{children}</div> : null}
       {href ? (
