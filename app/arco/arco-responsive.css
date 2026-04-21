@@ -1,0 +1,203 @@
+/*
+ * Learn / ARCO — mobile and narrow viewports
+ * Loaded after arco.css. Keeps overflow inside the viewport and scales the diagram + Plotly graphs.
+ */
+
+@media (max-width: 768px) {
+  .arcoLearnRoot {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem max(0.75rem, env(safe-area-inset-left)) 2rem
+      max(0.75rem, env(safe-area-inset-right));
+    height: auto !important;
+    min-height: 0;
+    overflow-x: hidden;
+  }
+
+  /* Avoid 100vw horizontal scroll (scrollbar / rounding) */
+  #diagram {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100%;
+    height: min(52vh, 440px) !important;
+    min-height: 260px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #diagram svg#wires {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .node {
+    width: 76px !important;
+    height: 76px !important;
+  }
+
+  .node#E {
+    width: 86px !important;
+    height: 96px !important;
+  }
+
+  .node-label {
+    font-size: 22px !important;
+  }
+
+  .node-desc {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Compact node layout for narrow diagram */
+  #A {
+    top: 12% !important;
+    left: 6% !important;
+  }
+  #B {
+    top: 4% !important;
+    left: 36% !important;
+  }
+  #C {
+    top: 12% !important;
+    left: 66% !important;
+  }
+  #D {
+    top: 48% !important;
+    left: 6% !important;
+  }
+  #E {
+    top: 44% !important;
+    left: 56% !important;
+  }
+
+  div.info {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 0.25rem 0 0.75rem !important;
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+
+  #runBtn {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    margin: 0 0 0.75rem !important;
+    z-index: 2;
+  }
+
+  hr.divide {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0 !important;
+    margin: 0.75rem 0 1rem !important;
+    height: 0 !important;
+    border: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  div.graph-market-state {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0.5rem 0 !important;
+  }
+
+  div.graph-market-state img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto !important;
+    padding: 0.5rem !important;
+    box-sizing: border-box;
+  }
+
+  /* Code panel: bottom sheet, readable on small screens */
+  #codeWindow {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 12px 16px max(16px, env(safe-area-inset-bottom)) !important;
+    max-height: min(55vh, 480px) !important;
+    min-height: 0 !important;
+    border-radius: 12px 12px 0 0;
+    border-width: 2px 0 0 !important;
+    z-index: 200 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #codeWindow:not(.hidden) {
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  #codeContent {
+    font-size: 11px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Fluid Plotly containers */
+  div.graph {
+    width: min(92vw, 430px) !important;
+    height: min(92vw, 430px) !important;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  div.graph-holder.main,
+  div.graph-holder.main-highlight {
+    position: relative !important;
+    display: block !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: min(440px, 96vw) !important;
+    height: auto !important;
+    min-height: 0;
+    margin: 1rem auto 0 !important;
+    padding: 4px !important;
+  }
+
+  div.graph-holder.stage-1-off,
+  div.graph-holder.stage-2-off,
+  div.graph-holder.stage-3-off {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: min(440px, 96vw) !important;
+    margin: 1rem auto !important;
+  }
+
+  /* Plotly injects .js-plotly-plot; allow shrink */
+  .arcoLearnRoot .js-plotly-plot {
+    max-width: 100%;
+  }
+}
