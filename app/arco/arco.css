@@ -17,14 +17,7 @@
 .arcoLearnRoot {
     margin: 0;
     font-family: Inter, system-ui, sans-serif;
-    /*
-    background: radial-gradient(circle at top, #0f0f15, var(--color-bg));
-    background: radial-gradient(circle at top, green, blue);
-        */
-    
     background: var(--color-bg);
-
-    color: white;
     color: var(--color-text);
 }
 
@@ -114,7 +107,7 @@
 
 .arcoLearnRoot h1 span {
   color: var(--color-accent);
-  text-shadow: var(--neon-glow-yellow);
+  text-shadow: var(--glow-accent);
 }
 
 .hero p {
@@ -148,7 +141,7 @@
 .arcoLearnRoot button.primary {
   background: var(--color-accent);
   color: black;
-  box-shadow: var(--neon-glow-yellow);
+  box-shadow: var(--glow-accent);
 }
 
 button.secondary {
@@ -299,22 +292,9 @@ button.secondary {
     left: 40px;
     padding: 10px 20px;
     font-size: 18px;
-    /*
-    background: #4ec9ff;
-        border: none;
-        */
-    
     border-radius: 6px;
-
-
-    /* this may or not be needed */
-
     cursor: pointer;
     z-index: 10;
-}
-
-#runBtn {
-    
 }
 
 
@@ -359,31 +339,21 @@ button.secondary {
     height: 100vh;
 }
 
+/* ARCO diagram palette (blue family below) is simulation-critical identity
+   and intentionally kept as literals rather than tokenized into the design
+   system — per PRD tasks/prd-site-redesign.md §5 and task 5.0 notes. */
 .node {
-    background: #1c2a3a;   /* your dark blue theme */
+    background: #1c2a3a;
     border-radius: 12px;
     border: 2px solid #4e6f91;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4px;   
-
-    display: flex;
-    flex-direction: column; /* stack A above Sensor */
-    align-items: center;    /* optional: center them horizontally */
-    /*width: 80px;*/
-    /*height: 80px;*/
-    /*border: 2px solid #4ec9ff;
-    border-radius: 10px;
-    background: #11263d;
-    display: flex;
-    align-items: center;
-    justify-content: center;*/
+    gap: 4px;
     text-align: center;
     position: absolute;
     font-size: 20px;
-
     cursor: pointer;
 }
 

@@ -30,6 +30,10 @@
   /* Color — focus */
   --color-focus-ring: rgba(239, 253, 92, 0.6);
 
+  /* Effect — accent glow (used sparingly, e.g. highlighted headline on /learn) */
+  --glow-accent: 0 0 8px rgba(239, 253, 92, 0.7),
+    0 0 22px rgba(239, 253, 92, 0.4);
+
   /* Typography — fluid scale */
   --fs-display: clamp(2.5rem, 4.5vw + 1rem, 4.5rem);
   --fs-h1: clamp(2rem, 2.5vw + 1rem, 3rem);
@@ -93,41 +97,6 @@
   --container-gutter: clamp(var(--space-4), 6vw, var(--space-9));
   --measure: 70ch;
   --section-py: var(--space-9);
-}
-
-/* =========================================================================
- * Legacy tokens (DEPRECATED — kept so existing pages keep rendering until
- * each consumer is re-tokened). Removed progressively in tasks 2.x, 5.x, 7.x.
- * Do NOT consume any of these in new code.
- * ========================================================================= */
-:root {
-  --main-white: rgb(248, 248, 248);
-  --main-white-darker: rgb(225, 225, 225);
-  --groundsystem-black: rgb(10, 10, 10);
-  --insightsignal-yellow: #ffd400;
-  --flowelectricnetwork-cyan: rgb(0, 229, 255);
-  --executiontech-green: rgb(0, 255, 102);
-  --ash-gray: #9a9aa0;
-  --steel-gray: #2a2a2e;
-  --gunmetal: #16161a;
-  --carbon-black: #0b0b0e;
-  --neon-glow-yellow: 0 0 8px rgba(255, 211, 0, 0.7),
-    0 0 22px rgba(255, 211, 0, 0.4);
-  --primary: #effd5c;
-  --gold: rgb(208, 252, 55);
-  --glow-primary: 0 0 10px rgba(239, 253, 92, 0.85),
-    0 0 24px rgba(221, 255, 194, 0.55), 0 0 42px rgba(239, 253, 92, 0.28);
-  --glow-heading: 0 0 8px rgba(239, 253, 92, 0.45),
-    0 0 20px rgba(221, 255, 194, 0.35);
-  --blue-energy: #3a8dff;
-  --blue-light: rgb(0, 186, 238);
-  --blue-dark: rgb(0, 136, 177);
-  --background-primary: #110f2a;
-  --onyx-2: #121212;
-  --card-text: #c9c9c9;
-  --grey-text-light: hsl(0, 0%, 94%);
-  --card-border: hsl(0, 0%, 25%);
-  --hub-card-border: hsl(210, 80%, 17%);
 }
 
 /* =========================================================================
