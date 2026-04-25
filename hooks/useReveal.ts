@@ -29,17 +29,18 @@ export function useReveal<T extends HTMLElement = HTMLElement>({
 
     el.setAttribute("data-reveal", "");
 
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduced) {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const revealNow = () => {
       el.setAttribute("data-revealed", "true");
+    };
+
+    if (mq.matches) {
+      revealNow();
       return;
     }
 
     if (typeof IntersectionObserver === "undefined") {
-      el.setAttribute("data-revealed", "true");
+      revealNow();
       return;
     }
 
@@ -58,8 +59,19 @@ export function useReveal<T extends HTMLElement = HTMLElement>({
       { threshold, rootMargin },
     );
 
+    const onMotionPref = () => {
+      if (mq.matches) {
+        observer.disconnect();
+        revealNow();
+      }
+    };
+
+    mq.addEventListener("change", onMotionPref);
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      mq.removeEventListener("change", onMotionPref);
+      observer.disconnect();
+    };
   }, [threshold, rootMargin, once]);
 
   return ref;

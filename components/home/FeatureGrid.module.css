@@ -1,19 +1,71 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-5);
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .item {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding-block: var(--space-5);
-  border-top: var(--border-rule);
+  margin: 0;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--color-surface) 100%, var(--color-link) 2%) 0%,
+    var(--color-surface) 100%
+  );
+  box-shadow: 0 0 0 1px
+      color-mix(in srgb, var(--color-border) 50%, transparent) inset,
+    0 12px 40px -20px
+      color-mix(in srgb, var(--color-bg-canvas) 40%, black);
+  transition: border-color var(--dur-base) var(--ease-standard),
+    background-color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.item:hover {
+  border-color: color-mix(in srgb, var(--color-link) 45%, var(--color-border));
+  box-shadow: 0 0 0 1px
+      color-mix(in srgb, var(--color-link) 20%, transparent) inset,
+    0 20px 48px -24px
+      color-mix(in srgb, var(--color-link) 12%, var(--color-bg-canvas));
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: border-color var(--dur-fast) var(--ease-standard),
+      background-color var(--dur-fast) var(--ease-standard);
+  }
+
+  .item:hover {
+    transform: none;
+  }
+}
+
+.index {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: var(--color-link);
+  opacity: 0.9;
+  margin-bottom: var(--space-1);
 }
 
 .title {
   margin: 0;
+  font-family: var(--font-family-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;
@@ -31,10 +83,10 @@
 @media (min-width: 720px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
   .item {
-    padding-block: var(--space-6);
+    padding: var(--space-6) var(--space-5) var(--space-7);
   }
 }

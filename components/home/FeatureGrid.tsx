@@ -19,6 +19,9 @@ export function FeatureGrid({ items, className }: FeatureGridProps) {
     <ul className={classes.join(" ")} role="list">
       {items.map((item, i) => (
         <li key={i} className={styles.item}>
+          <span className={styles.index} aria-hidden>
+            {String(i + 1).padStart(2, "0")}
+          </span>
           <h3 className={styles.title}>{item.title}</h3>
           <p className={styles.body}>{item.body}</p>
         </li>

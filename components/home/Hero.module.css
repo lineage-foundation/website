@@ -1,9 +1,75 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding-block: var(--space-9) var(--space-8);
-  border-bottom: var(--border-rule);
+  padding-block: clamp(4.5rem, 12vw, 7.5rem) clamp(3.5rem, 8vw, 5.5rem);
+  min-height: min(70vh, 44rem);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-strong);
   isolation: isolate;
+}
+
+/* Deep vignette + cool bloom (stacks under mesh + shader) */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse 55% 50% at 25% 30%,
+      color-mix(in srgb, var(--color-link) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 90% 70%,
+      color-mix(in srgb, var(--color-accent) 8%, transparent) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 100% 80% at 50% 100%,
+      transparent 0%,
+      color-mix(in srgb, var(--color-bg-canvas) 5%, black) 100%
+    );
+}
+
+/* Token-only mesh; sits under shader; static (LCP remains text + buttons). */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-link) 12%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 2.5rem 2.5rem,
+    linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-link) 12%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 2.5rem 2.5rem;
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 40%,
+    black 0%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 40%,
+    black 0%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before {
+    opacity: 0.12;
+  }
 }
 
 .shader {
@@ -28,6 +94,7 @@
 
 .content {
   position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
@@ -35,10 +102,12 @@
 }
 
 .eyebrow {
-  color: var(--color-text-muted);
+  /* variant="feature" from Eyebrow; wrapper for optional tweaks */
+  align-self: flex-start;
 }
 
 .headline {
+  font-family: var(--font-family-display);
   font-size: var(--fs-display);
   line-height: var(--lh-display);
   letter-spacing: var(--ls-display);
@@ -50,6 +119,14 @@
 
 .headlineAccent {
   color: var(--color-accent);
+  text-shadow: 0 0 40px
+    color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headlineAccent {
+    text-shadow: none;
+  }
 }
 
 .lead {
@@ -58,8 +135,8 @@
   gap: var(--space-2);
   max-width: var(--measure);
   color: var(--color-text-muted);
-  font-size: clamp(1.05rem, 0.35vw + 1rem, 1.25rem);
-  line-height: 1.55;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
 }
 
 .lead p {
@@ -73,12 +150,15 @@
 .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-2);
 }
 
 @media (min-width: 720px) {
   .hero {
-    padding-block: var(--space-10) var(--space-9);
+    padding-block: clamp(5rem, 10vw, 8rem) clamp(4rem, 6vw, 5.5rem);
+    min-height: min(72vh, 46rem);
   }
 }

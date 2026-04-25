@@ -19,6 +19,37 @@ const NODES_PER_ITERATION = 5;
 
 type Plotly = typeof import("plotly.js-dist-min").default;
 
+/* Must be plain hex/rgb — Plotly config. Values match v2 tokens in `app/globals.css`. */
+const PLOT_BG = "#080a0f";
+const PLOT_TEXT = "#e9ebf0";
+const PLOT_MUTED = "#a2aab6";
+const PLOT_GRID = "#222833";
+
+const plotLayout = {
+  paper_bgcolor: PLOT_BG,
+  plot_bgcolor: PLOT_BG,
+  font: { color: PLOT_TEXT, family: "Inter, system-ui, sans-serif", size: 11 },
+  margin: { l: 0, r: 0, t: 0, b: 0 },
+  scene: {
+    xaxis: {
+      title: "Crop Type",
+      color: PLOT_MUTED,
+      gridcolor: PLOT_GRID,
+    },
+    yaxis: {
+      title: "Input Choice",
+      color: PLOT_MUTED,
+      gridcolor: PLOT_GRID,
+    },
+    zaxis: {
+      title: "Profit",
+      color: PLOT_MUTED,
+      gridcolor: PLOT_GRID,
+    },
+  },
+  autosize: true,
+};
+
 function plotData(stage: 1 | 2 | 3) {
   const points = STAGE_POINTS[stage - 1];
   return [
@@ -41,19 +72,6 @@ function plotData(stage: 1 | 2 | 3) {
     },
   ];
 }
-
-const plotLayout = {
-  paper_bgcolor: "#0a1a2f",
-  plot_bgcolor: "#0a1a2f",
-  font: { color: "#ffffff" },
-  margin: { l: 0, r: 0, t: 0, b: 0 },
-  scene: {
-    xaxis: { title: "Crop Type", color: "#8aa0b8", gridcolor: "#1f3a5f" },
-    yaxis: { title: "Input Choice", color: "#8aa0b8", gridcolor: "#1f3a5f" },
-    zaxis: { title: "Profit", color: "#8aa0b8", gridcolor: "#1f3a5f" },
-  },
-  autosize: true,
-};
 
 export function ArcoSimulator() {
   const [step, setStep] = useState(0);

@@ -1,53 +1,67 @@
 @import "tailwindcss";
 
 /* =========================================================================
- * Design tokens — neutral editorial dark, single accent (lime).
- * Source of truth for color, type, spacing, radius, shadow, motion, z-index.
- * Consumed by app/**\/*.css and components/**\/*.module.css.
- * PRD: tasks/prd-site-redesign.md §6.4
+ * Design tokens — web3 v2 (depth, cool base, lime CTA + link accent).
+ * Source: tasks/prd-web3-brand-rebrand.md, docs/brand-system.md
+ * Also satisfies: tasks/prd-site-redesign.md §6.4 (structural / a11y expectations)
  * ========================================================================= */
 :root {
-  /* Color — surface */
-  --color-bg: #0b0c10;
-  --color-surface: #141620;
-  --color-surface-2: #1c1f2a;
+  /* Color — v2 layer (public names unchanged; values re-tuned) */
+  --color-bg-canvas: #04060c;
+  --color-bg-raised: #0b0e16;
+
+  /* Color — surface (stack: canvas → bg → surface → surface-2) */
+  --color-bg: #080a0f;
+  --color-surface: #10141c;
+  --color-surface-2: #171d28;
 
   /* Color — text */
-  --color-text: #f2f3f5;
-  --color-text-muted: #a7acb3;
-  --color-text-subtle: #8a8f98;
-  --color-text-inverse: #0b0c10;
+  --color-text: #e9ebf0;
+  --color-text-muted: #a2aab6;
+  --color-text-subtle: #7d8895;
+  --color-text-inverse: #0a0b0e;
 
   /* Color — border / rule */
-  --color-border: #262a33;
-  --color-border-strong: #363b47;
+  --color-border: #222833;
+  --color-border-strong: #2f3848;
 
-  /* Color — accent (single accent per PRD) */
-  --color-accent: #effd5c;
-  --color-accent-strong: #d0fc37;
-  --color-accent-ink: #0b0c10;
+  /* Color — accent (CTA, selection) */
+  --color-accent: #d4f952;
+  --color-accent-strong: #bfe63a;
+  --color-accent-ink: #0a0b0d;
 
-  /* Color — focus */
-  --color-focus-ring: rgba(239, 253, 92, 0.6);
+  /* Color — link / keyboard (web3: cool second accent) */
+  --color-link: #5eb0ff;
+  --color-link-hover: #7abfff;
+  --color-focus-ring: rgba(94, 176, 255, 0.55);
+  /* Modal / mobile menu scrim (aligned to v2 canvas) */
+  --color-overlay-scrim: rgba(4, 6, 12, 0.72);
 
-  /* Effect — accent glow (used sparingly, e.g. highlighted headline on /technology) */
-  --glow-accent: 0 0 8px rgba(239, 253, 92, 0.7),
-    0 0 22px rgba(239, 253, 92, 0.4);
+  /* Effect — accent glow (headlines, highlights) */
+  --glow-accent: 0 0 10px rgba(212, 249, 82, 0.45),
+    0 0 24px rgba(212, 249, 82, 0.22);
 
-  /* Typography — fluid scale */
-  --fs-display: clamp(2.5rem, 4.5vw + 1rem, 4.5rem);
-  --fs-h1: clamp(2rem, 2.5vw + 1rem, 3rem);
-  --fs-h2: clamp(1.5rem, 1.5vw + 0.9rem, 2.25rem);
-  --fs-h3: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);
+  /* Typography — families (injected on <html> via next/font: --font-inter, --font-display) */
+  --font-family-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: var(--font-display), var(--font-inter), ui-sans-serif,
+    sans-serif;
+
+  /* Typography — fluid scale (tuned for Space Grotesk display + Inter body) */
+  --fs-display: clamp(2.4rem, 4.2vw + 0.95rem, 4.25rem);
+  --fs-h1: clamp(1.9rem, 2.2vw + 0.95rem, 2.85rem);
+  --fs-h2: clamp(1.45rem, 1.35vw + 0.9rem, 2.1rem);
+  --fs-h3: clamp(1.0625rem, 0.45vw + 0.95rem, 1.35rem);
   --fs-body: 1rem;
+  --fs-lead: clamp(1.05rem, 0.35vw + 1rem, 1.25rem);
   --fs-small: 0.875rem;
   --fs-caption: 0.75rem;
 
   /* Typography — rhythm */
-  --lh-display: 1.05;
-  --lh-tight: 1.15;
+  --lh-display: 1.04;
+  --lh-tight: 1.12;
   --lh-heading: 1.3;
   --lh-body: 1.65;
+  --lh-lead: 1.55;
 
   /* Typography — tracking */
   --ls-display: -0.02em;
@@ -109,21 +123,74 @@
 }
 
 html {
+  color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+/* Phase 1 body bridge: canvas + static mesh (no animation; reduced-motion safe) */
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg);
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-bg-canvas);
+  background-image:
+    radial-gradient(
+      ellipse 100% 85% at 50% -15%,
+      rgba(68, 120, 255, 0.14),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 45% 55% at 100% 25%,
+      rgba(130, 90, 255, 0.07),
+      transparent 50%
+    ),
+    linear-gradient(180deg, #05060b 0%, var(--color-bg) 38%, #04060c 100%);
   color: var(--color-text);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   letter-spacing: var(--ls-body);
+}
+
+/* Subtle static grain (CSS-only; no SVG filters) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255, 255, 255, 0.018) 2px,
+      rgba(255, 255, 255, 0.018) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255, 255, 255, 0.018) 2px,
+      rgba(255, 255, 255, 0.018) 3px
+    );
+  mix-blend-mode: soft-light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    opacity: 0.2;
+  }
+}
+
+body > :is(header, main, footer) {
+  position: relative;
+  z-index: 1;
 }
 
 :where(a) {
@@ -162,11 +229,18 @@ body {
     transition: none;
     opacity: 1;
     transform: none;
+    will-change: auto;
+  }
+
+  /* Static grain; keep visible but don’t over-emphasize texture */
+  body::before {
+    mix-blend-mode: normal;
   }
 }
 
 /* =========================================================================
- * Base layout scaffolding.
+ * Base layout scaffolding (Phase 1: transparent main so `body` v2 background
+ * and default text color show through for every route without per-page work).
  * ========================================================================= */
 .siteMain {
   flex: 1;
@@ -175,4 +249,6 @@ body {
   max-width: none;
   margin: 0;
   padding: 0;
+  color: var(--color-text);
+  background: transparent;
 }

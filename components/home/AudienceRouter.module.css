@@ -10,16 +10,49 @@
   flex-direction: column;
   gap: var(--space-3);
   padding: var(--space-6);
-  border: var(--border-rule);
-  border-radius: var(--r-md);
-  background: var(--color-surface);
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-surface) 100%, var(--color-accent) 2.5%),
+    var(--color-surface) 100%
+  );
+  box-shadow: 0 12px 36px -18px
+    color-mix(in srgb, var(--color-bg-canvas) 50%, black);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease-standard),
+    background-color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-link) 100%
+  );
+  opacity: 0.75;
 }
 
 .item:has(a:hover) {
-  border-color: var(--color-border-strong);
+  border-color: color-mix(in srgb, var(--color-link) 35%, var(--color-border));
   background: var(--color-surface-2);
+  box-shadow: 0 20px 44px -20px
+    color-mix(in srgb, var(--color-link) 10%, var(--color-bg-canvas));
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item:has(a:hover) {
+    transform: none;
+  }
 }
 
 .eyebrow {
@@ -28,6 +61,7 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-family-display);
   font-size: var(--fs-h2);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-heading);

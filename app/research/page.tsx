@@ -42,6 +42,7 @@ export default function ResearchPage() {
   return (
     <>
       <Section
+        visual="feature"
         eyebrow="Research"
         heading="Research"
         headingLevel={1}
@@ -58,7 +59,12 @@ export default function ResearchPage() {
         </Prose>
       </Section>
 
-      <Section eyebrow="Reading list" heading="Where the research lives">
+      <Section
+        tone="band"
+        visual="feature"
+        eyebrow="Reading list"
+        heading="Where the research lives"
+      >
         <div className={styles.notes}>
           <Prose>
             <p>
@@ -93,7 +99,11 @@ export default function ResearchPage() {
         </div>
       </Section>
 
-      <Section eyebrow="Build on it" heading="Move the research into code">
+      <Section
+        visual="feature"
+        eyebrow="Build on it"
+        heading="Move the research into code"
+      >
         <Prose>
           <p>
             If the research is useful to you, the implementation is open for

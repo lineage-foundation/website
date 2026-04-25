@@ -8,3 +8,21 @@
   font-weight: 500;
   margin: 0;
 }
+
+.eyebrowFeature {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.4em 0.9em 0.45em;
+  line-height: 1.2;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-link) 40%, transparent);
+  background: color-mix(in srgb, var(--color-link) 9%, var(--color-bg) 91%);
+  color: var(--color-link);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 20px
+    color-mix(in srgb, var(--color-link) 12%, transparent);
+}

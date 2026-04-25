@@ -11,7 +11,9 @@ export function Hero() {
         <HeroShaderDynamic />
       </div>
       <Container className={styles.content}>
-        <Eyebrow className={styles.eyebrow}>Layer-1 infrastructure</Eyebrow>
+        <Eyebrow className={styles.eyebrow} variant="feature">
+          Layer-1 infrastructure
+        </Eyebrow>
         <h1 id="hero-heading" className={styles.headline}>
           THE <span className={styles.headlineAccent}>LIVING</span> ECONOMY
         </h1>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -7,10 +7,19 @@ import { SITE_ORIGIN } from "@/lib/constants";
 
 import "./globals.css";
 
+/* Body/UI — subset weights to limit bytes; display font for headlines only. */
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  weight: ["400", "500", "600"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,6 +33,22 @@ export const metadata: Metadata = {
     template: "%s | Lineage",
   },
   description: "Lineage Foundation website",
+  openGraph: {
+    type: "website",
+    siteName: "Lineage Foundation",
+    locale: "en_US",
+    images: [
+      {
+        url: "/images/open-graph-lineage-1200x630.png",
+        width: 1200,
+        height: 630,
+        alt: "Lineage Foundation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
   icons: {
     icon: [
       {
@@ -60,7 +85,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0a0a0a",
+  themeColor: "#080a0f",
 };
 
 export default function RootLayout({
@@ -69,7 +94,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+    >
       <body className={inter.className}>
         <SiteHeader />
         <main className="siteMain">{children}</main>

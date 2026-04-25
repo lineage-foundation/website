@@ -11,6 +11,10 @@ export type SectionProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
   headingLevel?: HeadingLevel;
   headingVariant?: HeadingVariant;
   spacing?: "default" | "tight" | "loose";
+  /** Visual band for alternating page rhythm (home rebrand). */
+  tone?: "default" | "band";
+  /** Editorial header: accent bar + chip eyebrow (home). */
+  visual?: "default" | "feature";
   containerWidth?: "default" | "wide" | "narrow";
   children: ReactNode;
 };
@@ -21,6 +25,8 @@ export function Section({
   headingLevel = 2,
   headingVariant,
   spacing = "default",
+  tone = "default",
+  visual = "default",
   containerWidth = "default",
   className,
   children,
@@ -29,6 +35,7 @@ export function Section({
   const classes = [styles.section];
   if (spacing === "tight") classes.push(styles.sectionTight);
   if (spacing === "loose") classes.push(styles.sectionLoose);
+  if (tone === "band") classes.push(styles.sectionBand);
   if (className) classes.push(className);
 
   const hasHeader = Boolean(eyebrow || heading);
@@ -37,8 +44,18 @@ export function Section({
     <section className={classes.join(" ")} {...rest}>
       <Container width={containerWidth}>
         {hasHeader ? (
-          <header className={styles.header}>
-            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+          <header
+            className={
+              visual === "feature"
+                ? `${styles.header} ${styles.headerFeature}`
+                : styles.header
+            }
+          >
+            {eyebrow ? (
+              <Eyebrow variant={visual === "feature" ? "feature" : "default"}>
+                {eyebrow}
+              </Eyebrow>
+            ) : null}
             {heading ? (
               <Heading level={headingLevel} variant={headingVariant}>
                 {heading}

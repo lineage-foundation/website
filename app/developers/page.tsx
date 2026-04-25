@@ -43,6 +43,7 @@ export default function DevelopersPage() {
   return (
     <>
       <Section
+        visual="feature"
         eyebrow="For builders"
         heading="Build on Lineage"
         headingLevel={1}
@@ -63,7 +64,12 @@ export default function DevelopersPage() {
         </Prose>
       </Section>
 
-      <Section eyebrow="Start with the code" heading="Source material">
+      <Section
+        tone="band"
+        visual="feature"
+        eyebrow="Start with the code"
+        heading="Source material"
+      >
         <div className={styles.grid}>
           <Card
             title="Lineage Foundation on GitHub"
@@ -82,7 +88,11 @@ export default function DevelopersPage() {
         </div>
       </Section>
 
-      <Section eyebrow="Next step" heading="Have questions?">
+      <Section
+        visual="feature"
+        eyebrow="Next step"
+        heading="Have questions?"
+      >
         <Prose>
           <p>
             Specification and research questions live in the Lineage Discourse

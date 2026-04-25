@@ -43,15 +43,23 @@ const tokenomicsData = {
   ],
 } as const;
 
-const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#AF19FF",
-  "#FF4560",
-  "#19A7FF",
-];
+/** Canvas fill colors — v2-harmonized (link + accent family); distinct on dark. */
+const CHART_SLICE_COLORS = [
+  "#5eb0ff",
+  "#d4f952",
+  "#7abfff",
+  "#9ad636",
+  "#4a8ac9",
+  "#bfe63a",
+  "#6b9ef0",
+] as const;
+
+/* Match `app/globals.css` v2 (canvas cannot use CSS custom properties). */
+const TEXT = "#e9ebf0";
+const TEXT_MUTED = "#a2aab6";
+const TEXT_SUBTLE = "#7d8895";
+const DELTA_POS = "#d4f952";
+const DELTA_NEG = "#e85d6a";
 
 const yearLabels = ["2026", "2027", "2028", "2029"];
 
@@ -143,7 +151,8 @@ export function TokenomicsChart() {
         ctx.arc(210, 210, INNER, start + slice, start, true);
         ctx.closePath();
 
-        ctx.fillStyle = COLORS[i % COLORS.length];
+        ctx.fillStyle =
+          CHART_SLICE_COLORS[i % CHART_SLICE_COLORS.length] ?? "#5eb0ff";
         ctx.fill();
 
         if (isHovered) {
@@ -151,8 +160,8 @@ export function TokenomicsChart() {
           const lx = 210 + Math.cos(mid) * (OUTER + 20);
           const ly = 210 + Math.sin(mid) * (OUTER + 20);
 
-          ctx.fillStyle = "white";
-          ctx.font = "12px sans-serif";
+          ctx.fillStyle = TEXT;
+          ctx.font = "12px system-ui, sans-serif";
           ctx.textAlign = "center";
           ctx.fillText(d.name, lx, ly);
         }
@@ -176,24 +185,24 @@ export function TokenomicsChart() {
 
       ctx.textAlign = "center";
 
-      ctx.fillStyle = "white";
-      ctx.font = "bold 18px sans-serif";
+      ctx.fillStyle = TEXT;
+      ctx.font = "bold 18px system-ui, sans-serif";
       ctx.fillText(total.toFixed(1), 210, 200);
 
-      ctx.font = "12px sans-serif";
-      ctx.fillStyle = "#aaa";
+      ctx.font = "12px system-ui, sans-serif";
+      ctx.fillStyle = TEXT_MUTED;
       ctx.fillText("Total Supply", 210, 220);
 
-      ctx.font = "bold 14px sans-serif";
-      ctx.fillStyle = delta >= 0 ? "#00FFAA" : "#FF4560";
+      ctx.font = "bold 14px system-ui, sans-serif";
+      ctx.fillStyle = delta >= 0 ? DELTA_POS : DELTA_NEG;
       ctx.fillText(
         `${delta >= 0 ? "+" : ""}${delta.toFixed(1)}`,
         210,
         245,
       );
 
-      ctx.font = "11px sans-serif";
-      ctx.fillStyle = "#777";
+      ctx.font = "11px system-ui, sans-serif";
+      ctx.fillStyle = TEXT_SUBTLE;
       ctx.fillText("Δ vs baseline", 210, 260);
     },
     [getData],
@@ -258,7 +267,7 @@ export function TokenomicsChart() {
 
   return (
     <div className={styles.wrap}>
-      <h1 className={styles.title}>{title}</h1>
+      <h2 className={styles.title}>{title}</h2>
 
       <canvas
         ref={canvasRef}
@@ -291,7 +300,9 @@ export function TokenomicsChart() {
           >
             <span
               className={styles.colorBox}
-              style={{ background: COLORS[i % COLORS.length] }}
+              style={{
+                background: CHART_SLICE_COLORS[i % CHART_SLICE_COLORS.length],
+              }}
             />
             {d.name}
           </button>

@@ -6,7 +6,8 @@ import styles from "./HeroShader.module.css";
 
 type Point = { x: number; y: number; vx: number; vy: number };
 
-const ACCENT_RGB = "239, 253, 92";
+/* Matches v2 --color-accent (#d4f952) */
+const ACCENT_RGB = "212, 249, 82";
 const DENSITY = 0.00009;
 const MIN_POINTS = 36;
 const MAX_POINTS = 120;

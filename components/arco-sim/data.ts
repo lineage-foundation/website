@@ -1,6 +1,6 @@
-// Static data for the ARCO simulator. Numbers and pseudocode were authored in
-// the reference implementation under /arco-sim and are preserved verbatim so
-// the narrative (market state evolution, per-node code) stays identical.
+// Static data for the ARCO simulator. Numbers and pseudocode are preserved
+// verbatim so the narrative (market state evolution, per-node code) stays
+// stable across UI changes.
 
 export type NodeId = "A" | "B" | "C" | "D" | "E";
 
