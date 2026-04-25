@@ -47,6 +47,7 @@ export default function EcosystemPage() {
   return (
     <>
       <Section
+        visual="feature"
         eyebrow="Ecosystem"
         heading="Ecosystem"
         headingLevel={1}
@@ -63,7 +64,12 @@ export default function EcosystemPage() {
         </Prose>
       </Section>
 
-      <Section eyebrow="What exists today" heading="Wallets, network, community">
+      <Section
+        tone="band"
+        visual="feature"
+        eyebrow="What exists today"
+        heading="Wallets, network, community"
+      >
         <div className={styles.grid}>
           <Card
             title="Se3ker"
@@ -107,7 +113,7 @@ export default function EcosystemPage() {
         </div>
       </Section>
 
-      <Section eyebrow="Join in" heading="Build or contribute">
+      <Section visual="feature" eyebrow="Join in" heading="Build or contribute">
         <Prose>
           <p>
             Integrators, wallet authors, and researchers are welcome. Start

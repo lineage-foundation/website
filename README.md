@@ -50,7 +50,7 @@ Open [http://localhost:3000](http://localhost:3000). The dev server hot-reloads 
 | `/developers` | Developers landing — whitepaper, GitHub org, contact |
 | `/ecosystem` | Ecosystem landing — wallets, Discourse, research partners, video |
 | `/research` | Research landing — whitepaper, research repo, contact |
-| `/learn` (and `/arco`) | ARCO interactive simulation |
+| `/technology` | ARCO interactive simulation (`/learn` and `/arco` redirect here — see `next.config.ts`) |
 | `/tokenomics` | Interactive tokenomics chart |
 | `/robots.txt` | Generated from `app/robots.ts` |
 | `/sitemap.xml` | Generated from `app/sitemap.ts` |
@@ -61,16 +61,19 @@ When adding or renaming a route, update `app/sitemap.ts` so indexing stays in sy
 
 All visual decisions flow from CSS custom properties declared at the top of
 `app/globals.css`. Components must consume these tokens — do not introduce
-ad-hoc hex or px values except where explicitly justified (the ARCO diagram
-blue palette in `app/arco/arco.css` is the only exception and is commented
-as such).
+ad-hoc hex or px values except where explicitly justified (e.g. ARCO
+diagram/simulator colors where documented).
+
+Narrated token roles and the Phase 1 “body bridge” decision:
+[`docs/brand-system.md`](docs/brand-system.md) (web3 rebrand v2).
 
 Token groups:
 
-- **Color** — `--color-bg`, `--color-surface`, `--color-surface-2`, `--color-text`, `--color-text-muted`, `--color-text-subtle`, `--color-text-inverse`, `--color-border`, `--color-border-strong`, `--color-accent`, `--color-accent-strong`, `--color-accent-ink`, `--color-focus-ring`
+- **Color** — `--color-bg-canvas`, `--color-bg-raised`, `--color-bg`, `--color-surface`, `--color-surface-2`, `--color-text`, `--color-text-muted`, `--color-text-subtle`, `--color-text-inverse`, `--color-border`, `--color-border-strong`, `--color-accent`, `--color-accent-strong`, `--color-accent-ink`, `--color-link`, `--color-link-hover`, `--color-focus-ring`
 - **Effect** — `--glow-accent`, `--shadow-elev-1`
-- **Type scale** — `--fs-display`, `--fs-h1`..`--fs-h3`, `--fs-body`, `--fs-small`, `--fs-caption`
-- **Type rhythm** — `--lh-display`, `--lh-tight`, `--lh-heading`, `--lh-body`
+- **Font stacks** — `--font-family-body`, `--font-family-display` (from **Inter** + **Space Grotesk** in `app/layout.tsx`)
+- **Type scale** — `--fs-display`, `--fs-h1`..`--fs-h3`, `--fs-body`, `--fs-lead`, `--fs-small`, `--fs-caption`
+- **Type rhythm** — `--lh-display`, `--lh-tight`, `--lh-heading`, `--lh-body`, `--lh-lead`
 - **Tracking** — `--ls-display`, `--ls-heading`, `--ls-body`, `--ls-eyebrow`
 - **Spacing (4px base)** — `--space-1` (4px) through `--space-10` (128px)
 - **Radius** — `--r-sm`, `--r-md`, `--r-lg`
@@ -87,7 +90,7 @@ typography decisions consistently:
 | Primitive | Role |
 | --------- | ---- |
 | `Container` | Max-width wrapper (`wide` / default / `narrow`) with safe-area-aware gutters |
-| `Section` | Standard vertical rhythm + optional `eyebrow`, `heading`, `headingLevel`, `headingVariant`, `intro`; wraps its body in a `Container` |
+| `Section` | Standard vertical rhythm + optional `eyebrow`, `heading`, `headingLevel`, `headingVariant`, `intro`; `visual` (e.g. `feature` — rail + chip) and `tone` (e.g. `band`); wraps its body in a `Container` |
 | `Heading` | Semantic `h1`–`h4`, styled independently via `variant` (`display`, `h1`–`h3`) |
 | `Eyebrow` | Small uppercase section label |
 | `Prose` | Token-based rich-text formatting clamped to `--measure` |

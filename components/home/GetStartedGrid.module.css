@@ -5,20 +5,47 @@
 }
 
 .tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-5);
-  border: var(--border-rule);
-  border-radius: var(--r-md);
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
   background: var(--color-surface);
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard);
+  min-height: 8rem;
+  box-shadow: 0 8px 28px -16px
+    color-mix(in srgb, var(--color-bg-canvas) 45%, black);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease-standard),
+    background-color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.tile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-link) 100%);
+  opacity: 0.5;
 }
 
 .tile:has(a:hover) {
-  border-color: var(--color-border-strong);
+  border-color: color-mix(in srgb, var(--color-link) 32%, var(--color-border));
   background: var(--color-surface-2);
+  box-shadow: 0 16px 40px -18px
+    color-mix(in srgb, var(--color-link) 6%, var(--color-bg-canvas));
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:has(a:hover) {
+    transform: none;
+  }
 }
 
 .placeholder {
@@ -27,6 +54,7 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-family-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;

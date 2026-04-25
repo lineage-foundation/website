@@ -43,6 +43,7 @@ export default function TechnologyPage() {
   return (
     <>
       <Section
+        visual="feature"
         eyebrow="Technology — interactive"
         heading="ARCO: the compute loop"
         headingLevel={1}

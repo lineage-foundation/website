@@ -8,6 +8,8 @@ import { Hero } from "@/components/home/Hero";
 import { LinkCta, Prose, Section } from "@/components/ui";
 import { SITE_ORIGIN, URL_YOUTUBE_VIDEO } from "@/lib/constants";
 
+import styles from "./page.module.css";
+
 export const metadata: Metadata = {
   title: {
     absolute: "Lineage - The Living Economy",
@@ -98,6 +100,7 @@ export default function Home() {
 
       <Section
         id="utmm"
+        visual="feature"
         eyebrow="Solution detail"
         heading="Universal Turing Market Machines"
         headingLevel={2}
@@ -115,6 +118,8 @@ export default function Home() {
 
       <Section
         id="consensus"
+        tone="band"
+        visual="feature"
         eyebrow="Why it wins — technical"
         heading="Prime Radiant Consensus"
         headingLevel={2}
@@ -127,7 +132,7 @@ export default function Home() {
           </p>
         </Prose>
         <FeatureGrid items={CONSENSUS_FEATURES} />
-        <p style={{ marginTop: "var(--space-5)" }}>
+        <p className={styles.youtubeCta}>
           <LinkCta href={URL_YOUTUBE_VIDEO} external>
             Watch the overview on YouTube
           </LinkCta>
@@ -136,6 +141,7 @@ export default function Home() {
 
       <Section
         id="impact"
+        visual="feature"
         eyebrow="Why it wins — economic"
         heading="Impact"
         headingLevel={2}
@@ -145,6 +151,8 @@ export default function Home() {
 
       <Section
         id="audience"
+        tone="band"
+        visual="feature"
         eyebrow="Choose your path"
         heading="Where do you want to go next?"
         headingLevel={2}
@@ -154,6 +162,7 @@ export default function Home() {
 
       <Section
         id="evidence"
+        visual="feature"
         eyebrow="Proof"
         heading="Evidence"
         headingLevel={2}
@@ -163,6 +172,8 @@ export default function Home() {
 
       <Section
         id="get-started"
+        tone="band"
+        visual="feature"
         eyebrow="Get involved"
         heading="Get started"
         headingLevel={2}

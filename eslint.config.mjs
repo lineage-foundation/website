@@ -12,10 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Reference implementation of the new ARCO sim; standalone IIFE scripts
-    // that share state via globals. Kept in-tree as reference material until
-    // the Next.js port is verified, then deleted.
-    "arco-sim/**",
   ]),
 ]);
 

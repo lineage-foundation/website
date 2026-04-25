@@ -39,6 +39,7 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-family-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;

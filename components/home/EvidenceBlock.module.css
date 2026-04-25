@@ -10,16 +10,41 @@
   flex-direction: column;
   gap: var(--space-3);
   padding: var(--space-6);
-  border: var(--border-rule);
-  border-radius: var(--r-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
   background: var(--color-surface);
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard);
+  box-shadow: 0 8px 32px -16px
+    color-mix(in srgb, var(--color-bg-canvas) 40%, black);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease-standard),
+    background-color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.tile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-link) 0%, var(--color-accent) 100%);
+  opacity: 0.7;
 }
 
 .tile:has(a:hover) {
-  border-color: var(--color-border-strong);
+  border-color: color-mix(in srgb, var(--color-link) 30%, var(--color-border));
   background: var(--color-surface-2);
+  box-shadow: 0 20px 40px -18px
+    color-mix(in srgb, var(--color-link) 8%, var(--color-bg-canvas));
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:has(a:hover) {
+    transform: none;
+  }
 }
 
 .eyebrow {
@@ -28,6 +53,7 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-family-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;

@@ -43,6 +43,7 @@ export default function TokenomicsPage() {
   return (
     <>
       <Section
+        visual="feature"
         eyebrow="Economics"
         heading="Tokenomics"
         headingLevel={1}
@@ -58,7 +59,11 @@ export default function TokenomicsPage() {
         </Prose>
       </Section>
 
-      <Section spacing="tight" containerWidth="narrow">
+      <Section
+        tone="band"
+        spacing="tight"
+        containerWidth="narrow"
+      >
         <TokenomicsChart />
       </Section>
     </>
