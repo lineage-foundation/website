@@ -44,7 +44,6 @@ export default function TokenomicsPage() {
     <>
       <Section
         visual="feature"
-        eyebrow="Economics"
         heading="Tokenomics"
         headingLevel={1}
         headingVariant="display"

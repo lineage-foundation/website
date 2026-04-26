@@ -48,7 +48,6 @@ export default function EcosystemPage() {
     <>
       <Section
         visual="feature"
-        eyebrow="Ecosystem"
         heading="Ecosystem"
         headingLevel={1}
         headingVariant="display"
@@ -67,7 +66,6 @@ export default function EcosystemPage() {
       <Section
         tone="band"
         visual="feature"
-        eyebrow="What exists today"
         heading="Wallets, network, community"
       >
         <div className={styles.grid}>
@@ -90,14 +88,13 @@ export default function EcosystemPage() {
           {NETWORK_READY ? (
             <Card
               title="Network"
-              eyebrow="Network"
               href={URL_NETWORK}
               external
             >
               Live network information and block explorer.
             </Card>
           ) : (
-            <Card title="Network" eyebrow="Network">
+            <Card title="Network">
               Live network destination is not yet public. Follow GitHub for
               the announcement.
             </Card>
@@ -113,7 +110,7 @@ export default function EcosystemPage() {
         </div>
       </Section>
 
-      <Section visual="feature" eyebrow="Join in" heading="Build or contribute">
+      <Section visual="feature" heading="Build or contribute">
         <Prose>
           <p>
             Integrators, wallet authors, and researchers are welcome. Start

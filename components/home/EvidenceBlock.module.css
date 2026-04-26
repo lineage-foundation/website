@@ -47,10 +47,6 @@
   }
 }
 
-.eyebrow {
-  color: var(--color-text-muted);
-}
-
 .title {
   margin: 0;
   font-family: var(--font-family-display);

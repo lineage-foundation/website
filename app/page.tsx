@@ -163,7 +163,6 @@ export default function Home() {
       <Section
         id="evidence"
         visual="feature"
-        eyebrow="Proof"
         heading="Evidence"
         headingLevel={2}
       >
@@ -174,7 +173,6 @@ export default function Home() {
         id="get-started"
         tone="band"
         visual="feature"
-        eyebrow="Get involved"
         heading="Get started"
         headingLevel={2}
       >
