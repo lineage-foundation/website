@@ -34,7 +34,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Developers | Lineage",
-    description: "Build on Lineage.",
+    description:
+      "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -96,9 +97,9 @@ export default function DevelopersPage() {
       >
         <Prose>
           <p>
-            Specification and research questions live in the Lineage Discourse
-            forum. Implementation questions belong in the repo issue trackers
-            on GitHub.
+            Specification and research questions live in the{" "}
+            <strong>Fremen Forum</strong> (hosted on Discourse). Implementation
+            questions belong in the repo issue trackers on GitHub.
           </p>
         </Prose>
         <div className={styles.actions}>
@@ -107,8 +108,9 @@ export default function DevelopersPage() {
             size="md"
             href={URL_DISCOURSE_RESEARCH}
             external
+            title="Fremen Forum on Discourse"
           >
-            Join the Discourse forum
+            Open Fremen Forum
           </Button>
           <Button
             variant="secondary"

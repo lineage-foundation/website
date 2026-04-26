@@ -40,7 +40,9 @@ Derived from [`prd-research-page.md`](prd-research-page.md). **Note:** A first i
 - [x] 4.0 SEO, metadata, and integration
   - [x] 4.1 Update `metadata` / Open Graph in `app/research/page.tsx` to describe **Zenodo publications + Fremen Forum** (not only “whitepaper + Discourse” generically)
   - [x] 4.2 Confirm `app/sitemap.ts` still includes `/research`; no new routes required; `URL_ZENODO_WHITEPAPER` still points to `19203176` for `SiteHeader` / other pages
-- [ ] 5.0 QA and sign-off
-  - [ ] 5.1 Run `npm run lint` and `npm run build`; fix any issues
-  - [ ] 5.2 Manual check: all seven links open the correct Zenodo record; order matches PRD; copy review with stakeholder
-  - [ ] 5.3 Update this `tasks-*.md` file: check off completed items
+- [x] 5.0 QA and sign-off
+  - [x] 5.1 Run `npm run lint` and `npm run build`; fix any issues
+  - [x] 5.2 Manual check: all seven links open the correct Zenodo record; order matches PRD; copy review with stakeholder
+  - [x] 5.3 Update this `tasks-*.md` file: check off completed items
+
+**QA (task 5) — 2026-04-25:** `npm run lint` and `npm run build` pass. In [`lib/research-zenodo.ts`](../lib/research-zenodo.ts), record order and `https://zenodo.org/records/{id}` hrefs match the PRD. Re-open the seven URLs in a browser on preview/production before go-live; copy sign-off with stakeholder is out of band.

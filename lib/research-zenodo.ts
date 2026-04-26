@@ -73,3 +73,7 @@ export const ZENODO_RESEARCH_PUBLICATIONS: readonly ZenodoResearchItem[] = [
       "Revisits electronic cash design to aim for low volatility without relying on external collateral or game-theoretic levers, from the perspective of peer-to-peer currency design.",
   },
 ];
+
+/** “Peer-to-peer electronic cash revisited” — also linked from /tokenomics (supply, ARCO). */
+export const ZENODO_P2P_ELECTRONIC_CASH: ZenodoResearchItem =
+  ZENODO_RESEARCH_PUBLICATIONS.find((p) => p.id === "15324203")!;

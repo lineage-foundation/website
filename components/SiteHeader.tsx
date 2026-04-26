@@ -10,6 +10,7 @@ import styles from "./SiteHeader.module.css";
 
 const NAV_ITEMS = [
   { label: "Technology", href: "/technology", external: false },
+  { label: "Tokenomics", href: "/tokenomics", external: false },
   { label: "Developers", href: "/developers", external: false },
   { label: "Ecosystem", href: "/ecosystem", external: false },
   { label: "Research", href: "/research", external: false },

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Research | Lineage",
     description:
       "Published Lineage work on Zenodo, plus the Fremen Forum for open research discussion.",
-    siteName: "Lineage",
+    siteName: "Lineage Foundation",
     url: `${SITE_ORIGIN}/research`,
     type: "website",
     images: [

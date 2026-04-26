@@ -23,8 +23,8 @@ type Tile = {
 };
 
 /**
- * Order puts tiles with working destinations first (GitHub, Tokenomics,
- * Pick a wallet) and placeholders after, per PRD §6.2 / task 3.6.
+ * Order puts tiles with working destinations first; remaining slots are
+ * placeholders until those experiences ship.
  */
 const TILES: readonly Tile[] = [
   {
@@ -34,7 +34,7 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Tokenomics",
-    body: "Explore FIAT Replacement Technology (FReT) and the LNGX economic model.",
+    body: "FReT, LNGX, and the phased release model—overview and interactive chart on this page.",
     links: [{ label: "Open tokenomics", href: "/tokenomics" }],
   },
   {
@@ -52,8 +52,8 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Start building",
-    body: "Developer docs and tooling.",
-    placeholder: true,
+    body: "Concepts, HTTP API reference, tutorials, and guides on this site.",
+    links: [{ label: "Open documentation", href: "/docs" }],
   },
   {
     title: "Try apps",

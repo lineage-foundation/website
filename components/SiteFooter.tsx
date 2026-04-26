@@ -39,6 +39,24 @@ export function SiteFooter() {
           </section>
 
           <section className={styles.column}>
+            <h2 className={styles.columnTitle}>Resources</h2>
+            <ul className={styles.list}>
+              <li>
+                <Link href="/docs">Docs</Link>
+              </li>
+              <li>
+                <Link href="/developers">Developers</Link>
+              </li>
+              <li>
+                <Link href="/ecosystem">Ecosystem</Link>
+              </li>
+              <li>
+                <Link href="/research">Research</Link>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.column}>
             <h2 className={styles.columnTitle}>Community</h2>
             <ul className={styles.list}>
               <li>
@@ -55,8 +73,9 @@ export function SiteFooter() {
                   href={URL_DISCOURSE_RESEARCH}
                   rel="noopener noreferrer"
                   target="_blank"
+                  title="Fremen Forum (Discourse)"
                 >
-                  Discourse
+                  Fremen Forum
                 </a>
               </li>
               <li>
