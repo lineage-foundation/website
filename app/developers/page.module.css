@@ -2,7 +2,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-5);
   align-items: stretch;
 }
@@ -12,10 +12,4 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-6);
-}
-
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }

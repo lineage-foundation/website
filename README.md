@@ -36,6 +36,7 @@ Open [http://localhost:3000](http://localhost:3000). The dev server hot-reloads 
 | `components/ui/` | Design-system primitives (Container, Section, Heading, Eyebrow, Prose, Button, LinkCta, Card) |
 | `components/home/` | Homepage-only sections (Hero, FeatureGrid, AudienceRouter, EvidenceBlock, GetStartedGrid) |
 | `components/SiteHeader.tsx`, `components/SiteFooter.tsx` | Global shell |
+| `app/docs/`, `components/docs/` | Developer documentation (multi-page; nav in `lib/docs-nav.ts`) |
 | `components/arco/`, `components/tokenomics/` | Route-specific interactive clients |
 | `hooks/` | Client-only React hooks (e.g. `useReveal` for scroll-in animations) |
 | `lib/constants.ts` | Outbound URLs (Zenodo whitepaper, GitHub, YouTube, Discourse, partners) |
@@ -48,6 +49,7 @@ Open [http://localhost:3000](http://localhost:3000). The dev server hot-reloads 
 | ---- | ---- |
 | `/` | Home — hero, UTMM detail, consensus, impact, audience router, evidence, get-started |
 | `/developers` | Developers landing — whitepaper, GitHub org, contact |
+| `/docs` | Developer documentation (concepts, API reference, tutorials) |
 | `/ecosystem` | Ecosystem landing — wallets, Discourse, research partners, video |
 | `/research` | Research landing — whitepaper, research repo, contact |
 | `/technology` | ARCO interactive simulation (`/learn` and `/arco` redirect here — see `next.config.ts`) |

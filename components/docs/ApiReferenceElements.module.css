@@ -1,0 +1,54 @@
+.methodLine {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.methodBadge {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  border: var(--border-rule);
+  border-radius: var(--r-sm);
+}
+
+.tableWrap {
+  margin-top: var(--space-2);
+  overflow-x: auto;
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border: var(--border-rule);
+  vertical-align: top;
+}
+
+.tableWrap th {
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.tableWrap td {
+  color: var(--color-text-muted);
+}
+
+.tableWrap code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}

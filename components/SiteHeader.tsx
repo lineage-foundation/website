@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { label: "Developers", href: "/developers", external: false },
   { label: "Ecosystem", href: "/ecosystem", external: false },
   { label: "Research", href: "/research", external: false },
-  { label: "Docs", href: URL_ZENODO_WHITEPAPER, external: true },
+  { label: "Docs", href: "/docs", external: false },
 ] as const;
 
 export function SiteHeader() {
