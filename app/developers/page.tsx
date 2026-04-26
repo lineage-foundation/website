@@ -44,7 +44,6 @@ export default function DevelopersPage() {
     <>
       <Section
         visual="feature"
-        eyebrow="For builders"
         heading="Build on Lineage"
         headingLevel={1}
         headingVariant="display"
@@ -67,7 +66,6 @@ export default function DevelopersPage() {
       <Section
         tone="band"
         visual="feature"
-        eyebrow="Start with the code"
         heading="Source material"
       >
         <div className={styles.grid}>
@@ -94,7 +92,6 @@ export default function DevelopersPage() {
 
       <Section
         visual="feature"
-        eyebrow="Next step"
         heading="Have questions?"
       >
         <Prose>

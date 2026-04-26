@@ -4,21 +4,34 @@ import { Button, Card, Prose, Section } from "@/components/ui";
 import {
   SITE_ORIGIN,
   URL_DISCOURSE_RESEARCH,
-  URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
+import { ZENODO_RESEARCH_PUBLICATIONS } from "@/lib/research-zenodo";
 
 import styles from "./page.module.css";
+
+function formatListDate(iso: string) {
+  try {
+    return new Date(iso + "T12:00:00Z").toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
 
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Research notes behind Lineage — UTMMs, Prime Radiant Consensus, and adaptive market evolution. The whitepaper and the research forum.",
+    "Lineage working papers on Zenodo—UTMM, DPoWW, UTXO world state, Merkle validation, and more—and the Fremen Forum for public research discussion.",
   alternates: { canonical: "/research" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Research | Lineage",
     description:
-      "Research notes behind Lineage — UTMMs, consensus, adaptive market evolution.",
+      "Published Lineage work on Zenodo, plus the Fremen Forum for open research discussion.",
+    siteName: "Lineage",
     url: `${SITE_ORIGIN}/research`,
     type: "website",
     images: [
@@ -33,7 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Research | Lineage",
-    description: "Research notes behind Lineage.",
+    description:
+      "Zenodo publications and the Fremen Forum for Lineage research.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -43,7 +57,6 @@ export default function ResearchPage() {
     <>
       <Section
         visual="feature"
-        eyebrow="Research"
         heading="Research"
         headingLevel={1}
         headingVariant="display"
@@ -51,10 +64,17 @@ export default function ResearchPage() {
       >
         <Prose>
           <p>
-            Lineage is a research project as much as a Layer-1. The
-            foundational ideas — Universal Turing Market Machines, Prime
-            Radiant Consensus, and the ARCO simulation — are documented in
-            the whitepaper and discussed openly on the research Discourse.
+            Lineage is a research project as much as a layer-one protocol. The
+            work below is published on{" "}
+            <a
+              href="https://zenodo.org/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Zenodo
+            </a>{" "}
+            (open working papers, CC BY 4.0). The list is in reverse
+            chronological order, newest first.
           </p>
         </Prose>
       </Section>
@@ -62,38 +82,58 @@ export default function ResearchPage() {
       <Section
         tone="band"
         visual="feature"
-        eyebrow="Reading list"
-        heading="Where the research lives"
+        eyebrow="Publications"
+        heading="Papers and whitepapers on Zenodo"
+      >
+        <ul className={styles.pubList}>
+          {ZENODO_RESEARCH_PUBLICATIONS.map((pub) => (
+            <li key={pub.id} className={styles.pubItem}>
+              <p className={styles.pubMeta}>
+                {formatListDate(pub.datePublished)} · record{" "}
+                <a href={pub.href} rel="noopener noreferrer" target="_blank">
+                  {pub.id}
+                </a>
+              </p>
+              <h3 className={styles.pubHeading}>
+                <a href={pub.href} rel="noopener noreferrer" target="_blank">
+                  {pub.title}
+                </a>
+              </h3>
+              <p className={styles.pubBody}>{pub.description}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section
+        visual="feature"
+        eyebrow="Community"
+        heading="Fremen Forum"
+        spacing="loose"
       >
         <div className={styles.notes}>
           <Prose>
             <p>
-              Markets aggregate dispersed information; UTMMs formalise that
-              discovery process inside consensus. Traditional blockchains
-              execute fixed rules — Lineage performs bounded search over
-              policy space and verifies results cryptographically, so the
-              mechanisms themselves evolve under deterministic selection
-              pressure. The ARCO simulation on{" "}
-              <a href="/technology">/technology</a> walks through a single step
-              of this loop.
+              <a
+                href={URL_DISCOURSE_RESEARCH}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <strong>Fremen Forum</strong>
+              </a>{" "}
+              is the public place for protocol, consensus, and economic-design
+              discussion—open threads, not a help desk for a single app, with room
+              for working-group style debate and ideas from the wider community.
             </p>
           </Prose>
         </div>
         <div className={styles.grid}>
           <Card
-            title="Lineage: The Living Economy"
-            href={URL_ZENODO_WHITEPAPER}
-            external
-          >
-            The whitepaper on Zenodo — full technical and economic
-            specification.
-          </Card>
-          <Card
-            title="Lineage research Discourse"
+            title="Fremen Forum"
             href={URL_DISCOURSE_RESEARCH}
             external
           >
-            Open discussion of UTMMs, consensus, and ongoing research
+            Open discussion of UTMMs, DPoWW, and ongoing Lineage research
             questions.
           </Card>
         </div>
@@ -120,7 +160,7 @@ export default function ResearchPage() {
             href={URL_DISCOURSE_RESEARCH}
             external
           >
-            Open the forum
+            Open Fremen Forum
           </Button>
         </div>
       </Section>
