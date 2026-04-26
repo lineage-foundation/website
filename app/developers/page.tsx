@@ -71,6 +71,10 @@ export default function DevelopersPage() {
         heading="Source material"
       >
         <div className={styles.grid}>
+          <Card title="Developer documentation" href="/docs">
+            Concepts, HTTP API reference, tutorials, and mining guides on this
+            site — the technical entry point for integrators.
+          </Card>
           <Card
             title="Lineage Foundation on GitHub"
             href={URL_GITHUB_ORG}

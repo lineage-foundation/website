@@ -1,0 +1,50 @@
+.status {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  max-width: var(--measure);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+  background: var(--color-surface-2);
+  border: var(--border-rule);
+  border-radius: var(--r-md);
+}
+
+.status strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.paramTable {
+  width: 100%;
+  max-width: var(--measure);
+  border-collapse: collapse;
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-small);
+}
+
+.paramTable th,
+.paramTable td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+  border: var(--border-rule);
+  color: var(--color-text-muted);
+}
+
+.paramTable th {
+  color: var(--color-text);
+  font-weight: 600;
+  background: var(--color-surface-2);
+}
+
+.codeLabel {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.endpointPre {
+  margin: var(--space-2) 0 0;
+}

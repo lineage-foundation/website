@@ -58,6 +58,7 @@ The experience is **multi-page** (App Router routes under `app/docs/`), with a *
 ## 7. Technical Considerations
 
 - **Next.js App Router:** Implement under `app/docs/...` with a shared `layout.tsx` for the docs tree (sidebar + content slot).
+- **URL mapping:** The AIBlock “network wiki” section used `/docs/network-wiki/...`. Lineage uses **`/docs/concepts/...`** instead (no `network-wiki` segment); see `tasks/docs-route-manifest.v1.md`.
 - **Content strategy:** Options include (a) **MDX** for maintainability, (b) **TSX** with composition components for maximum control, or (c) **remote content** (not in scope for v1). Recommendation: start with **MDX or static TSX** per page after audit; keep shared shortcodes (Callout, EndpointReference) for repeated patterns.
 - **Source audit:** Crawl or manually list `aiblock.dev/docs/**` pages to build the route manifest; the earlier discovery included paths such as:
   - `/docs` (welcome)

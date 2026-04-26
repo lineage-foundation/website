@@ -1,0 +1,238 @@
+/* Full-width /docs chrome: flexes with main.siteMain:has([data-docs-root]). */
+
+.root {
+  --docs-sidebar-width: 18rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  /* Clip the shell so the reading column (not the window) is what scrolls on wheel */
+  overflow: hidden;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mobileBar {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) max(var(--container-gutter), env(safe-area-inset-left));
+  border-bottom: var(--border-rule);
+  background: color-mix(in srgb, var(--color-bg-raised) 92%, transparent);
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: var(--border-rule);
+  border-radius: var(--r-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+
+.menuButton:hover {
+  background: var(--color-surface-2);
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.menuIcon {
+  display: block;
+}
+
+.mobileTitle {
+  font-family: var(--font-family-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-menu) - 2);
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: var(--color-overlay-scrim);
+  cursor: pointer;
+}
+
+.inner {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Left rail: full height of the docs region, scroll only the nav list */
+.aside {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--docs-sidebar-width);
+  min-height: 0;
+  overflow: hidden;
+  border-right: var(--border-rule);
+  background: color-mix(in srgb, var(--color-bg-raised) 65%, var(--color-bg) 35%);
+}
+
+.asideInner {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-5) var(--space-4) var(--space-7);
+  padding-inline-start: max(var(--space-4), env(safe-area-inset-left));
+}
+
+.navTree {
+  padding: 0;
+}
+
+/* Main reading column: separate scroll from the nav (no double page scroll) */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-bg) 97%, transparent);
+}
+
+.mainBody {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  /* top | right | bottom | left (logical: keep clear of nav and viewport) */
+  padding: clamp(var(--space-8), 3.5vw, var(--space-9))
+    max(clamp(var(--space-6), 3vw, var(--space-8)), env(safe-area-inset-right))
+    var(--space-10)
+    max(
+      clamp(var(--space-8), 5vw, var(--space-10)),
+      env(safe-area-inset-left)
+    );
+}
+
+/* Reading column: bounded width, centered in the right pane on wide viewports */
+.mainInner {
+  width: 100%;
+  max-width: min(48rem, 100%);
+  margin-inline: auto;
+  padding: 0;
+}
+
+.thinScroll {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-border-strong) 80%, transparent)
+    transparent;
+}
+
+.thinScroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.thinScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thinScroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-border-strong) 90%, transparent);
+  border-radius: 999px;
+}
+
+.thinScroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-subtle);
+}
+
+@media (max-width: 1023px) {
+  .mobileBar {
+    display: flex;
+  }
+
+  .backdrop {
+    display: block;
+  }
+
+  .inner {
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .aside {
+    position: fixed;
+    top: var(--site-header-offset, 4rem);
+    left: 0;
+    bottom: 0;
+    z-index: calc(var(--z-menu) - 1);
+    width: min(var(--docs-sidebar-width), min(100vw, 20rem));
+    max-width: 92vw;
+    transform: translateX(-100%);
+    transition: transform var(--dur-base) var(--ease-standard);
+    background: var(--color-bg-raised);
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .asideOpen {
+    transform: translateX(0);
+  }
+
+  .asideInner {
+    padding-block: var(--space-4);
+  }
+
+  .main {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .mainBody {
+    padding-block: var(--space-6) var(--space-8);
+    padding-inline: max(var(--space-4), env(safe-area-inset-left))
+      max(var(--space-4), env(safe-area-inset-right));
+  }
+
+  .asideHiddenMobile {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aside {
+    transition: none;
+  }
+}
