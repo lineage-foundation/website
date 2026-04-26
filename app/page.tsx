@@ -127,8 +127,8 @@ export default function Home() {
         <Prose>
           <p>
             Consensus secures not only transaction ordering but the integrity
-            of adaptive market evolution. Proof-of-work validators produce
-            blocks while also participating in economic evolution.
+            of adaptive market evolution. Miners produce blocks while also
+            participating in economic evolution.
           </p>
         </Prose>
         <FeatureGrid items={CONSENSUS_FEATURES} />

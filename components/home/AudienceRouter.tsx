@@ -8,8 +8,8 @@ export function AudienceRouter() {
       <article className={styles.item} role="listitem">
         <h3 className={styles.title}>Build on Lineage</h3>
         <p className={styles.body}>
-          Evaluate the protocol, clone the repos, and prototype against an L1
-          where market policy itself is programmable.
+          Evaluate the protocol, clone the repos, and prototype against a
+          Layer-1 where market policy itself is programmable.
         </p>
         <div className={styles.cta}>
           <LinkCta href="/developers">Developer path</LinkCta>

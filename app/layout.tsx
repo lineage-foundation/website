@@ -32,7 +32,8 @@ export const metadata: Metadata = {
     default: "Lineage Foundation",
     template: "%s | Lineage",
   },
-  description: "Lineage Foundation website",
+  description:
+    "Lineage is a Layer-1 for adaptive, trust-minimized smart markets. Lineage Foundation site.",
   openGraph: {
     type: "website",
     siteName: "Lineage Foundation",

@@ -66,7 +66,7 @@ export const PSEUDOCODE_MAP: Record<NodeId, string> = {
   data: order_payload
 });
 
-<span class="kw">const</span> tx = <span class="fn">AIBLOCK.create_P2PKH_transaction</span>({
+<span class="kw">const</span> tx = <span class="fn">Lineage.create_P2PKH_transaction</span>({
   to: fertilizer_supplier_addr,
   amount: <span class="fn">PRICE_LOOKUP</span>(fert_type, qty),
   metadata: mcp_context

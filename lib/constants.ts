@@ -12,7 +12,11 @@ export const URL_GITHUB_ORG = "https://github.com/lineage-foundation";
 export const URL_YOUTUBE_VIDEO =
   "https://www.youtube.com/watch?v=Wsbmx_SQjzc";
 
-/** Public research and protocol discussion; known as the **Fremen Forum**. */
+/**
+ * Public research and protocol discussion (Discourse). User-facing copy should
+ * say **Fremen Forum**; use “Discourse” only for disambiguation (e.g. in a
+ * `title` or once in a sentence).
+ */
 export const URL_DISCOURSE_RESEARCH = "https://lineage.discourse.group/";
 
 /** Placeholder until a concrete Network destination exists */
