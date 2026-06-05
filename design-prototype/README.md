@@ -18,6 +18,12 @@ Shared chrome (header/footer) lives in `partials/_chrome.html` and is pasted int
 each page; `css/lineage.css` and `js/lineage.js` are the single source of truth for
 tokens, components, and behaviour (nav dropdown, scroll reveal, hero animation).
 
+## Design system
+- `design-system/` — the **portable brand definition**: start at `design-system/README.md`,
+  then `DESIGN.md` (principles), `tokens.css` (the `:root` source of truth),
+  `components.md` (class reference), `brand-mark.md` (logo). Use this to build new
+  pages or port the system on-brand without re-deriving the palette.
+
 ## Companion specs
 - `brand-mark.md` — logo (Clearing Cross) construction + symbology + usage rules
 - `get-tokens-backend.md` — backend contract for the Buy LNGX / faucet flows
