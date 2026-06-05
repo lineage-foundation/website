@@ -53,8 +53,8 @@
   background: transparent;
   color: var(--color-text-muted);
   cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard);
+  transition: color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
 }
 
 .disclosure:hover {
@@ -69,7 +69,7 @@
 
 .chevron {
   display: block;
-  transition: transform var(--dur-fast) var(--ease-standard);
+  transition: transform var(--dur-fast) var(--ease);
   transform: rotate(0deg);
 }
 
@@ -110,9 +110,9 @@
   outline-offset: 2px;
   border: 1px solid transparent;
   font-weight: 500;
-  transition: background-color var(--dur-fast) var(--ease-standard),
-    color var(--dur-fast) var(--ease-standard),
-    border-color var(--dur-fast) var(--ease-standard);
+  transition: background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
 .groupTitleLink:hover {
@@ -160,9 +160,9 @@
   color: var(--color-text-muted);
   outline-offset: 2px;
   border: 1px solid transparent;
-  transition: background-color var(--dur-fast) var(--ease-standard),
-    color var(--dur-fast) var(--ease-standard),
-    border-color var(--dur-fast) var(--ease-standard);
+  transition: background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
 .link:hover {

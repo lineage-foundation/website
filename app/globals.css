@@ -200,8 +200,8 @@ body > :is(header, main, footer) {
 [data-reveal] {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity var(--dur-slow) var(--ease-standard),
-    transform var(--dur-slow) var(--ease-standard);
+  transition: opacity var(--dur-slow) var(--ease),
+    transform var(--dur-slow) var(--ease);
   will-change: opacity, transform;
 }
 

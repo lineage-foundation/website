@@ -8,8 +8,8 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-link) 45%, transparent);
   border-radius: var(--r-sm);
   padding: 0.1em 0.05em 2px;
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    color var(--dur-fast) var(--ease-standard);
+  transition: border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
 }
 
 .link:hover,
@@ -24,7 +24,7 @@
 
 .arrow {
   display: inline-block;
-  transition: transform var(--dur-fast) var(--ease-standard);
+  transition: transform var(--dur-fast) var(--ease);
   font-variant-numeric: tabular-nums;
 }
 

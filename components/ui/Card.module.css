@@ -8,9 +8,9 @@
   border: 1px solid var(--color-border);
   border-radius: var(--r-md);
   color: var(--color-text);
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard),
-    transform var(--dur-fast) var(--ease-standard);
+  transition: border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
 }
 
 .clickable {
@@ -39,7 +39,7 @@
 
 .title {
   margin: 0;
-  font-family: var(--font-family-display);
+  font-family: var(--font-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;

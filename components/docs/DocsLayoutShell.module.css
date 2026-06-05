@@ -29,7 +29,7 @@
   flex-shrink: 0;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) max(var(--container-gutter), env(safe-area-inset-left));
+  padding: var(--space-3) max(var(--gutter), env(safe-area-inset-left));
   border-bottom: var(--border-rule);
   background: color-mix(in srgb, var(--color-bg-raised) 92%, transparent);
 }
@@ -46,7 +46,7 @@
   background: var(--color-surface);
   color: var(--color-text);
   cursor: pointer;
-  transition: background-color var(--dur-fast) var(--ease-standard);
+  transition: background-color var(--dur-fast) var(--ease);
 }
 
 .menuButton:hover {
@@ -63,7 +63,7 @@
 }
 
 .mobileTitle {
-  font-family: var(--font-family-display);
+  font-family: var(--font-display);
   font-size: var(--fs-h3);
   font-weight: 600;
   color: var(--color-text);
@@ -201,7 +201,7 @@
     width: min(var(--docs-sidebar-width), min(100vw, 20rem));
     max-width: 92vw;
     transform: translateX(-100%);
-    transition: transform var(--dur-base) var(--ease-standard);
+    transition: transform var(--dur-base) var(--ease);
     background: var(--color-bg-raised);
     box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
   }

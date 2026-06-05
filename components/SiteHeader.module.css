@@ -27,7 +27,7 @@
   justify-content: space-between;
   padding-block: var(--space-4);
   padding-inline: max(
-    var(--container-gutter),
+    var(--gutter),
     env(safe-area-inset-left)
   );
   gap: var(--space-4);
@@ -43,7 +43,7 @@
   display: inline-flex;
   border-radius: var(--r-sm);
   line-height: 0;
-  transition: box-shadow var(--dur-fast) var(--ease-standard);
+  transition: box-shadow var(--dur-fast) var(--ease);
 }
 
 .navLeft a:focus-visible {
@@ -93,7 +93,7 @@
   letter-spacing: 0.02em;
   padding-block: var(--space-2);
   border-radius: var(--r-sm);
-  transition: color var(--dur-fast) var(--ease-standard);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .tabs a:hover,
@@ -111,7 +111,7 @@
   background: var(--color-link);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform var(--dur-base) var(--ease-standard);
+  transition: transform var(--dur-base) var(--ease);
 }
 
 .tabs a:hover::after,
@@ -141,7 +141,7 @@
   color: var(--color-text);
   cursor: pointer;
   border-radius: var(--r-sm);
-  transition: color var(--dur-fast) var(--ease-standard);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .menuButton:hover,
@@ -177,7 +177,7 @@
     gap: 0;
     padding-block: var(--space-2) var(--space-6);
     padding-inline: max(
-      var(--container-gutter),
+      var(--gutter),
       env(safe-area-inset-left)
     );
     margin: 0;

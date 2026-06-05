@@ -24,8 +24,8 @@
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--color-link) 50%, transparent);
   text-underline-offset: 3px;
-  transition: color var(--dur-fast) var(--ease-standard),
-    text-decoration-color var(--dur-fast) var(--ease-standard);
+  transition: color var(--dur-fast) var(--ease),
+    text-decoration-color var(--dur-fast) var(--ease);
 }
 
 .prose a:hover,
