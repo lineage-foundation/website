@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tokenomics — Lineage</title>
+<meta name="description" content="LNGX and FIAT Replacement Technology (FReT): the phased allocation schedule, dynamic supply via the ARCO layer, and Lineage's distribution model." />
+<meta name="theme-color" content="#0b1a18" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/lineage.css" />
+</head>
+<body>
+
+<a class="skip-link btn--ghost" href="#content">Skip to content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Lineage home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+      Lineage
+    </a>
+
+    <div class="nav-right">
+      <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html" aria-current="page">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+
+  <!-- ===================== PAGE HEAD ===================== -->
+  <section class="page-head" data-od-id="tok-head">
+    <div class="container">
+      <div class="page-head-inner" data-reveal>
+        <span class="eyebrow">Economic design</span>
+        <h1 class="page-title">Token allocation, release, and <span class="accent">supply</span></h1>
+        <p class="page-lead">
+          <span class="tok">LNGX</span> is the network&rsquo;s unit of value. The economic stack is described as
+          <strong>FIAT Replacement Technology (FReT)</strong> &mdash; pairing a phased allocation schedule
+          with the ARCO layer&rsquo;s ability to adjust effective supply over time. The full
+          specification lives in <em>Lineage: The Living Economy</em> on Zenodo.
+        </p>
+        <div class="page-head-actions">
+          <a class="btn btn--primary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the whitepaper</a>
+          <a class="btn btn--secondary" href="get-tokens.html">Get LNGX</a>
+          <a class="link-cta" href="docs.html">Browse the docs <span class="arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TOKEN OVERVIEW: FReT vs LNGX ===================== -->
+  <section class="section" data-od-id="tok-overview">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Two layers, one economy</span>
+        <h2 class="section-title">FReT and LNGX</h2>
+      </div>
+      <p class="section-prose" data-reveal>
+        The token model separates the <strong>unit of value</strong> from the <strong>policy that governs it</strong>.
+        LNGX is what moves on the ledger; FReT is the framework that decides how much of it circulates and on what terms.
+      </p>
+      <div class="grid grid--2">
+        <article class="card card--rail" data-reveal>
+          <div class="num">LNGX</div>
+          <h3>The unit of value</h3>
+          <p>
+            LNGX is the native asset of the Lineage Layer-1 &mdash; the token miners earn, holders carry, and
+            applications transact in. Its release into circulation follows the phased allocation schedule below,
+            spanning the project&rsquo;s genesis and early network years.
+          </p>
+        </article>
+        <article class="card card--rail" data-reveal>
+          <div class="num">FReT</div>
+          <h3>FIAT Replacement Technology</h3>
+          <p>
+            FReT is the economic stack around LNGX. It pairs the phased allocation you see below with the ARCO
+            layer&rsquo;s ability to adjust <strong>effective supply and circulation</strong> over time &mdash; aiming for
+            low volatility without external collateral or game-theoretic levers.
+          </p>
+        </article>
+      </div>
+      <p class="center-cta" data-reveal>
+        <a class="link-cta" href="technology.html">See the ARCO loop on Technology <span class="arrow">&rarr;</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== ALLOCATION / PHASE VISUALIZATION (band) ===================== -->
+  <section class="section section--band" data-od-id="tok-allocation">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Allocation schedule</span>
+        <h2 class="section-title">How LNGX is distributed</h2>
+      </div>
+      <p class="section-prose" data-reveal>
+        Allocation is modelled per phase across the early network years (2026&ndash;2029). The values below are the
+        Foundation&rsquo;s working distribution model: the <span class="tok">Miners</span>
+        share grows as treasury-funded categories taper, shifting issuance toward the network&rsquo;s
+        proof-of-work base over time. Figures are in model units, not a final on-chain supply commitment.
+      </p>
+
+      <!-- Hand-built SVG bar chart: phase totals (real source numbers, summed per phase) -->
+      <div class="card" data-reveal style="margin-bottom:var(--space-5)">
+        <h3 style="font-family:var(--font-display);font-weight:500;font-size:var(--fs-h3);color:var(--color-text);margin:0 0 var(--space-2)">Total modelled allocation by phase</h3>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0 0 var(--space-5)">Sum of all categories per phase, in model units. Source: Lineage Foundation working distribution model.</p>
+        <svg viewBox="0 0 520 220" role="img" width="100%" height="auto" aria-label="Bar chart of total modelled LNGX allocation per phase: 2026 is 330 units, 2027 is 300 units, 2028 is 239 units, 2029 is 266 units (model units).">
+          <!-- baseline -->
+          <line x1="48" y1="180" x2="500" y2="180" stroke="var(--color-border-strong)" stroke-width="1"/>
+          <!-- y gridlines / labels (max 330) -->
+          <g font-family="var(--font-mono)" font-size="10" fill="var(--color-text-subtle)">
+            <line x1="48" y1="40"  x2="500" y2="40"  stroke="var(--color-border)" stroke-width="1"/>
+            <text x="42" y="44"  text-anchor="end">330</text>
+            <line x1="48" y1="110" x2="500" y2="110" stroke="var(--color-border)" stroke-width="1"/>
+            <text x="42" y="114" text-anchor="end">165</text>
+            <text x="42" y="184" text-anchor="end">0</text>
+          </g>
+          <!-- bars: scale 330 units -> 140px tall (y from 180 up to 40) -->
+          <g>
+            <!-- 2026: 330 -> 140 -->
+            <rect x="78"  y="40"  width="56" height="140" rx="3" fill="var(--color-accent)"/>
+            <!-- 2027: 300 -> 127 -->
+            <rect x="190" y="53"  width="56" height="127" rx="3" fill="var(--color-link)"/>
+            <!-- 2028: 239 -> 101 -->
+            <rect x="302" y="79"  width="56" height="101" rx="3" fill="var(--color-link)"/>
+            <!-- 2029: 266 -> 113 -->
+            <rect x="414" y="67"  width="56" height="113" rx="3" fill="var(--color-link)"/>
+          </g>
+          <!-- value + x labels -->
+          <g font-family="var(--font-mono)" font-size="11" font-variant-numeric="tabular-nums" fill="var(--color-text)" text-anchor="middle">
+            <text x="106" y="32">330</text>
+            <text x="218" y="45">300</text>
+            <text x="330" y="71">239</text>
+            <text x="442" y="59">266</text>
+          </g>
+          <g font-family="var(--font-mono)" font-size="11" fill="var(--color-text-muted)" text-anchor="middle">
+            <text x="106" y="200">2026</text>
+            <text x="218" y="200">2027</text>
+            <text x="330" y="200">2028</text>
+            <text x="442" y="200">2029</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Full per-category breakdown (real source numbers) -->
+      <div class="table-wrap" data-reveal>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">2026</th>
+              <th scope="col">2027</th>
+              <th scope="col">2028</th>
+              <th scope="col">2029</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tok">Miners</span></td>
+              <td class="num">35</td><td class="num">45</td><td class="num">54</td><td class="num">101</td>
+            </tr>
+            <tr>
+              <td><span class="tok">Treasury</span></td>
+              <td class="num">140</td><td class="num">120</td><td class="num">80</td><td class="num">80</td>
+            </tr>
+            <tr>
+              <td><span class="tok">Founders</span></td>
+              <td class="num">50</td><td class="num">35</td><td class="num">35</td><td class="num">35</td>
+            </tr>
+            <tr>
+              <td><span class="tok">Grants</span></td>
+              <td class="num">50</td><td class="num">60</td><td class="num">50</td><td class="num">50</td>
+            </tr>
+            <tr>
+              <td><span class="tok">Stakeholders</span></td>
+              <td class="num">20</td><td class="num">20</td><td class="num">20</td><td class="num">&mdash;</td>
+            </tr>
+            <tr>
+              <td><span class="tok">Marketing</span></td>
+              <td class="num">20</td><td class="num">20</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
+            </tr>
+            <tr>
+              <td><span class="tok">AI Airdrop Incentives</span></td>
+              <td class="num">15</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
+            </tr>
+            <tr>
+              <td><strong>Phase total</strong></td>
+              <td class="num">330</td><td class="num">300</td><td class="num">239</td><td class="num">266</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p data-reveal style="color:var(--color-text-subtle);font-size:var(--fs-caption);font-family:var(--font-mono);margin-top:var(--space-4)">
+        Model units from the Lineage Foundation working distribution model. The Miners share can be scaled by a
+        market-demand factor in the interactive chart; categories phase out as the schedule progresses
+        (shown here as &ldquo;&mdash;&rdquo;). Final on-chain allocations are governed by protocol policy.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== DYNAMIC SUPPLY / ARCO ===================== -->
+  <section class="section" data-od-id="tok-arco">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Economic model</span>
+        <h2 class="section-title">Dynamic supply and ARCO</h2>
+      </div>
+      <div class="grid grid--2">
+        <article class="card" data-reveal>
+          <h3>Supply is managed by ARCO</h3>
+          <p>
+            The working model starts from a supply on the order of <strong>300&nbsp;million tokens</strong>, after
+            which <strong>effective supply and circulation adapt over time</strong> in response to demand and
+            on-chain state &mdash; through the same ARCO (adaptive resource-coordinated) loop used elsewhere in the
+            network: sensor, relay, compute, actuator. The allocation table above is expressed in proportional
+            model units; ARCO governs how the live supply moves from that starting point as markets grow.
+          </p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Designed for low volatility</h3>
+          <p>
+            The design goals are set out in the working paper <em>Peer-to-peer electronic cash revisited</em>
+            (Andrew Kessler, 2025-05-02, Zenodo), which revisits peer-to-peer electronic cash to aim for
+            <strong>low volatility</strong> <strong>without</strong> relying on external collateral or
+            game-theoretic levers. Lineage encodes that stance in on-chain policy and ARCO-driven adjustment
+            rather than off-chain promise alone.
+          </p>
+          <div class="card-cta">
+            <a class="link-cta" href="https://zenodo.org/records/15324203" target="_blank" rel="noopener noreferrer">Read the paper on Zenodo <span class="arrow">&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PHASED RELEASE MODEL (band) ===================== -->
+  <section class="section section--band" data-od-id="tok-phases">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Release model</span>
+        <h2 class="section-title">The phased release model</h2>
+      </div>
+      <p class="section-prose" data-reveal>
+        Allocation is released across distinct phases. Early phases lean on treasury, grants, founder and
+        community categories to bootstrap the network; later phases shift weight toward miners as proof-of-work
+        issuance becomes the dominant source.
+      </p>
+      <ol class="phases" data-reveal>
+        <li class="phase">
+          <div class="ph-k">PHASE 01 &middot; 2026</div>
+          <h3>Genesis</h3>
+          <p>
+            Widest category mix: Treasury (140), Founders (50), Grants (50), Stakeholders (20), Marketing (20),
+            AI airdrop incentives (15), and a starting Miners allocation (35). Phase total: 330 model units.
+          </p>
+        </li>
+        <li class="phase">
+          <div class="ph-k">PHASE 02 &middot; 2027</div>
+          <h3>Early network</h3>
+          <p>
+            Miners rise to 45 and Grants to 60 while Founders and Treasury taper (35 / 120). The AI airdrop
+            incentives are complete. Phase total: 300 model units.
+          </p>
+        </li>
+        <li class="phase">
+          <div class="ph-k">PHASE 03 &middot; 2028</div>
+          <h3>Maturing issuance</h3>
+          <p>
+            Treasury contracts to 80 and Marketing winds down; Miners continue climbing to 54 alongside steady
+            Grants and Founders. Phase total: 239 model units.
+          </p>
+        </li>
+        <li class="phase">
+          <div class="ph-k">PHASE 04 &middot; 2029</div>
+          <h3>Miner-led supply</h3>
+          <p>
+            Miners reach 101 &mdash; the largest single category &mdash; as Stakeholder allocation phases out and
+            issuance concentrates on proof-of-work. Phase total: 266 model units.
+          </p>
+        </li>
+        <li class="phase">
+          <div class="ph-k">BEYOND &middot; ARCO-governed</div>
+          <h3>Adaptive steady state</h3>
+          <p>
+            Past the scheduled phases, effective supply and circulation are coordinated by the ARCO layer in
+            response to demand and on-chain state, within protocol policy &mdash; not a fixed forward calendar.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== CTA BAND ===================== -->
+  <section class="section" data-od-id="tok-cta">
+    <div class="container">
+      <div class="grid grid--2">
+        <article class="card card--rail" data-reveal>
+          <h3>Read the full specification</h3>
+          <p>
+            <em>Lineage: The Living Economy</em> sets out FReT, LNGX, the allocation schedule and the ARCO layer
+            in detail &mdash; archived on Zenodo.
+          </p>
+          <div class="card-cta">
+            <a class="btn btn--primary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the whitepaper</a>
+          </div>
+        </article>
+        <article class="card card--rail" data-reveal>
+          <h3>Go deeper in the docs</h3>
+          <p>
+            Concepts, the HTTP API reference, and guides for building against a Layer-1 where market policy
+            itself is programmable.
+          </p>
+          <div class="card-cta">
+            <a class="link-cta" href="docs.html">Open documentation <span class="arrow">&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="developers.html">Developers</a></li>
+          <li><a href="ecosystem.html">Ecosystem</a></li>
+          <li><a href="research.html">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Community</h2>
+        <ul>
+          <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span class="signal">Signal active · Genesis phase</span>
+      <span>A Layer-1 where markets become verifiable programs.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lineage.js"></script>
+</body>
+</html>

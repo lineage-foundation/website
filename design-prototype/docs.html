@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1a18">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+  <meta name="description" content="Lineage documentation — node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.">
+  <title>Docs — Lineage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/lineage.css">
+</head>
+<body>
+  <a class="skip-link btn btn--secondary" href="#content">Skip to content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Lineage home">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+        Lineage
+      </a>
+
+      <div class="nav-right">
+        <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem" aria-current="page">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+        <div class="header-cta">
+          <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- ===================== PAGE HEAD ===================== -->
+    <section class="page-head" data-od-id="docs-page-head">
+      <div class="container container--docs">
+        <div class="page-head-inner">
+          <span class="eyebrow">Documentation</span>
+          <h1 class="page-title">Build on the <span class="accent">Lineage</span> HTTP API</h1>
+          <p class="page-lead">Read chain state, submit transactions, and query node metadata directly over HTTP — no smart contracts required. Move through node concepts, the mempool, storage, and miner reference, and the SDK tutorials using the contents tree.</p>
+          <div class="page-head-actions">
+            <a class="btn btn--primary" href="#quick-start">API quick start</a>
+            <a class="btn btn--secondary" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">View source on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DOCS SHELL ===================== -->
+    <section data-od-id="docs-shell">
+      <div class="container container--docs">
+        <div class="docs">
+
+          <!-- LEFT NAV TREE (collapsible under 980px) -->
+          <details class="docs-toc" open>
+            <summary>Contents</summary>
+            <nav class="docs-nav" aria-label="Documentation">
+              <h2>Getting Started</h2>
+              <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#service-urls">Public service URLs</a></li>
+                <li><a href="#envelope">Request &amp; response envelope</a></li>
+                <li><a href="#quick-start">API quick start</a></li>
+              </ul>
+
+              <h2>Concepts</h2>
+              <ul>
+                <li><a href="#c-node-types">Node types</a></li>
+                <li><a href="#c-mempool">Mempool node</a></li>
+                <li><a href="#c-storage">Storage node</a></li>
+                <li><a href="#c-miner">Miner node</a></li>
+                <li><a href="#c-block-mining">Block mining</a></li>
+                <li><a href="#c-transactions">Transactions</a></li>
+                <li><a href="#c-two-way">Two-way transactions</a></li>
+                <li><a href="#c-unicorn">UNiCORN randomness</a></li>
+              </ul>
+
+              <h2>Mempool API</h2>
+              <ul>
+                <li><a href="#mp-info">info</a></li>
+                <li><a href="#mp-debug-data">debug_data</a></li>
+                <li><a href="#mp-fetch-balance">fetch_balance</a></li>
+                <li><a href="#mp-create-transactions">create_transactions</a></li>
+                <li><a href="#mp-create-item-asset">create_item_asset</a></li>
+                <li><a href="#mp-total-supply">total_supply</a></li>
+                <li><a href="#mp-issued-supply">issued_supply</a></li>
+              </ul>
+
+              <h2>Storage API</h2>
+              <ul>
+                <li><a href="#st-info">info</a></li>
+                <li><a href="#st-debug-data">debug_data</a></li>
+                <li><a href="#st-latest-block">latest_block</a></li>
+                <li><a href="#st-block-by-num">block_by_num</a></li>
+                <li><a href="#st-blockchain-entry">blockchain_entry</a></li>
+              </ul>
+
+              <h2>Miner API</h2>
+              <ul>
+                <li><a href="#mn-info">info</a></li>
+                <li><a href="#mn-debug-data">debug_data</a></li>
+              </ul>
+
+              <h2>SDKs &amp; tutorials</h2>
+              <ul>
+                <li><a href="#tut-overview">Overview</a></li>
+                <li><a href="#sdk-js">sdk-js</a></li>
+                <li><a href="#sdk-python">sdk-python</a></li>
+                <li><a href="#sdk-php">sdk-php</a></li>
+                <li><a href="#tut-valence">Valence node &amp; core</a></li>
+                <li><a href="#tut-api-usage">API usage</a></li>
+                <li><a href="#run-node">Running a node</a></li>
+              </ul>
+            </nav>
+          </details>
+
+          <!-- MAIN CONTENT -->
+          <div class="docs-main">
+            <p class="crumbs">Documentation / <span id="docs-crumb">Overview</span></p>
+            <h1>Lineage HTTP API</h1>
+
+            <!-- ============ GETTING STARTED ============ -->
+            <article id="overview" class="prose">
+              <p>
+                The Lineage HTTP API lets you integrate with the network directly: read chain
+                state, submit transactions, and query node metadata. None of the flows in this
+                documentation require on-chain smart contracts — use a plain HTTP client
+                (<code>curl</code>, <code>fetch</code>, or your language of choice) against the
+                endpoints listed under each subsystem.
+              </p>
+              <p>
+                Routes are grouped by <strong>node class</strong>. Each class is served from its
+                own origin, so confirm which host a route belongs to before you call it — sending
+                a storage read to the mempool host (or vice versa) will not resolve.
+              </p>
+
+              <h2 id="service-urls">Public service URLs</h2>
+              <p>
+                These are the public reference hosts used in every example below.
+              </p>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th scope="col">Node class</th><th scope="col">Base URL</th><th scope="col">Use for</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Mempool</td><td class="num">https://mempool.lineage.to</td><td>Transactions, balances, supply, mempool metadata</td></tr>
+                    <tr><td>Storage</td><td class="num">https://storage.lineage.to</td><td>Blocks, chain entries, read-oriented history</td></tr>
+                    <tr><td>Miner</td><td class="num">https://miner.lineage.to</td><td>Operator-facing HTTP where exposed (small surface)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h2 id="envelope">Request &amp; response envelope</h2>
+              <p>
+                Operations are <code>POST</code> to a path named after the route (for example
+                <code>/fetch_balance</code> on the mempool host). Read-only routes take an empty
+                body; routes that need input take a JSON body documented per endpoint. Every
+                request carries two headers:
+              </p>
+              <ul>
+                <li><code>Content-Type: application/json</code></li>
+                <li><code>x-cache-id</code> — a 32-character idempotency key matching <code>^[a-z0-9]{32}$</code>.</li>
+              </ul>
+              <p>Every response uses the same envelope. Field semantics:</p>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th scope="col">Field</th><th scope="col">Meaning</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="num">id</td><td>Echoes the request's <code>x-cache-id</code> (<code>null</code> on a rejected request).</td></tr>
+                    <tr><td class="num">status</td><td>One of <code>Success</code>, <code>Error</code>, or <code>Pending</code>.</td></tr>
+                    <tr><td class="num">reason</td><td>Human-readable context — most useful on errors.</td></tr>
+                    <tr><td class="num">route</td><td>The route name that was handled.</td></tr>
+                    <tr><td class="num">content</td><td>The route-specific payload. Shape varies by route (documented below).</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p><strong>Error envelope</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="k">null</span>,
+  <span class="k">"status"</span>: <span class="s">"Error"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Bad Request"</span>,
+  <span class="k">"route"</span>: <span class="k">null</span>,
+  <span class="k">"content"</span>: <span class="k">null</span>
+}</pre>
+
+              <h2 id="quick-start">API quick start</h2>
+              <p>
+                Pick a node class, point your HTTP client at its base URL, and verify connectivity
+                with a read-only route before sending anything that writes. A good first call is
+                <a href="#st-latest-block">storage <code>latest_block</code></a> or
+                <a href="#mp-fetch-balance">mempool <code>fetch_balance</code></a>.
+              </p>
+<pre class="code" data-lang="shell"><span class="c"># 1 — check the chain head on the storage host</span>
+curl -sS -X POST <span class="s">"https://storage.lineage.to/latest_block"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -H <span class="s">"x-cache-id: 0123456789abcdef0123456789abcdef"</span> \
+  -d ''</pre>
+              <div class="note">
+                <span class="note-k">Note</span>
+                Exact <code>content</code> field names and nesting are defined by the node release. See the
+                <a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Lineage Foundation repositories</a>
+                for the schema shipped by your target deployment.
+              </div>
+            </article>
+
+            <!-- ============ CONCEPTS ============ -->
+            <article id="c-node-types" class="prose">
+              <h2>Node types</h2>
+              <p>
+                Lineage separates three roles so that <em>who assembles a block</em>, <em>who stores
+                history</em>, and <em>who expends hashrate this round</em> are independent jobs.
+                <strong>Mempool nodes</strong> collect transactions and coordinate validation;
+                <strong>miner nodes</strong> perform proof-of-work to produce block candidates and
+                earn rewards; <strong>storage nodes</strong> retain full chain history and serve
+                reads to clients. The split enables fast settlement, geographic resilience, and
+                specialised hardware without forcing archival storage on every participant.
+              </p>
+            </article>
+
+            <article id="c-mempool" class="prose">
+              <h2>Mempool node</h2>
+              <p>
+                A bounded set of long-lived components that accept user transactions, batch them into
+                blocks, and work with the mining network. Each round, the mempool set advances valid
+                transactions, agrees on ordering within protocol rules, hands a candidate to miners,
+                then validates the winner's block and forwards it to storage. Mempool and miner
+                responsibilities are interdependent — both must make progress for the chain to
+                advance.
+              </p>
+            </article>
+
+            <article id="c-storage" class="prose">
+              <h2>Storage node</h2>
+              <p>
+                Keeps full chain history, receives valid blocks (typically along the mempool path),
+                and replicates them for durability and API consumers. Its core job is persisting
+                blocks and building indices for header, transaction-id, and proof lookups.
+                Distributed consensus between storage operators keeps replicas agreeing on the same
+                head, and witness data is preserved so light clients and auditors can re-check
+                proofs.
+              </p>
+            </article>
+
+            <article id="c-miner" class="prose">
+              <h2>Miner node</h2>
+              <p>
+                Miners compete to extend the chain when it is their turn. They receive work units
+                from the mempool, find valid proofs, and return them so the mempool declares a winner
+                and forwards the block to storage. The protocol does not require every miner to grind
+                on the same block simultaneously — a subset is selected each round, keeping energy use
+                proportionate. Rewards follow the network's token rules once a block is accepted.
+              </p>
+            </article>
+
+            <article id="c-block-mining" class="prose">
+              <h2>Block mining</h2>
+              <p>
+                Producing a block is a multi-step collaboration: (1) client transactions are queued by
+                the mempool; (2) when a round starts, a block body is built from the queue and offered
+                to selected miners; (3) miners produce proofs and return candidates; (4) the mempool
+                picks a winner, validates the block, and sends it to storage. A single per-round
+                randomness object (a UNiCORN) — derived from agreed inputs such as the transactions,
+                the eligible miner set, and prior-round metadata — drives who may mine and who wins.
+              </p>
+            </article>
+
+            <article id="c-transactions" class="prose">
+              <h2>Transactions</h2>
+              <p>
+                Lineage uses a <strong>UTXO model</strong>: a transaction spends one or more previous
+                outputs and creates new outputs that a later spend can refer to. There is no global
+                account balance in the contract layer — a balance is a view over unspent outputs.
+                Each input points at a previous transaction hash and output index with a script
+                proving spend authorisation; each output states a locked value and its script (for
+                example pay-to-pubkey-hash). Transactions carry a version and optional
+                application-specific data (such as DRUID or item metadata) that higher layers
+                interpret.
+              </p>
+            </article>
+
+            <article id="c-two-way" class="prose">
+              <h2>Two-way transactions</h2>
+              <p>
+                A two-way transaction lets two parties each contribute compatible halves to a single
+                block, so an exchange or payment clears atomically without a smart-contract runtime.
+                It is the mechanism for flows where both sides must sign before either side's funds
+                move. Wallets and SDKs hide most of the wiring.
+              </p>
+            </article>
+
+            <article id="c-unicorn" class="prose">
+              <h2>UNiCORN randomness</h2>
+              <p>
+                A UNiCORN &mdash; an <strong>UN-COntestable Random Number</strong> &mdash; is a
+                randomness-and-witness object generated so that no single participant can steer it toward
+                anything but a random result. It depends on the transactions in the block, which miners
+                are eligible, and recent chain state, so winner selection is hard to bias without breaking
+                consensus. The protocol uses it to restrict which miners may attempt work in a round, to
+                choose the winning valid proof, and to supply the data storage nodes re-check during
+                validation.
+              </p>
+            </article>
+
+            <!-- ============ MEMPOOL API ============ -->
+            <article id="mp-info" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> info</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/info</code></p>
+              <p>Returns metadata about the mempool node — its node type and the routes it exposes. Empty body; <code>x-cache-id</code> header only.</p>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Node info"</span>,
+  <span class="k">"route"</span>: <span class="s">"info"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"node_type"</span>: <span class="s">"Mempool"</span>,
+    <span class="k">"node_api"</span>: [ <span class="s">"debug_data"</span>, <span class="s">"fetch_balance"</span>, <span class="s">"create_transactions"</span>, <span class="s">"create_item_asset"</span>, <span class="s">"total_supply"</span>, <span class="s">"issued_supply"</span> ]
+  }
+}</pre>
+            </article>
+
+            <article id="mp-debug-data" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> debug_data</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/debug_data</code></p>
+              <p>Node diagnostics for the mempool: its node type, the routes it exposes, and the peers it is connected to. Empty body; <code>x-cache-id</code> header only.</p>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Debug data successfully retrieved"</span>,
+  <span class="k">"route"</span>: <span class="s">"debug_data"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"node_type"</span>: <span class="s">"Mempool"</span>,
+    <span class="k">"node_api"</span>: [ <span class="s">"debug_data"</span>, <span class="s">"fetch_balance"</span>, <span class="s">"create_transactions"</span>, <span class="s">"create_item_asset"</span>, <span class="s">"total_supply"</span>, <span class="s">"issued_supply"</span> ],
+    <span class="k">"node_peers"</span>: [ <span class="s">"&lt;peer-address&gt;"</span> ]
+  }
+}</pre>
+            </article>
+
+            <article id="mp-fetch-balance" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> fetch_balance</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/fetch_balance</code></p>
+              <p>Fetch token and item balances for one or more addresses. The request body is a JSON array of address strings.</p>
+              <p><strong>Request body</strong></p>
+<pre class="code" data-lang="json">[ <span class="s">"&lt;address-1&gt;"</span>, <span class="s">"&lt;address-2&gt;"</span> ]</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"45v340cd2f8c4782a5b058832565afb1"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Balance successfully fetched"</span>,
+  <span class="k">"route"</span>: <span class="s">"fetch_balance"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"total"</span>: { <span class="k">"tokens"</span>: 5463669, <span class="k">"items"</span>: {} },
+    <span class="k">"address_list"</span>: {
+      <span class="k">"d6fa779a3de8b216c56375018375e490c7e2ce92918abce4caecf73b1f77c38f"</span>: [
+        {
+          <span class="k">"out_point"</span>: { <span class="k">"t_hash"</span>: <span class="s">"g9182e1e2a55b0ef36f1183602d74e63"</span>, <span class="k">"n"</span>: 0 },
+          <span class="k">"value"</span>: { <span class="k">"Token"</span>: 5463669 }
+        }
+      ]
+    }
+  }
+}</pre>
+            </article>
+
+            <article id="mp-create-transactions" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> create_transactions</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/create_transactions</code></p>
+              <p>
+                Submit one or more fully formed UTXO-style transactions to the mempool. Each input
+                references a <code>previous_out</code> and carries a script signature
+                (Pay2PkH); each output states a value, locktime, and script public key. A
+                <code>druid_info</code> block is included only for two-way transactions.
+              </p>
+              <p><strong>Request body (shape)</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"inputs"</span>: [
+    { <span class="k">"previous_out"</span>: { <span class="k">"t_hash"</span>: <span class="s">"&lt;hex&gt;"</span>, <span class="k">"n"</span>: 0 }, <span class="k">"script_signature"</span>: { <span class="c">/* Pay2PkH */</span> } }
+  ],
+  <span class="k">"outputs"</span>: [
+    { <span class="k">"value"</span>: { <span class="k">"Token"</span>: 1000 }, <span class="k">"locktime"</span>: 0, <span class="k">"script_public_key"</span>: <span class="s">"&lt;script&gt;"</span> }
+  ],
+  <span class="k">"version"</span>: 1,
+  <span class="k">"druid_info"</span>: <span class="k">null</span>
+}</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Transaction/s successfully created"</span>,
+  <span class="k">"route"</span>: <span class="s">"create_transactions"</span>,
+  <span class="k">"content"</span>: { <span class="k">"transaction"</span>: { <span class="k">"tx_hash"</span>: <span class="s">"&lt;32-byte-hex&gt;"</span> } }
+}</pre>
+            </article>
+
+            <article id="mp-create-item-asset" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> create_item_asset</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/create_item_asset</code></p>
+              <p>Create a new item-type asset with an amount, a script public key, a public key, a signature, and a DRS spec.</p>
+              <p><strong>Request body</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"item_amount"</span>: 1,
+  <span class="k">"script_public_key"</span>: <span class="s">"&lt;script&gt;"</span>,
+  <span class="k">"public_key"</span>: <span class="s">"&lt;hex&gt;"</span>,
+  <span class="k">"signature"</span>: <span class="s">"&lt;hex&gt;"</span>,
+  <span class="k">"drs_tx_hash_spec"</span>: <span class="s">"default"</span>
+}</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Item asset created"</span>,
+  <span class="k">"route"</span>: <span class="s">"create_item_asset"</span>,
+  <span class="k">"content"</span>: { <span class="k">"item_amount"</span>: 1, <span class="k">"tx_hash"</span>: <span class="s">"&lt;32-byte-hex&gt;"</span>, <span class="k">"metadata"</span>: {} }
+}</pre>
+            </article>
+
+            <article id="mp-total-supply" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> total_supply</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/total_supply</code></p>
+              <p>Returns the total token supply figure. Empty body; <code>x-cache-id</code> header only. <code>content</code> is a numeric value in the standard envelope.</p>
+              <p><strong>Request</strong></p>
+<pre class="code" data-lang="shell">curl -sS -X POST <span class="s">"https://mempool.lineage.to/total_supply"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -H <span class="s">"x-cache-id: &lt;32-lowercase-hex&gt;"</span> \
+  -d ''</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Supply returned"</span>,
+  <span class="k">"route"</span>: <span class="s">"total_supply"</span>,
+  <span class="k">"content"</span>: 0
+}</pre>
+            </article>
+
+            <article id="mp-issued-supply" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> issued_supply</h2>
+              <p class="api-host"><code>https://mempool.lineage.to/issued_supply</code></p>
+              <p>Returns the issued token supply figure. Same call shape as <a href="#mp-total-supply"><code>total_supply</code></a> — empty body, numeric <code>content</code>.</p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Supply returned"</span>,
+  <span class="k">"route"</span>: <span class="s">"issued_supply"</span>,
+  <span class="k">"content"</span>: 0
+}</pre>
+            </article>
+
+            <!-- ============ STORAGE API ============ -->
+            <article id="st-info" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> info</h2>
+              <p class="api-host"><code>https://storage.lineage.to/info</code></p>
+              <p>Returns metadata about the storage node — its node type and the read routes it serves. Empty body; <code>x-cache-id</code> header only.</p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Node info"</span>,
+  <span class="k">"route"</span>: <span class="s">"info"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"node_type"</span>: <span class="s">"Storage"</span>,
+    <span class="k">"node_api"</span>: [ <span class="s">"debug_data"</span>, <span class="s">"latest_block"</span>, <span class="s">"block_by_num"</span>, <span class="s">"blockchain_entry"</span> ]
+  }
+}</pre>
+            </article>
+
+            <article id="st-debug-data" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> debug_data</h2>
+              <p class="api-host"><code>https://storage.lineage.to/debug_data</code></p>
+              <p>Node diagnostics for the storage node: node type, the read routes it serves, and connected peers. Empty body; <code>x-cache-id</code> header only.</p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Debug data successfully retrieved"</span>,
+  <span class="k">"route"</span>: <span class="s">"debug_data"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"node_type"</span>: <span class="s">"Storage"</span>,
+    <span class="k">"node_api"</span>: [ <span class="s">"debug_data"</span>, <span class="s">"latest_block"</span>, <span class="s">"block_by_num"</span>, <span class="s">"blockchain_entry"</span> ],
+    <span class="k">"node_peers"</span>: [ <span class="s">"&lt;peer-address&gt;"</span> ]
+  }
+}</pre>
+            </article>
+
+            <article id="st-latest-block" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> latest_block</h2>
+              <p class="api-host"><code>https://storage.lineage.to/latest_block</code></p>
+              <p>Returns the best block this storage node has received and stored. Empty body; <code>x-cache-id</code> header only.</p>
+              <p><strong>Request</strong></p>
+<pre class="code" data-lang="shell">curl -sS -X POST <span class="s">"https://storage.lineage.to/latest_block"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -H <span class="s">"x-cache-id: &lt;32-lowercase-hex&gt;"</span> \
+  -d ''</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Latest block"</span>,
+  <span class="k">"route"</span>: <span class="s">"latest_block"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"height"</span>: 12345,
+    <span class="k">"block_hash"</span>: <span class="s">"&lt;32-byte-hex header hash&gt;"</span>,
+    <span class="k">"prev_block"</span>: <span class="s">"&lt;hex or null for genesis parent&gt;"</span>,
+    <span class="k">"merkle"</span>: <span class="s">"&lt;root hex&gt;"</span>,
+    <span class="k">"tx_ids"</span>: [ <span class="s">"&lt;tx-id-1&gt;"</span>, <span class="s">"&lt;tx-id-2&gt;"</span> ],
+    <span class="k">"header"</span>: {}
+  }
+}</pre>
+            </article>
+
+            <article id="st-block-by-num" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> block_by_num</h2>
+              <p class="api-host"><code>https://storage.lineage.to/block_by_num</code></p>
+              <p>Fetch one or more blocks by height. The request body is a JSON array of non-negative integers. <code>content</code> returns one nested result per requested height, in order.</p>
+              <p><strong>Request body</strong></p>
+<pre class="code" data-lang="json">[ 0, 1, 42 ]</pre>
+              <p><strong>Example response</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"45v340cd2f8c4782a5b058832565afb1"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Database item(s) successfully retrieved"</span>,
+  <span class="k">"route"</span>: <span class="s">"block_by_num"</span>,
+  <span class="k">"content"</span>: [
+    [
+      <span class="s">"&lt;block-hash hex&gt;"</span>,
+      { <span class="k">"block"</span>: { <span class="k">"header"</span>: { <span class="k">"b_num"</span>: 0, <span class="k">"previous_hash"</span>: <span class="k">null</span>, <span class="k">"merkle_root_hash"</span>: <span class="s">"&lt;hex&gt;"</span> }, <span class="k">"transactions"</span>: [ <span class="s">"&lt;tx-id&gt;"</span> ] } }
+    ]
+  ]
+}</pre>
+              <p class="note-inline"><em>The inner block object is defined by the node release; <code>content</code> nesting mirrors the order of the requested heights.</em></p>
+            </article>
+
+            <article id="st-blockchain-entry" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> blockchain_entry</h2>
+              <p class="api-host"><code>https://storage.lineage.to/blockchain_entry</code></p>
+              <p>Fetch a block or a transaction by hash. The request body is a single JSON string (the hash), not an object. The returned <code>content</code> is tagged with a <code>type</code> of either <code>block</code> or <code>transaction</code>.</p>
+              <p><strong>Request body</strong></p>
+<pre class="code" data-lang="json"><span class="s">"&lt;hex-or-encoded-hash&gt;"</span></pre>
+              <p><strong>Response — block</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"route"</span>: <span class="s">"blockchain_entry"</span>,
+  <span class="k">"content"</span>: { <span class="k">"type"</span>: <span class="s">"block"</span>, <span class="k">"height"</span>: 100, <span class="k">"block_hash"</span>: <span class="s">"&lt;hex&gt;"</span>, <span class="k">"tx_ids"</span>: [ <span class="s">"&lt;tx-id&gt;"</span> ], <span class="k">"header"</span>: {} }
+}</pre>
+              <p><strong>Response — transaction</strong></p>
+<pre class="code" data-lang="json">{
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"route"</span>: <span class="s">"blockchain_entry"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"type"</span>: <span class="s">"transaction"</span>,
+    <span class="k">"tx_hash"</span>: <span class="s">"&lt;hex&gt;"</span>,
+    <span class="k">"inputs"</span>: [ { <span class="k">"previous_out"</span>: { <span class="k">"t_hash"</span>: <span class="s">"&lt;hex&gt;"</span>, <span class="k">"n"</span>: 0 }, <span class="k">"script_signature"</span>: {} } ],
+    <span class="k">"outputs"</span>: [ { <span class="k">"value"</span>: { <span class="k">"Token"</span>: 0 }, <span class="k">"locktime"</span>: 0, <span class="k">"script_public_key"</span>: <span class="s">"&lt;script&gt;"</span> } ],
+    <span class="k">"version"</span>: 1
+  }
+}</pre>
+            </article>
+
+            <!-- ============ MINER API ============ -->
+            <article id="mn-info" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> info</h2>
+              <p class="api-host"><code>https://miner.lineage.to/info</code></p>
+              <p>
+                Miner nodes build new blocks from work assigned through the mempool, compete for
+                partition slots, and claim rewards when a block is accepted. The HTTP surface exposed
+                to operators is deliberately small compared with mempool and storage — most mining
+                logic runs inside the process rather than as ad hoc REST calls. <code>info</code>
+                returns the standard envelope describing the running node.
+              </p>
+              <div class="note">
+                <span class="note-k">Running a miner</span>
+                For practical operation — installing a node, hardware, key management, and
+                release-specific flags — see <a href="#run-node">Running a node</a> and the
+                <a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet</a> repository.
+              </div>
+            </article>
+
+            <article id="mn-debug-data" class="prose endpoint">
+              <h2><span class="pill pill--post">POST</span> debug_data</h2>
+              <p class="api-host"><code>https://miner.lineage.to/debug_data</code></p>
+              <p>Node diagnostics for a miner: node type, the routes it exposes, and the mempool/storage peers it is connected to. Empty body; <code>x-cache-id</code> header only.</p>
+<pre class="code" data-lang="json">{
+  <span class="k">"id"</span>: <span class="s">"&lt;matches x-cache-id&gt;"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Debug data successfully retrieved"</span>,
+  <span class="k">"route"</span>: <span class="s">"debug_data"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"node_type"</span>: <span class="s">"Miner"</span>,
+    <span class="k">"node_api"</span>: [ <span class="s">"debug_data"</span> ],
+    <span class="k">"node_peers"</span>: [ <span class="s">"&lt;peer-address&gt;"</span> ]
+  }
+}</pre>
+            </article>
+
+            <!-- ============ TUTORIALS & SDKs ============ -->
+            <article id="tut-overview" class="prose">
+              <h2>SDKs &amp; tutorials</h2>
+              <p>
+                Beyond the raw endpoint reference, Lineage ships official client libraries in three
+                languages plus node tooling. The full walkthroughs and runnable code live in the
+                <a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">published repositories</a>;
+                the cards below summarise each SDK and where it fits. All three wrap the same HTTP API
+                documented above — configure each with a mempool base URL, a storage base URL, and a
+                passphrase for local key encryption.
+              </p>
+
+              <h3>Install</h3>
+              <p>Add the client for your stack. Confirm the published package name in each repository's README.</p>
+<pre class="code" data-lang="shell"><span class="c"># JavaScript / TypeScript</span>
+npm install @lineage/sdk-js
+
+<span class="c"># Python</span>
+pip install git+https://github.com/lineage-foundation/sdk-python
+
+<span class="c"># PHP</span>
+composer require lineage-foundation/sdk-php</pre>
+
+              <h3>First call</h3>
+              <p>Create a <code>Wallet</code>, point it at a mempool host with a passphrase for local key encryption, and initialise a new keypair. <code>initNew</code> returns the generated seed phrase &mdash; store it securely; it is the only way to recover the wallet.</p>
+<pre class="code" data-lang="javascript"><span class="k">import</span> { Wallet } <span class="k">from</span> <span class="s">'@lineage/sdk-js'</span>;
+
+<span class="k">const</span> wallet = <span class="k">new</span> Wallet();
+
+<span class="k">const</span> CONFIG = {
+  mempoolHost: <span class="s">'https://mempool.lineage.to'</span>,
+  passphrase: <span class="s">'a secure passphrase'</span>,
+};
+
+wallet.initNew(CONFIG).then((res) => {
+  console.log(res.content.initNewResponse.seedphrase);
+});</pre>
+
+              <div class="doc-cards">
+                <div class="doc-card" id="sdk-js">
+                  <h3>sdk-js</h3>
+                  <p>The JavaScript / TypeScript client for browser and Node apps and wallets: create a wallet, create items and assets, run two-way payments, send and receive. Drop-in for web front-ends and Valence servers.</p>
+                  <a class="link-cta" href="https://github.com/lineage-foundation/sdk-js" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-js <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="doc-card" id="sdk-python">
+                  <h3>sdk-python</h3>
+                  <p>The Python client for backends, data tooling, and automation: key management, balance and supply reads, transaction construction, and two-way flows — the same surface as <code>sdk-js</code>, idiomatic for Python services and notebooks.</p>
+                  <a class="link-cta" href="https://github.com/lineage-foundation/sdk-python" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-python <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="doc-card" id="sdk-php">
+                  <h3>sdk-php</h3>
+                  <p>The PHP client for server-side web stacks: wallet creation, asset issuance, payments, and chain reads from within PHP applications and CMS integrations.</p>
+                  <a class="link-cta" href="https://github.com/lineage-foundation/sdk-php" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-php <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="doc-card" id="tut-valence">
+                  <h3>Valence node &amp; core</h3>
+                  <p>The application-server pattern. <strong>Valence node</strong> exposes HTTP routes (health checks, JSON forwarding, optional static/webhook endpoints); <strong>Valence core</strong> is the embeddable part with lifecycle hooks and plugin registration. Plugins add application behaviour but never change chain rules.</p>
+                  <a class="link-cta" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Repositories <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="doc-card" id="tut-api-usage">
+                  <h3>API usage</h3>
+                  <p>A guided order of operations for calling the public HTTP API directly: pick a node class, verify connectivity with a read-only route, then move on to writes. Start from the <a href="#quick-start">quick start</a> above.</p>
+                  <a class="link-cta" href="#service-urls">Service URLs <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ============ RUNNING A NODE ============ -->
+            <article id="run-node" class="prose">
+              <h2>Running a node</h2>
+              <p>
+                The fastest way to stand up a full Lineage stack — mempool, storage, and miner — is the
+                <a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet</a>
+                repository, which ships a Docker Compose stack and a from-source build. The steps below
+                mirror its README.
+              </p>
+
+              <h3>Prerequisites</h3>
+              <p>A recent Rust toolchain and the Linux build dependencies. On Ubuntu:</p>
+<pre class="code" data-lang="shell">sudo apt-get update &amp;&amp; sudo apt-get install -y \
+  build-essential m4 llvm libclang-dev clang cmake pkg-config \
+  git curl python3 libglfw3-dev libxrandr-dev libxinerama-dev \
+  libxcursor-dev libxi-dev</pre>
+<pre class="code" data-lang="shell"><span class="c"># install Rust</span>
+curl https://sh.rustup.rs -sSf | sh
+source <span class="s">"$HOME/.cargo/env"</span>
+rustc --version</pre>
+
+              <h3>Docker Compose (recommended)</h3>
+              <p>Build and start the full multi-node stack from the repo root:</p>
+<pre class="code" data-lang="shell">docker compose build
+docker compose up</pre>
+              <p>This brings up three services:</p>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th scope="col">Service</th><th scope="col">Port</th><th scope="col">Notes</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Mempool</td><td class="num">3003</td><td>HTTP API</td></tr>
+                    <tr><td>Storage</td><td class="num">3001</td><td>Read / history</td></tr>
+                    <tr><td>Miner</td><td class="num">&mdash;</td><td>Starts after mempool &amp; storage</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Node configuration is read from <code>./.docker/conf/node_settings.toml</code>
+                (mounted to <code>/etc/node_settings.toml</code>). Point at a different file with the
+                <code>NODE_SETTINGS</code> override:
+              </p>
+<pre class="code" data-lang="shell">NODE_SETTINGS=/absolute/path/to/node_settings.toml docker compose up</pre>
+              <p>On Apple Silicon, select the ARM platform (default is <code>linux/amd64</code>):</p>
+<pre class="code" data-lang="shell">FLEET_COMPOSE_PLATFORM=linux/arm64 docker compose up</pre>
+              <p>Rebuild a single service, or tear the stack down and remove volumes:</p>
+<pre class="code" data-lang="shell">docker compose build mempool-node
+docker compose down -v</pre>
+
+              <h3>Build from source</h3>
+<pre class="code" data-lang="shell">cargo build --release
+cargo test</pre>
+              <p>Or build just the container image (distroless <code>cc-debian13</code>, runs as <code>nonroot</code>; binary at <code>/lineage/lineage</code>):</p>
+<pre class="code" data-lang="shell">docker build -t fleet-node:local --platform linux/amd64 .</pre>
+              <div class="note">
+                <span class="note-k">Contributing</span>
+                Base work on an updated <code>main</code> and open PRs against it, following Conventional
+                Commits (<code>feat</code>, <code>fix</code>, <code>docs</code>, <code>chore</code>,
+                <code>refactor</code>, <code>test</code>, <code>ci</code>, <code>perf</code>; mark breaking
+                changes with a <code>!</code> suffix). Full details in the
+                <a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">fleet README</a>.
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2>Project</h2>
+          <ul>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="docs.html">Docs</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="ecosystem.html">Ecosystem</a></li>
+            <li><a href="research.html">Research</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Community</h2>
+          <ul>
+            <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+          <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span class="signal">Signal active · Genesis phase</span>
+        <span>A Layer-1 where markets become verifiable programs.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/lineage.js"></script>
+</body>
+</html>

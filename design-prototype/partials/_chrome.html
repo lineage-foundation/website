@@ -1,0 +1,84 @@
+<!-- ============================================================
+     SHARED CHROME — paste into every page.
+     HEADER: set aria-current="page" on the matching <a> in #tabs.
+     Requires css/lineage.css + js/lineage.js.
+     ============================================================ -->
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Lineage home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+      Lineage
+    </a>
+
+    <div class="nav-right">
+      <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="developers.html">Developers</a></li>
+          <li><a href="ecosystem.html">Ecosystem</a></li>
+          <li><a href="research.html">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Community</h2>
+        <ul>
+          <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span class="signal">Signal active · Genesis phase</span>
+      <span>A Layer-1 where markets become verifiable programs.</span>
+    </div>
+  </div>
+</footer>

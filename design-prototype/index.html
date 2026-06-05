@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lineage — The Living Economy</title>
+<meta name="description" content="Lineage is a Layer-1 for adaptive, trust-minimized smart markets. Miners adapt market policy. Consensus unlocks market value." />
+<meta name="theme-color" content="#0b1a18" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/lineage.css" />
+</head>
+<body>
+
+<a class="skip-link btn--ghost" href="#content">Skip to content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Lineage home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+      Lineage
+    </a>
+
+    <div class="nav-right">
+      <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+<span id="top"></span>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" aria-labelledby="hero-heading">
+  <canvas id="lattice" aria-hidden="true"></canvas>
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <span class="eyebrow eyebrow--feature">Layer-1 infrastructure</span>
+      <h1 id="hero-heading" class="headline">THE <span class="accent">LIVING</span> ECONOMY</h1>
+      <div class="lead">
+        <p class="emph">Lineage is the foundation for adaptive, trust-minimized smart markets.</p>
+        <p class="hero-plain">In plain terms: the rules that run a market — its fees, incentives, and policy — become open programs the network can verify and adapt, instead of fixed code no one can change.</p>
+        <p>A Layer-1 where markets become verifiable programs.</p>
+        <p>Miners adapt market policy. Consensus unlocks market value.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the whitepaper</a>
+        <a class="btn btn--secondary" href="developers.html">Build with us</a>
+        <a class="link-cta link-cta--muted" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Browse the code on GitHub <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY LINEAGE (band) ===================== -->
+<section class="section section--band" id="why-lineage">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Why Lineage</span>
+      <h2 class="section-title">Why a smart market needs this architecture</h2>
+    </div>
+    <p class="section-prose" data-reveal>
+      A market is not a contract between two parties — it evolves with the world and clears by consensus among everyone in it. That can&rsquo;t run on static code or borrowed data. Lineage is built for it from layer-1 up.
+    </p>
+    <div class="grid">
+      <article class="card card--rail" data-reveal><div class="num">01</div><h3>Complete market data, on-chain</h3><p>A transaction-based ledger keeps the full economic record — every order and settlement — so markets are analyzable at the protocol level, not just net balances.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">02</div><h3>Intelligence &amp; data, no oracles</h3><p>GPU mining powers on-chain AI evaluation, and real-world signals enter as first-class items validated by the network itself — no external oracle to trust.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">03</div><h3>Adaptive, secured at layer-1</h3><p>Prices adapt to unforeseen events instead of freezing, and market logic is secured by the entire mining network — there&rsquo;s no separate application layer to attack.</p></article>
+    </div>
+    <p class="center-cta" data-reveal>
+      <a class="link-cta" href="technology.html#moat">Why Lineage is uniquely positioned <span class="arrow">→</span></a>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== UTMM ===================== -->
+<section class="section" id="utmm">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Solution detail</span>
+      <h2 class="section-title">Universal Turing Market Machines</h2>
+    </div>
+    <p class="section-prose" data-reveal>
+      Traditional blockchains execute fixed rules. UTMMs allow market policy itself to evolve.
+      Instead of hard-coding mechanisms, the network performs bounded search over policy space
+      and verifies results cryptographically.
+    </p>
+    <div class="grid">
+      <article class="card card--rail" data-reveal><div class="num">01</div><h3>Feature Extraction</h3><p>Transaction history becomes an epistemic substrate. Deterministic operators extract signals from market activity.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">02</div><h3>Adaptive Policy Search</h3><p>Genetic algorithms and bounded optimisation explore policy space. Better market policies survive through deterministic evaluation.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">03</div><h3>Verifiable Intelligence</h3><p>Zero-knowledge verification proves policy evaluation correctness without rerunning computation.</p></article>
+    </div>
+    <p class="center-cta" data-reveal>
+      <a class="link-cta" href="technology.html">Explore the technology <span class="arrow">→</span></a>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== CONSENSUS (band) ===================== -->
+<section class="section section--band" id="consensus">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Why it wins — technical</span>
+      <h2 class="section-title">Prime Radiant Consensus</h2>
+    </div>
+    <p class="section-prose" data-reveal>
+      Consensus secures not only transaction ordering but the integrity of adaptive market evolution.
+      Miners produce blocks while also participating in economic evolution.
+    </p>
+    <div class="grid">
+      <article class="card card--rail" data-reveal><div class="num">01</div><h3>GPU-Native Mining</h3><p>SandWorm Hash incentivizes GPU hardware. GPUs compute ML, VAR, and genetic-algorithm workloads.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">02</div><h3>Deterministic Time</h3><p>Blocks map directly to UTC time, enabling predictable evaluation windows and synchronised policy updates.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">03</div><h3>Blockchain Service Providers</h3><p>Architected for commercial performance and integration. API routes into the Layer-1 bring agents directly on-chain.</p></article>
+    </div>
+    <p class="center-cta" data-reveal>
+      <a class="link-cta" href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">Watch the overview on YouTube <span class="arrow">→</span></a>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== IMPACT ===================== -->
+<section class="section" id="impact">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Why it wins — economic</span>
+      <h2 class="section-title">Impact</h2>
+    </div>
+    <div class="grid">
+      <article class="card card--rail" data-reveal><div class="num">01</div><h3>Markets Discover Knowledge</h3><p>Markets aggregate dispersed information. UTMMs formalise that discovery process inside consensus.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">02</div><h3>Policy Becomes Programmable</h3><p>Instead of static rules, institutions evolve through verifiable selection pressure.</p></article>
+      <article class="card card--rail" data-reveal><div class="num">03</div><h3>Economic Intelligence Compounds</h3><p>Better policies persist; bad policies disappear. The system improves continuously.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AUDIENCE (band) ===================== -->
+<section class="section section--band" id="audience">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Choose your path</span>
+      <h2 class="section-title">Where do you want to go next?</h2>
+    </div>
+    <div class="grid grid--2">
+      <article class="card card--rail" data-reveal>
+        <h3>Build on Lineage</h3>
+        <p>Evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy itself is programmable.</p>
+        <div class="card-cta"><a class="link-cta" href="developers.html">Developer path <span class="arrow">→</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Read the research</h3>
+        <p>UTMMs, Prime Radiant Consensus, and adaptive market evolution — straight from the whitepaper and research notes.</p>
+        <div class="card-cta"><a class="link-cta" href="research.html">Research path <span class="arrow">→</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVIDENCE ===================== -->
+<section class="section" id="evidence">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <h2 class="section-title">Evidence</h2>
+    </div>
+    <div class="grid grid--2">
+      <article class="card card--rail" data-reveal>
+        <h3>Lineage: The Living Economy</h3>
+        <p>The full technical and economic specification for UTMMs and Prime Radiant Consensus, archived on Zenodo.</p>
+        <div class="card-cta"><a class="link-cta" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow">→</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Open, auditable implementation</h3>
+        <p>Lineage Foundation&rsquo;s public GitHub — every repository is open for review, issues, and contributions.</p>
+        <div class="card-cta"><a class="link-cta" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">View on GitHub <span class="arrow">→</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GET STARTED (band) ===================== -->
+<section class="section section--band" id="get-started">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <h2 class="section-title">Get started</h2>
+    </div>
+    <div class="grid">
+      <article class="card card--rail" data-reveal>
+        <h3>GitHub</h3><p>Every repository is open for review, issues, and contributions.</p>
+        <ul class="links"><li><a class="link-cta" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Lineage Foundation on GitHub <span class="arrow">→</span></a></li></ul>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Tokenomics</h3><p>FReT, LNGX, and the phased release model — overview and interactive chart.</p>
+        <ul class="links"><li><a class="link-cta" href="tokenomics.html">Open tokenomics <span class="arrow">→</span></a></li></ul>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Pick a wallet</h3><p>Community-built wallets already supporting Lineage.</p>
+        <ul class="links"><li><a class="link-cta" href="ecosystem.html">Se3ker <span class="arrow">→</span></a></li><li><a class="link-cta" href="ecosystem.html">Peerstone <span class="arrow">→</span></a></li></ul>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Get LNGX</h3><p>Top up a small amount for on-network utility, or pull test LNGX from the developer faucet.</p>
+        <ul class="links"><li><a class="link-cta" href="get-tokens.html">Get tokens <span class="arrow">→</span></a></li></ul>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <h3>Start building</h3><p>Concepts, HTTP API reference, tutorials, and guides on this site.</p>
+        <ul class="links"><li><a class="link-cta" href="docs.html">Open documentation <span class="arrow">→</span></a></li></ul>
+      </article>
+      <article class="card card--rail is-placeholder" data-reveal>
+        <h3>Try apps</h3><p>Explore smart markets in action as the ecosystem comes online.</p><span class="tag-soon">Coming soon</span>
+        <ul class="links"><li><a class="link-cta" href="roadmap.html">See what&rsquo;s coming <span class="arrow">→</span></a></li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="developers.html">Developers</a></li>
+          <li><a href="ecosystem.html">Ecosystem</a></li>
+          <li><a href="research.html">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Community</h2>
+        <ul>
+          <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span class="signal">Signal active · Genesis phase</span>
+      <span>A Layer-1 where markets become verifiable programs.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lineage.js"></script>
+</body>
+</html>

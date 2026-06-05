@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1a18">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+  <meta name="description" content="The Lineage release roadmap — two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/lineage.css">
+  <title>Roadmap — Lineage</title>
+</head>
+<body>
+  <a class="skip-link btn btn--primary btn--sm" href="#content">Skip to content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Lineage home">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+        Lineage
+      </a>
+
+      <div class="nav-right">
+        <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem" aria-current="page">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+        <div class="header-cta">
+          <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- ===================== PAGE HEAD ===================== -->
+    <section class="page-head" data-od-id="rm-head">
+      <div class="container page-head-inner" data-reveal>
+        <span class="eyebrow">Roadmap</span>
+        <h1 class="page-title">Two initiatives. <span class="accent">Three releases.</span></h1>
+        <p class="page-lead">Lineage's path to a fully distributed network runs through three sequenced releases — <strong>Phoenix</strong>, <strong>Austria</strong>, and <strong>Nakamoto</strong> — each carrying one of the protocol's two defining initiatives. The sequence is deliberate: liquidity readiness first, then the economic layer, then the irreversible step into full decentralization.</p>
+      </div>
+    </section>
+
+    <!-- ===================== INITIATIVES ===================== -->
+    <section class="section section--band" data-od-id="rm-initiatives">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Initiatives</span>
+          <h2 class="section-title">What we are driving toward</h2>
+          <p class="section-prose">Every release maps to one of two initiatives. Together they take Lineage from listing-ready to fully distributed.</p>
+        </div>
+        <div class="grid grid--2">
+          <article class="card card--rail" data-reveal>
+            <h3>Liquidity readiness</h3>
+            <p>Ensure LNGX liquidity and exchange readiness — delivering the protocol and infrastructure upgrades required ahead of listing.</p>
+          </article>
+          <article class="card card--rail" data-reveal>
+            <h3>Full decentralization</h3>
+            <p>Ship the capabilities required for a fully distributed network. This is the final step-change — after which fast, centralized updates are no longer possible.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PHASE STRIP ===================== -->
+    <section class="section" data-od-id="rm-phases">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">The three releases</span>
+          <h2 class="section-title">Sequenced, not parallel</h2>
+          <p class="section-prose">Each release has a clear focus and a rising bar for correctness. Timing is indicative and tracks the 2026 development cycles.</p>
+        </div>
+        <div class="phase-strip" data-reveal>
+          <div class="phase">
+            <span class="phase__top" aria-hidden="true"></span>
+            <span class="phase__num">Release 01</span>
+            <h3 class="phase__name">Phoenix</h3>
+            <span class="phase__when">Liquidity readiness · 2026</span>
+            <p class="phase__desc">Core network upgrades, hardening, and the release-critical changes needed for listing — including the Ethereum and Solana bridges.</p>
+          </div>
+          <div class="phase">
+            <span class="phase__top" aria-hidden="true"></span>
+            <span class="phase__num">Release 02</span>
+            <h3 class="phase__name">Austria</h3>
+            <span class="phase__when">Economic layer · 2026</span>
+            <p class="phase__desc">The economic and market layer — currency, ARCO compute, and smart-market functionality, with the financial policy that governs fees and rewards.</p>
+          </div>
+          <div class="phase">
+            <span class="phase__top" aria-hidden="true"></span>
+            <span class="phase__num">Release 03</span>
+            <h3 class="phase__name">Nakamoto</h3>
+            <span class="phase__when">Full decentralization · final</span>
+            <p class="phase__desc">The fully distributed, feature-complete release — and the last of the three. After Nakamoto, fast centralized updates are no longer possible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TIMELINE / RELEASE DETAIL ===================== -->
+    <section class="section section--band" data-od-id="rm-timeline">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Release detail</span>
+          <h2 class="section-title">Inside each release</h2>
+        </div>
+
+        <div class="timeline">
+
+          <!-- PHOENIX -->
+          <article class="release" data-reveal>
+            <div class="release__head">
+              <h3 class="release__name">Phoenix</h3>
+              <span class="release__when">Must be ready for the listing event</span>
+            </div>
+            <span class="release__init">Initiative · Liquidity readiness</span>
+            <p class="release__lede">Core network upgrades, hardening, and release-critical changes ahead of LNGX liquidity. Its timeline is constrained by bridge availability: an earlier start enables both the Ethereum and Solana bridges; a later start sequences the Ethereum bridge first.</p>
+            <div class="ws-grid">
+              <div class="ws">
+                <h4>Transaction serialization</h4>
+                <p>Improved serialization for cheaper transaction storage, P2SH payment support, and the groundwork for future enhancements.</p>
+              </div>
+              <div class="ws">
+                <h4>Miner validation &amp; Merkle tree</h4>
+                <p>Collaborative, chunked validation with a nested transaction/miner root — the minimum security work that unlocks dynamic block sizes.</p>
+              </div>
+              <div class="ws">
+                <h4>Phoenix block</h4>
+                <p>A clean upgrade block that carries breaking changes forward, starting a new chain from the current UTXO set.</p>
+              </div>
+              <div class="ws">
+                <h4>RAFT clustering</h4>
+                <p>Run multiple mempool/storage pairs under consensus — from local containers to testnet to mainnet.</p>
+              </div>
+              <div class="ws">
+                <h4>Ethereum bridge</h4>
+                <p>Lock / mint / burn / release across an Ethereum bridge, from internal testnet through public launch.</p>
+              </div>
+              <div class="ws">
+                <h4>Solana bridge</h4>
+                <p>Extend bridging to Solana with native contracts, SDK integration, and relayer support.</p>
+              </div>
+              <div class="ws">
+                <h4>Coinbase rebase</h4>
+                <p>Align LNGX to 72,000,000 fractions for cleaner exchange compatibility.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- AUSTRIA -->
+          <article class="release" data-reveal>
+            <div class="release__head">
+              <h3 class="release__name">Austria</h3>
+              <span class="release__when">The economic &amp; market layer</span>
+            </div>
+            <span class="release__init">Initiative · Full decentralization</span>
+            <p class="release__lede">The school-of-economics release: the currency, ARCO compute, and smart-market functionality that turn markets into programs — plus the financial policy that sets fees and rewards.</p>
+            <div class="ws-grid">
+              <div class="ws">
+                <h4>ARCO</h4>
+                <p>How miners price and time on-chain compute workloads, and how users specify that work — designed, then implemented as the core of the release.</p>
+              </div>
+              <div class="ws">
+                <h4>Scripting</h4>
+                <p>The scripting model that defines programmable market transactions, including standardized financial-contract (<a href="https://www.actusfrf.org/" target="_blank" rel="noopener noreferrer">ACTUS</a>) types.</p>
+              </div>
+              <div class="ws">
+                <h4>Transaction fees</h4>
+                <p>Fees calculated by the mempool and awarded to miners.</p>
+              </div>
+              <div class="ws">
+                <h4>Financial policies</h4>
+                <p>Set the initial transaction fee and block reward.</p>
+              </div>
+              <div class="ws">
+                <h4>Difficulty function</h4>
+                <p>Proven stable on testnet; validated under GPU load and deployed to mainnet.</p>
+              </div>
+              <div class="ws">
+                <h4>Block explorer stability</h4>
+                <p>Performance and indexing hardening for a responsive public explorer.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- NAKAMOTO -->
+          <article class="release release--final" data-reveal>
+            <div class="release__head">
+              <h3 class="release__name">Nakamoto</h3>
+              <span class="release__when">The final release</span>
+            </div>
+            <span class="release__init">Initiative · Full decentralization</span>
+            <p class="release__lede">Our fully distributed, feature-complete release — and the last of the three. Once Nakamoto ships, the control we currently have to make easy updates is gone, so it carries the highest bar for correctness and operational readiness.</p>
+            <div class="ws-grid">
+              <div class="ws">
+                <h4>Gossip protocol</h4>
+                <p>Peer-to-peer messaging (<a href="https://dl.acm.org/doi/10.1145/2701418" target="_blank" rel="noopener noreferrer">Fireflies</a>-based) so nodes coordinate by broadcast rather than central HTTP calls.</p>
+              </div>
+              <div class="ws">
+                <h4>Mempool selection under consensus</h4>
+                <p>Bring mempool nodes under consensus so node selection is trust-minimized.</p>
+              </div>
+              <div class="ws">
+                <h4>FReT monetary policy</h4>
+                <p>Reserve-token monetary policy design and economic validation, developed with advisor input to keep the system sound money.</p>
+              </div>
+              <div class="ws">
+                <h4>Burn &amp; issuance policy</h4>
+                <p>Issuance tied to assets under management, with a thermostat-style burn policy that steers supply toward target.</p>
+              </div>
+              <div class="ws">
+                <h4>Block rewards for mempool &amp; storage</h4>
+                <p>Reward mempool and storage hosts — not just miners — to incentivize resources and reliability.</p>
+              </div>
+              <div class="ws">
+                <h4>Storage rental</h4>
+                <p>Item lifetimes governed by rental fees, with reconnection and pruning for unpaid items.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="note" data-reveal style="margin-top:var(--space-7)">
+          <span class="note-k">On timing</span>
+          Release order is fixed; dates track the active 2026 development cycles and firm up as each release lands. For the most current status, follow development in the open on <a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a> and the <a href="https://lineage.discourse.group/" target="_blank" rel="noopener noreferrer">Fremen Forum</a>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA BAND ===================== -->
+    <section class="section" data-od-id="rm-cta">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Follow along</span>
+          <h2 class="section-title">Build alongside the roadmap</h2>
+          <p class="section-prose">The protocol is developed in the open. Read the research, then start with the developer tools.</p>
+          <div class="page-head-actions">
+            <a class="btn btn--primary" href="developers.html">Start building</a>
+            <a class="btn btn--secondary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the whitepaper</a>
+            <a class="link-cta link-cta--muted" href="tokenomics.html">Tokenomics <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2>Project</h2>
+          <ul>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="docs.html">Docs</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="ecosystem.html">Ecosystem</a></li>
+            <li><a href="research.html">Research</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Community</h2>
+          <ul>
+            <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+          <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span class="signal">Signal active · Genesis phase</span>
+        <span>A Layer-1 where markets become verifiable programs.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/lineage.js"></script>
+</body>
+</html>

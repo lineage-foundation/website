@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1a18">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/lineage.css">
+  <title>Developers — Lineage</title>
+</head>
+<body>
+  <a class="skip-link btn btn--secondary" href="#content">Skip to content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Lineage home">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+        Lineage
+      </a>
+
+      <div class="nav-right">
+        <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem" aria-current="page">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+        <div class="header-cta">
+          <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+        </div>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- ===================== PAGE HEAD ===================== -->
+    <section class="page-head" data-od-id="dev-page-head">
+      <div class="container page-head-inner" data-reveal>
+        <span class="eyebrow">For developers</span>
+        <h1 class="page-title">Build on <span class="accent">Lineage</span></h1>
+        <p class="page-lead">
+          Lineage is a Layer-1 where market policy itself is programmable. The network performs
+          bounded search over policy space and verifies results cryptographically — so the
+          mechanisms governing markets can evolve without changing the chain. Everything is
+          open: evaluate the protocol against the whitepaper, clone the repos, and prototype.
+        </p>
+        <div class="page-head-actions">
+          <a class="btn btn--primary" href="docs.html">Read the docs</a>
+          <a class="btn btn--secondary" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">View GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONNECT TO THE NETWORK ===================== -->
+    <section class="section section--band" data-od-id="dev-network">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Connect to the network</span>
+          <h2 class="section-title">Endpoints &amp; network status</h2>
+          <p class="section-prose">
+            Everything you need to point a client at Lineage, in one place: the base URLs by
+            node class, the current network status, and how to stand up your own stack.
+          </p>
+        </div>
+        <div class="split" data-reveal>
+          <div>
+            <div class="note">
+              <span class="note-k">Network status</span>
+              A managed public <strong>mainnet</strong> and <strong>testnet</strong> are being
+              ported and will be announced here soon. Until then, point a client at the base URLs
+              below, or run your own mempool / storage / miner stack locally — the route names and
+              JSON contracts are identical either way.
+            </div>
+            <ul class="prose" style="list-style:none;padding:0;margin:var(--space-5) 0 0">
+              <li style="margin-bottom:var(--space-4)"><strong>Mempool</strong><br><code>https://mempool.lineage.to</code><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">Transactions, balances, supply, and mempool metadata.</span></li>
+              <li style="margin-bottom:var(--space-4)"><strong>Storage</strong><br><code>https://storage.lineage.to</code><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">Full blockchain history and block reads.</span></li>
+              <li><strong>Miner</strong><br><code>https://miner.lineage.to</code><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">Operator-facing status where a release exposes it.</span></li>
+            </ul>
+          </div>
+          <aside class="aside-card" data-reveal>
+            <span class="eyebrow" style="display:block;margin-bottom:var(--space-4)">Run your own node</span>
+            <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0 0 var(--space-4)">
+              Stand up a full mempool / storage / miner stack with Docker Compose using the
+              <code>fleet</code> setup, then swap in your own base URL — the API surface is the same.
+            </p>
+            <ul class="prose" style="list-style:none;padding:0;margin:0">
+              <li style="margin-bottom:var(--space-4)"><a class="link-cta" href="docs.html#run-node">Run a node — setup guide <span class="arrow" aria-hidden="true">→</span></a></li>
+              <li><a class="link-cta" href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet <span class="arrow" aria-hidden="true">→</span></a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== QUICKSTART ===================== -->
+    <section class="section" data-od-id="dev-quickstart">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Quickstart</span>
+          <h2 class="section-title">Talk to a node in minutes</h2>
+          <p class="section-prose">
+            Pick an HTTP client, point it at the public base URL for your node class, and call
+            the documented routes. Subsystems are exposed on separate hosts — mempool calls use
+            the mempool host, storage reads use the storage host, and so on. A minimal
+            connectivity check is a read-only call such as <code>fetch_balance</code>.
+          </p>
+        </div>
+
+        <div class="split" data-reveal>
+          <div>
+            <pre class="code" tabindex="0" aria-label="Example fetch_balance request"><span class="c"># Read-only connectivity check against the mempool host</span>
+curl -sS -X POST <span class="s">"https://mempool.lineage.to/fetch_balance"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -H <span class="s">"x-cache-id: 0123456789abcdef0123456789abcdef"</span> \
+  -d <span class="s">'["&lt;address-1&gt;"]'</span>
+
+<span class="c"># Example success envelope</span>
+{
+  <span class="k">"id"</span>: <span class="s">"45v340cd2f8c4782a5b058832565afb1"</span>,
+  <span class="k">"status"</span>: <span class="s">"Success"</span>,
+  <span class="k">"reason"</span>: <span class="s">"Balance successfully fetched"</span>,
+  <span class="k">"route"</span>:  <span class="s">"fetch_balance"</span>,
+  <span class="k">"content"</span>: {
+    <span class="k">"total"</span>: { <span class="k">"tokens"</span>: 5463669, <span class="k">"items"</span>: {} },
+    <span class="k">"address_list"</span>: {
+      <span class="k">"&lt;address&gt;"</span>: [
+        { <span class="k">"out_point"</span>: { <span class="k">"t_hash"</span>: <span class="s">"g9182e1e2a55b0ef36f1183602d74e63"</span>, <span class="k">"n"</span>: 0 },
+          <span class="k">"value"</span>: { <span class="k">"Token"</span>: 5463669 } }
+      ]
+    }
+  }
+}</pre>
+          </div>
+          <aside class="aside-card" data-reveal>
+            <span class="eyebrow" style="display:block;margin-bottom:var(--space-4)">Public base URLs</span>
+            <ul class="prose" style="list-style:none;padding:0;margin:0">
+              <li style="margin-bottom:var(--space-3)"><strong>Mempool</strong><br><code>https://mempool.lineage.to</code></li>
+              <li style="margin-bottom:var(--space-3)"><strong>Storage</strong><br><code>https://storage.lineage.to</code></li>
+              <li><strong>Miner</strong><br><code>https://miner.lineage.to</code></li>
+            </ul>
+            <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:var(--space-5) 0 var(--space-4)">
+              Route names and JSON contracts stay the same across deployments — swap in your own
+              base for a private, staging, or alternate network.
+            </p>
+            <a class="link-cta" href="docs.html">API quick start <span class="arrow" aria-hidden="true">→</span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SUBSYSTEM APIs ===================== -->
+    <section class="section section--band" data-od-id="dev-subsystems">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">HTTP API</span>
+          <h2 class="section-title">Three node subsystems</h2>
+          <p class="section-prose">
+            The public HTTP API is organised by node class. Each subsystem is documented route by
+            route — full request and response JSON, including the standard error envelope.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card card--rail" data-reveal>
+            <span class="num">mempool.lineage.to</span>
+            <h3>Mempool API</h3>
+            <p>Transactions, balances, supply, and mempool metadata — the write and query path for clients.</p>
+            <ul class="links">
+              <li><span class="pill pill--post">POST</span> <code>fetch_balance</code></li>
+              <li><span class="pill pill--post">POST</span> <code>create_transactions</code></li>
+              <li><span class="pill pill--post">POST</span> <code>total_supply</code></li>
+              <li><span class="pill pill--post">POST</span> <code>create_item_asset</code></li>
+            </ul>
+            <div class="card-cta"><a class="link-cta" href="docs.html">Mempool reference <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="card card--rail" data-reveal>
+            <span class="num">storage.lineage.to</span>
+            <h3>Storage API</h3>
+            <p>Full blockchain history. After blocks are mined and validated, they are persisted for long-term read access.</p>
+            <ul class="links">
+              <li><span class="pill pill--post">POST</span> <code>latest_block</code></li>
+              <li><span class="pill pill--post">POST</span> <code>block_by_num</code></li>
+              <li><span class="pill pill--post">POST</span> <code>blockchain_entry</code></li>
+            </ul>
+            <div class="card-cta"><a class="link-cta" href="docs.html">Storage reference <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="card card--rail" data-reveal>
+            <span class="num">miner.lineage.to</span>
+            <h3>Miner API</h3>
+            <p>Operator-facing HTTP where a release exposes it — a small surface compared to mempool and storage.</p>
+            <ul class="links">
+              <li><span class="pill pill--get">GET</span> <code>info</code></li>
+            </ul>
+            <div class="card-cta"><a class="link-cta" href="docs.html">Miner reference <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SDKs ===================== -->
+    <section class="section" data-od-id="dev-sdks">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Client SDKs</span>
+          <h2 class="section-title">Skip the raw HTTP</h2>
+          <p class="section-prose">
+            Three official clients wrap the same API — wallet creation, key management, asset
+            issuance, two-way payments, and chain reads. Configure each with a mempool base URL,
+            a storage base URL, and a passphrase for local key encryption.
+          </p>
+        </div>
+
+        <div class="grid" data-reveal>
+          <article class="card card--rail">
+            <span class="num">JavaScript / TypeScript</span>
+            <h3>sdk-js</h3>
+            <p>The client for browser and Node apps and wallets: create a wallet, issue items and assets, run two-way payments, send and receive. Drop-in for web front-ends and Valence servers.</p>
+            <div class="card-cta"><a class="link-cta" href="https://github.com/lineage-foundation/sdk-js" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-js <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="card card--rail">
+            <span class="num">Python</span>
+            <h3>sdk-python</h3>
+            <p>The client for backends, data tooling, and automation: key management, balance and supply reads, transaction construction, and two-way flows — the same surface as <code>sdk-js</code>, idiomatic for Python services and notebooks.</p>
+            <div class="card-cta"><a class="link-cta" href="https://github.com/lineage-foundation/sdk-python" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-python <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="card card--rail">
+            <span class="num">PHP</span>
+            <h3>sdk-php</h3>
+            <p>The client for server-side web stacks: wallet creation, asset issuance, payments, and chain reads from within PHP applications and CMS integrations.</p>
+            <div class="card-cta"><a class="link-cta" href="https://github.com/lineage-foundation/sdk-php" target="_blank" rel="noopener noreferrer">lineage-foundation/sdk-php <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DEVELOPER PATHS ===================== -->
+    <section class="section" data-od-id="dev-paths">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Developer paths</span>
+          <h2 class="section-title">Where to start</h2>
+        </div>
+
+        <div class="split" data-reveal>
+          <div class="prose">
+            <h3>Evaluate the protocol</h3>
+            <p>
+              Read <em>Lineage: The Living Economy</em> — the full technical and economic
+              specification, archived on Zenodo — alongside the concepts in the docs to
+              understand how bounded policy search and cryptographic verification fit together.
+            </p>
+            <h3>Clone the repos</h3>
+            <p>
+              Every repository is open for review, issues, and contributions. The code that
+              ships with the project lives on the Lineage Foundation GitHub organisation.
+            </p>
+            <h3>Prototype against the API</h3>
+            <p>
+              Start with small, read-only calls from the storage or mempool sections of the
+              reference to confirm connectivity, then move on to transactions. Each endpoint
+              page documents the exact request and response contract.
+            </p>
+          </div>
+          <aside class="aside-card" data-reveal>
+            <span class="eyebrow" style="display:block;margin-bottom:var(--space-4)">Source material</span>
+            <ul class="prose" style="list-style:none;padding:0;margin:0">
+              <li style="margin-bottom:var(--space-4)"><a class="link-cta" href="docs.html">Developer documentation <span class="arrow" aria-hidden="true">→</span></a><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">Concepts, HTTP API reference, tutorials, and mining guides.</span></li>
+              <li style="margin-bottom:var(--space-4)"><a class="link-cta" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub organisation <span class="arrow" aria-hidden="true">→</span></a><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">Every repository, open for review and contributions.</span></li>
+              <li><a class="link-cta" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper on Zenodo <span class="arrow" aria-hidden="true">→</span></a><br><span style="color:var(--color-text-muted);font-size:var(--fs-small)">The full technical and economic specification.</span></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== QUESTIONS / RESOURCES ===================== -->
+    <section class="section section--band" data-od-id="dev-questions">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Have questions?</span>
+          <h2 class="section-title">Where conversations live</h2>
+          <p class="section-prose">
+            Specification and research questions live in the Fremen Forum (hosted on Discourse).
+            Implementation questions belong in the repo issue trackers on GitHub.
+          </p>
+        </div>
+        <div class="grid grid--2" data-reveal>
+          <article class="card card--rail">
+            <h3>Fremen Forum</h3>
+            <p>Specification and research discussion for the protocol and its mechanisms.</p>
+            <div class="card-cta"><a class="link-cta" href="research.html">Research &amp; forum <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+          <article class="card card--rail">
+            <h3>Issue trackers</h3>
+            <p>Implementation questions, bugs, and contributions on the open repositories.</p>
+            <div class="card-cta"><a class="link-cta" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Open GitHub repos <span class="arrow" aria-hidden="true">→</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA BAND ===================== -->
+    <section class="section" data-od-id="dev-cta">
+      <div class="container">
+        <div class="section-head" data-reveal style="max-width:46rem">
+          <span class="eyebrow">Start building</span>
+          <h2 class="section-title">Clone a repo. Read a route. Ship.</h2>
+          <p class="section-prose">
+            The protocol, the reference deployment, and the documentation are all open.
+            Pick up the docs or jump straight into the source.
+          </p>
+          <div class="page-head-actions">
+            <a class="btn btn--primary" href="docs.html">Read the docs</a>
+            <a class="btn btn--secondary" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">Browse GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2>Project</h2>
+          <ul>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="docs.html">Docs</a></li>
+            <li><a href="developers.html">Developers</a></li>
+            <li><a href="ecosystem.html">Ecosystem</a></li>
+            <li><a href="research.html">Research</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Community</h2>
+          <ul>
+            <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+          <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span class="signal">Signal active · Genesis phase</span>
+        <span>A Layer-1 where markets become verifiable programs.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/lineage.js"></script>
+</body>
+</html>
