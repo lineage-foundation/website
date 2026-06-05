@@ -34,6 +34,6 @@ The **implemented** system lives one level up in the prototype:
 4. **Space Grotesk display, Inter body, JetBrains Mono for data.** Display ≠ body family.
 5. **One decisive flourish per view.** Usually the aurora gradient or the hero Clearing Lattice — never three competing effects.
 
-## Provenance
+## The system at a glance
 
-This is **BRAND v2 (bioluminescent)** — deep teal-space canvas, emerald action, cyan interaction, the **Clearing Cross** mark rooted in *markets / adaptive flow*. It supersedes the origin direction (navy + lime + the hex-lattice mark), which is retained for provenance in the source repo. Token *names* are inherited from that source; the *values* and the mark are v2.
+A **bioluminescent, dark-first** system: a deep teal-space canvas, **emerald** for action, **cyan** for interaction, one aurora gradient as the focal flourish, and the **Clearing Cross** mark rooted in *markets / adaptive flow*. Space Grotesk display, Inter body, JetBrains Mono for data. Hairlines and whitespace carry structure; restraint carries the rest.

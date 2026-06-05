@@ -3,7 +3,7 @@
 > The **Clearing Cross**. Two tapered blades crossing — cyan over emerald — meeting at an open centre.
 > *Two sides meet, and the price is the light between them: verifiable, emergent, owned by no one.*
 
-This supersedes the original hex-lattice mark (preserved for provenance). The mark is rooted in **markets / adaptive flow**, not generic blockchain infrastructure.
+The mark is rooted in **markets / adaptive flow** — a market clearing where supply meets demand — not generic blockchain infrastructure.
 
 ## Files
 
