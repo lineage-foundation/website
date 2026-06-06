@@ -13,6 +13,7 @@ type Props = {
 export function DocsArticle({ title, children }: Props) {
   return (
     <article className={styles.root}>
+      <p className={styles.crumbs}>Documentation / {title}</p>
       <header className={styles.header}>
         <Heading level={1} variant="h1">
           {title}

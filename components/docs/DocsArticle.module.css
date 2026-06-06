@@ -82,3 +82,22 @@
 .articleBody :global(.note) code {
   font-size: 0.9em;
 }
+
+/* Note label — prototype .note .note-k */
+.articleBody :global(.note-k) {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-link);
+}
+
+/* Docs-scoped card hover: cyan border, no lift — prototype .doc-card:hover */
+.articleBody :global(.card):hover {
+  border-color: var(--color-link);
+  background: var(--color-surface-2);
+  transform: none;
+  box-shadow: none;
+}

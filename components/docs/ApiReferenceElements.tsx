@@ -5,26 +5,41 @@ import { Pill } from "@/components/ui";
 import styles from "./ApiReferenceElements.module.css";
 
 /**
- * Shorthand for a documented HTTP call: {method} {public-origin}/{operation}.
- * Confirm path layout with the node release you target; some deployments group
- * routes under a sub-path.
+ * Shorthand for a documented HTTP call: renders a mono h2 with the method pill
+ * inline (prototype `.endpoint h2`), followed by the full URL as a subtle
+ * `.api-host` line below (prototype `.api-host`).
+ *
+ * The `displayName` prop overrides the operation text shown in the heading;
+ * defaults to `operation` when omitted (backward-compatible).
+ *
+ * NOTE: API pages that previously rendered a separate `<h2>Endpoint</h2>`
+ * immediately above `<MethodPath>` should DROP that heading — `MethodPath`
+ * now IS the endpoint heading.
  */
 export function MethodPath({
   method,
   operation,
   subsystem = "mempool",
+  displayName,
 }: {
   method: "POST" | "GET";
   /** Logical route / operation name (snake_case), echoed in the response `route` field. */
   operation: string;
   subsystem?: DocsApiSubsystem;
+  /** Optional display label for the h2 heading; defaults to `operation`. */
+  displayName?: string;
 }) {
   const url = docsApiUrl(subsystem, operation);
   return (
-    <p className={styles.methodLine}>
-      <Pill tone={method.toLowerCase() as "get" | "post"}>{method}</Pill>
-      <code>{url}</code>
-    </p>
+    <>
+      <h2 className={styles.endpointHeading}>
+        <Pill tone={method.toLowerCase() as "get" | "post"}>{method}</Pill>
+        {displayName ?? operation}
+      </h2>
+      <p className={styles.apiHost}>
+        <code>{url}</code>
+      </p>
+    </>
   );
 }
 

@@ -1,14 +1,25 @@
-/* Endpoint method line: pill + URL path */
-.methodLine {
-  margin: calc(-1 * var(--space-2)) 0 var(--space-4);
+/* Endpoint heading: method pill + operation name inline — prototype .endpoint h2
+   font-family uses !important to override the .articleBody h2 display-font rule. */
+.endpointHeading {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono) !important;
+  letter-spacing: -0.01em;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-2);
+  scroll-margin-top: 96px;
 }
 
-/* URL after the pill — prototype .api-host code style */
-.methodLine code {
+/* Full URL beneath the heading — prototype .api-host */
+.apiHost {
+  margin: calc(-1 * var(--space-2)) 0 var(--space-4);
+}
+
+.apiHost code {
   font-family: var(--font-mono);
   font-size: 0.92em;
   color: var(--color-text);
