@@ -116,7 +116,6 @@ export default function Home() {
       <Section
         id="why-lineage"
         tone="band"
-        visual="feature"
         eyebrow="Why Lineage"
         heading="Why a smart market needs this architecture"
         headingLevel={2}
@@ -139,7 +138,6 @@ export default function Home() {
 
       <Section
         id="utmm"
-        visual="feature"
         eyebrow="Solution detail"
         heading="Universal Turing Market Machines"
         headingLevel={2}
@@ -161,7 +159,6 @@ export default function Home() {
       <Section
         id="consensus"
         tone="band"
-        visual="feature"
         eyebrow="Why it wins — technical"
         heading="Prime Radiant Consensus"
         headingLevel={2}
@@ -183,7 +180,6 @@ export default function Home() {
 
       <Section
         id="impact"
-        visual="feature"
         eyebrow="Why it wins — economic"
         heading="Impact"
         headingLevel={2}
@@ -194,7 +190,6 @@ export default function Home() {
       <Section
         id="audience"
         tone="band"
-        visual="feature"
         eyebrow="Choose your path"
         heading="Where do you want to go next?"
         headingLevel={2}
@@ -204,7 +199,6 @@ export default function Home() {
 
       <Section
         id="evidence"
-        visual="feature"
         heading="Evidence"
         headingLevel={2}
       >
@@ -214,7 +208,6 @@ export default function Home() {
       <Section
         id="get-started"
         tone="band"
-        visual="feature"
         heading="Get started"
         headingLevel={2}
       >

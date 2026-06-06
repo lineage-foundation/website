@@ -53,13 +53,12 @@
 
 .index {
   display: block;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: var(--fs-small);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   color: var(--color-link);
-  opacity: 0.9;
   margin-bottom: var(--space-1);
 }
 
@@ -76,7 +75,7 @@
 .body {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: var(--fs-body);
+  font-size: var(--fs-small);
   line-height: var(--lh-body);
 }
 
