@@ -12,7 +12,7 @@ const tokenomicsData = {
     { name: "Grants", value: 50 },
     { name: "Stakeholders", value: 20 },
     { name: "Marketing", value: 20 },
-    { name: "Moltbook Airdrop", value: 15 },
+    { name: "AI Airdrop Incentives", value: 15 },
   ],
   2: [
     { name: "Miners", value: 45 },
@@ -34,12 +34,6 @@ const tokenomicsData = {
     { name: "Treasury", value: 80 },
     { name: "Founders", value: 35 },
     { name: "Grants", value: 50 },
-  ],
-    5: [
-    { name: "Miners", value: 122 },
-    { name: "Treasury", value: 50 },
-    { name: "Founders", value: 35 },
-    { name: "Grants", value: 40 },
   ],
 } as const;
 
