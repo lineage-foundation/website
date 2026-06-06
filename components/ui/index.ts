@@ -21,3 +21,21 @@ export type { ProseProps } from "./Prose";
 
 export { Section } from "./Section";
 export type { SectionProps } from "./Section";
+
+export { Stat } from "./Stat";
+export type { StatProps } from "./Stat";
+
+export { Signal } from "./Signal";
+
+export { Pill } from "./Pill";
+export type { PillTone } from "./Pill";
+
+export { Tag } from "./Tag";
+
+export { Table } from "./Table";
+
+export { Note } from "./Note";
+
+export { AsideCard } from "./AsideCard";
+
+export { CodeBlock } from "./CodeBlock";
