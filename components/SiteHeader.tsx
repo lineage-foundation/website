@@ -103,9 +103,10 @@ export function SiteHeader() {
     };
   }, [dropdownOpen, closeDropdown]);
 
-  // Check if any developer sub-path is active
-  const devPathnames: string[] = DEVELOPERS_ITEMS.map((i) => i.href);
-  const isDevActive = devPathnames.includes(pathname);
+  // Active when the path matches a route or any of its sub-paths (e.g. /docs/x)
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+  const isDevActive = DEVELOPERS_ITEMS.some((item) => isActive(item.href));
 
   return (
     <header ref={rootRef} className={styles.root}>
@@ -141,7 +142,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                aria-current={pathname === item.href ? "page" : undefined}
+                aria-current={isActive(item.href) ? "page" : undefined}
               >
                 {item.label}
               </Link>
@@ -156,7 +157,6 @@ export function SiteHeader() {
                 type="button"
                 className={styles.navGroupTrigger}
                 aria-expanded={dropdownOpen}
-                aria-haspopup="true"
                 aria-controls={dropdownId}
                 onClick={() => setDropdownOpen((o) => !o)}
               >
@@ -178,21 +178,16 @@ export function SiteHeader() {
                   />
                 </svg>
               </button>
-              <div
-                id={dropdownId}
-                className={styles.navMenu}
-                role="menu"
-              >
+              <div id={dropdownId} className={styles.navMenu}>
                 {DEVELOPERS_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    role="menuitem"
                     onClick={() => {
                       closeMenu();
                       closeDropdown();
                     }}
-                    aria-current={pathname === item.href ? "page" : undefined}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
@@ -205,7 +200,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                aria-current={pathname === item.href ? "page" : undefined}
+                aria-current={isActive(item.href) ? "page" : undefined}
               >
                 {item.label}
               </Link>

@@ -191,7 +191,6 @@
   flex: none;
 }
 
-.navGroup:hover .caret,
 .navGroupOpen .caret {
   transform: rotate(180deg);
 }
@@ -230,8 +229,10 @@
   height: 12px;
 }
 
-.navGroup:hover .navMenu,
-.navGroup:focus-within .navMenu,
+/* JS state (.navGroupOpen) is the single source of truth for the open panel:
+   the trigger button toggles on click/Enter/Space, and Escape/outside-click
+   close it. We deliberately do NOT open on :hover or :focus-within — both would
+   desync from state and break Escape dismissal (WCAG 1.4.13). */
 .navGroupOpen .navMenu {
   opacity: 1;
   visibility: visible;
