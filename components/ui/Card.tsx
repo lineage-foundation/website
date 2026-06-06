@@ -7,6 +7,8 @@ import styles from "./Card.module.css";
 export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
   title: ReactNode;
   eyebrow?: ReactNode;
+  /** Cyan-mono caption rendered ABOVE the title (prototype `.card .num`). */
+  kicker?: ReactNode;
   icon?: ReactNode;
   href?: string;
   external?: boolean;
@@ -18,6 +20,7 @@ export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
 export function Card({
   title,
   eyebrow,
+  kicker,
   icon,
   href,
   external,
@@ -37,6 +40,7 @@ export function Card({
 
   return (
     <article className={classes.join(" ")} {...rest}>
+      {kicker ? <span className={styles.kicker}>{kicker}</span> : null}
       {icon ? (
         <span className={styles.icon} aria-hidden="true">
           {icon}

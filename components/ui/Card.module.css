@@ -90,6 +90,15 @@
   letter-spacing: 0.06em;
 }
 
+/* Cyan-mono kicker rendered above the title (ported from prototype .card .num) */
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+  letter-spacing: 0.06em;
+}
+
 /* Inline link list */
 .links {
   list-style: none;

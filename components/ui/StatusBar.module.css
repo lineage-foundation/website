@@ -12,6 +12,55 @@
   align-items: flex-start;
 }
 
+/* .statusbar .dot (line 721) */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  margin-top: 6px;
+  background: var(--color-text-subtle);
+}
+
+/* .statusbar--ok .dot (line 726) */
+.ok .dot {
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+/* .statusbar--warn .dot (line 728) */
+.warn .dot {
+  background: var(--color-warning);
+}
+
+/* .statusbar--err .dot (line 730) */
+.err .dot {
+  background: var(--color-danger);
+}
+
+/* .statusbar--info .dot (line 724) */
+.info .dot {
+  background: var(--color-link);
+}
+
+/* .statusbar.is-busy .dot (line 731) */
+.busy .dot {
+  animation: txpulse 1s var(--ease) infinite;
+}
+
+/* @keyframes txpulse (line 732) */
+@keyframes txpulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* line 733 */
+@media (prefers-reduced-motion: reduce) {
+  .busy .dot {
+    animation: none;
+  }
+}
+
 /* .statusbar--ok */
 .ok {
   border-color: color-mix(in oklab, var(--color-success) 42%, transparent);

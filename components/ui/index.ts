@@ -48,6 +48,9 @@ export type { InputProps } from "./Input";
 export { Segmented } from "./Segmented";
 export type { SegmentedOption } from "./Segmented";
 
+export { PageHead, Accent } from "./PageHead";
+export type { PageHeadProps } from "./PageHead";
+
 export { StatusBar } from "./StatusBar";
 export type { StatusTone } from "./StatusBar";
 
