@@ -14,6 +14,8 @@ export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
   external?: boolean;
   /** Adds the aurora top-rule that reveals on hover (prototype .card--rail). */
   rail?: boolean;
+  /** Dashed border + dimmed background for not-yet-available items (prototype `.card.is-placeholder`). */
+  placeholder?: boolean;
   children?: ReactNode;
 };
 
@@ -25,6 +27,7 @@ export function Card({
   href,
   external,
   rail,
+  placeholder,
   className,
   children,
   ...rest
@@ -32,6 +35,7 @@ export function Card({
   const classes = [styles.card];
   if (href) classes.push(styles.clickable);
   if (rail) classes.push(styles.rail);
+  if (placeholder) classes.push(styles.placeholder);
   if (className) classes.push(className);
 
   const isExternal = href ? external || /^https?:\/\//.test(href) : false;

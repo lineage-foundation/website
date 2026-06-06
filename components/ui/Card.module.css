@@ -126,3 +126,9 @@
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
+
+/* Placeholder state — dashed border + dimmed background (prototype `.card.is-placeholder`) */
+.placeholder {
+  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+  border-style: dashed;
+}

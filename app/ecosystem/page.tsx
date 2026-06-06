@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { Accent, PageHead } from "@/components/ui/PageHead";
 import { Button, Card, LinkCta, Section, Tag } from "@/components/ui";
 import {
   SITE_ORIGIN,
@@ -48,24 +49,15 @@ export default function EcosystemPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="Ecosystem"
-        heading={
+        title={
           <>
-            The Lineage{" "}
-            <span style={{ color: "var(--color-accent)" }}>ecosystem</span>
+            The Lineage <Accent>ecosystem</Accent>
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
-          A public GitHub organisation, a research forum, and the first
-          community-built wallets.
-        </p>
-      </Section>
+        lead="A public GitHub organisation, a research forum, and the first community-built wallets."
+      />
 
       {/* WALLETS */}
       <Section
@@ -144,6 +136,7 @@ export default function EcosystemPage() {
           ) : (
             <Card
               rail
+              placeholder
               title="Network &amp; block explorer"
               icon={
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
@@ -240,22 +233,12 @@ export default function EcosystemPage() {
               Official SDKs for talking to Lineage nodes — wallets, transactions,
               balances, and node APIs in your language of choice.
             </p>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: "var(--space-3) 0",
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--space-1)",
-              }}
-            >
+            <ul className={styles.sdkLinks}>
               <li>
                 <a
                   href="https://github.com/lineage-foundation/sdk-js"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ color: "var(--color-link)", fontSize: "var(--fs-small)" }}
                 >
                   sdk-js
                 </a>
@@ -265,7 +248,6 @@ export default function EcosystemPage() {
                   href="https://github.com/lineage-foundation/sdk-python"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ color: "var(--color-link)", fontSize: "var(--fs-small)" }}
                 >
                   sdk-python
                 </a>
@@ -275,7 +257,6 @@ export default function EcosystemPage() {
                   href="https://github.com/lineage-foundation/sdk-php"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ color: "var(--color-link)", fontSize: "var(--fs-small)" }}
                 >
                   sdk-php
                 </a>
@@ -326,6 +307,7 @@ export default function EcosystemPage() {
           {/* 4 — Applications (coming soon) */}
           <Card
             rail
+            placeholder
             title="Applications"
             icon={
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
