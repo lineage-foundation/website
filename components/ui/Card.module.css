@@ -8,9 +8,24 @@
   border: 1px solid var(--color-border);
   border-radius: var(--r-md);
   color: var(--color-text);
-  transition: border-color var(--dur-fast) var(--ease),
-    background-color var(--dur-fast) var(--ease),
-    transform var(--dur-fast) var(--ease);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+/* Aurora top-rule — revealed on hover for rail variant */
+.rail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--grad-aurora);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
 }
 
 .clickable {
@@ -20,6 +35,12 @@
 .clickable:hover {
   border-color: var(--color-border-strong);
   background: var(--color-surface-2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elev-1);
+}
+
+.rail:hover::before {
+  opacity: 1;
 }
 
 .clickable:has(a:focus-visible) {
@@ -59,6 +80,24 @@
 
 .body > :last-child {
   margin-bottom: 0;
+}
+
+/* Mono sequence number */
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+  letter-spacing: 0.06em;
+}
+
+/* Inline link list */
+.links {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
 }
 
 /* Full-surface overlay link, so anywhere in the card is clickable while the
