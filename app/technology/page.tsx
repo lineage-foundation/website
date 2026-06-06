@@ -5,12 +5,14 @@ import { ArcoLoop } from "@/components/technology/ArcoLoop";
 import { EfficiencyChart } from "@/components/technology/EfficiencyChart";
 import styles from "@/components/technology/TechLayout.module.css";
 import {
+  Accent,
   AsideCard,
   Button,
   Card,
   Eyebrow,
   Heading,
   LinkCta,
+  PageHead,
   Section,
   Stat,
   Table,
@@ -65,34 +67,29 @@ export default function TechnologyPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="Technology"
-        heading={
+        title={<>ARCO: the compute <Accent>loop</Accent></>}
+        lead={
           <>
-            ARCO: the compute <span style={{ color: "var(--color-accent)" }}>loop</span>
+            ARCO is the market-optimization loop at the heart of Lineage — five
+            stages (sensor, relay, compute, actuator, event) that repeat each
+            cycle. Over successive cycles a market moves from an inefficient
+            initial state toward a more efficient one, while consensus secures the
+            integrity of that adaptive evolution.
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
-          ARCO is the market-optimization loop at the heart of Lineage — five
-          stages (sensor, relay, compute, actuator, event) that repeat each
-          cycle. Over successive cycles a market moves from an inefficient
-          initial state toward a more efficient one, while consensus secures the
-          integrity of that adaptive evolution.
-        </p>
-        <div className={styles.pageHeadActions}>
-          <Button href="/docs" variant="primary">
-            Read the docs
-          </Button>
-          <Button href={URL_ZENODO_WHITEPAPER} variant="secondary" external>
-            Whitepaper
-          </Button>
-        </div>
-      </Section>
+        actions={
+          <>
+            <Button href="/docs" variant="primary">
+              Read the docs
+            </Button>
+            <Button href={URL_ZENODO_WHITEPAPER} variant="secondary" external>
+              Whitepaper
+            </Button>
+          </>
+        }
+      />
 
       {/* ARCO LOOP */}
       <Section
@@ -125,8 +122,7 @@ export default function TechnologyPage() {
           are what make adaptive markets possible here.
         </p>
         <div className={styles.moatGrid}>
-          <Card rail title="Complete transaction records">
-            <div className={styles.num}>01</div>
+          <Card rail kicker="01" title="Complete transaction records">
             <p>
               A transaction-based (UTXO) ledger preserves the full transaction
               — every order and settlement — not just net debits and credits.
@@ -134,8 +130,7 @@ export default function TechnologyPage() {
               analysis runs on.
             </p>
           </Card>
-          <Card rail title="Intelligence at layer-1">
-            <div className={styles.num}>02</div>
+          <Card rail kicker="02" title="Intelligence at layer-1">
             <p>
               GPU proof-of-work does double duty: it secures the chain and
               supplies the compute for analytics. A dedicated{" "}
@@ -143,8 +138,7 @@ export default function TechnologyPage() {
               over transaction data, inside consensus.
             </p>
           </Card>
-          <Card rail title="Real-world data, no oracles">
-            <div className={styles.num}>03</div>
+          <Card rail kicker="03" title="Real-world data, no oracles">
             <p>
               IoT readings, climate data and other external signals enter the
               ledger as first-class blockchain items, validated at layer-1 by
@@ -152,8 +146,7 @@ export default function TechnologyPage() {
               external oracle&rsquo;s trust assumptions.
             </p>
           </Card>
-          <Card rail title="Security at the consensus layer">
-            <div className={styles.num}>04</div>
+          <Card rail kicker="04" title="Security at the consensus layer">
             <p>
               Market logic and data live at layer-1, secured by the entire
               mining network. There is no separate application layer to
@@ -161,8 +154,7 @@ export default function TechnologyPage() {
               network, not a handful of nodes.
             </p>
           </Card>
-          <Card rail title="Markets that adapt">
-            <div className={styles.num}>05</div>
+          <Card rail kicker="05" title="Markets that adapt">
             <p>
               Prices are discovered by consensus among all participants and move
               with conditions, so a market responds to unforeseen events —
@@ -189,22 +181,19 @@ export default function TechnologyPage() {
           cryptographically.
         </p>
         <div className={styles.grid3}>
-          <Card rail title="Feature Extraction">
-            <div className={styles.num}>01</div>
+          <Card rail kicker="01" title="Feature Extraction">
             <p>
               Transaction history becomes an epistemic substrate. Deterministic
               operators extract signals from market activity.
             </p>
           </Card>
-          <Card rail title="Adaptive Policy Search">
-            <div className={styles.num}>02</div>
+          <Card rail kicker="02" title="Adaptive Policy Search">
             <p>
               Genetic algorithms and bounded optimisation explore policy space.
               Better market policies survive through deterministic evaluation.
             </p>
           </Card>
-          <Card rail title="Verifiable Intelligence">
-            <div className={styles.num}>03</div>
+          <Card rail kicker="03" title="Verifiable Intelligence">
             <p>
               Zero-knowledge verification proves policy evaluation correctness
               without rerunning computation.
@@ -315,8 +304,7 @@ broadcastToFarmers(FSM_opt.policy());`,
           </LinkCta>
         </p>
         <div className={styles.grid3}>
-          <Card rail title="GPU-Native Mining">
-            <div className={styles.num}>01</div>
+          <Card rail kicker="01" title="GPU-Native Mining">
             <p>
               <a
                 href="https://github.com/lineage-foundation/sandworm"
@@ -330,15 +318,13 @@ broadcastToFarmers(FSM_opt.policy());`,
               genetic-algorithm workloads.
             </p>
           </Card>
-          <Card rail title="Deterministic Time">
-            <div className={styles.num}>02</div>
+          <Card rail kicker="02" title="Deterministic Time">
             <p>
               Blocks map directly to UTC time, enabling predictable evaluation
               windows and synchronised policy updates.
             </p>
           </Card>
-          <Card rail title="Blockchain Service Providers">
-            <div className={styles.num}>03</div>
+          <Card rail kicker="03" title="Blockchain Service Providers">
             <p>
               Architected for commercial performance and integration. API routes
               into the Layer-1 bring agents directly on-chain.
@@ -422,22 +408,19 @@ broadcastToFarmers(FSM_opt.policy());`,
         headingLevel={2}
       >
         <div className={styles.grid3}>
-          <Card rail title="Markets Discover Knowledge">
-            <div className={styles.num}>01</div>
+          <Card rail kicker="01" title="Markets Discover Knowledge">
             <p>
               Markets aggregate dispersed information. UTMMs formalise that
               discovery process inside consensus.
             </p>
           </Card>
-          <Card rail title="Policy Becomes Programmable">
-            <div className={styles.num}>02</div>
+          <Card rail kicker="02" title="Policy Becomes Programmable">
             <p>
               Instead of static rules, institutions evolve through verifiable
               selection pressure.
             </p>
           </Card>
-          <Card rail title="Economic Intelligence Compounds">
-            <div className={styles.num}>03</div>
+          <Card rail kicker="03" title="Economic Intelligence Compounds">
             <p>
               Better policies persist; bad policies disappear. The system
               improves continuously.

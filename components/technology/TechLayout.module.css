@@ -1,10 +1,33 @@
 /* Technology page layout primitives — page-local, tokens only */
 
-/* ---------- Moat / feature grid (5-card with auto-fill) ---------- */
+/* ---------- Moat / feature grid (5-card 3+2 centred composition) ---------- */
+/* Mirrors prototype .grid--moat: mobile 1-col → ≥621px 2-col → ≥901px 6-col
+   with direct children spanning 2 cols and the last two cards centred. */
 .moatGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-  gap: var(--space-5);
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 621px) {
+  .moatGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 901px) {
+  .moatGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .moatGrid > * {
+    grid-column: span 2;
+  }
+  .moatGrid > *:nth-child(4) {
+    grid-column: 3 / span 2;
+  }
+  .moatGrid > *:nth-child(5) {
+    grid-column: 5 / span 2;
+  }
 }
 
 /* ---------- Standard 3-col card grid ---------- */
@@ -42,8 +65,11 @@
 .sectionProse {
   max-width: 70ch;
   color: var(--color-text-muted);
-  line-height: 1.65;
-  margin: 0 0 var(--space-7);
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  /* margin-bottom 0 prevents doubled gap: Section .body flex gap already
+     separates prose from the grid that follows it. */
+  margin: 0;
 }
 
 /* ---------- Inline code in prose ---------- */
@@ -72,7 +98,7 @@
 }
 
 /* Syntax highlighting — uses :global() because spans are injected via
-   dangerouslySetInnerHTML with literal class names (same pattern as ArcoSimulator). */
+   dangerouslySetInnerHTML with literal class names (.c / .k / .s). */
 .codeBlock :global(.c) {
   color: var(--color-text-subtle);
 }
