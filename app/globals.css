@@ -94,7 +94,7 @@
 
   /* Layout */
   --container-max: 1200px;
-  --gutter: clamp(16px, 6vw, 96px);
+  --gutter: clamp(var(--space-4), 6vw, var(--space-9));
   --measure: 70ch;
   --section-py: var(--space-9);
 }
@@ -136,6 +136,8 @@ body {
     ),
     linear-gradient(180deg, var(--color-bg-canvas) 0%, var(--color-bg) 40%, var(--color-bg-canvas) 100%);
   color: var(--color-text);
+  /* Inter is also applied via the next/font className on <body> (higher
+     specificity); this documents the body family at the token layer. */
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
