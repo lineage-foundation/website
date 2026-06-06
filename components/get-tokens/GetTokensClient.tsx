@@ -11,6 +11,7 @@
 import { useCallback, useEffect, useId, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 import { Cooldown } from "@/components/ui/Cooldown";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
@@ -280,7 +281,7 @@ function BuyPanel() {
           {/* Status bar */}
           {status && (
             <div className={styles.statusWrap}>
-              <StatusBar tone={status.tone}>
+              <StatusBar tone={status.tone} busy={loading && status.tone === "info"}>
                 {/* dangerouslySetInnerHTML is safe here — status messages are
                     constructed entirely from in-code template strings, never
                     from user input. */}
@@ -405,7 +406,7 @@ function FaucetPanel() {
               // branch in the StatusBar JSX below.
               setStatus({
                 tone: "warn",
-                message: "You&rsquo;ve already claimed recently.",
+                message: "This address claimed recently.",
               });
             }
           }
@@ -554,12 +555,11 @@ function FaucetPanel() {
           {/* Status bar */}
           {status && (
             <div className={styles.statusWrap}>
-              <StatusBar tone={status.tone}>
+              <StatusBar tone={status.tone} busy={loading && status.tone === "info"}>
                 <span dangerouslySetInnerHTML={{ __html: status.message }} />
                 {isCoolingDown && cooldownUntil > 0 && (
                   <>
-                    {" "}
-                    Try again in{" "}
+                    {" "}Try again in{" "}
                     <Cooldown
                       until={cooldownUntil}
                       onElapsed={handleCooldownElapsed}
@@ -658,35 +658,37 @@ export function GetTokensClient() {
   }
 
   return (
-    <div>
-      {/* Segmented tab toggle */}
-      <div className={styles.segmentedWrap}>
-        <Segmented
-          options={TAB_OPTIONS}
-          value={tab}
-          onChange={handleTabChange}
-          idPrefix="tab"
-          ariaLabel="Choose what you need"
-        />
-      </div>
+    <section className={styles.clientSection}>
+      <Container>
+        {/* Segmented tab toggle — sits directly under the page-head lead */}
+        <div className={styles.segmentedWrap}>
+          <Segmented
+            options={TAB_OPTIONS}
+            value={tab}
+            onChange={handleTabChange}
+            idPrefix="tab"
+            ariaLabel="Choose what you need"
+          />
+        </div>
 
-      {/* Panels */}
-      <div
-        role="tabpanel"
-        id="panel-buy"
-        aria-labelledby="tab-buy"
-        hidden={tab !== "buy"}
-      >
-        <BuyPanel />
-      </div>
-      <div
-        role="tabpanel"
-        id="panel-faucet"
-        aria-labelledby="tab-faucet"
-        hidden={tab !== "faucet"}
-      >
-        <FaucetPanel />
-      </div>
-    </div>
+        {/* Panels */}
+        <div
+          role="tabpanel"
+          id="panel-buy"
+          aria-labelledby="tab-buy"
+          hidden={tab !== "buy"}
+        >
+          <BuyPanel />
+        </div>
+        <div
+          role="tabpanel"
+          id="panel-faucet"
+          aria-labelledby="tab-faucet"
+          hidden={tab !== "faucet"}
+        >
+          <FaucetPanel />
+        </div>
+      </Container>
+    </section>
   );
 }

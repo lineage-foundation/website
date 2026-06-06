@@ -236,3 +236,11 @@
 .segmentedWrap {
   margin-top: var(--space-5);
 }
+
+/* ---- Root section wrapper (replaces <Section spacing="tight">) ---- */
+/* Zero top padding so the toggle reads as continuation of the page-head lead.
+   Bottom padding preserves page rhythm. */
+.clientSection {
+  padding-block-start: 0;
+  padding-block-end: var(--section-py);
+}
