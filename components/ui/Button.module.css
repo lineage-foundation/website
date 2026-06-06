@@ -69,11 +69,10 @@
   --btn-bg-hover: var(--color-accent-strong);
   --btn-border-hover: var(--color-accent-strong);
   --btn-fg-hover: var(--color-accent-ink);
-  box-shadow: 0 0 0 1px var(--color-accent), var(--glow-accent);
-}
-
-.primary:hover {
-  box-shadow: 0 0 0 1px var(--color-accent-strong), var(--glow-accent);
+  /* Prototype .btn--primary (lineage.css:135): glow + inset hairline ring.
+     Hover changes only the background; the box-shadow persists. */
+  box-shadow: var(--glow-accent),
+    inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 60%, white 0%);
 }
 
 .secondary {

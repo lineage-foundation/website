@@ -16,3 +16,8 @@
 .narrow {
   max-width: 840px;
 }
+
+/* Full-bleed docs shell (prototype .container--docs) */
+.docs {
+  max-width: none;
+}

@@ -10,6 +10,8 @@ export type CardProps = Omit<HTMLAttributes<HTMLElement>, "title"> & {
   icon?: ReactNode;
   href?: string;
   external?: boolean;
+  /** Adds the aurora top-rule that reveals on hover (prototype .card--rail). */
+  rail?: boolean;
   children?: ReactNode;
 };
 
@@ -19,12 +21,14 @@ export function Card({
   icon,
   href,
   external,
+  rail,
   className,
   children,
   ...rest
 }: CardProps) {
   const classes = [styles.card];
   if (href) classes.push(styles.clickable);
+  if (rail) classes.push(styles.rail);
   if (className) classes.push(className);
 
   const isExternal = href ? external || /^https?:\/\//.test(href) : false;

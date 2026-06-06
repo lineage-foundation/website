@@ -2,7 +2,7 @@ import type { ElementType, HTMLAttributes, ReactNode } from "react";
 
 import styles from "./Container.module.css";
 
-type ContainerWidth = "default" | "wide" | "narrow";
+type ContainerWidth = "default" | "wide" | "narrow" | "docs";
 
 export type ContainerProps = HTMLAttributes<HTMLElement> & {
   as?: ElementType;
@@ -21,6 +21,7 @@ export function Container({
   const classes = [styles.container];
   if (width === "wide") classes.push(styles.wide);
   if (width === "narrow") classes.push(styles.narrow);
+  if (width === "docs") classes.push(styles.docs);
   if (className) classes.push(className);
   return (
     <Component className={classes.join(" ")} {...rest}>
