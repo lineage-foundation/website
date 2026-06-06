@@ -1,0 +1,33 @@
+/* Ported from design-prototype/css/lineage.css lines 430-434 */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  padding: 3px 10px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* .pill--get */
+.get {
+  color: var(--color-success);
+  border-color: color-mix(in oklab, var(--color-success) 40%, transparent);
+  background: color-mix(in oklab, var(--color-success) 10%, transparent);
+}
+
+/* .pill--post */
+.post {
+  color: var(--color-warning);
+  border-color: color-mix(in oklab, var(--color-warning) 40%, transparent);
+  background: color-mix(in oklab, var(--color-warning) 10%, transparent);
+}
+
+/* .pill--soon */
+.soon {
+  color: var(--color-text-subtle);
+}
