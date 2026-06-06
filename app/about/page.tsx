@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { TeamGrid } from "@/components/about/TeamGrid";
 import { Person } from "@/components/about/Person";
-import { Button, Section } from "@/components/ui";
+import { Button, LinkCta, Section } from "@/components/ui";
 import { SITE_ORIGIN, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
 import styles from "./page.module.css";
@@ -206,6 +206,9 @@ export default function AboutPage() {
           <Button href="/roadmap" variant="secondary">
             View the roadmap
           </Button>
+          <LinkCta href="/research" muted>
+            Research library
+          </LinkCta>
         </div>
       </Section>
     </>

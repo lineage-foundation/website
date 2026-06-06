@@ -29,9 +29,12 @@ function LinkedInIcon() {
 export function Person({ name, role, bio, photo, monogram, linkedIn }: PersonProps) {
   return (
     <article className={styles.person}>
-      {/* Avatar: headshot over monogram fallback */}
-      <span className={styles.avatar} aria-hidden="true">
-        <span className={styles.mono}>{monogram}</span>
+      {/* Avatar: headshot over monogram fallback. Only the monogram is
+          aria-hidden; the photo keeps its alt so SR users get the name. */}
+      <span className={styles.avatar}>
+        <span className={styles.mono} aria-hidden="true">
+          {monogram}
+        </span>
         {photo ? (
           <Image
             src={photo}
