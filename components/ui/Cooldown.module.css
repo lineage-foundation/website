@@ -1,0 +1,8 @@
+/* Ported from design-prototype/css/lineage.css line 742 */
+
+/* .cooldown */
+.cooldown {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-warning);
+}
