@@ -9,7 +9,7 @@
   isolation: isolate;
 }
 
-/* Deep vignette + cool bloom (stacks under mesh + shader) */
+/* Deep vignette + cool bloom (stacks under the mesh + lattice canvas) */
 .hero::after {
   content: "";
   position: absolute;
@@ -33,7 +33,7 @@
     );
 }
 
-/* Token-only mesh; sits under shader; static (LCP remains text + buttons). */
+/* Token-only mesh; sits under the lattice canvas; static (LCP remains text + buttons). */
 .hero::before {
   content: "";
   position: absolute;
@@ -70,26 +70,6 @@
   .hero::before {
     opacity: 0.12;
   }
-}
-
-.shader {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.35;
-  pointer-events: none;
-  mask-image: radial-gradient(
-    ellipse 80% 70% at 70% 50%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.6) 55%,
-    rgba(0, 0, 0, 0) 85%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 80% 70% at 70% 50%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.6) 55%,
-    rgba(0, 0, 0, 0) 85%
-  );
 }
 
 .content {
