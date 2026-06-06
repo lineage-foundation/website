@@ -1,30 +1,29 @@
 .link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
+  gap: 6px;
   color: var(--color-link);
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-link) 45%, transparent);
-  border-radius: var(--r-sm);
-  padding: 0.1em 0.05em 2px;
-  transition: border-color var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease);
+  border-bottom: 1px solid color-mix(in oklab, var(--color-link) 40%, transparent);
+  padding-bottom: 2px;
+  transition: border-color var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease);
 }
 
 .link:hover,
 .link:focus-visible {
-  border-color: var(--color-link-hover);
   color: var(--color-link-hover);
+  border-bottom-color: var(--color-link-hover);
 }
 
 .link:hover .arrow {
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
 .arrow {
   display: inline-block;
-  transition: transform var(--dur-fast) var(--ease);
+  transition: transform var(--dur-base) var(--ease);
   font-variant-numeric: tabular-nums;
 }
 
@@ -36,5 +35,5 @@
 .muted:hover,
 .muted:focus-visible {
   color: var(--color-link);
-  border-color: var(--color-link);
+  border-bottom-color: var(--color-link);
 }

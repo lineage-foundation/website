@@ -1,16 +1,31 @@
 .prose {
   max-width: var(--measure);
-  color: var(--color-text);
+  color: var(--color-text-muted);
   font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  line-height: 1.8;
 }
 
 .prose > * + * {
   margin-top: var(--space-4);
 }
 
+.prose h2 {
+  font-size: var(--fs-h2);
+  color: var(--color-text);
+  margin: var(--space-8) 0 var(--space-3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-2);
+  font-weight: 500;
+}
+
 .prose p {
-  margin: 0;
+  margin: 0 0 var(--space-4);
   color: var(--color-text-muted);
 }
 
@@ -22,10 +37,10 @@
 .prose a {
   color: var(--color-link);
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--color-link) 50%, transparent);
+  text-decoration-color: color-mix(in oklab, var(--color-link) 50%, transparent);
   text-underline-offset: 3px;
-  transition: color var(--dur-fast) var(--ease),
-    text-decoration-color var(--dur-fast) var(--ease);
+  transition: color var(--dur-base) var(--ease),
+    text-decoration-color var(--dur-base) var(--ease);
 }
 
 .prose a:hover,
@@ -36,8 +51,8 @@
 
 .prose ul,
 .prose ol {
-  margin: 0;
-  padding-inline-start: 1.5rem;
+  margin: 0 0 var(--space-4);
+  padding-inline-start: 1.2em;
   color: var(--color-text-muted);
 }
 
@@ -46,9 +61,10 @@
 }
 
 .prose code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.9em;
-  background: var(--color-surface-2);
-  padding: 0.1em 0.35em;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  padding: 1px 6px;
   border-radius: var(--r-sm);
 }
