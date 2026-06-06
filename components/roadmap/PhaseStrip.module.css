@@ -1,0 +1,64 @@
+/*
+ * PhaseStrip — ported from design-prototype/css/lineage.css lines 620–627
+ * Three-column release overview strip.
+ */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 760px) {
+  .strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+.phase {
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  background: var(--color-surface);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Aurora top rule */
+.phaseTop {
+  height: 3px;
+  position: absolute;
+  inset: 0 0 auto 0;
+  background: var(--grad-aurora);
+  opacity: 0.5;
+}
+
+.phaseNum {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.phaseName {
+  margin: var(--space-2) 0 4px;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.phaseWhen {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+}
+
+.phaseDesc {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}

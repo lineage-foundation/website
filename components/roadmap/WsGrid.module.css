@@ -1,0 +1,36 @@
+/*
+ * WsGrid / Ws — ported from design-prototype/css/lineage.css lines 638–642
+ * Two-column workstream grid inside a Release card.
+ */
+
+.wsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3) var(--space-6);
+}
+
+@media (max-width: 680px) {
+  .wsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ws {
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.ws h4 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.ws p {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}

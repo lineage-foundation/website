@@ -1,0 +1,78 @@
+/*
+ * Release — ported from design-prototype/css/lineage.css lines 630–637, 643–644
+ * Per-release article with left aurora accent bar.
+ */
+
+.release {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  background: var(--color-surface);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
+/* Left aurora accent bar */
+.release::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  background: var(--grad-aurora);
+  opacity: 0.55;
+}
+
+/* --final variant: bolder bar + stronger border */
+.final {
+  border-color: var(--color-border-strong);
+}
+
+.final::before {
+  opacity: 1;
+  width: 4px;
+}
+
+.releaseHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-2);
+}
+
+.releaseName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.releaseWhen {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-link);
+  white-space: nowrap;
+}
+
+.releaseInit {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.releaseLede {
+  margin: 0 0 var(--space-5);
+  max-width: 70ch;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
