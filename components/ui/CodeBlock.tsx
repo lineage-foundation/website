@@ -33,7 +33,12 @@ export function CodeBlock({ lang = "code", children }: { lang?: string; children
     <div className={styles.block}>
       <div className={styles.bar}>
         <span className={styles.lang}>{lang}</span>
-        <button type="button" className={styles.copy} aria-label="Copy code to clipboard" onClick={copy}>
+        <button
+          type="button"
+          className={`${styles.copy} ${copied ? styles.copyDone : ""}`}
+          aria-label="Copy code to clipboard"
+          onClick={copy}
+        >
           {copied ? "Copied" : "Copy"}
         </button>
       </div>

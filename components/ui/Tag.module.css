@@ -3,7 +3,6 @@
 /* .tag-live */
 .live {
   display: inline-block;
-  margin-top: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.06em;
@@ -17,7 +16,6 @@
 /* .tag-soon */
 .soon {
   display: inline-block;
-  margin-top: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.06em;
