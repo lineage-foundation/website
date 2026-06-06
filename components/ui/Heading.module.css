@@ -16,12 +16,12 @@
 
 .h1 {
   font-size: var(--fs-h1);
-  line-height: var(--lh-tight);
+  line-height: 1.08;
 }
 
 .h2 {
   font-size: var(--fs-h2);
-  line-height: var(--lh-tight);
+  line-height: 1.2;
 }
 
 .h3 {

@@ -7,9 +7,14 @@ import styles from "./Cooldown.module.css";
 export function formatRemaining(ms: number): string {
   if (ms <= 0) return "ready";
   const total = Math.ceil(ms / 1000);
-  const m = Math.floor(total / 60);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
   const s = total % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
+  const mm = String(m).padStart(2, "0");
+  const ss = String(s).padStart(2, "0");
+  // Match the prototype's HH:MM:SS for hour-scale cooldowns (e.g. the 24h faucet),
+  // and fall back to M:SS for short ones.
+  return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
 }
 
 export function Cooldown({ until, onElapsed }: { until: number; onElapsed?: () => void }) {

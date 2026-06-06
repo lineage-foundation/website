@@ -13,7 +13,10 @@
   border: 1px solid var(--btn-border);
   background: var(--btn-bg);
   color: var(--btn-fg);
-  font: inherit;
+  /* Prototype .btn uses the display family; without this, buttons inherit
+     Inter from the next/font body className. */
+  font-family: var(--font-display);
+  font-size: inherit;
   font-weight: 500;
   letter-spacing: 0;
   text-decoration: none;

@@ -70,8 +70,8 @@
 
 .body {
   color: var(--color-text-muted);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  font-size: var(--fs-small);
+  line-height: 1.6;
 }
 
 .body > :first-child {
