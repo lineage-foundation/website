@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { ArcoSimulatorDynamic } from "@/components/arco-sim/ArcoSimulatorDynamic";
 import { ArcoLoop } from "@/components/technology/ArcoLoop";
@@ -214,11 +215,15 @@ export default function TechnologyPage() {
       </Section>
 
       {/* EVENT OPTIMIZATION — split layout */}
-      <Section id="evolution" headingLevel={2}>
+      <Section id="evolution" aria-labelledby="evolution-title" headingLevel={2}>
         <div className={styles.split}>
           <div>
             <Eyebrow>Event stage — pseudocode</Eyebrow>
-            <Heading level={2} style={{ marginTop: "var(--space-3)", marginBottom: "var(--space-5)" }}>
+            <Heading
+              level={2}
+              id="evolution-title"
+              style={{ marginTop: "var(--space-3)", marginBottom: "var(--space-5)" }}
+            >
               Policy as an evolving program
             </Heading>
             <p className={styles.sectionProse}>
@@ -383,8 +388,8 @@ broadcastToFarmers(FSM_opt.policy());`,
             <tr>
               <td>Storage</td>
               <td>
-                Verifies UNiCORN linkage, applies UTXO changes, and appends the
-                block to the ledger.
+                Verifies <Link href="/docs#c-unicorn">UNiCORN</Link> linkage,
+                applies UTXO changes, and appends the block to the ledger.
               </td>
               <td style={{ fontFamily: "var(--font-mono)", fontVariantNumeric: "tabular-nums" }}>
                 {DOCS_STORAGE_API_ORIGIN}
