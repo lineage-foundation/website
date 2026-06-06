@@ -1,21 +1,83 @@
-/* Placeholder route — v2 tokens; card grid for wallets / community */
+/* Ecosystem page layout — v2 tokens only */
 
-.grid {
+/* ---------- Page-head actions ---------- */
+.pageHeadActions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-5);
+}
+
+/* ---------- 2-col card grid ---------- */
+.grid2 {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-5);
   align-items: stretch;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
+@media (min-width: 620px) {
+  .grid2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* ---------- Moat grid (3+2 balanced five-card) ----------
+   Ported from design-prototype/css/lineage.css .grid--moat
+   Mobile: 1-col → tablet: 2-col → desktop: 6-col with span rules
+   so that 3 cards fill row 1, and 2 cards centre in row 2.
+*/
+.gridMoat {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 621px) {
+  .gridMoat {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (min-width: 960px) {
+  .gridMoat {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .gridMoat > * {
+    grid-column: span 2;
+  }
+
+  /* 4th card: starts at column 3 (centred in row 2 alongside 5th card) */
+  .gridMoat > *:nth-child(4) {
+    grid-column: 3 / span 2;
+  }
+
+  /* 5th card: column 5 */
+  .gridMoat > *:nth-child(5) {
+    grid-column: 5 / span 2;
+  }
+}
+
+/* ---------- Card CTA footer ---------- */
+.cardCta {
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+/* ---------- Section prose ---------- */
+.sectionProse {
+  max-width: 70ch;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin: 0 0 var(--space-7);
+}
+
+/* ---------- Endpoint URL mono chip ---------- */
+.endpointUrl {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  margin-top: var(--space-2);
 }
