@@ -4,7 +4,8 @@
 .sectionProse {
   max-width: 70ch;
   color: var(--color-text-muted);
-  line-height: 1.65;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
   margin: 0 0 var(--space-7);
 }
 
@@ -70,15 +71,27 @@
 /* ---------- Research pillars 3-col grid ---------- */
 .grid3 {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .grid3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------- Publications grid (cards) ---------- */
 .pubGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 /* ---------- Card CTA footer ---------- */

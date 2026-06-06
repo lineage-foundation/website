@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import {
+  Accent,
   AsideCard,
   Button,
   Card,
   Eyebrow,
   LinkCta,
+  PageHead,
   Section,
 } from "@/components/ui";
 import {
@@ -65,35 +67,25 @@ export default function ResearchPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="Research"
-        heading={
+        title={
           <>
-            A protocol that is also a{" "}
-            <span style={{ color: "var(--color-accent)" }}>research</span>{" "}
-            programme
+            A protocol that is also a <Accent>research</Accent> programme
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
-          Lineage is a research project as much as a layer-one protocol. The
-          work is published as open working papers on Zenodo under CC&nbsp;BY
-          &nbsp;4.0 — newest first — covering market computation, consensus, and
-          world state.
-        </p>
-        <div className={styles.pageHeadActions}>
-          <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
-            Read the Whitepaper
-          </Button>
-          <Button href={URL_DISCOURSE_RESEARCH} variant="secondary" external>
-            Open the Fremen Forum
-          </Button>
-        </div>
-      </Section>
+        lead="Lineage is a research project as much as a layer-one protocol. The work is published as open working papers on Zenodo under CC BY 4.0 — newest first — covering market computation, consensus, and world state."
+        actions={
+          <>
+            <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
+              Read the Whitepaper
+            </Button>
+            <Button href={URL_DISCOURSE_RESEARCH} variant="secondary" external>
+              Open the Fremen Forum
+            </Button>
+          </>
+        }
+      />
 
       {/* ABSTRACT + CITATION ASIDE */}
       <Section>
@@ -184,10 +176,7 @@ export default function ResearchPage() {
         heading="Three lines of inquiry"
       >
         <div className={styles.grid3}>
-          <Card rail title="Universal Turing Market Machines">
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-caption)", color: "var(--color-link)", marginBottom: "var(--space-3)" }}>
-              01
-            </p>
+          <Card rail kicker="01" title="Universal Turing Market Machines">
             <p>
               UTMMs frame market policy as a programmable, adaptive object.
               Transaction history becomes an epistemic substrate: deterministic
@@ -196,10 +185,7 @@ export default function ResearchPage() {
               computability.
             </p>
           </Card>
-          <Card rail title="Prime Radiant Consensus">
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-caption)", color: "var(--color-link)", marginBottom: "var(--space-3)" }}>
-              02
-            </p>
+          <Card rail kicker="02" title="Prime Radiant Consensus">
             <p>
               The Dynamic Proof of Weighted Work (DPoWW) papers describe a
               Nakamoto-style consensus that shifts between fully distributed and
@@ -208,10 +194,7 @@ export default function ResearchPage() {
               miner workloads.
             </p>
           </Card>
-          <Card rail title="Adaptive Market Evolution">
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-caption)", color: "var(--color-link)", marginBottom: "var(--space-3)" }}>
-              03
-            </p>
+          <Card rail kicker="03" title="Adaptive Market Evolution">
             <p>
               Self-organizing market process modelled through Hayek&rsquo;s
               spontaneous order and Ashby&rsquo;s law of requisite variety.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { TeamGrid } from "@/components/about/TeamGrid";
 import { Person } from "@/components/about/Person";
-import { Button, LinkCta, Section } from "@/components/ui";
+import { Accent, Button, LinkCta, PageHead, Section } from "@/components/ui";
 import { SITE_ORIGIN, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
 import styles from "./page.module.css";
@@ -50,26 +50,15 @@ export default function AboutPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="About"
-        heading={
+        title={
           <>
-            The people building{" "}
-            <span style={{ color: "var(--color-accent)" }}>Lineage</span>
+            The people building <Accent>Lineage</Accent>
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.sectionProse}>
-          Lineage is developed by the Lineage Foundation — a small founding team
-          building the protocol in the open, guided by advisors in economics and
-          the science of markets. Our work is published as research and shipped
-          as open source.
-        </p>
-      </Section>
+        lead="Lineage is developed by the Lineage Foundation — a small founding team building the protocol in the open, guided by advisors in economics and the science of markets. Our work is published as research and shipped as open source."
+      />
 
       {/* DIRECTORS */}
       <Section

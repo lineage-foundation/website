@@ -20,7 +20,7 @@ export const ZENODO_RESEARCH_PUBLICATIONS: readonly ZenodoResearchItem[] = [
     href: "https://zenodo.org/records/19203176",
     datePublished: "2026-03-24",
     description:
-      "Sets out UTMMs as a framework for blockchain-based markets in which market policy is a programmable, adaptive object: transaction history is used as an epistemic substrate, with deterministic feature extraction, evaluation of policies in a constrained space, and improvement via bounded search—while remaining within classical computability limits.",
+      "Sets out UTMMs as a framework for blockchain-based markets in which market policy is a programmable, adaptive object: transaction history as an epistemic substrate, deterministic feature extraction, evaluation of policies in a constrained space, and improvement via bounded search — while remaining within classical computability limits.",
   },
   {
     id: "17777930",
