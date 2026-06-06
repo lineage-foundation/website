@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 
 import { Phases } from "@/components/tokenomics/Phases";
 import {
+  Accent,
   Button,
   Card,
   LinkCta,
+  PageHead,
   Section,
   Table,
 } from "@/components/ui";
 import { SITE_ORIGIN, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 import { ZENODO_P2P_ELECTRONIC_CASH } from "@/lib/research-zenodo";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: {
@@ -108,56 +111,39 @@ export default function TokenomicsPage() {
   return (
     <>
       {/* ── PAGE HEAD ── */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="Economic design"
-        heading={
+        title={
           <>
-            Token allocation, release, and{" "}
-            <span style={{ color: "var(--color-accent)" }}>supply</span>
+            Token allocation, release, and <Accent>supply</Accent>
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p
-          style={{
-            color: "var(--color-text-muted)",
-            fontSize: "var(--fs-lead)",
-            lineHeight: "var(--lh-lead)",
-            maxWidth: "62ch",
-          }}
-        >
-          <span
-            style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
-          >
-            LNGX
-          </span>{" "}
-          is the network&rsquo;s unit of value. The economic stack is described
-          as <strong>FIAT Replacement Technology (FReT)</strong>&mdash;pairing a
-          phased allocation schedule with the ARCO layer&rsquo;s ability to
-          adjust effective supply over time. The full specification lives in{" "}
-          <em>Lineage: The Living Economy</em> on Zenodo.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "var(--space-3)",
-            marginTop: "var(--space-5)",
-            alignItems: "center",
-          }}
-        >
-          <Button href={URL_ZENODO_WHITEPAPER} variant="primary">
-            Read the whitepaper
-          </Button>
-          <Button href="/get-tokens" variant="secondary">
-            Get LNGX
-          </Button>
-          <LinkCta href="/docs">Browse the docs</LinkCta>
-        </div>
-      </Section>
+        lead={
+          <>
+            <span
+              style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+            >
+              LNGX
+            </span>{" "}
+            is the network&rsquo;s unit of value. The economic stack is described
+            as <strong>FIAT Replacement Technology (FReT)</strong>&mdash;pairing
+            a phased allocation schedule with the ARCO layer&rsquo;s ability to
+            adjust effective supply over time. The full specification lives in{" "}
+            <em>Lineage: The Living Economy</em> on Zenodo.
+          </>
+        }
+        actions={
+          <>
+            <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
+              Read the whitepaper
+            </Button>
+            <Button href="/get-tokens" variant="secondary">
+              Get LNGX
+            </Button>
+            <LinkCta href="/docs">Browse the docs</LinkCta>
+          </>
+        }
+      />
 
       {/* ── TWO LAYERS, ONE ECONOMY ── */}
       <Section
@@ -166,13 +152,7 @@ export default function TokenomicsPage() {
         headingLevel={2}
         spacing="loose"
       >
-        <p
-          style={{
-            color: "var(--color-text-muted)",
-            maxWidth: "68ch",
-            marginBottom: "var(--space-6)",
-          }}
-        >
+        <p className={styles.sectionProse}>
           The token model separates the <strong>unit of value</strong> from the{" "}
           <strong>policy that governs it</strong>. LNGX is what moves on the
           ledger; FReT is the framework that decides how much of it circulates
@@ -219,13 +199,7 @@ export default function TokenomicsPage() {
         headingLevel={2}
         spacing="loose"
       >
-        <p
-          style={{
-            color: "var(--color-text-muted)",
-            maxWidth: "68ch",
-            marginBottom: "var(--space-6)",
-          }}
-        >
+        <p className={styles.sectionProse}>
           Allocation is modelled per phase across the early network years
           (2026&ndash;2029). The values below are the Foundation&rsquo;s working
           distribution model: the{" "}
@@ -538,11 +512,11 @@ export default function TokenomicsPage() {
               policy and ARCO-driven adjustment rather than off-chain promise
               alone.
             </p>
-            <p style={{ marginTop: "var(--space-4)" }}>
+            <div className={styles.cardCta}>
               <LinkCta href={ZENODO_P2P_ELECTRONIC_CASH.href}>
                 Read the paper on Zenodo
               </LinkCta>
-            </p>
+            </div>
           </Card>
         </div>
       </Section>
@@ -555,13 +529,7 @@ export default function TokenomicsPage() {
         headingLevel={2}
         spacing="loose"
       >
-        <p
-          style={{
-            color: "var(--color-text-muted)",
-            maxWidth: "68ch",
-            marginBottom: "var(--space-6)",
-          }}
-        >
+        <p className={styles.sectionProse}>
           Allocation is released across distinct phases. Early phases lean on
           treasury, grants, founder and community categories to bootstrap the
           network; later phases shift weight toward miners as proof-of-work
@@ -585,20 +553,20 @@ export default function TokenomicsPage() {
               allocation schedule and the ARCO layer in detail&mdash;archived
               on Zenodo.
             </p>
-            <p style={{ marginTop: "var(--space-4)" }}>
-              <Button href={URL_ZENODO_WHITEPAPER} variant="primary">
+            <div className={styles.cardCta}>
+              <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
                 Read the whitepaper
               </Button>
-            </p>
+            </div>
           </Card>
           <Card rail title="Go deeper in the docs">
             <p>
               Concepts, the HTTP API reference, and guides for building against
               a Layer-1 where market policy itself is programmable.
             </p>
-            <p style={{ marginTop: "var(--space-4)" }}>
+            <div className={styles.cardCta}>
               <LinkCta href="/docs">Open documentation</LinkCta>
-            </p>
+            </div>
           </Card>
         </div>
       </Section>

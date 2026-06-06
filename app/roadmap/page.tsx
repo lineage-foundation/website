@@ -6,10 +6,12 @@ import { Timeline } from "@/components/roadmap/Timeline";
 import { WsGrid } from "@/components/roadmap/WsGrid";
 import styles from "@/components/roadmap/RoadmapLayout.module.css";
 import {
+  Accent,
   Button,
   Card,
   LinkCta,
   Note,
+  PageHead,
   Section,
 } from "@/components/ui";
 import {
@@ -85,28 +87,24 @@ export default function RoadmapPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="Roadmap"
-        heading={
+        title={
           <>
-            Two initiatives.{" "}
-            <span style={{ color: "var(--color-accent)" }}>Three releases.</span>
+            Two initiatives. <Accent>Three releases.</Accent>
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.pageLead}>
-          Lineage&rsquo;s path to a fully distributed network runs through three
-          sequenced releases &mdash; <strong>Phoenix</strong>,{" "}
-          <strong>Austria</strong>, and <strong>Nakamoto</strong> &mdash; each
-          carrying one of the protocol&rsquo;s two defining initiatives. The
-          sequence is deliberate: liquidity readiness first, then the economic
-          layer, then the irreversible step into full decentralization.
-        </p>
-      </Section>
+        lead={
+          <>
+            Lineage&rsquo;s path to a fully distributed network runs through
+            three sequenced releases &mdash; <strong>Phoenix</strong>,{" "}
+            <strong>Austria</strong>, and <strong>Nakamoto</strong> &mdash; each
+            carrying one of the protocol&rsquo;s two defining initiatives. The
+            sequence is deliberate: liquidity readiness first, then the economic
+            layer, then the irreversible step into full decentralization.
+          </>
+        }
+      />
 
       {/* INITIATIVES */}
       <Section
@@ -359,7 +357,6 @@ export default function RoadmapPage() {
         eyebrow="Follow along"
         heading="Build alongside the roadmap"
         headingLevel={2}
-        containerWidth="narrow"
       >
         <p className={styles.sectionProse}>
           The protocol is developed in the open. Read the research, then start
