@@ -43,22 +43,42 @@ const tokenomicsData = {
   ],
 } as const;
 
-/** Canvas fill colors — v2-harmonized (link + accent family); distinct on dark. */
+/**
+ * Canvas fill colors — BRAND v2 teal-space palette.
+ * Hex literals are required here because canvas/Plotly cannot read CSS custom
+ * properties at paint time. Values are hex approximations of the OKLch tokens
+ * defined in app/globals.css:
+ *   emerald accent  oklch(82% 0.16 165)  → #7af0b0
+ *   emerald strong  oklch(86% 0.15 167)  → #8bf3bd
+ *   cyan link       oklch(78% 0.12 218)  → #5fd0e6
+ *   cyan mid        oklch(72% 0.11 218)  → #48b8d0
+ *   teal mid        oklch(68% 0.09 200)  → #4da8bc
+ *   teal light      oklch(75% 0.10 195)  → #63c2d4
+ *   green-teal      oklch(80% 0.13 180)  → #6ddec8
+ */
 const CHART_SLICE_COLORS = [
-  "#5eb0ff",
-  "#d4f952",
-  "#7abfff",
-  "#9ad636",
-  "#4a8ac9",
-  "#bfe63a",
-  "#6b9ef0",
+  "#5fd0e6",
+  "#7af0b0",
+  "#48b8d0",
+  "#8bf3bd",
+  "#4da8bc",
+  "#6ddec8",
+  "#63c2d4",
 ] as const;
 
-/* Match `app/globals.css` v2 (canvas cannot use CSS custom properties). */
-const TEXT = "#e9ebf0";
-const TEXT_MUTED = "#a2aab6";
-const TEXT_SUBTLE = "#7d8895";
-const DELTA_POS = "#d4f952";
+/**
+ * Surface / text / delta hex — BRAND v2 teal-space.
+ * Canvas cannot use CSS custom properties.
+ *   text           oklch(95% 0.010 195)  → #e8f0ef
+ *   text-muted     oklch(73% 0.016 195)  → #9fb3b0
+ *   text-subtle    oklch(60% 0.016 195)  → #7d9896
+ *   delta-pos      oklch(82% 0.16 165)   → #7af0b0  (emerald accent)
+ *   delta-neg      oklch(68% 0.18 18)    → #e85d6a  (unchanged danger)
+ */
+const TEXT = "#e8f0ef";
+const TEXT_MUTED = "#9fb3b0";
+const TEXT_SUBTLE = "#7d9896";
+const DELTA_POS = "#7af0b0";
 const DELTA_NEG = "#e85d6a";
 
 const yearLabels = ["2026", "2027", "2028", "2029"];
@@ -152,7 +172,7 @@ export function TokenomicsChart() {
         ctx.closePath();
 
         ctx.fillStyle =
-          CHART_SLICE_COLORS[i % CHART_SLICE_COLORS.length] ?? "#5eb0ff";
+          CHART_SLICE_COLORS[i % CHART_SLICE_COLORS.length] ?? "#5fd0e6";
         ctx.fill();
 
         if (isHovered) {
