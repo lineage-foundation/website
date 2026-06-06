@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { TokenomicsChart } from "@/components/tokenomics/TokenomicsChart";
 import { Phases } from "@/components/tokenomics/Phases";
 import {
   Button,
@@ -546,11 +545,6 @@ export default function TokenomicsPage() {
             </p>
           </Card>
         </div>
-      </Section>
-
-      {/* ── INTERACTIVE CHART ── */}
-      <Section tone="band" spacing="tight" containerWidth="narrow">
-        <TokenomicsChart />
       </Section>
 
       {/* ── PHASED RELEASE MODEL (band) ── */}

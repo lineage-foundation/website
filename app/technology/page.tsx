@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ArcoSimulatorDynamic } from "@/components/arco-sim/ArcoSimulatorDynamic";
 import { ArcoLoop } from "@/components/technology/ArcoLoop";
 import { EfficiencyChart } from "@/components/technology/EfficiencyChart";
 import styles from "@/components/technology/TechLayout.module.css";
@@ -452,9 +451,6 @@ broadcastToFarmers(FSM_opt.policy());`,
           <Stat value="—" label="SandWorm Hash difficulty" />
         </div>
       </Section>
-
-      {/* INTERACTIVE SIMULATOR */}
-      <ArcoSimulatorDynamic />
 
       {/* CTA BAND */}
       <Section
