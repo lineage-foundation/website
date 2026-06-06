@@ -1,15 +1,13 @@
 import { Button, Container, Eyebrow } from "@/components/ui";
 import { URL_GITHUB_ORG, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
-import { HeroShaderDynamic } from "./HeroShaderDynamic";
+import { LatticeCanvas } from "./LatticeCanvas";
 import styles from "./Hero.module.css";
 
 export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
-      <div className={styles.shader} aria-hidden>
-        <HeroShaderDynamic />
-      </div>
+      <LatticeCanvas />
       <Container className={styles.content}>
         <Eyebrow className={styles.eyebrow} variant="feature">
           Layer-1 infrastructure
