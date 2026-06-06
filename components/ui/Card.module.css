@@ -32,7 +32,8 @@
   cursor: pointer;
 }
 
-.clickable:hover {
+/* Prototype lifts every card on hover, not only clickable ones. */
+.card:hover {
   border-color: var(--color-border-strong);
   background: var(--color-surface-2);
   transform: translateY(-3px);
