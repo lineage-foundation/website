@@ -33,7 +33,6 @@
     );
 }
 
-
 .content {
   position: relative;
   width: 100%;
@@ -91,8 +90,8 @@
 
 .leadPlain {
   color: var(--color-text);
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
 }
 
 .actions {
