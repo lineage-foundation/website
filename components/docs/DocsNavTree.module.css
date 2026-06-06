@@ -4,21 +4,24 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .listRoot > .group {
-  margin-top: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.listRoot > .group:first-child {
+  margin-top: 0;
 }
 
 .listNested {
   list-style: none;
-  margin: 0;
-  margin-top: var(--space-1);
-  padding: 0 0 0 var(--space-2);
+  margin: var(--space-1) 0 var(--space-3);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .group {
@@ -49,7 +52,7 @@
   padding: 0;
   margin: 0;
   border: none;
-  border-radius: var(--r-md);
+  border-radius: var(--r-sm);
   background: transparent;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -59,11 +62,11 @@
 
 .disclosure:hover {
   color: var(--color-text);
-  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+  background: color-mix(in oklab, var(--color-text) 4%, transparent);
 }
 
 .disclosure:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
 
@@ -96,90 +99,94 @@
   border: 0;
 }
 
-.groupTitleLink,
-.groupTitleLinkActive {
-  flex: 1;
-  min-width: 0;
-  display: block;
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  border-radius: var(--r-md);
-  font-size: var(--fs-small);
-  line-height: 1.45;
-  text-decoration: none;
-  color: var(--color-text-muted);
-  outline-offset: 2px;
-  border: 1px solid transparent;
-  font-weight: 500;
-  transition: background-color var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
-}
-
-.groupTitleLink:hover {
-  color: var(--color-text);
-  background: color-mix(in srgb, var(--color-text) 4%, transparent);
-}
-
-.groupTitleLinkActive {
-  color: var(--color-text);
-  background: color-mix(in srgb, var(--color-link) 12%, var(--color-surface));
-  border-color: color-mix(in srgb, var(--color-link) 35%, transparent);
-}
-
-.groupTitleLink:focus-visible,
-.groupTitleLinkActive:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 2px;
-}
-
+/* Section label (non-link group headings) — mono, uppercase caption */
 .groupLabelInRow {
   flex: 1;
   min-width: 0;
   display: block;
   padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-subtle);
   line-height: 1.45;
+}
+
+/* Group title links (top-level section with a link + chevron) */
+.groupTitleLink,
+.groupTitleLinkActive {
+  flex: 1;
+  min-width: 0;
+  display: block;
+  padding: 6px var(--space-2) 6px 0;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  outline-offset: 2px;
+  border-left: 2px solid transparent;
+  font-weight: 500;
+  transition: color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    border-left-color var(--dur-fast) var(--ease);
+}
+
+.groupTitleLink:hover {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.groupTitleLinkActive {
+  color: var(--color-text);
+  border-left-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.groupTitleLink:focus-visible,
+.groupTitleLinkActive:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
 }
 
 .item {
   margin: 0;
 }
 
+/* Leaf nav links */
 .link,
 .linkActive {
   display: block;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--r-md);
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
   font-size: var(--fs-small);
   line-height: 1.45;
   text-decoration: none;
   color: var(--color-text-muted);
   outline-offset: 2px;
-  border: 1px solid transparent;
-  transition: background-color var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
+  border-left: 2px solid transparent;
+  transition: color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    border-left-color var(--dur-fast) var(--ease);
 }
 
 .link:hover {
   color: var(--color-text);
-  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+  background: var(--color-surface);
 }
 
 .linkActive {
   color: var(--color-text);
-  background: color-mix(in srgb, var(--color-link) 12%, var(--color-surface));
-  border-color: color-mix(in srgb, var(--color-link) 35%, transparent);
+  border-left-color: var(--color-accent);
+  background: var(--color-surface);
   font-weight: 500;
 }
 
 .link:focus-visible,
 .linkActive:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
 

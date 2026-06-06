@@ -30,8 +30,8 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) max(var(--gutter), env(safe-area-inset-left));
-  border-bottom: var(--border-rule);
-  background: color-mix(in srgb, var(--color-bg-raised) 92%, transparent);
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in oklab, var(--color-bg-raised) 92%, transparent);
 }
 
 .menuButton {
@@ -41,7 +41,7 @@
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  border: var(--border-rule);
+  border: 1px solid var(--color-border);
   border-radius: var(--r-md);
   background: var(--color-surface);
   color: var(--color-text);
@@ -54,7 +54,7 @@
 }
 
 .menuButton:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
 
@@ -100,8 +100,8 @@
   width: var(--docs-sidebar-width);
   min-height: 0;
   overflow: hidden;
-  border-right: var(--border-rule);
-  background: color-mix(in srgb, var(--color-bg-raised) 65%, var(--color-bg) 35%);
+  border-right: 1px solid var(--color-border);
+  background: color-mix(in oklab, var(--color-bg-raised) 65%, var(--color-bg) 35%);
 }
 
 .asideInner {
@@ -125,7 +125,7 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  background: color-mix(in srgb, var(--color-bg) 97%, transparent);
+  background: var(--color-bg);
 }
 
 .mainBody {
@@ -136,19 +136,19 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   /* top | right | bottom | left (logical: keep clear of nav and viewport) */
-  padding: clamp(var(--space-8), 3.5vw, var(--space-9))
+  padding: clamp(var(--space-7), 3.5vw, var(--space-9))
     max(clamp(var(--space-6), 3vw, var(--space-8)), env(safe-area-inset-right))
     var(--space-10)
     max(
-      clamp(var(--space-8), 5vw, var(--space-10)),
+      clamp(var(--space-7), 5vw, var(--space-9)),
       env(safe-area-inset-left)
     );
 }
 
-/* Reading column: bounded width, centered in the right pane on wide viewports */
+/* Reading column: bounded width (~80ch), centered in the right pane on wide viewports */
 .mainInner {
   width: 100%;
-  max-width: min(48rem, 100%);
+  max-width: min(80ch, 100%);
   margin-inline: auto;
   padding: 0;
 }
@@ -156,13 +156,19 @@
 .thinScroll {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-border-strong) 80%, transparent)
-    transparent;
+  /* Firefox: invisible at rest, on-brand on hover — use the :hover variant below */
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color var(--dur-base) var(--ease);
+}
+
+.thinScroll:hover,
+.thinScroll:focus-within {
+  scrollbar-color: var(--color-border-strong) transparent;
 }
 
 .thinScroll::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 .thinScroll::-webkit-scrollbar-track {
@@ -170,12 +176,21 @@
 }
 
 .thinScroll::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-border-strong) 90%, transparent);
+  background: transparent;
   border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.thinScroll:hover::-webkit-scrollbar-thumb,
+.thinScroll:focus-within::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  background-clip: padding-box;
 }
 
 .thinScroll::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-subtle);
+  background: color-mix(in oklab, var(--color-link) 55%, var(--color-border-strong));
+  background-clip: padding-box;
 }
 
 @media (max-width: 1023px) {
@@ -233,6 +248,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aside {
+    transition: none;
+  }
+  .thinScroll {
     transition: none;
   }
 }

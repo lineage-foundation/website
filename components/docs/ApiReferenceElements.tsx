@@ -1,5 +1,6 @@
 import { ENVELOPE_ERROR_EXAMPLE } from "@/lib/api-ref-schemas";
 import { docsApiUrl, type DocsApiSubsystem } from "@/lib/docs-api-origins";
+import { Pill } from "@/components/ui";
 
 import styles from "./ApiReferenceElements.module.css";
 
@@ -21,7 +22,8 @@ export function MethodPath({
   const url = docsApiUrl(subsystem, operation);
   return (
     <p className={styles.methodLine}>
-      <span className={styles.methodBadge}>{method}</span> <code>{url}</code>
+      <Pill tone={method.toLowerCase() as "get" | "post"}>{method}</Pill>
+      <code>{url}</code>
     </p>
   );
 }
