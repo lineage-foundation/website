@@ -15,7 +15,6 @@ import { Cooldown } from "@/components/ui/Cooldown";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { LinkCta } from "@/components/ui/LinkCta";
-import { Note } from "@/components/ui/Note";
 import { Segmented } from "@/components/ui/Segmented";
 import { StatusBar, type StatusTone } from "@/components/ui/StatusBar";
 
@@ -136,27 +135,6 @@ function BuyPanel() {
     e.preventDefault();
 
     if (!formIsValid || loading) return;
-
-    // Re-validate on submit
-    if (amount <= 0 || amount < minPurchase) {
-      setStatus({ tone: "err", message: "Please enter a valid amount." });
-      return;
-    }
-    if (amount > maxPurchase) {
-      setStatus({
-        tone: "warn",
-        message: `Utility purchases are capped at ${fmtMoney(maxPurchase)} per purchase.`,
-      });
-      return;
-    }
-    if (!looksLikeAddress(address)) {
-      setAddressInvalid(true);
-      setStatus({
-        tone: "err",
-        message: "Please provide a valid Lineage address.",
-      });
-      return;
-    }
 
     setLoading(true);
     setStatus({
@@ -393,25 +371,11 @@ function FaucetPanel() {
   const [loading, setLoading] = useState(false);
   /**
    * Timestamp (ms) when the cooldown ends; 0 = no cooldown.
-   * Lazy initializer reads localStorage on first client render so no
-   * effect-based setState is needed (avoids react-hooks/set-state-in-effect).
-   * This component is "use client" — the initializer always runs in a browser.
+   * Initialised to the SSR-safe default (0) so server and first client render
+   * match. The mount effect below restores the persisted value post-hydration
+   * to avoid an SSR/client mismatch.
    */
-  const [cooldownUntil, setCooldownUntil] = useState(() => {
-    try {
-      const stored = localStorage.getItem(FAUCET_STORAGE_KEY);
-      if (stored) {
-        const last = parseInt(stored, 10);
-        if (!isNaN(last)) {
-          const ends = last + faucet.cooldownMs;
-          if (ends > Date.now()) return ends;
-        }
-      }
-    } catch {
-      // localStorage unavailable (e.g. private browsing restriction)
-    }
-    return 0;
-  });
+  const [cooldownUntil, setCooldownUntil] = useState(0);
 
   /**
    * Tracked `now` so `isCoolingDown` is a pure derived value during render
@@ -421,6 +385,39 @@ function FaucetPanel() {
    */
   const [now, setNow] = useState(() => Date.now());
 
+  // Restore browser-only state after hydration (Fixes 1 & 2).
+  // Initialised to SSR-safe defaults above; this effect corrects them on the
+  // client without causing a hydration mismatch.
+  // faucet.cooldownMs is a compile-time module constant — safe to omit.
+  useEffect(
+    () => {
+      try {
+        const stored = localStorage.getItem(FAUCET_STORAGE_KEY);
+        if (stored) {
+          const last = parseInt(stored, 10);
+          if (!isNaN(last)) {
+            const ends = last + faucet.cooldownMs;
+            if (ends > Date.now()) {
+              setCooldownUntil(ends);
+              // Fix 2: show cooldown status immediately on reload so the user
+              // sees the countdown rather than a silently disabled button.
+              // The Cooldown widget is appended by the existing isCoolingDown
+              // branch in the StatusBar JSX below.
+              setStatus({
+                tone: "warn",
+                message: "You&rsquo;ve already claimed recently.",
+              });
+            }
+          }
+        }
+      } catch {
+        // localStorage unavailable (e.g. private browsing restriction)
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [], // mount only — syncing client-only persisted/URL state post-hydration
+  );
+
   // Keep `now` ticking while a cooldown is active
   useEffect(() => {
     if (cooldownUntil <= 0) return;
@@ -428,7 +425,8 @@ function FaucetPanel() {
     return () => window.clearInterval(id);
   }, [cooldownUntil]);
 
-  const isCoolingDown = cooldownUntil > now && now > 0;
+  // Fix 5: remove redundant `now > 0` — Date.now() is always positive
+  const isCoolingDown = cooldownUntil > now;
   const claimDisabled = !looksLikeAddress(address) || isCoolingDown || loading;
 
   const handleCooldownElapsed = useCallback(() => {
@@ -628,15 +626,22 @@ const TAB_OPTIONS = [
 
 export function GetTokensClient() {
   /**
-   * Initialize from URL hash so /get-tokens#faucet lands on the faucet tab.
-   * Lazy initializer runs client-only ("use client") — no SSR concern.
+   * Fix 1: initialise to the SSR-safe default ("buy") so server and first
+   * client render match. The mount effect below switches to "faucet" if the
+   * URL hash says so, post-hydration with no mismatch.
    */
-  const [tab, setTab] = useState<Tab>(() =>
-    typeof window !== "undefined" && window.location.hash === "#faucet"
-      ? "faucet"
-      : "buy",
-  );
+  const [tab, setTab] = useState<Tab>("buy");
 
+  // Fix 1: restore hash-driven tab selection after hydration.
+  // The setState calls here are intentional and safe: they only fire once on
+  // mount to sync client-only URL state (window.location.hash) that cannot be
+  // read during SSR prerender, so no cascading-render issue arises.
+  useEffect(() => {
+    if (window.location.hash === "#faucet") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTab("faucet"); // syncing URL-only state post-hydration — not a loop
+    }
+  }, []); // mount only — syncing URL state post-hydration
 
   function handleTabChange(v: string) {
     const next = v as Tab;
@@ -657,10 +662,11 @@ export function GetTokensClient() {
       {/* Segmented tab toggle */}
       <div className={styles.segmentedWrap}>
         <Segmented
-          options={TAB_OPTIONS as unknown as { value: string; label: string }[]}
+          options={TAB_OPTIONS}
           value={tab}
           onChange={handleTabChange}
-          aria-label="Choose what you need"
+          idPrefix="tab"
+          ariaLabel="Choose what you need"
         />
       </div>
 
@@ -679,13 +685,6 @@ export function GetTokensClient() {
         aria-labelledby="tab-faucet"
         hidden={tab !== "faucet"}
       >
-        {/* Note for the agent aside — displayed in the faucet panel */}
-        <Note kicker="Agents &amp; programmatic access">
-          Automated clients don&rsquo;t pay by card. Agents and services
-          transact directly against the network APIs, and an MCP server is on
-          the way so AI agents can read balances and move value as tools.{" "}
-          <LinkCta href="/developers">Developer overview</LinkCta>
-        </Note>
         <FaucetPanel />
       </div>
     </div>
