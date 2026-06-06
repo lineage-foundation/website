@@ -1,6 +1,6 @@
 import { ENVELOPE_ERROR_EXAMPLE } from "@/lib/api-ref-schemas";
 import { docsApiUrl, type DocsApiSubsystem } from "@/lib/docs-api-origins";
-import { Pill } from "@/components/ui";
+import { CodeBlock, Pill } from "@/components/ui";
 
 import styles from "./ApiReferenceElements.module.css";
 
@@ -100,7 +100,7 @@ export function StandardErrorEnvelopeExample() {
   return (
     <>
       <h3>Example error envelope (typical 400)</h3>
-      <pre>{ENVELOPE_ERROR_EXAMPLE}</pre>
+      <CodeBlock lang="json">{ENVELOPE_ERROR_EXAMPLE}</CodeBlock>
     </>
   );
 }

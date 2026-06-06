@@ -4,6 +4,7 @@ import {
   MethodPath,
   StandardErrorEnvelopeExample,
 } from "@/components/docs/ApiReferenceElements";
+import { CodeBlock } from "@/components/ui";
 import { TOTAL_SUPPLY_SUCCESS } from "@/lib/api-ref-schemas";
 import { docsApiUrl } from "@/lib/docs-api-origins";
 import { docsPageMetadata } from "@/lib/docs-page-metadata";
@@ -21,17 +22,16 @@ export default function TotalSupplyPage() {
         Returns a total supply figure. As with <code>issued_supply</code>, the
         public reference only requires the <code>x-cache-id</code> header.
       </p>
-      <h2>Endpoint</h2>
       <MethodPath method="POST" operation="total_supply" />
       <h2>Headers</h2>
       <HeadersTable />
       <h2>Request body</h2>
       <p>None (empty body).</p>
       <h2>Example</h2>
-      <pre>{`curl -sS -X POST "${docsApiUrl("mempool", "total_supply")}" \\
+      <CodeBlock lang="bash">{`curl -sS -X POST "${docsApiUrl("mempool", "total_supply")}" \\
   -H "Content-Type: application/json" \\
   -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d ''`}</pre>
+  -d ''`}</CodeBlock>
       <h2>Responses</h2>
       <p>
         <code>200</code> on success, with a numeric (or string-encoded numeric){" "}
@@ -39,7 +39,7 @@ export default function TotalSupplyPage() {
         defined by the node version.
       </p>
       <h3>Example success payload</h3>
-      <pre>{TOTAL_SUPPLY_SUCCESS}</pre>
+      <CodeBlock lang="json">{TOTAL_SUPPLY_SUCCESS}</CodeBlock>
       <StandardErrorEnvelopeExample />
     </DocsArticle>
   );

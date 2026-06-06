@@ -5,6 +5,7 @@ import {
   ResponseEnvelopeList,
   StandardErrorEnvelopeExample,
 } from "@/components/docs/ApiReferenceElements";
+import { CodeBlock } from "@/components/ui";
 import {
   BLOCKCHAIN_ENTRY_BLOCK,
   BLOCKCHAIN_ENTRY_TX,
@@ -27,7 +28,6 @@ export default function BlockchainEntryPage() {
         whether the hash refers to a block header or a transaction as stored in its
         index.
       </p>
-      <h2>Endpoint</h2>
       <MethodPath
         method="POST"
         operation="blockchain_entry"
@@ -37,12 +37,12 @@ export default function BlockchainEntryPage() {
       <HeadersTable />
       <h2>Request body</h2>
       <p>A single hash string (JSON string value, not an object wrapper).</p>
-      <pre>{`"<hex-or-encoded-hash>"`}</pre>
+      <CodeBlock lang="json">{`"<hex-or-encoded-hash>"`}</CodeBlock>
       <h2>Example</h2>
-      <pre>{`curl -sS -X POST "${docsApiUrl("storage", "blockchain_entry")}" \\
+      <CodeBlock lang="bash">{`curl -sS -X POST "${docsApiUrl("storage", "blockchain_entry")}" \\
   -H "Content-Type: application/json" \\
   -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d '"<hash>"'`}</pre>
+  -d '"<hash>"'`}</CodeBlock>
       <h2>Responses</h2>
       <p>
         <code>200</code> on success, <code>400</code> if the hash is unknown or
@@ -54,9 +54,9 @@ export default function BlockchainEntryPage() {
       <h3>Envelope fields (typical)</h3>
       <ResponseEnvelopeList />
       <h3>Example success payload (block)</h3>
-      <pre>{BLOCKCHAIN_ENTRY_BLOCK}</pre>
+      <CodeBlock lang="json">{BLOCKCHAIN_ENTRY_BLOCK}</CodeBlock>
       <h3>Example success payload (transaction)</h3>
-      <pre>{BLOCKCHAIN_ENTRY_TX}</pre>
+      <CodeBlock lang="json">{BLOCKCHAIN_ENTRY_TX}</CodeBlock>
       <StandardErrorEnvelopeExample />
     </DocsArticle>
   );

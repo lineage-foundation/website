@@ -5,6 +5,7 @@ import {
   ResponseEnvelopeList,
   StandardErrorEnvelopeExample,
 } from "@/components/docs/ApiReferenceElements";
+import { CodeBlock } from "@/components/ui";
 import {
   CREATE_TRANSACTIONS_REQUEST,
   CREATE_TRANSACTIONS_REQUEST_NO_DRUID,
@@ -33,7 +34,6 @@ export default function CreateTxPage() {
         calls difficult; for convenience, it may be easier to use a library or SDK
         that abstracts this route.
       </p>
-      <h2>Endpoint</h2>
       <MethodPath method="POST" operation="create_transactions" />
       <h2>Headers</h2>
       <HeadersTable />
@@ -49,18 +49,18 @@ export default function CreateTxPage() {
         public reference spec).
       </p>
       <h3>Complete example (with optional druid_info)</h3>
-      <pre>{CREATE_TRANSACTIONS_REQUEST}</pre>
+      <CodeBlock lang="json">{CREATE_TRANSACTIONS_REQUEST}</CodeBlock>
       <h3>Typical example (omit druid_info)</h3>
       <p>
         Many single-party sends omit <code>druid_info</code>. Your deployment may
         accept a body like:
       </p>
-      <pre>{CREATE_TRANSACTIONS_REQUEST_NO_DRUID}</pre>
+      <CodeBlock lang="json">{CREATE_TRANSACTIONS_REQUEST_NO_DRUID}</CodeBlock>
       <h2>Example</h2>
-      <pre>{`curl -sS -X POST "${docsApiUrl("mempool", "create_transactions")}" \\
+      <CodeBlock lang="bash">{`curl -sS -X POST "${docsApiUrl("mempool", "create_transactions")}" \\
   -H "Content-Type: application/json" \\
   -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d @transaction.json`}</pre>
+  -d @transaction.json`}</CodeBlock>
       <h2>Responses</h2>
       <p>
         <code>200</code> and <code>400</code> for success and client errors, using
@@ -69,7 +69,7 @@ export default function CreateTxPage() {
       <h3>Envelope fields (typical)</h3>
       <ResponseEnvelopeList />
       <h3>Example success payload</h3>
-      <pre>{CREATE_TRANSACTIONS_SUCCESS}</pre>
+      <CodeBlock lang="json">{CREATE_TRANSACTIONS_SUCCESS}</CodeBlock>
       <StandardErrorEnvelopeExample />
     </DocsArticle>
   );

@@ -5,6 +5,7 @@ import {
   ResponseEnvelopeList,
   StandardErrorEnvelopeExample,
 } from "@/components/docs/ApiReferenceElements";
+import { CodeBlock } from "@/components/ui";
 import { FETCH_BALANCE_SUCCESS } from "@/lib/api-ref-schemas";
 import { docsApiUrl } from "@/lib/docs-api-origins";
 import { docsPageMetadata } from "@/lib/docs-page-metadata";
@@ -23,7 +24,6 @@ export default function FetchBalancePage() {
         Returns balance information for one or more addresses. Request with{" "}
         <code>application/json</code> and a body that lists the addresses to query.
       </p>
-      <h2>Endpoint</h2>
       <MethodPath method="POST" operation="fetch_balance" />
       <h2>Headers</h2>
       <HeadersTable />
@@ -32,12 +32,12 @@ export default function FetchBalancePage() {
         JSON array of address strings. At least one address is required in typical
         usage.
       </p>
-      <pre>{`["<address-1>", "<address-2>"]`}</pre>
+      <CodeBlock lang="json">{`["<address-1>", "<address-2>"]`}</CodeBlock>
       <h2>Example</h2>
-      <pre>{`curl -sS -X POST "${docsApiUrl("mempool", "fetch_balance")}" \\
+      <CodeBlock lang="bash">{`curl -sS -X POST "${docsApiUrl("mempool", "fetch_balance")}" \\
   -H "Content-Type: application/json" \\
   -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d '["<address-1>"]'`}</pre>
+  -d '["<address-1>"]'`}</CodeBlock>
       <h2>Responses</h2>
       <p>
         <code>200</code> on success, <code>400</code> if the call could not be
@@ -48,7 +48,7 @@ export default function FetchBalancePage() {
       <h3>Envelope fields (typical)</h3>
       <ResponseEnvelopeList />
       <h3>Example success payload</h3>
-      <pre>{FETCH_BALANCE_SUCCESS}</pre>
+      <CodeBlock lang="json">{FETCH_BALANCE_SUCCESS}</CodeBlock>
       <StandardErrorEnvelopeExample />
     </DocsArticle>
   );

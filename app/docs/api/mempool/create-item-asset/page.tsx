@@ -5,6 +5,7 @@ import {
   ResponseEnvelopeList,
   StandardErrorEnvelopeExample,
 } from "@/components/docs/ApiReferenceElements";
+import { CodeBlock } from "@/components/ui";
 import {
   CREATE_ITEM_ASSET_REQUEST,
   CREATE_ITEM_ASSET_SUCCESS,
@@ -25,7 +26,6 @@ export default function CreateItemAssetPage() {
         Creates a new item-type asset, including amount, public key, signature, and
         related metadata fields where required by the release you target.
       </p>
-      <h2>Endpoint</h2>
       <MethodPath method="POST" operation="create_item_asset" />
       <h2>Headers</h2>
       <HeadersTable />
@@ -49,12 +49,12 @@ export default function CreateItemAssetPage() {
         </li>
       </ul>
       <h3>Complete JSON example</h3>
-      <pre>{CREATE_ITEM_ASSET_REQUEST}</pre>
+      <CodeBlock lang="json">{CREATE_ITEM_ASSET_REQUEST}</CodeBlock>
       <h2>Example</h2>
-      <pre>{`curl -sS -X POST "${docsApiUrl("mempool", "create_item_asset")}" \\
+      <CodeBlock lang="bash">{`curl -sS -X POST "${docsApiUrl("mempool", "create_item_asset")}" \\
   -H "Content-Type: application/json" \\
   -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d @item-asset.json`}</pre>
+  -d @item-asset.json`}</CodeBlock>
       <h2>Responses</h2>
       <p>
         <code>200</code> on success, <code>400</code> on validation or signing
@@ -64,7 +64,7 @@ export default function CreateItemAssetPage() {
       <h3>Envelope fields (typical)</h3>
       <ResponseEnvelopeList />
       <h3>Example success payload</h3>
-      <pre>{CREATE_ITEM_ASSET_SUCCESS}</pre>
+      <CodeBlock lang="json">{CREATE_ITEM_ASSET_SUCCESS}</CodeBlock>
       <StandardErrorEnvelopeExample />
     </DocsArticle>
   );

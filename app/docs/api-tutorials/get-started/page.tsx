@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { DocsArticle } from "@/components/docs/DocsArticle";
+import { CodeBlock } from "@/components/ui";
 import { docsPageMetadata } from "@/lib/docs-page-metadata";
 import {
   DOCS_MEMPOOL_API_ORIGIN,
@@ -79,16 +80,14 @@ export default function ApiTutorialsGetStartedPage() {
         only a loose sketch of how a high-level <code>info</code> payload might
         list route names; your node may differ.
       </p>
-      <pre>
-        {`{
+      <CodeBlock lang="json">{`{
   "node_type": "Storage",
   "node_api": [
     "block_by_num",
     "latest_block",
     "blockchain_entry"
   ]
-}`}
-      </pre>
+}`}</CodeBlock>
       <h2>Next steps</h2>
       <ul>
         <li>
