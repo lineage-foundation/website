@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./Segmented.module.css";
 
 export type SegmentedOption = { value: string; label: string };
