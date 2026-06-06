@@ -1,0 +1,27 @@
+/* ================================================================
+   /about page-local styles
+   ================================================================ */
+
+.sectionProse {
+  max-width: 52ch;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  margin-block: 0;
+}
+
+.inlineLink {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inlineLink:hover {
+  color: var(--color-link-hover);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
