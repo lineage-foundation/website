@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import {
+  Accent,
   AsideCard,
   Button,
   Card,
@@ -8,6 +9,7 @@ import {
   Eyebrow,
   LinkCta,
   Note,
+  PageHead,
   Pill,
   Section,
 } from "@/components/ui";
@@ -56,35 +58,25 @@ export default function DevelopersPage() {
   return (
     <>
       {/* PAGE HEAD */}
-      <Section
-        visual="feature"
+      <PageHead
         eyebrow="For developers"
-        heading={
+        title={
           <>
-            Build on{" "}
-            <span style={{ color: "var(--color-accent)" }}>Lineage</span>
+            Build on <Accent>Lineage</Accent>
           </>
         }
-        headingLevel={1}
-        headingVariant="display"
-        spacing="loose"
-      >
-        <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
-          Lineage is a Layer-1 where market policy itself is programmable. The
-          network performs bounded search over policy space and verifies results
-          cryptographically — so the mechanisms governing markets can evolve
-          without changing the chain. Everything is open: evaluate the protocol
-          against the whitepaper, clone the repos, and prototype.
-        </p>
-        <div className={styles.pageHeadActions}>
-          <Button href="/docs" variant="primary">
-            Read the docs
-          </Button>
-          <Button href={URL_GITHUB_ORG} variant="secondary" external>
-            View GitHub
-          </Button>
-        </div>
-      </Section>
+        lead="Lineage is a Layer-1 where market policy itself is programmable. The network performs bounded search over policy space and verifies results cryptographically — so the mechanisms governing markets can evolve without changing the chain. Everything is open: evaluate the protocol against the whitepaper, clone the repos, and prototype."
+        actions={
+          <div className={styles.pageHeadActions}>
+            <Button href="/docs" variant="primary">
+              Read the docs
+            </Button>
+            <Button href={URL_GITHUB_ORG} variant="secondary" external>
+              View GitHub
+            </Button>
+          </div>
+        }
+      />
 
       {/* CONNECT TO THE NETWORK */}
       <Section
@@ -228,10 +220,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
           the standard error envelope.
         </p>
         <div className={styles.grid3}>
-          <Card rail title="Mempool API">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              {DOCS_MEMPOOL_API_ORIGIN}
-            </p>
+          <Card rail kicker={DOCS_MEMPOOL_API_ORIGIN} title="Mempool API">
             <p>
               Transactions, balances, supply, and mempool metadata — the write
               and query path for clients.
@@ -259,10 +248,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
 
-          <Card rail title="Storage API">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              {DOCS_STORAGE_API_ORIGIN}
-            </p>
+          <Card rail kicker={DOCS_STORAGE_API_ORIGIN} title="Storage API">
             <p>
               Full blockchain history. After blocks are mined and validated,
               they are persisted for long-term read access.
@@ -286,10 +272,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
 
-          <Card rail title="Miner API">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              {DOCS_MINER_API_ORIGIN}
-            </p>
+          <Card rail kicker={DOCS_MINER_API_ORIGIN} title="Miner API">
             <p>
               Operator-facing HTTP where a release exposes it — a small surface
               compared to mempool and storage.
@@ -319,10 +302,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
           passphrase for local key encryption.
         </p>
         <div className={styles.grid3}>
-          <Card rail title="sdk-js">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              JavaScript / TypeScript
-            </p>
+          <Card rail kicker="JavaScript / TypeScript" title="sdk-js">
             <p>
               The client for browser and Node apps and wallets: create a wallet,
               issue items and assets, run two-way payments, send and receive.
@@ -335,10 +315,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
 
-          <Card rail title="sdk-python">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              Python
-            </p>
+          <Card rail kicker="Python" title="sdk-python">
             <p>
               The client for backends, data tooling, and automation: key
               management, balance and supply reads, transaction construction, and
@@ -352,10 +329,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
 
-          <Card rail title="sdk-php">
-            <p style={{ marginBottom: 0, color: "var(--color-text-muted)", fontSize: "var(--fs-small)" }}>
-              PHP
-            </p>
+          <Card rail kicker="PHP" title="sdk-php">
             <p>
               The client for server-side web stacks: wallet creation, asset
               issuance, payments, and chain reads from within PHP applications
@@ -463,9 +437,8 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
       <Section
         eyebrow="Start building"
         heading="Clone a repo. Read a route. Ship."
-        spacing="loose"
       >
-        <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
+        <p className={styles.sectionProse}>
           The protocol, the reference deployment, and the documentation are all
           open. Pick up the docs or jump straight into the source.
         </p>
