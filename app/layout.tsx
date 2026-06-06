@@ -59,6 +59,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/brand/favicon.svg", type: "image/svg+xml" },
       {
         url: "/images/lineage-favicon-16x16.png",
         sizes: "16x16",
