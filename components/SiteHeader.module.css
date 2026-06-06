@@ -75,6 +75,11 @@
   padding: 0;
 }
 
+/* Wordmark text beside the mark (prototype .brand renders "Lineage" as text) */
+.wordmark {
+  line-height: 1;
+}
+
 /* ---------- Utility ---------- */
 
 .srOnly {

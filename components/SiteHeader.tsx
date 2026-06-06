@@ -125,9 +125,11 @@ export function SiteHeader() {
             {/* eslint-disable-next-line @next/next/no-img-element -- explicit dimensions match header sizing */}
             <img
               src="/brand/lineage-mark.svg"
-              alt="Lineage"
+              alt=""
+              aria-hidden="true"
               className={styles.logo}
             />
+            <span className={styles.wordmark}>Lineage</span>
           </Link>
         </div>
 
