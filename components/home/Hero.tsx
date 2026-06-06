@@ -1,4 +1,4 @@
-import { Button, Container, Eyebrow } from "@/components/ui";
+import { Button, Container, Eyebrow, LinkCta } from "@/components/ui";
 import { URL_GITHUB_ORG, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
 import { LatticeCanvas } from "./LatticeCanvas";
@@ -20,6 +20,11 @@ export function Hero() {
             Lineage is the foundation for adaptive, trust-minimized smart
             markets.
           </p>
+          <p className={styles.leadPlain}>
+            In plain terms: the rules that run a market — its fees, incentives,
+            and policy — become open programs the network can verify and adapt,
+            instead of fixed code no one can change.
+          </p>
           <p>A Layer-1 where markets become verifiable programs.</p>
           <p>Miners adapt market policy. Consensus unlocks market value.</p>
         </div>
@@ -30,16 +35,14 @@ export function Hero() {
             href={URL_ZENODO_WHITEPAPER}
             external
           >
-            Read the Whitepaper
+            Read the whitepaper
           </Button>
-          <Button
-            variant="secondary"
-            size="md"
-            href={URL_GITHUB_ORG}
-            external
-          >
-            Build With Us
+          <Button variant="secondary" size="md" href="/developers">
+            Build with us
           </Button>
+          <LinkCta href={URL_GITHUB_ORG} muted external>
+            Browse the code on GitHub
+          </LinkCta>
         </div>
       </Container>
     </section>

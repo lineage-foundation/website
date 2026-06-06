@@ -48,6 +48,21 @@ export const metadata: Metadata = {
   },
 };
 
+const WHY_LINEAGE_FEATURES = [
+  {
+    title: "Complete market data, on-chain",
+    body: "A transaction-based ledger keeps the full economic record — every order and settlement — so markets are analyzable at the protocol level, not just net balances.",
+  },
+  {
+    title: "Intelligence & data, no oracles",
+    body: "GPU mining powers on-chain AI evaluation, and real-world signals enter as first-class items validated by the network itself — no external oracle to trust.",
+  },
+  {
+    title: "Adaptive, secured at layer-1",
+    body: "Prices adapt to unforeseen events instead of freezing, and market logic is secured by the entire mining network — there’s no separate application layer to attack.",
+  },
+] as const;
+
 const UTMM_FEATURES = [
   {
     title: "Feature Extraction",
@@ -99,6 +114,30 @@ export default function Home() {
       <Hero />
 
       <Section
+        id="why-lineage"
+        tone="band"
+        visual="feature"
+        eyebrow="Why Lineage"
+        heading="Why a smart market needs this architecture"
+        headingLevel={2}
+      >
+        <Prose>
+          <p>
+            A market is not a contract between two parties — it evolves with
+            the world and clears by consensus among everyone in it. That
+            can&rsquo;t run on static code or borrowed data. Lineage is built
+            for it from layer-1 up.
+          </p>
+        </Prose>
+        <FeatureGrid items={WHY_LINEAGE_FEATURES} />
+        <p className={styles.centerCta}>
+          <LinkCta href="/technology#moat">
+            Why Lineage is uniquely positioned
+          </LinkCta>
+        </p>
+      </Section>
+
+      <Section
         id="utmm"
         visual="feature"
         eyebrow="Solution detail"
@@ -114,6 +153,9 @@ export default function Home() {
           </p>
         </Prose>
         <FeatureGrid items={UTMM_FEATURES} />
+        <p className={styles.centerCta}>
+          <LinkCta href="/technology">Explore the technology</LinkCta>
+        </p>
       </Section>
 
       <Section
