@@ -107,7 +107,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body className={inter.className}>
+      {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject
+          attributes like data-gr-ext-installed on <body> before React hydrates. */}
+      <body className={inter.className} suppressHydrationWarning>
         <SiteHeader />
         <main className="siteMain">{children}</main>
         <SiteFooter />

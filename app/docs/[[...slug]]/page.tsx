@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { DocsArticle } from "@/components/docs/DocsArticle";
+import { DocsHome } from "@/components/docs/DocsHome";
 import { segmentsToPath, titleFromSegments } from "@/lib/docs-catchall-config";
 import { getPortedDocPage } from "@/lib/docs-ported";
 import { URL_GITHUB_ORG } from "@/lib/constants";
@@ -51,42 +52,7 @@ export default async function DocsCatchAllPage({ params }: Props) {
   }
 
   if (slug.length === 0) {
-    return (
-      <DocsArticle title="Welcome to Lineage">
-        <p>
-          Here you can find what you need to build on Lineage: how the network is
-          structured, how to integrate with the HTTP API, and links to deeper
-          guides. Whether you are evaluating the protocol or shipping an
-          integration, this section is the entry point for technical material.
-        </p>
-        <p>
-          Use the left-hand navigation to move between{" "}
-          <Link href="/docs/concepts">concepts</Link>,{" "}
-          <Link href="/docs/tutorials-overview">tutorials</Link>, and the{" "}
-          <Link href="/docs/api/overview">API</Link>. Open-source repositories
-          and community discussion are linked from the main site; the{" "}
-          <a href={URL_GITHUB_ORG} rel="noopener noreferrer" target="_blank">
-            Lineage Foundation GitHub organisation
-          </a>{" "}
-          is the hub for code and issues.
-        </p>
-        <h2>Before you dive in</h2>
-        <ul>
-          <li>
-            <Link href="/docs/concepts">Network concepts</Link> — node roles and
-            how data moves through the system.
-          </li>
-          <li>
-            <Link href="/docs/api/overview">API overview</Link> — how the public
-            HTTP API is organised (mempool, storage, miner).
-          </li>
-          <li>
-            <Link href="/docs/api-tutorials/get-started">API quick start</Link>{" "}
-            — suggested workflow when you are ready to call endpoints.
-          </li>
-        </ul>
-      </DocsArticle>
-    );
+    return <DocsHome />;
   }
 
   const displayTitle = titleFromSegments(slug);
