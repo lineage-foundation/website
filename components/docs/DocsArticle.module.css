@@ -94,8 +94,10 @@
   color: var(--color-link);
 }
 
-/* Docs-scoped card hover: cyan border, no lift — prototype .doc-card:hover */
-.articleBody :global(.card):hover {
+/* Docs-scoped card hover: cyan border, no lift — prototype .doc-card:hover.
+   Targets the stable data-card attribute (Card's class is a hashed CSS-module
+   name, so a literal .card selector would never match). */
+.articleBody [data-card]:hover {
   border-color: var(--color-link);
   background: var(--color-surface-2);
   transform: none;

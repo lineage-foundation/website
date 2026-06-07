@@ -43,7 +43,7 @@ export function Card({
     typeof title === "string" ? title : "Open card";
 
   return (
-    <article className={classes.join(" ")} {...rest}>
+    <article data-card="" className={classes.join(" ")} {...rest}>
       {kicker ? <span className={styles.kicker}>{kicker}</span> : null}
       {icon ? (
         <span className={styles.icon} aria-hidden="true">
