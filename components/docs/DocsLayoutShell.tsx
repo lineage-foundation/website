@@ -43,18 +43,6 @@ export function DocsLayoutShell({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    const body = document.body;
-    const className = "docs-layout--active";
-    root.classList.add(className);
-    body.classList.add(className);
-    return () => {
-      root.classList.remove(className);
-      body.classList.remove(className);
-    };
-  }, []);
-
-  useEffect(() => {
     if (!open) return;
     if (!narrow) return;
     const onKey = (e: KeyboardEvent) => {
@@ -159,13 +147,13 @@ export function DocsLayoutShell({ children }: Props) {
           className={asideClass}
           aria-hidden={narrow && !open ? true : undefined}
         >
-          <div className={`${styles.asideInner} ${styles.thinScroll}`}>
+          <div className={styles.asideInner}>
             <DocsNavTree onNavigate={close} className={styles.navTree} />
           </div>
         </aside>
 
         <div className={styles.main}>
-          <div className={`${styles.mainBody} ${styles.thinScroll}`}>
+          <div className={styles.mainBody}>
             <div className={styles.mainInner}>{children}</div>
           </div>
         </div>

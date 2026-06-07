@@ -1,15 +1,9 @@
-/* Full-width /docs chrome: flexes with main.siteMain:has([data-docs-root]). */
+/* /docs layout: normal-scroll page, sticky left nav, prototype grid */
 
 .root {
-  --docs-sidebar-width: 18rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  min-width: 0;
+  --docs-sidebar-width: 280px;
+  display: block;
   width: 100%;
-  /* Clip the shell so the reading column (not the window) is what scrolls on wheel */
-  overflow: hidden;
 }
 
 .srOnly {
@@ -24,6 +18,7 @@
   border: 0;
 }
 
+/* Mobile top-bar (hamburger + title) — hidden on desktop */
 .mobileBar {
   display: none;
   flex-shrink: 0;
@@ -81,118 +76,83 @@
   cursor: pointer;
 }
 
+/* ── Desktop two-column grid ── */
 .inner {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  min-height: 0;
-  min-width: 0;
+  display: grid;
+  grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr);
+  gap: var(--space-9);
+  align-items: start;
+  padding-block: var(--space-7);
   width: 100%;
-  overflow: hidden;
 }
 
-/* Left rail: full height of the docs region, scroll only the nav list */
+/* Left rail: sticky, scrolls only nav content */
 .aside {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  width: var(--docs-sidebar-width);
-  min-height: 0;
-  overflow: hidden;
-  border-right: 1px solid var(--color-border);
-  background: color-mix(in oklab, var(--color-bg-raised) 65%, var(--color-bg) 35%);
-}
-
-.asideInner {
-  flex: 1;
-  min-height: 0;
+  position: sticky;
+  top: calc(var(--site-header-offset, 64px) + var(--space-3));
+  align-self: start;
+  max-height: calc(100vh - var(--site-header-offset, 64px) - var(--space-5));
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: var(--space-5) var(--space-4) var(--space-7);
-  padding-inline-start: max(var(--space-4), env(safe-area-inset-left));
-}
-
-.navTree {
-  padding: 0;
-}
-
-/* Main reading column: separate scroll from the nav (no double page scroll) */
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  background: var(--color-bg);
-}
-
-.mainBody {
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  /* top | right | bottom | left (logical: keep clear of nav and viewport) */
-  padding: clamp(var(--space-7), 3.5vw, var(--space-9))
-    max(clamp(var(--space-6), 3vw, var(--space-8)), env(safe-area-inset-right))
-    var(--space-10)
-    max(
-      clamp(var(--space-7), 5vw, var(--space-9)),
-      env(safe-area-inset-left)
-    );
-}
-
-/* Reading column: bounded width (~80ch), centered in the right pane on wide viewports */
-.mainInner {
-  width: 100%;
-  max-width: min(80ch, 100%);
-  margin-inline: auto;
-  padding: 0;
-}
-
-.thinScroll {
-  scrollbar-gutter: stable;
+  padding-right: var(--space-3);
+  /* Thin scrollbar — invisible at rest */
   scrollbar-width: thin;
-  /* Firefox: invisible at rest, on-brand on hover — use the :hover variant below */
   scrollbar-color: transparent transparent;
   transition: scrollbar-color var(--dur-base) var(--ease);
 }
 
-.thinScroll:hover,
-.thinScroll:focus-within {
+.aside:hover,
+.aside:focus-within {
   scrollbar-color: var(--color-border-strong) transparent;
 }
 
-.thinScroll::-webkit-scrollbar {
+.aside::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
-.thinScroll::-webkit-scrollbar-track {
+.aside::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.thinScroll::-webkit-scrollbar-thumb {
+.aside::-webkit-scrollbar-thumb {
   background: transparent;
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
-.thinScroll:hover::-webkit-scrollbar-thumb,
-.thinScroll:focus-within::-webkit-scrollbar-thumb {
+.aside:hover::-webkit-scrollbar-thumb,
+.aside:focus-within::-webkit-scrollbar-thumb {
   background: var(--color-border-strong);
   background-clip: padding-box;
 }
 
-.thinScroll::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in oklab, var(--color-link) 55%, var(--color-border-strong));
-  background-clip: padding-box;
+/* asideInner is no longer an internal scroll wrapper — just padding */
+.asideInner {
+  padding-block: 0;
 }
 
+.navTree {
+  padding: 0;
+}
+
+/* Right content column: normal flow, full column width */
+.main {
+  min-width: 0;
+}
+
+.mainBody {
+  padding: 0;
+}
+
+/* Prose cap: 80ch on p/li is applied via DocsNavTree/article styles.
+   Keep the column itself unclamped so code blocks and tables span full width. */
+.mainInner {
+  width: 100%;
+  padding: 0;
+}
+
+/* ── Mobile (≤1023px): drawer-based nav ── */
 @media (max-width: 1023px) {
   .mobileBar {
     display: flex;
@@ -203,8 +163,10 @@
   }
 
   .inner {
-    flex: 1;
+    display: flex;
     flex-direction: column;
+    gap: 0;
+    padding-block: 0;
   }
 
   .aside {
@@ -215,10 +177,18 @@
     z-index: calc(var(--z-menu) - 1);
     width: min(var(--docs-sidebar-width), min(100vw, 20rem));
     max-width: 92vw;
+    max-height: none;
+    padding-right: 0;
     transform: translateX(-100%);
     transition: transform var(--dur-base) var(--ease);
     background: var(--color-bg-raised);
     box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
+    scrollbar-color: unset;
+  }
+
+  .aside:hover,
+  .aside:focus-within {
+    scrollbar-color: unset;
   }
 
   .asideOpen {
@@ -227,11 +197,11 @@
 
   .asideInner {
     padding-block: var(--space-4);
+    padding-inline: var(--space-4);
   }
 
   .main {
     flex: 1;
-    min-height: 0;
   }
 
   .mainBody {
@@ -248,9 +218,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aside {
-    transition: none;
-  }
-  .thinScroll {
     transition: none;
   }
 }

@@ -1,91 +1,4 @@
-.listRoot {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.listRoot > .group {
-  margin-top: var(--space-5);
-}
-
-.listRoot > .group:first-child {
-  margin-top: 0;
-}
-
-.listNested {
-  list-style: none;
-  margin: var(--space-1) 0 var(--space-3);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.group {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.groupRow,
-.groupRowNested {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  min-width: 0;
-}
-
-.groupRowNested {
-  margin-top: 0;
-}
-
-.disclosure {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 1.75rem;
-  min-height: 2.25rem;
-  padding: 0;
-  margin: 0;
-  border: none;
-  border-radius: var(--r-sm);
-  background: transparent;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease),
-    background-color var(--dur-fast) var(--ease);
-}
-
-.disclosure:hover {
-  color: var(--color-text);
-  background: color-mix(in oklab, var(--color-text) 4%, transparent);
-}
-
-.disclosure:focus-visible {
-  outline: 2px solid var(--color-link);
-  outline-offset: 2px;
-}
-
-.chevron {
-  display: block;
-  transition: transform var(--dur-fast) var(--ease);
-  transform: rotate(0deg);
-}
-
-.chevronOpen {
-  transform: rotate(90deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .chevron,
-  .chevronOpen {
-    transition: none;
-  }
-}
+/* Prototype docs-nav styles — always-open sections, left-accent active links */
 
 .srOnly {
   position: absolute;
@@ -99,74 +12,58 @@
   border: 0;
 }
 
-/* Section label (non-link group headings) — mono, uppercase caption */
-.groupLabelInRow {
-  flex: 1;
-  min-width: 0;
-  display: block;
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+/* Section wrapper — provides spacing between top-level groups */
+.section {
+  margin-top: var(--space-5);
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+/* Standalone leaf links (Welcome, Tutorials overview, etc.) */
+.standalone {
+  margin-bottom: 1px;
+}
+
+.standalone:first-child {
+  margin-top: 0;
+}
+
+/* Section heading: mono, uppercase caption — matches prototype .docs-nav h2 */
+.sectionHeading {
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
-  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-subtle);
-  line-height: 1.45;
-}
-
-/* Group title links (top-level section with a link + chevron) */
-.groupTitleLink,
-.groupTitleLinkActive {
-  flex: 1;
-  min-width: 0;
-  display: block;
-  padding: 6px var(--space-2) 6px 0;
-  border-radius: var(--r-sm);
-  font-size: var(--fs-small);
-  line-height: 1.45;
-  text-decoration: none;
-  color: var(--color-text-muted);
-  outline-offset: 2px;
-  border-left: 2px solid transparent;
+  margin: var(--space-3) 0 var(--space-2);
   font-weight: 500;
-  transition: color var(--dur-fast) var(--ease),
-    background-color var(--dur-fast) var(--ease),
-    border-left-color var(--dur-fast) var(--ease);
+  line-height: 1.4;
 }
 
-.groupTitleLink:hover {
-  color: var(--color-text);
-  background: var(--color-surface);
+/* Flat link list under each section heading */
+.list {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
-.groupTitleLinkActive {
-  color: var(--color-text);
-  border-left-color: var(--color-accent);
-  background: var(--color-surface);
-}
-
-.groupTitleLink:focus-visible,
-.groupTitleLinkActive:focus-visible {
-  outline: 2px solid var(--color-link);
-  outline-offset: 2px;
-}
-
-.item {
-  margin: 0;
-}
-
-/* Leaf nav links */
+/* Nav links — matches prototype .docs-nav a */
 .link,
 .linkActive {
   display: block;
   padding: 6px 10px;
   border-radius: var(--r-sm);
+  color: var(--color-text-muted);
   font-size: var(--fs-small);
   line-height: 1.45;
   text-decoration: none;
-  color: var(--color-text-muted);
-  outline-offset: 2px;
   border-left: 2px solid transparent;
+  outline-offset: 2px;
   transition: color var(--dur-fast) var(--ease),
     background-color var(--dur-fast) var(--ease),
     border-left-color var(--dur-fast) var(--ease);
@@ -177,6 +74,7 @@
   background: var(--color-surface);
 }
 
+/* Active state: left accent border + surface background — matches prototype [aria-current="page"] */
 .linkActive {
   color: var(--color-text);
   border-left-color: var(--color-accent);
@@ -188,10 +86,4 @@
 .linkActive:focus-visible {
   outline: 2px solid var(--color-link);
   outline-offset: 2px;
-}
-
-/* Nested list items: indent aligns with text column after chevron in parent */
-.listNested .link,
-.listNested .linkActive {
-  padding-left: var(--space-2);
 }
