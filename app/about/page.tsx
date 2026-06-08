@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     absolute: "About | Lineage",
   },
   description:
-    "The people behind the Lineage Foundation — the founders building the protocol and the advisors guiding its economic design.",
+    "The people behind the Lineage Foundation, the founders building the protocol and the advisors guiding its economic design.",
   alternates: {
     canonical: "/about",
   },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About | Lineage",
     description:
-      "The people behind the Lineage Foundation — the founders building the protocol and the advisors guiding its economic design.",
+      "The people behind the Lineage Foundation, the founders building the protocol and the advisors guiding its economic design.",
     url: `${SITE_ORIGIN}/about`,
     type: "website",
     images: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | Lineage",
     description:
-      "The people behind the Lineage Foundation — the founders building the protocol and the advisors guiding its economic design.",
+      "The people behind the Lineage Foundation, the founders building the protocol and the advisors guiding its economic design.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -57,7 +57,7 @@ export default function AboutPage() {
             The people building <Accent>Lineage</Accent>
           </>
         }
-        lead="Lineage is developed by the Lineage Foundation — a small founding team building the protocol in the open, guided by advisors in economics and the science of markets. Our work is published as research and shipped as open source."
+        lead="Lineage is developed by the Lineage Foundation, a small founding team building the protocol in the open, guided by advisors in economics and the science of markets. Our work is published as research and shipped as open source."
       />
 
       {/* DIRECTORS */}
@@ -120,9 +120,9 @@ export default function AboutPage() {
             bio={
               <>
                 Deeply engaged in the DLT space for over nine years, Sabrina is
-                Co-Managing Director of Blockchain Zug &mdash; the joint
+                Co-Managing Director of Blockchain Zug, the joint
                 research hub at Lucerne University of Applied Sciences and Arts
-                (HSLU) &mdash; and a Senior Research Associate in its Computer
+                (HSLU), and a Senior Research Associate in its Computer
                 Science &amp; Information Technology department. She also serves
                 as a Council Member of the Ethereum Switzerland Association.
               </>
@@ -134,7 +134,7 @@ export default function AboutPage() {
             photo="/team/mervyn-eagles.jpg"
             monogram="ME"
             linkedIn="https://www.linkedin.com/in/mervyn-eagles-b341a12b0/"
-            bio="A co-founder of Lineage, Mervyn serves in a non-executive capacity — supporting the Foundation’s strategy and its path from genesis toward a fully decentralized network of Smart Markets."
+            bio="A co-founder of Lineage, Mervyn serves in a non-executive capacity, supporting the Foundation’s strategy and its path from genesis toward a fully decentralized network of Smart Markets."
           />
         </TeamGrid>
       </Section>
@@ -165,7 +165,7 @@ export default function AboutPage() {
             photo="/team/claudio-tessone.jpg"
             monogram="CT"
             linkedIn="https://www.linkedin.com/in/claudiotessone/"
-            bio="Professor of Blockchain and Distributed Ledger Technologies at the University of Zurich and co-founder and Chairman of the UZH Blockchain Center, Claudio studies blockchains as complex socio-economic systems — consensus, cryptoeconomics, and token-economy design. He advises Lineage on the incentive design behind Smart Markets."
+            bio="Professor of Blockchain and Distributed Ledger Technologies at the University of Zurich and co-founder and Chairman of the UZH Blockchain Center, Claudio studies blockchains as complex socio-economic systems: consensus, cryptoeconomics, and token-economy design. He advises Lineage on the incentive design behind Smart Markets."
           />
         </TeamGrid>
       </Section>

@@ -88,7 +88,7 @@ const PHASES = [
     heading: "Miner-led supply",
     body: (
       <>
-        Miners reach 101&mdash;the largest single category&mdash;as Stakeholder
+        Miners reach 101, the largest single category, as Stakeholder
         allocation phases out and issuance concentrates on proof-of-work. Phase
         total: 266 model units.
       </>
@@ -101,7 +101,7 @@ const PHASES = [
       <>
         Past the scheduled phases, effective supply and circulation are
         coordinated by the ARCO layer in response to demand and on-chain state,
-        within protocol policy&mdash;not a fixed forward calendar.
+        within protocol policy. There is no fixed forward calendar.
       </>
     ),
   },
@@ -126,8 +126,8 @@ export default function TokenomicsPage() {
               LNGX
             </span>{" "}
             is the network&rsquo;s unit of value. The economic stack is described
-            as <strong>FIAT Replacement Technology (FReT)</strong>&mdash;pairing
-            a phased allocation schedule with the ARCO layer&rsquo;s ability to
+            as <strong>FIAT Replacement Technology (FReT)</strong>: a phased
+            allocation schedule paired with the ARCO layer&rsquo;s ability to
             adjust effective supply over time. The full specification lives in{" "}
             <em>Lineage: The Living Economy</em> on Zenodo.
           </>
@@ -167,7 +167,7 @@ export default function TokenomicsPage() {
         >
           <Card rail title="LNGX">
             <p>
-              LNGX is the native asset of the Lineage Layer-1&mdash;the token
+              LNGX is the native asset of the Lineage Layer-1, the token
               miners earn, holders carry, and applications transact in. Its
               release into circulation follows the phased allocation schedule
               below, spanning the project&rsquo;s genesis and early network
@@ -179,7 +179,7 @@ export default function TokenomicsPage() {
               FReT is the economic stack around LNGX. It pairs the phased
               allocation you see below with the ARCO layer&rsquo;s ability to
               adjust <strong>effective supply and circulation</strong> over
-              time&mdash;aiming for low volatility without external collateral
+              time, aiming for low volatility without external collateral
               or game-theoretic levers.
             </p>
           </Card>
@@ -201,7 +201,7 @@ export default function TokenomicsPage() {
       >
         <p className={styles.sectionProse}>
           Allocation is modelled per phase across the early network years
-          (2026&ndash;2029). The values below are the Foundation&rsquo;s working
+          (2026-2029). The values below are the Foundation&rsquo;s working
           distribution model: the{" "}
           <span
             style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
@@ -428,7 +428,7 @@ export default function TokenomicsPage() {
               <td className="num">20</td>
               <td className="num">20</td>
               <td className="num">20</td>
-              <td className="num">&mdash;</td>
+              <td className="num">—</td>
             </tr>
             <tr>
               <td>
@@ -436,17 +436,17 @@ export default function TokenomicsPage() {
               </td>
               <td className="num">20</td>
               <td className="num">20</td>
-              <td className="num">&mdash;</td>
-              <td className="num">&mdash;</td>
+              <td className="num">—</td>
+              <td className="num">—</td>
             </tr>
             <tr>
               <td>
                 <span className="tok">AI Airdrop Incentives</span>
               </td>
               <td className="num">15</td>
-              <td className="num">&mdash;</td>
-              <td className="num">&mdash;</td>
-              <td className="num">&mdash;</td>
+              <td className="num">—</td>
+              <td className="num">—</td>
+              <td className="num">—</td>
             </tr>
             <tr>
               <td>
@@ -470,7 +470,7 @@ export default function TokenomicsPage() {
           Model units from the Lineage Foundation working distribution model.
           The Miners share can be scaled by a market-demand factor in the
           interactive chart; categories phase out as the schedule progresses
-          (shown here as &ldquo;&mdash;&rdquo;). Final on-chain allocations are
+          (shown here as &ldquo;—&rdquo;). Final on-chain allocations are
           governed by protocol policy.
         </p>
       </Section>
@@ -494,7 +494,7 @@ export default function TokenomicsPage() {
               The working model starts from a supply on the order of{" "}
               <strong>300&nbsp;million tokens</strong>, after which{" "}
               <strong>effective supply and circulation adapt over time</strong>{" "}
-              in response to demand and on-chain state&mdash;through the same
+              in response to demand and on-chain state, through the same
               ARCO (adaptive resource-coordinated) loop used elsewhere in the
               network: sensor, relay, compute, actuator. The allocation table
               above is expressed in proportional model units; ARCO governs how
@@ -550,7 +550,7 @@ export default function TokenomicsPage() {
           <Card rail title="Read the full specification">
             <p>
               <em>Lineage: The Living Economy</em> sets out FReT, LNGX, the
-              allocation schedule and the ARCO layer in detail&mdash;archived
+              allocation schedule and the ARCO layer in detail, archived
               on Zenodo.
             </p>
             <div className={styles.cardCta}>

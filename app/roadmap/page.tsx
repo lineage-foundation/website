@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     absolute: "Roadmap | Lineage",
   },
   description:
-    "The Lineage release roadmap — two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
+    "The Lineage release roadmap: two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
   alternates: {
     canonical: "/roadmap",
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Roadmap | Lineage",
     description:
-      "The Lineage release roadmap — two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
+      "The Lineage release roadmap: two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
     url: `${SITE_ORIGIN}/roadmap`,
     type: "website",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Roadmap | Lineage",
     description:
-      "The Lineage release roadmap — two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
+      "The Lineage release roadmap: two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -65,19 +65,19 @@ const PHASES = [
     num: "Release 01",
     name: "Phoenix",
     when: "Liquidity readiness · 2026",
-    desc: "Core network upgrades, hardening, and the release-critical changes needed for listing — including the Ethereum and Solana bridges.",
+    desc: "Core network upgrades, hardening, and the release-critical changes needed for listing, including the Ethereum and Solana bridges.",
   },
   {
     num: "Release 02",
     name: "Austria",
     when: "Economic layer · 2026",
-    desc: "The economic and market layer — currency, ARCO compute, and smart-market functionality, with the financial policy that governs fees and rewards.",
+    desc: "The economic and market layer: currency, ARCO compute, and smart-market functionality, with the financial policy that governs fees and rewards.",
   },
   {
     num: "Release 03",
     name: "Nakamoto",
     when: "Full decentralization · final",
-    desc: "The fully distributed, feature-complete release — and the last of the three. After Nakamoto, fast centralized updates are no longer possible.",
+    desc: "The fully distributed, feature-complete release, and the last of the three. After Nakamoto, fast centralized updates are no longer possible.",
   },
 ];
 
@@ -97,8 +97,8 @@ export default function RoadmapPage() {
         lead={
           <>
             Lineage&rsquo;s path to a fully distributed network runs through
-            three sequenced releases &mdash; <strong>Phoenix</strong>,{" "}
-            <strong>Austria</strong>, and <strong>Nakamoto</strong> &mdash; each
+            three sequenced releases, <strong>Phoenix</strong>,{" "}
+            <strong>Austria</strong>, and <strong>Nakamoto</strong>, each
             carrying one of the protocol&rsquo;s two defining initiatives. The
             sequence is deliberate: liquidity readiness first, then the economic
             layer, then the irreversible step into full decentralization.
@@ -121,14 +121,14 @@ export default function RoadmapPage() {
         <div className={styles.initiativeGrid}>
           <Card rail title="Liquidity readiness">
             <p>
-              Ensure LNGX liquidity and exchange readiness &mdash; delivering
+              Ensure LNGX liquidity and exchange readiness by delivering
               the protocol and infrastructure upgrades required ahead of listing.
             </p>
           </Card>
           <Card rail title="Full decentralization">
             <p>
               Ship the capabilities required for a fully distributed network.
-              This is the final step-change &mdash; after which fast, centralized
+              This is the final step-change. After it, fast, centralized
               updates are no longer possible.
             </p>
           </Card>
@@ -181,7 +181,7 @@ export default function RoadmapPage() {
                 },
                 {
                   heading: "Miner validation & Merkle tree",
-                  body: "Collaborative, chunked validation with a nested transaction/miner root — the minimum security work that unlocks dynamic block sizes.",
+                  body: "Collaborative, chunked validation with a nested transaction/miner root: the minimum security work that opens up dynamic block sizes.",
                 },
                 {
                   heading: "Phoenix block",
@@ -189,7 +189,7 @@ export default function RoadmapPage() {
                 },
                 {
                   heading: "RAFT clustering",
-                  body: "Run multiple mempool/storage pairs under consensus — from local containers to testnet to mainnet.",
+                  body: "Run multiple mempool/storage pairs under consensus, from local containers to testnet to mainnet.",
                 },
                 {
                   heading: "Ethereum bridge",
@@ -215,8 +215,8 @@ export default function RoadmapPage() {
             lede={
               <>
                 The school-of-economics release: the currency, ARCO compute, and
-                smart-market functionality that turn markets into programs
-                &mdash; plus the financial policy that sets fees and rewards.
+                smart-market functionality that turn markets into programs,
+                plus the financial policy that sets fees and rewards.
               </>
             }
           >
@@ -224,7 +224,7 @@ export default function RoadmapPage() {
               items={[
                 {
                   heading: "ARCO",
-                  body: "How miners price and time on-chain compute workloads, and how users specify that work — designed, then implemented as the core of the release.",
+                  body: "How miners price and time on-chain compute workloads, and how users specify that work, designed then implemented as the core of the release.",
                 },
                 {
                   heading: "Scripting",
@@ -271,7 +271,7 @@ export default function RoadmapPage() {
             initiative="Initiative · Full decentralization"
             lede={
               <>
-                Our fully distributed, feature-complete release &mdash; and the
+                Our fully distributed, feature-complete release, and the
                 last of the three. Once Nakamoto ships, the control we currently
                 have to make easy updates is gone, so it carries the highest bar
                 for correctness and operational readiness.
@@ -313,7 +313,7 @@ export default function RoadmapPage() {
                 },
                 {
                   heading: "Block rewards for mempool & storage",
-                  body: "Reward mempool and storage hosts — not just miners — to incentivize resources and reliability.",
+                  body: "Reward mempool and storage hosts, not just miners, to incentivize resources and reliability.",
                 },
                 {
                   heading: "Storage rental",

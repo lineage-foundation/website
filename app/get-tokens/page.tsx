@@ -63,8 +63,8 @@ export default function GetTokensPage() {
               LNGX
             </span>{" "}
             is the unit you spend to transact on the network. Buy a small amount
-            for everyday on-network utility, or &mdash; if you&rsquo;re
-            building &mdash; pull a little test LNGX from the developer faucet.
+            for everyday on-network utility, or pull a little test LNGX from
+            the developer faucet if you&rsquo;re building.
             These are utility top-ups, not an investment product.
           </p>
         }

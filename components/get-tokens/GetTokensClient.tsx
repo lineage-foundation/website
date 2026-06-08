@@ -160,7 +160,7 @@ function BuyPanel() {
           .slice(0, 8);
       setStatus({
         tone: "ok",
-        message: `<strong>Preview only — no payment was taken.</strong><br>When live, this is where checkout returns and <strong>${fmtLngx(lngxAmount)}</strong> is sent to <code>${shortenAddress(address)}</code>. Reference <code>${ref}</code>.`,
+        message: `<strong>Preview only. No payment was taken.</strong><br>When live, this is where checkout returns and <strong>${fmtLngx(lngxAmount)}</strong> is sent to <code>${shortenAddress(address)}</code>. Reference <code>${ref}</code>.`,
       });
       setLoading(false);
     }, 1300);
@@ -333,7 +333,7 @@ function BuyPanel() {
             <h3>Delivery</h3>
             <p>
               Once payment clears, LNGX is sent to the address you provide. Make
-              sure it&rsquo;s a Lineage address you control &mdash; transfers
+              sure it&rsquo;s a Lineage address you control. Transfers
               can&rsquo;t be reversed.
             </p>
           </div>
@@ -584,7 +584,7 @@ function FaucetPanel() {
 
           <p className={styles.txLegal}>
             Faucet tokens have no monetary value and exist only for development
-            on the test network. Please don&rsquo;t drain it &mdash; others are
+            on the test network. Please don&rsquo;t drain it; others are
             building too.
           </p>
         </div>

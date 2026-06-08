@@ -27,13 +27,13 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Developers",
   description:
-    "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
+    "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
   alternates: { canonical: "/developers" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Developers | Lineage",
     description:
-      "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
+      "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
     url: `${SITE_ORIGIN}/developers`,
     type: "website",
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Developers | Lineage",
     description:
-      "Build on Lineage — evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
+      "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -65,7 +65,7 @@ export default function DevelopersPage() {
             Build on <Accent>Lineage</Accent>
           </>
         }
-        lead="Lineage is a Layer-1 where market policy itself is programmable. The network performs bounded search over policy space and verifies results cryptographically — so the mechanisms governing markets can evolve without changing the chain. Everything is open: evaluate the protocol against the whitepaper, clone the repos, and prototype."
+        lead="Lineage is a Layer-1 where market policy itself is programmable. The network performs bounded search over policy space and verifies results cryptographically, so the mechanisms governing markets can evolve without changing the chain. Everything is open: evaluate the protocol against the whitepaper, clone the repos, and prototype."
         actions={
           <div className={styles.pageHeadActions}>
             <Button href="/docs" variant="primary">
@@ -95,7 +95,7 @@ export default function DevelopersPage() {
               A managed public <strong>mainnet</strong> and{" "}
               <strong>testnet</strong> are being ported and will be announced
               here soon. Until then, point a client at the base URLs below, or
-              run your own mempool / storage / miner stack locally — the route
+              run your own mempool / storage / miner stack locally. The route
               names and JSON contracts are identical either way.
             </Note>
             <ul className={styles.endpointList}>
@@ -127,12 +127,12 @@ export default function DevelopersPage() {
             <p className={styles.endpointMuted} style={{ marginBottom: "var(--space-4)" }}>
               Stand up a full mempool / storage / miner stack with Docker
               Compose using the <code>fleet</code> setup, then swap in your own
-              base URL — the API surface is the same.
+              base URL. The API surface is the same.
             </p>
             <ul className={styles.asideLinks}>
               <li>
                 <LinkCta href="/docs#run-node">
-                  Run a node — setup guide
+                  Run a node · setup guide
                 </LinkCta>
               </li>
               <li>
@@ -153,7 +153,7 @@ export default function DevelopersPage() {
         <p className={styles.sectionProse}>
           Pick an HTTP client, point it at the public base URL for your node
           class, and call the documented routes. Subsystems are exposed on
-          separate hosts — mempool calls use the mempool host, storage reads use
+          separate hosts: mempool calls use the mempool host, storage reads use
           the storage host, and so on. A minimal connectivity check is a
           read-only call such as <code>fetch_balance</code>.
         </p>
@@ -200,8 +200,8 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               className={styles.endpointMuted}
               style={{ margin: "var(--space-5) 0 var(--space-4)" }}
             >
-              Route names and JSON contracts stay the same across deployments —
-              swap in your own base for a private, staging, or alternate network.
+              Route names and JSON contracts stay the same across deployments.
+              Swap in your own base for a private, staging, or alternate network.
             </p>
             <LinkCta href="/docs">API quick start</LinkCta>
           </AsideCard>
@@ -216,13 +216,13 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
       >
         <p className={styles.sectionProse}>
           The public HTTP API is organised by node class. Each subsystem is
-          documented route by route — full request and response JSON, including
+          documented route by route, with full request and response JSON, including
           the standard error envelope.
         </p>
         <div className={styles.grid3}>
           <Card rail kicker={DOCS_MEMPOOL_API_ORIGIN} title="Mempool API">
             <p>
-              Transactions, balances, supply, and mempool metadata — the write
+              Transactions, balances, supply, and mempool metadata: the write
               and query path for clients.
             </p>
             <ul className={styles.pillList}>
@@ -274,7 +274,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
 
           <Card rail kicker={DOCS_MINER_API_ORIGIN} title="Miner API">
             <p>
-              Operator-facing HTTP where a release exposes it — a small surface
+              Operator-facing HTTP where a release exposes it, a small surface
               compared to mempool and storage.
             </p>
             <ul className={styles.pillList}>
@@ -296,7 +296,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         heading="Skip the raw HTTP"
       >
         <p className={styles.sectionProse}>
-          Three official clients wrap the same API — wallet creation, key
+          Three official clients wrap the same API: wallet creation, key
           management, asset issuance, two-way payments, and chain reads.
           Configure each with a mempool base URL, a storage base URL, and a
           passphrase for local key encryption.
@@ -319,7 +319,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             <p>
               The client for backends, data tooling, and automation: key
               management, balance and supply reads, transaction construction, and
-              two-way flows — the same surface as <code>sdk-js</code>, idiomatic
+              two-way flows, the same surface as <code>sdk-js</code>, idiomatic
               for Python services and notebooks.
             </p>
             <div className={styles.cardCta}>
@@ -353,8 +353,8 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
           <div className={styles.proseSection}>
             <h3>Evaluate the protocol</h3>
             <p>
-              Read <em>Lineage: The Living Economy</em> — the full technical and
-              economic specification, archived on Zenodo — alongside the concepts
+              Read <em>Lineage: The Living Economy</em>, the full technical and
+              economic specification archived on Zenodo, alongside the concepts
               in the docs to understand how bounded policy search and
               cryptographic verification fit together.
             </p>

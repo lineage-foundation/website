@@ -20,7 +20,7 @@ export const ZENODO_RESEARCH_PUBLICATIONS: readonly ZenodoResearchItem[] = [
     href: "https://zenodo.org/records/19203176",
     datePublished: "2026-03-24",
     description:
-      "Sets out UTMMs as a framework for blockchain-based markets in which market policy is a programmable, adaptive object: transaction history as an epistemic substrate, deterministic feature extraction, evaluation of policies in a constrained space, and improvement via bounded search — while remaining within classical computability limits.",
+      "Sets out UTMMs as a framework for blockchain-based markets in which market policy is a programmable, adaptive object: transaction history as an epistemic substrate, deterministic feature extraction, evaluation of policies in a constrained space, and improvement via bounded search, while remaining within classical computability limits.",
   },
   {
     id: "17777930",
@@ -53,7 +53,7 @@ export const ZENODO_RESEARCH_PUBLICATIONS: readonly ZenodoResearchItem[] = [
     href: "https://zenodo.org/records/15730321",
     datePublished: "2025-06-24",
     description:
-      "Introduces a Nakamoto-style design that can move between a fully distributed mode and a semi-decentralized one for higher throughput, reverting to full distribution when fault conditions require it—switching between pure proof-of-work and a hash rate–validated mode analogous to proof-of-stake, with suitable hash and parallelization choices for broader workloads.",
+      "Introduces a Nakamoto-style design that can move between a fully distributed mode and a semi-decentralized one for higher throughput, reverting to full distribution when fault conditions require it. Switching between pure proof-of-work and a hash rate-validated mode analogous to proof-of-stake, with suitable hash and parallelization choices for broader workloads.",
   },
   {
     id: "15360914",
@@ -62,7 +62,7 @@ export const ZENODO_RESEARCH_PUBLICATIONS: readonly ZenodoResearchItem[] = [
     href: "https://zenodo.org/records/15360914",
     datePublished: "2025-05-07",
     description:
-      "Proposes a way to carry world state in a UTXO setting using monad-style composition to limit side effects: more expressive, context-sensitive operation on data (item) transactions, with coin scripts kept safe and non–Turing complete for value movement.",
+      "Proposes a way to carry world state in a UTXO setting using monad-style composition to limit side effects: more expressive, context-sensitive operation on data (item) transactions, with coin scripts kept safe and non-Turing complete for value movement.",
   },
   {
     id: "15324203",

@@ -16,7 +16,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Ecosystem",
   description:
-    "Wallets, network, and community around the Lineage Foundation — what exists today, with honest attribution.",
+    "Wallets, network, and community around the Lineage Foundation. What exists today, with honest attribution.",
   alternates: { canonical: "/ecosystem" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ecosystem | Lineage",
     description:
-      "Wallets, network, and community around the Lineage Foundation — what exists today, with honest attribution.",
+      "Wallets, network, and community around the Lineage Foundation. What exists today, with honest attribution.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -180,7 +180,7 @@ export default function EcosystemPage() {
             }
           >
             <p>
-              Open discussion of the protocol, consensus, and UTMM research —
+              Open discussion of the protocol, consensus, and UTMM research,
               hosted on Discourse.
             </p>
             <div className={styles.cardCta}>
@@ -215,7 +215,7 @@ export default function EcosystemPage() {
       >
         <p className={styles.sectionProse}>
           Client SDKs are published and ready to use today. An MCP server and
-          LLM agent skills are on the way — listed here with what they&apos;ll
+          LLM agent skills are on the way, listed here with what they&apos;ll
           expose, marked clearly until they ship.
         </p>
         <div className={styles.gridMoat}>
@@ -230,7 +230,7 @@ export default function EcosystemPage() {
             }
           >
             <p>
-              Official SDKs for talking to Lineage nodes — wallets, transactions,
+              Official SDKs for talking to Lineage nodes: wallets, transactions,
               balances, and node APIs in your language of choice.
             </p>
             <ul className={styles.sdkLinks}>
@@ -278,7 +278,7 @@ export default function EcosystemPage() {
           >
             <p>
               A hosted Model Context Protocol endpoint so AI agents and
-              assistants can query Lineage directly — balances &amp;
+              assistants can query Lineage directly: balances &amp;
               transactions, keypair &amp; seed generation, block / entry /
               transaction lookups, supply, and node health.
             </p>
@@ -298,7 +298,7 @@ export default function EcosystemPage() {
           >
             <p>
               Packaged skills that teach AI coding agents how to build on
-              Lineage — SDK usage, node APIs, and common transaction flows,
+              Lineage: SDK usage, node APIs, and common transaction flows,
               ready to drop into agent workflows.
             </p>
             <Tag status="soon">Coming soon</Tag>
@@ -333,7 +333,7 @@ export default function EcosystemPage() {
       >
         <p className={styles.sectionProse} style={{ marginBottom: 0 }}>
           Integrators, wallet authors, and researchers are welcome. Start from
-          the repos or the forum — contributions are reviewed in the open.
+          the repos or the forum. Contributions are reviewed in the open.
         </p>
         <div className={styles.pageHeadActions}>
           <Button href={URL_GITHUB_ORG} variant="primary" external>

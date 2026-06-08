@@ -72,8 +72,8 @@ export default function TechnologyPage() {
         title={<>ARCO: the compute <Accent>loop</Accent></>}
         lead={
           <>
-            ARCO is the market-optimization loop at the heart of Lineage — five
-            stages (sensor, relay, compute, actuator, event) that repeat each
+            ARCO is the market-optimization loop at the heart of Lineage, cycling
+            through five stages (sensor, relay, compute, actuator, event) each
             cycle. Over successive cycles a market moves from an inefficient
             initial state toward a more efficient one, while consensus secures the
             integrity of that adaptive evolution.
@@ -118,14 +118,14 @@ export default function TechnologyPage() {
           Payments and contracts run on many platforms. A smart market asks for
           more: it evolves continuously with external conditions and reaches
           consensus among every participant, so it can never be captured by
-          fixed code. Five architectural choices — present from layer-1 up —
+          fixed code. Five architectural choices, present from layer-1 up,
           are what make adaptive markets possible here.
         </p>
         <div className={styles.moatGrid}>
           <Card rail kicker="01" title="Complete transaction records">
             <p>
-              A transaction-based (UTXO) ledger preserves the full transaction
-              — every order and settlement — not just net debits and credits.
+              A transaction-based (UTXO) ledger preserves the full transaction,
+              every order and settlement, not just net debits and credits.
               That complete economic record is the raw material on-chain market
               analysis runs on.
             </p>
@@ -142,7 +142,7 @@ export default function TechnologyPage() {
             <p>
               IoT readings, climate data and other external signals enter the
               ledger as first-class blockchain items, validated at layer-1 by
-              the mining network itself — so market functions never inherit an
+              the mining network itself, so market functions never inherit an
               external oracle&rsquo;s trust assumptions.
             </p>
           </Card>
@@ -157,8 +157,8 @@ export default function TechnologyPage() {
           <Card rail kicker="05" title="Markets that adapt">
             <p>
               Prices are discovered by consensus among all participants and move
-              with conditions, so a market responds to unforeseen events —
-              tariffs, shocks, supply disruptions — instead of freezing.
+              with conditions, so a market responds to unforeseen events:
+              tariffs, shocks, supply disruptions. It does not freeze.
               Compute scales with value: more valuable markets attract more
               miners.
             </p>
@@ -206,7 +206,7 @@ export default function TechnologyPage() {
       <Section id="evolution" aria-labelledby="evolution-title" headingLevel={2}>
         <div className={styles.split}>
           <div>
-            <Eyebrow>Event stage — pseudocode</Eyebrow>
+            <Eyebrow>Event stage · pseudocode</Eyebrow>
             <Heading
               level={2}
               id="evolution-title"
@@ -254,7 +254,7 @@ broadcastToFarmers(FSM_opt.policy());`,
             />
           </div>
           <AsideCard>
-            <Eyebrow>Simulation — market efficiency</Eyebrow>
+            <Eyebrow>Simulation · market efficiency</Eyebrow>
             <Heading
               level={3}
               style={{ margin: "var(--space-3) 0 var(--space-4)" }}
@@ -264,7 +264,7 @@ broadcastToFarmers(FSM_opt.policy());`,
             <EfficiencyChart />
             <p className={styles.simNote}>
               Efficiency climbs fastest in the early cycles, then flattens as
-              the market settles near its equilibrium — driven by the yield,
+              the market settles near its equilibrium, driven by the yield,
               profit and price-stability signals the optimizer maximises.
             </p>
             <p className={styles.simNote}>
@@ -282,12 +282,12 @@ broadcastToFarmers(FSM_opt.policy());`,
       <Section
         id="consensus"
         tone="band"
-        eyebrow="Why it wins — technical"
+        eyebrow="Why it wins · technical"
         heading="Prime Radiant Consensus"
         headingLevel={2}
       >
         <p className={styles.sectionProse}>
-          Prime Radiant Consensus is Lineage&rsquo;s consensus mechanism &mdash;
+          Prime Radiant Consensus is Lineage&rsquo;s consensus mechanism,
           technically{" "}
           <strong>Dynamic Proof of Weighted Work (DPoWW)</strong>, an evolution
           of ecoPoW. It secures not only transaction ordering but the integrity
@@ -403,7 +403,7 @@ broadcastToFarmers(FSM_opt.policy());`,
       <Section
         id="impact"
         tone="band"
-        eyebrow="Why it wins — economic"
+        eyebrow="Why it wins · economic"
         heading="Impact"
         headingLevel={2}
       >

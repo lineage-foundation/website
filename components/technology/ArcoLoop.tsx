@@ -21,9 +21,9 @@ const STEPS = [
   },
   {
     badge: "D",
-    heading: "Commit & unlock",
+    heading: "Commit & settle",
     stage: "Actuator",
-    body: "A hash commitment placed off-chain unlocks physical actuation only when the signature, preimage, and on-chain inclusion all verify.",
+    body: "A hash commitment placed off-chain triggers physical actuation only when the signature, preimage, and on-chain inclusion all verify.",
   },
   {
     badge: "E",
@@ -58,7 +58,7 @@ export function ArcoLoop() {
           ↻
         </span>
         <span>
-          <strong>The loop repeats each cycle</strong> — the broadcast policy
+          <strong>The loop repeats each cycle.</strong> The broadcast policy
           reshapes the next round of sensor readings, and the market moves toward
           equilibrium.
         </span>

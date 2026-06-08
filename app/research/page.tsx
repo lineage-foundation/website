@@ -35,7 +35,7 @@ function formatListDate(iso: string) {
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Lineage working papers on Zenodo—UTMM, DPoWW, UTXO world state, Merkle validation, and more—and the Fremen Forum for public research discussion.",
+    "Lineage working papers on Zenodo (UTMM, DPoWW, UTXO world state, Merkle validation, and more) and the Fremen Forum for public research discussion.",
   alternates: { canonical: "/research" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -74,7 +74,7 @@ export default function ResearchPage() {
             A protocol that is also a <Accent>research</Accent> programme
           </>
         }
-        lead="Lineage is a research project as much as a layer-one protocol. The work is published as open working papers on Zenodo under CC BY 4.0 — newest first — covering market computation, consensus, and world state."
+        lead="Lineage is a research project as much as a layer-one protocol. The work is published as open working papers on Zenodo under CC BY 4.0, newest first, covering market computation, consensus, and world state."
         actions={
           <>
             <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
@@ -99,7 +99,7 @@ export default function ResearchPage() {
               programmable, adaptive object. Transaction history is treated as an
               epistemic substrate, with deterministic feature extraction,
               evaluation of policies in a constrained space, and improvement via
-              bounded search — all while remaining within classical computability
+              bounded search, all while remaining within classical computability
               limits.
             </p>
             <p>
@@ -124,7 +124,7 @@ export default function ResearchPage() {
               Dynamic Proof of Weighted Work (DPoWW) family of papers studies a
               Nakamoto-style design that can move between fully distributed and
               semi-decentralized modes for throughput, reverting to full
-              distribution when fault conditions require it — including
+              distribution when fault conditions require it, including
               parallelized Merkle-tree validation to scale miner workloads.
             </p>
             <p>
@@ -134,7 +134,7 @@ export default function ResearchPage() {
               resource-coordinated organisms (ARCOs) combining sensory inputs,
               ledger signalling, and actuators. World state is carried in a UTXO
               setting using monad-style composition to limit side effects, while
-              coin scripts stay non&ndash;Turing complete for value movement.
+              coin scripts stay non-Turing complete for value movement.
             </p>
           </div>
 
@@ -181,7 +181,7 @@ export default function ResearchPage() {
               UTMMs frame market policy as a programmable, adaptive object.
               Transaction history becomes an epistemic substrate: deterministic
               operators extract features, policies are evaluated in a constrained
-              space, and bounded search improves them — without leaving classical
+              space, and bounded search improves them, without leaving classical
               computability.
             </p>
           </Card>
@@ -239,7 +239,7 @@ export default function ResearchPage() {
             <h2>Fremen Forum</h2>
             <p>
               The <strong>Fremen Forum</strong> is the public place for
-              protocol, consensus, and economic-design discussion — open
+              protocol, consensus, and economic-design discussion. Open
               threads, not a help desk for a single app, with room for
               working-group style debate and ideas from the wider community.
             </p>

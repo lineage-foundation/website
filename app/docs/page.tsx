@@ -9,13 +9,13 @@ import styles from "./docs.module.css";
 export const metadata: Metadata = {
   title: "Documentation",
   description:
-    "Lineage documentation — node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
+    "Lineage documentation: node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
   alternates: { canonical: "/docs" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Documentation | Lineage",
     description:
-      "Lineage documentation — node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
+      "Lineage documentation: node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
     url: `${SITE_ORIGIN}/docs`,
     type: "website",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Documentation | Lineage",
     description:
-      "Lineage documentation — node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
+      "Lineage documentation: node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -54,7 +54,7 @@ export default function DocsPage() {
               Build on the <span className={styles.accent}>Lineage</span> HTTP API
             </h1>
             <p className={styles.pageLead}>
-              Read chain state, submit transactions, and query node metadata directly over HTTP — no smart contracts required. Move through node concepts, the mempool, storage, and miner reference, and the SDK tutorials using the contents tree.
+              Read chain state, submit transactions, and query node metadata directly over HTTP. No smart contracts required. Move through node concepts, the mempool, storage, and miner reference, and the SDK tutorials using the contents tree.
             </p>
             <div className={styles.pageHeadActions}>
               <Button href="#quick-start" variant="primary">
@@ -146,14 +146,14 @@ export default function DocsPage() {
                 <p>
                   The Lineage HTTP API lets you integrate with the network directly: read chain
                   state, submit transactions, and query node metadata. None of the flows in this
-                  documentation require on-chain smart contracts — use a plain HTTP client
+                  documentation require on-chain smart contracts. Use a plain HTTP client
                   (<code>curl</code>, <code>fetch</code>, or your language of choice) against the
                   endpoints listed under each subsystem.
                 </p>
                 <p>
                   Routes are grouped by <strong>node class</strong>. Each class is served from its
-                  own origin, so confirm which host a route belongs to before you call it — sending
-                  a storage read to the mempool host (or vice versa) will not resolve.
+                  own origin, so confirm which host a route belongs to before you call it, as
+                  sending a storage read to the mempool host (or vice versa) will not resolve.
                 </p>
 
                 <h2 id="service-urls">Public service URLs</h2>
@@ -180,7 +180,7 @@ export default function DocsPage() {
                 </p>
                 <ul>
                   <li><code>Content-Type: application/json</code></li>
-                  <li><code>x-cache-id</code> — a 32-character idempotency key matching <code>^[a-z0-9]{O}32{C}$</code>.</li>
+                  <li><code>x-cache-id</code>: a 32-character idempotency key matching <code>^[a-z0-9]{O}32{C}$</code>.</li>
                 </ul>
                 <p>Every response uses the same envelope. Field semantics:</p>
                 <Table>
@@ -190,7 +190,7 @@ export default function DocsPage() {
                   <tbody>
                     <tr><td className="num">id</td><td>Echoes the request&apos;s <code>x-cache-id</code> (<code>null</code> on a rejected request).</td></tr>
                     <tr><td className="num">status</td><td>One of <code>Success</code>, <code>Error</code>, or <code>Pending</code>.</td></tr>
-                    <tr><td className="num">reason</td><td>Human-readable context — most useful on errors.</td></tr>
+                    <tr><td className="num">reason</td><td>Human-readable context, most useful on errors.</td></tr>
                     <tr><td className="num">route</td><td>The route name that was handled.</td></tr>
                     <tr><td className="num">content</td><td>The route-specific payload. Shape varies by route (documented below).</td></tr>
                   </tbody>
@@ -245,7 +245,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                   blocks, and work with the mining network. Each round, the mempool set advances valid
                   transactions, agrees on ordering within protocol rules, hands a candidate to miners,
                   then validates the winner&apos;s block and forwards it to storage. Mempool and miner
-                  responsibilities are interdependent — both must make progress for the chain to
+                  responsibilities are interdependent, and both must make progress for the chain to
                   advance.
                 </p>
               </article>
@@ -268,7 +268,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                   Miners compete to extend the chain when it is their turn. They receive work units
                   from the mempool, find valid proofs, and return them so the mempool declares a winner
                   and forwards the block to storage. The protocol does not require every miner to grind
-                  on the same block simultaneously — a subset is selected each round, keeping energy use
+                  on the same block simultaneously; a subset is selected each round, keeping energy use
                   proportionate. Rewards follow the network&apos;s token rules once a block is accepted.
                 </p>
               </article>
@@ -280,8 +280,8 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                   the mempool; (2) when a round starts, a block body is built from the queue and offered
                   to selected miners; (3) miners produce proofs and return candidates; (4) the mempool
                   picks a winner, validates the block, and sends it to storage. A single per-round
-                  randomness object (a UNiCORN) — derived from agreed inputs such as the transactions,
-                  the eligible miner set, and prior-round metadata — drives who may mine and who wins.
+                  randomness object (a UNiCORN), derived from agreed inputs such as the transactions,
+                  the eligible miner set, and prior-round metadata, drives who may mine and who wins.
                 </p>
               </article>
 
@@ -290,7 +290,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                 <p>
                   Lineage uses a <strong>UTXO model</strong>: a transaction spends one or more previous
                   outputs and creates new outputs that a later spend can refer to. There is no global
-                  account balance in the contract layer — a balance is a view over unspent outputs.
+                  account balance in the contract layer; a balance is a view over unspent outputs.
                   Each input points at a previous transaction hash and output index with a script
                   proving spend authorisation; each output states a locked value and its script (for
                   example pay-to-pubkey-hash). Transactions carry a version and optional
@@ -312,7 +312,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
               <article id="c-unicorn" className={styles.prose}>
                 <h2>UNiCORN randomness</h2>
                 <p>
-                  A UNiCORN — an <strong>UN-COntestable Random Number</strong> — is a
+                  A UNiCORN, an <strong>UN-COntestable Random Number</strong>, is a
                   randomness-and-witness object generated so that no single participant can steer it toward
                   anything but a random result. It depends on the transactions in the block, which miners
                   are eligible, and recent chain state, so winner selection is hard to bias without breaking
@@ -326,7 +326,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
               <article id="mp-info" className={`${styles.prose} endpoint`}>
                 <h2><Pill tone="post">POST</Pill> info</h2>
                 <p className="api-host"><code>https://mempool.lineage.to/info</code></p>
-                <p>Returns metadata about the mempool node — its node type and the routes it exposes. Empty body; <code>x-cache-id</code> header only.</p>
+                <p>Returns metadata about the mempool node, including its node type and the routes it exposes. Empty body; <code>x-cache-id</code> header only.</p>
                 <p><strong>Example response</strong></p>
                 <CodeBlock lang="json">{O}
   <span className="k">&quot;id&quot;</span>: <span className="s">&quot;&lt;matches x-cache-id&gt;&quot;</span>,
@@ -458,7 +458,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
               <article id="mp-issued-supply" className={`${styles.prose} endpoint`}>
                 <h2><Pill tone="post">POST</Pill> issued_supply</h2>
                 <p className="api-host"><code>https://mempool.lineage.to/issued_supply</code></p>
-                <p>Returns the issued token supply figure. Same call shape as <a href="#mp-total-supply"><code>total_supply</code></a> — empty body, numeric <code>content</code>.</p>
+                <p>Returns the issued token supply figure. Same call shape as <a href="#mp-total-supply"><code>total_supply</code></a>: empty body, numeric <code>content</code>.</p>
                 <CodeBlock lang="json">{O}
   <span className="k">&quot;id&quot;</span>: <span className="s">&quot;&lt;matches x-cache-id&gt;&quot;</span>,
   <span className="k">&quot;status&quot;</span>: <span className="s">&quot;Success&quot;</span>,
@@ -472,7 +472,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
               <article id="st-info" className={`${styles.prose} endpoint`}>
                 <h2><Pill tone="post">POST</Pill> info</h2>
                 <p className="api-host"><code>https://storage.lineage.to/info</code></p>
-                <p>Returns metadata about the storage node — its node type and the read routes it serves. Empty body; <code>x-cache-id</code> header only.</p>
+                <p>Returns metadata about the storage node, including its node type and the read routes it serves. Empty body; <code>x-cache-id</code> header only.</p>
                 <CodeBlock lang="json">{O}
   <span className="k">&quot;id&quot;</span>: <span className="s">&quot;&lt;matches x-cache-id&gt;&quot;</span>,
   <span className="k">&quot;status&quot;</span>: <span className="s">&quot;Success&quot;</span>,
@@ -556,13 +556,13 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                 <p>Fetch a block or a transaction by hash. The request body is a single JSON string (the hash), not an object. The returned <code>content</code> is tagged with a <code>type</code> of either <code>block</code> or <code>transaction</code>.</p>
                 <p><strong>Request body</strong></p>
                 <CodeBlock lang="json"><span className="s">&quot;&lt;hex-or-encoded-hash&gt;&quot;</span></CodeBlock>
-                <p><strong>Response — block</strong></p>
+                <p><strong>Response: block</strong></p>
                 <CodeBlock lang="json">{O}
   <span className="k">&quot;status&quot;</span>: <span className="s">&quot;Success&quot;</span>,
   <span className="k">&quot;route&quot;</span>: <span className="s">&quot;blockchain_entry&quot;</span>,
   <span className="k">&quot;content&quot;</span>: {O} <span className="k">&quot;type&quot;</span>: <span className="s">&quot;block&quot;</span>, <span className="k">&quot;height&quot;</span>: 100, <span className="k">&quot;block_hash&quot;</span>: <span className="s">&quot;&lt;hex&gt;&quot;</span>, <span className="k">&quot;tx_ids&quot;</span>: [ <span className="s">&quot;&lt;tx-id&gt;&quot;</span> ], <span className="k">&quot;header&quot;</span>: {O}{C} {C}
 {C}</CodeBlock>
-                <p><strong>Response — transaction</strong></p>
+                <p><strong>Response: transaction</strong></p>
                 <CodeBlock lang="json">{O}
   <span className="k">&quot;status&quot;</span>: <span className="s">&quot;Success&quot;</span>,
   <span className="k">&quot;route&quot;</span>: <span className="s">&quot;blockchain_entry&quot;</span>,
@@ -583,14 +583,14 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                 <p>
                   Miner nodes build new blocks from work assigned through the mempool, compete for
                   partition slots, and claim rewards when a block is accepted. The HTTP surface exposed
-                  to operators is deliberately small compared with mempool and storage — most mining
+                  to operators is deliberately small compared with mempool and storage; most mining
                   logic runs inside the process rather than as ad hoc REST calls. <code>info</code>
                   returns the standard envelope describing the running node.
                 </p>
                 <div className="note">
                   <span className="note-k">Running a miner</span>
-                  For practical operation — installing a node, hardware, key management, and
-                  release-specific flags — see <a href="#run-node">Running a node</a> and the
+                  For practical operation, including installing a node, hardware, key management, and
+                  release-specific flags, see <a href="#run-node">Running a node</a> and the
                   {" "}<a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet</a> repository.
                 </div>
               </article>
@@ -620,7 +620,7 @@ curl -sS -X POST <span className="s">&quot;https://storage.lineage.to/latest_blo
                   languages plus node tooling. The full walkthroughs and runnable code live in the
                   {" "}<a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">published repositories</a>;
                   the cards below summarise each SDK and where it fits. All three wrap the same HTTP API
-                  documented above — configure each with a mempool base URL, a storage base URL, and a
+                  documented above; configure each with a mempool base URL, a storage base URL, and a
                   passphrase for local key encryption.
                 </p>
 
@@ -636,7 +636,7 @@ pip install git+https://github.com/lineage-foundation/sdk-python
 composer require lineage-foundation/sdk-php</CodeBlock>
 
                 <h3>First call</h3>
-                <p>Create a <code>Wallet</code>, point it at a mempool host with a passphrase for local key encryption, and initialise a new keypair. <code>initNew</code> returns the generated seed phrase — store it securely; it is the only way to recover the wallet.</p>
+                <p>Create a <code>Wallet</code>, point it at a mempool host with a passphrase for local key encryption, and initialise a new keypair. <code>initNew</code> returns the generated seed phrase. Store it securely; it is the only way to recover the wallet.</p>
                 <CodeBlock lang="javascript"><span className="k">import</span> {O} Wallet {C} <span className="k">from</span> <span className="s">&apos;@lineage/sdk-js&apos;</span>;
 
 <span className="k">const</span> wallet = <span className="k">new</span> Wallet();
@@ -658,7 +658,7 @@ wallet.initNew(CONFIG).then((res) =&gt; {O}
                   </div>
                   <div className="doc-card" id="sdk-python">
                     <h3>sdk-python</h3>
-                    <p>The Python client for backends, data tooling, and automation: key management, balance and supply reads, transaction construction, and two-way flows — the same surface as <code>sdk-js</code>, idiomatic for Python services and notebooks.</p>
+                    <p>The Python client for backends, data tooling, and automation: key management, balance and supply reads, transaction construction, and two-way flows. It covers the same surface as <code>sdk-js</code>, idiomatic for Python services and notebooks.</p>
                     <LinkCta href="https://github.com/lineage-foundation/sdk-python" external>lineage-foundation/sdk-python</LinkCta>
                   </div>
                   <div className="doc-card" id="sdk-php">
@@ -683,7 +683,7 @@ wallet.initNew(CONFIG).then((res) =&gt; {O}
               <article id="run-node" className={styles.prose}>
                 <h2>Running a node</h2>
                 <p>
-                  The fastest way to stand up a full Lineage stack — mempool, storage, and miner — is the
+                  The fastest way to stand up a full Lineage stack (mempool, storage, and miner) is the
                   {" "}<a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet</a>
                   {" "}repository, which ships a Docker Compose stack and a from-source build. The steps below
                   mirror its README.
