@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "Lineage - The Living Economy",
   },
   description:
-    "Lineage is a Layer-1 for adaptive, trust-minimized smart markets. Miners adapt market policy. Consensus unlocks market value.",
+    "Lineage is a Layer-1 for adaptive, trust-minimized smart markets. Miners adapt market policy. Consensus realizes market value.",
   alternates: {
     canonical: "/",
   },
@@ -51,15 +51,15 @@ export const metadata: Metadata = {
 const WHY_LINEAGE_FEATURES = [
   {
     title: "Complete market data, on-chain",
-    body: "A transaction-based ledger keeps the full economic record — every order and settlement — so markets are analyzable at the protocol level, not just net balances.",
+    body: "A transaction-based ledger keeps the full economic record of every order and settlement, so markets are analyzable at the protocol level, not just net balances.",
   },
   {
     title: "Intelligence & data, no oracles",
-    body: "GPU mining powers on-chain AI evaluation, and real-world signals enter as first-class items validated by the network itself — no external oracle to trust.",
+    body: "GPU mining powers on-chain AI evaluation, and real-world signals enter as first-class items validated by the network itself, with no external oracle to trust.",
   },
   {
     title: "Adaptive, secured at layer-1",
-    body: "Prices adapt to unforeseen events instead of freezing, and market logic is secured by the entire mining network — there’s no separate application layer to attack.",
+    body: "Prices adapt to unforeseen events instead of freezing, and market logic is secured by the entire mining network. There’s no separate application layer to attack.",
   },
 ] as const;
 
@@ -122,7 +122,7 @@ export default function Home() {
       >
         <Prose>
           <p>
-            A market is not a contract between two parties — it evolves with
+            A market is not a contract between two parties. It evolves with
             the world and clears by consensus among everyone in it. That
             can&rsquo;t run on static code or borrowed data. Lineage is built
             for it from layer-1 up.
@@ -159,7 +159,7 @@ export default function Home() {
       <Section
         id="consensus"
         tone="band"
-        eyebrow="Why it wins — technical"
+        eyebrow="Why it wins · technical"
         heading="Prime Radiant Consensus"
         headingLevel={2}
       >
@@ -180,7 +180,7 @@ export default function Home() {
 
       <Section
         id="impact"
-        eyebrow="Why it wins — economic"
+        eyebrow="Why it wins · economic"
         heading="Impact"
         headingLevel={2}
       >

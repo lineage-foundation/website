@@ -21,12 +21,12 @@ export function Hero() {
             markets.
           </p>
           <p className={styles.leadPlain}>
-            In plain terms: the rules that run a market — its fees, incentives,
-            and policy — become open programs the network can verify and adapt,
-            instead of fixed code no one can change.
+            In plain terms: the fees, incentives, and policy that run a market
+            become open programs the network can verify and adapt, instead of
+            fixed code no one can change.
           </p>
           <p>A Layer-1 where markets become verifiable programs.</p>
-          <p>Miners adapt market policy. Consensus unlocks market value.</p>
+          <p>Miners adapt market policy. Consensus realizes market value.</p>
         </div>
         <div className={styles.actions}>
           <Button

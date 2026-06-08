@@ -18,7 +18,7 @@ export function AudienceRouter() {
       <article className={styles.item} role="listitem">
         <h3 className={styles.title}>Read the research</h3>
         <p className={styles.body}>
-          UTMMs, Prime Radiant Consensus, and adaptive market evolution —
+          UTMMs, Prime Radiant Consensus, and adaptive market evolution,
           straight from the whitepaper and research notes.
         </p>
         <div className={styles.cta}>
