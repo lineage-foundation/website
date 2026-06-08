@@ -468,10 +468,9 @@ export default function TokenomicsPage() {
           }}
         >
           Model units from the Lineage Foundation working distribution model.
-          The Miners share can be scaled by a market-demand factor in the
-          interactive chart; categories phase out as the schedule progresses
-          (shown here as &ldquo;—&rdquo;). Final on-chain allocations are
-          governed by protocol policy.
+          The Miners share can be scaled by a market-demand factor; categories
+          phase out as the schedule progresses (shown here as &ldquo;—&rdquo;).
+          Final on-chain allocations are governed by protocol policy.
         </p>
       </Section>
 
