@@ -46,7 +46,7 @@ export default function GetTokensPage() {
     <>
       {/* ── PAGE HEAD ── */}
       <PageHead
-        eyebrow="Get LNGX"
+        eyebrow="Get LNGX · Coming soon"
         title={
           <>
             Top up for utility, or <Accent>build</Accent> with test tokens
