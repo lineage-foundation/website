@@ -63,6 +63,12 @@ function simpleHash(str: string): number {
 type StatusState = { tone: StatusTone; message: string } | null;
 type Tab = "buy" | "faucet";
 
+/**
+ * Both purchase and faucet flows are front-end previews; the backend is not
+ * live yet. Flip to false to enable the (stubbed) interactive forms.
+ */
+const COMING_SOON = true;
+
 /* ===================================================================
    BUY PANEL
    =================================================================== */
@@ -182,6 +188,14 @@ function BuyPanel() {
             checkout simple and identity-light.
           </p>
 
+          {COMING_SOON && (
+            <div className={styles.statusWrap}>
+              <StatusBar tone="info">
+                Buying LNGX is coming soon. This is a preview of the flow.
+              </StatusBar>
+            </div>
+          )}
+
           {/* Tier preset buttons */}
           <Field
             label="Choose an amount"
@@ -203,6 +217,7 @@ function BuyPanel() {
                       : styles.tier
                   }
                   aria-pressed={amount === t}
+                  disabled={COMING_SOON}
                   onClick={() => handleTierClick(t)}
                 >
                   {currencySymbol}
@@ -227,6 +242,7 @@ function BuyPanel() {
               step={1}
               placeholder="0"
               autoComplete="off"
+              disabled={COMING_SOON}
               prefix={currencySymbol}
               mono
               value={rawAmount}
@@ -251,6 +267,7 @@ function BuyPanel() {
               type="text"
               placeholder="Paste the address that will receive LNGX"
               autoComplete="off"
+              disabled={COMING_SOON}
               spellCheck={false}
               mono
               value={address}
@@ -295,9 +312,13 @@ function BuyPanel() {
             <Button
               type="submit"
               variant="primary"
-              disabled={!formIsValid || loading}
+              disabled={COMING_SOON || !formIsValid || loading}
             >
-              {loading ? "Processing…" : "Pay with card"}
+              {COMING_SOON
+                ? "Coming soon"
+                : loading
+                  ? "Processing…"
+                  : "Pay with card"}
             </Button>
           </div>
 
@@ -392,6 +413,7 @@ function FaucetPanel() {
   // faucet.cooldownMs is a compile-time module constant — safe to omit.
   useEffect(
     () => {
+      if (COMING_SOON) return;
       try {
         const stored = localStorage.getItem(FAUCET_STORAGE_KEY);
         if (stored) {
@@ -529,6 +551,15 @@ function FaucetPanel() {
             claim per address every {cooldownHours} hours.
           </p>
 
+          {COMING_SOON && (
+            <div className={styles.statusWrap}>
+              <StatusBar tone="info">
+                The developer faucet is coming soon. This is a preview of the
+                flow.
+              </StatusBar>
+            </div>
+          )}
+
           <Field
             label="Your Lineage address"
             htmlFor={fauAddressId}
@@ -543,6 +574,7 @@ function FaucetPanel() {
               type="text"
               placeholder="Paste the address to fund"
               autoComplete="off"
+              disabled={COMING_SOON}
               spellCheck={false}
               mono
               value={address}
@@ -576,9 +608,13 @@ function FaucetPanel() {
             <Button
               type="submit"
               variant="primary"
-              disabled={claimDisabled}
+              disabled={COMING_SOON || claimDisabled}
             >
-              {loading ? "Requesting…" : "Request test LNGX"}
+              {COMING_SOON
+                ? "Coming soon"
+                : loading
+                  ? "Requesting…"
+                  : "Request test LNGX"}
             </Button>
           </div>
 
