@@ -1,0 +1,125 @@
+/* ARCO efficiency curve — ported from design-prototype/css/lineage.css lines 451-473 */
+
+.effchart {
+  margin: var(--space-3) 0 0;
+}
+
+.effchart svg {
+  display: block;
+  overflow: visible;
+}
+
+.axis {
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+
+.grid {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+  opacity: 0.55;
+}
+
+.guide {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+.eq {
+  stroke: var(--color-link);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  opacity: 0.85;
+}
+
+.eqLabel {
+  fill: var(--color-link);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* Area fill — fades in after the line draws */
+.area {
+  fill: url(#effFill);
+  opacity: 0;
+  animation: ecFade 0.8s var(--ease) 0.85s forwards;
+}
+
+/* Line — draws itself along its own dash offset */
+.line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-accent) 55%, transparent));
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  animation: ecDraw 1.15s var(--ease) 0.15s forwards;
+}
+
+/* Dots — staggered fade-in */
+.dot {
+  fill: var(--color-bg-raised);
+  stroke: var(--color-link);
+  stroke-width: 2;
+  opacity: 0;
+  animation: ecFade 0.4s var(--ease) forwards;
+}
+
+.dot:nth-of-type(1) {
+  animation-delay: 0.55s;
+}
+
+.dot:nth-of-type(2) {
+  animation-delay: 0.85s;
+}
+
+.dot:nth-of-type(3) {
+  animation-delay: 1.15s;
+}
+
+.yLabel,
+.xLabel {
+  fill: var(--color-text-subtle);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.xLabel {
+  text-anchor: middle;
+}
+
+/* Keyframes */
+@keyframes ecDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ecFade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Accessibility: respect user motion preferences — show the final settled state
+   immediately with no draw or fade animation */
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .area,
+  .dot {
+    opacity: 1;
+    animation: none;
+  }
+}

@@ -1,0 +1,28 @@
+/* Ported from design-prototype/css/lineage.css lines 561-564 */
+
+.note {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--r-md);
+  padding: var(--space-4) var(--space-5);
+  margin: 0 0 var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: 1.7;
+}
+
+/* .note .note-k */
+.kicker {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-link);
+}
+
+/* .note code */
+.note code {
+  font-size: 0.9em;
+}

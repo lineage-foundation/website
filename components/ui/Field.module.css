@@ -1,0 +1,32 @@
+/* Ported from design-prototype/css/lineage.css lines 682-696 */
+
+/* .field */
+.field {
+  display: block;
+  margin-top: var(--space-5);
+}
+
+/* .field-label */
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 8px;
+}
+
+/* .field-hint */
+.hint {
+  margin-top: 7px;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+/* .field-error */
+.error {
+  margin-top: 7px;
+  font-size: var(--fs-small);
+  color: var(--color-danger);
+}

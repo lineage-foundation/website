@@ -1,0 +1,131 @@
+/* ARCO compute loop — ported from design-prototype/css/lineage.css lines 353-393 */
+
+.arcoLoop {
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  position: relative;
+}
+
+/* The spine: a single aurora thread connecting every stage */
+.arcoLoop::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 62px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-link));
+  opacity: 0.45;
+}
+
+.arcoStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+  align-items: start;
+}
+
+.badge {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-link);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border-strong);
+  transition:
+    border-color var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+.arcoStep:hover .badge {
+  border-color: var(--color-link);
+  color: var(--color-link-hover);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--color-link) 30%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+  }
+}
+
+.body {
+  padding-top: 7px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.head h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.stage {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.body p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+/* Closing marker: the loop returns — the one emerald focal glow */
+.closeRow {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.closeBadge {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-accent);
+  background: var(--color-bg-raised);
+  border-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-accent) 55%, transparent);
+  box-shadow: var(--glow-accent);
+}
+
+.closeRow span {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.closeRow strong {
+  color: var(--color-text);
+  font-weight: 500;
+}

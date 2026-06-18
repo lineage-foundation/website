@@ -24,7 +24,7 @@ export const URL_NETWORK = "#";
 
 /**
  * Public Lineage node HTTP API origins (documentation examples, curl, MethodPath).
- * Subsystems are exposed on separate hosts; use `docsApiUrl()` in `lib/docs-api-origins`.
+ * Subsystems are exposed on separate hosts.
  */
 export const DOCS_MEMPOOL_API_ORIGIN = "https://mempool.lineage.to" as const;
 export const DOCS_STORAGE_API_ORIGIN = "https://storage.lineage.to" as const;

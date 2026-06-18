@@ -1,0 +1,28 @@
+/* Ported from design-prototype/css/lineage.css lines 522-524 */
+
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.signal::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+  animation: pulse 2.4s var(--ease) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal::before {
+    animation: none;
+  }
+}

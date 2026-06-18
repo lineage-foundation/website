@@ -1,0 +1,17 @@
+/*
+ * Page-level layout helpers for /tokenomics. No hex values; tokens only.
+ */
+
+/* Section intro prose — matches prototype .section-prose */
+.sectionProse {
+  margin: 0 0 var(--space-6);
+  max-width: 70ch;
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+}
+
+/* Card CTA wrapper — matches prototype .card-cta */
+.cardCta {
+  margin-top: var(--space-4);
+}

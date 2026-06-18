@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 
 import { SITE_ORIGIN } from "@/lib/constants";
-import { allDocsNavHrefs } from "@/lib/flatten-doc-nav-hrefs";
 
 /** Primary URLs for indexing. `/learn` and `/arco` 301 → `/technology` (see next.config.ts). */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -45,17 +44,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${base}/roadmap`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${base}/get-tokens`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${base}/docs`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
   ];
 
-  /** In sync with `lib/docs-nav.ts` (every shipped nav target). */
-  const docs: MetadataRoute.Sitemap = [...allDocsNavHrefs()]
-    .sort()
-    .map((path) => ({
-      url: `${base}${path.startsWith("/") ? path : `/${path}`}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    }));
-
-  return [...marketing, ...docs];
+  return marketing;
 }

@@ -21,8 +21,8 @@ export function EvidenceBlock() {
       <article className={styles.tile}>
         <h3 className={styles.title}>Open, auditable implementation</h3>
         <p className={styles.body}>
-          Lineage Foundation&rsquo;s public GitHub — every repository is open
-          for review, issues, and contributions.
+          Lineage Foundation&rsquo;s public GitHub, where every repository is
+          open for review, issues, and contributions.
         </p>
         <div className={styles.cta}>
           <LinkCta href={URL_GITHUB_ORG} external>

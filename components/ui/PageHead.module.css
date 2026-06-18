@@ -1,0 +1,95 @@
+/*
+ * PageHead — interior-page hero header.
+ * Ported from design-prototype/css/lineage.css lines 278-293.
+ */
+
+/* .page-head */
+.pageHead {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(
+    180deg,
+    var(--color-bg) 0%,
+    var(--color-bg-canvas) 100%
+  );
+}
+
+/* .page-head::after — dot/line grid texture (lines 280-287) */
+.pageHead::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--color-link) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-link) 5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(
+    120% 100% at 18% 0%,
+    #000,
+    transparent 70%
+  );
+  mask-image: radial-gradient(120% 100% at 18% 0%, #000, transparent 70%);
+}
+
+/* .page-head-inner (line 288) */
+.inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(56px, 9vh, 104px);
+  max-width: 60rem;
+}
+
+/* .page-head .eyebrow (line 289) — passed as className to <Eyebrow> */
+.eyebrow {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+/* .page-title (line 290) */
+.title {
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-4);
+  color: var(--color-text);
+}
+
+/* .page-title .accent (line 291) */
+.accent {
+  color: var(--color-accent);
+  text-shadow: var(--glow-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent {
+    text-shadow: none;
+  }
+}
+
+/* .page-lead (line 292) */
+.lead {
+  max-width: 46rem;
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* .page-head-actions (line 293) */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}

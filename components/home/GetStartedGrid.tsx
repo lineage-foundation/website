@@ -34,7 +34,7 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Tokenomics",
-    body: "FReT, LNGX, and the phased release model—overview and interactive chart on this page.",
+    body: "FReT, LNGX, and the phased release model: overview and chart.",
     links: [{ label: "Open tokenomics", href: "/tokenomics" }],
   },
   {
@@ -47,8 +47,8 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Get LNGX",
-    body: "Acquire the Lineage unit of value.",
-    placeholder: true,
+    body: "Top up a small amount for on-network utility, or pull test LNGX from the developer faucet.",
+    links: [{ label: "Get tokens", href: "/get-tokens" }],
   },
   {
     title: "Start building",
@@ -57,8 +57,9 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Try apps",
-    body: "Explore smart markets in action.",
+    body: "Explore smart markets in action as the ecosystem comes online.",
     placeholder: true,
+    links: [{ label: "See what’s coming", href: "/roadmap" }],
   },
 ];
 
@@ -76,7 +77,8 @@ export function GetStartedGrid() {
           <p className={styles.body}>{tile.body}</p>
           {tile.placeholder ? (
             <span className={styles.placeholderTag}>Coming soon</span>
-          ) : tile.links && tile.links.length > 0 ? (
+          ) : null}
+          {tile.links && tile.links.length > 0 ? (
             <ul className={styles.links} role="list">
               {tile.links.map((link, i) => (
                 <li key={i}>

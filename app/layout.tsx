@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -18,8 +18,15 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-display",
+  variable: "--font-space-grotesk",
   weight: ["500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -52,6 +59,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/brand/favicon.svg", type: "image/svg+xml" },
       {
         url: "/images/lineage-favicon-16x16.png",
         sizes: "16x16",
@@ -86,7 +94,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#080a0f",
+  themeColor: "#0a1416",
 };
 
 export default function RootLayout({
@@ -97,9 +105,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body className={inter.className}>
+      {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject
+          attributes like data-gr-ext-installed on <body> before React hydrates. */}
+      <body className={inter.className} suppressHydrationWarning>
         <SiteHeader />
         <main className="siteMain">{children}</main>
         <SiteFooter />

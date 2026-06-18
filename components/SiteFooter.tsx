@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Container } from "@/components/ui";
+import { Container, Signal } from "@/components/ui";
 import {
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
@@ -25,6 +25,12 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/tokenomics">Tokenomics</Link>
+              </li>
+              <li>
+                <Link href="/get-tokens">Get tokens</Link>
+              </li>
+              <li>
+                <Link href="/roadmap">Roadmap</Link>
               </li>
               <li>
                 <a
@@ -91,7 +97,15 @@ export function SiteFooter() {
           </section>
 
           <section className={styles.column}>
-            <h2 className={styles.columnTitle}>Legal</h2>
+            <h2 className={styles.columnTitle}>Company</h2>
+            <ul className={styles.list}>
+              <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
+                <a href="mailto:contact@lineage.foundation">Contact</a>
+              </li>
+            </ul>
             <p className={styles.legalLine}>
               &copy; {year}&nbsp;
               <Link href="/">Lineage Foundation</Link>
@@ -99,7 +113,10 @@ export function SiteFooter() {
           </section>
         </div>
 
-        <div className={styles.meta}>Signal active · Genesis phase</div>
+        <div className={styles.meta}>
+          <Signal>Signal active · Genesis phase</Signal>
+          <span>A Layer-1 where markets become verifiable programs.</span>
+        </div>
       </Container>
     </footer>
   );

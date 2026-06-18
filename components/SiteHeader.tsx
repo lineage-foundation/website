@@ -1,29 +1,43 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { Button } from "@/components/ui";
-import { URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
 import styles from "./SiteHeader.module.css";
 
-const NAV_ITEMS = [
-  { label: "Technology", href: "/technology", external: false },
-  { label: "Tokenomics", href: "/tokenomics", external: false },
-  { label: "Developers", href: "/developers", external: false },
-  { label: "Ecosystem", href: "/ecosystem", external: false },
-  { label: "Research", href: "/research", external: false },
-  { label: "Docs", href: "/docs", external: false },
+const TOP_NAV_ITEMS = [
+  { label: "Technology", href: "/technology" },
+  { label: "Tokenomics", href: "/tokenomics" },
+] as const;
+
+const DEVELOPERS_ITEMS = [
+  { label: "Overview", href: "/developers" },
+  { label: "Docs", href: "/docs" },
+  { label: "Roadmap", href: "/roadmap" },
+] as const;
+
+const AFTER_DEV_NAV_ITEMS = [
+  { label: "Ecosystem", href: "/ecosystem" },
+  { label: "Research", href: "/research" },
+  { label: "About", href: "/about" },
 ] as const;
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const menuId = useId();
+  const dropdownId = useId();
   const rootRef = useRef<HTMLElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const closeDropdown = useCallback(() => setDropdownOpen(false), []);
 
+  // Sync --site-header-offset via ResizeObserver
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
@@ -42,8 +56,9 @@ export function SiteHeader() {
     };
   }, []);
 
+  // Close mobile menu when viewport widens beyond breakpoint
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 720px)");
+    const mq = window.matchMedia("(max-width: 1024px)");
     const onChange = () => {
       if (!mq.matches) setMenuOpen(false);
     };
@@ -51,6 +66,7 @@ export function SiteHeader() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Mobile menu: body scroll lock + Escape to close
   useEffect(() => {
     if (!menuOpen) return;
     const prev = document.body.style.overflow;
@@ -65,6 +81,33 @@ export function SiteHeader() {
     };
   }, [menuOpen, closeMenu]);
 
+  // Dropdown: Escape to close + outside-click to close
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDropdown();
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [dropdownOpen, closeDropdown]);
+
+  // Active when the path matches a route or any of its sub-paths (e.g. /docs/x)
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+  const isDevActive = DEVELOPERS_ITEMS.some((item) => isActive(item.href));
+
   return (
     <header ref={rootRef} className={styles.root}>
       {menuOpen ? (
@@ -76,54 +119,99 @@ export function SiteHeader() {
           onClick={closeMenu}
         />
       ) : null}
-      <nav className={styles.nav} aria-label="Primary">
+      <div className={styles.nav}>
         <div className={styles.navLeft}>
           <Link href="/" onClick={closeMenu} aria-label="Lineage home">
             {/* eslint-disable-next-line @next/next/no-img-element -- explicit dimensions match header sizing */}
             <img
-              src="/images/lineage-logo.png"
-              alt="Lineage"
+              src="/brand/lineage-mark.svg"
+              alt=""
+              aria-hidden="true"
               className={styles.logo}
             />
+            <span className={styles.wordmark}>Lineage</span>
           </Link>
         </div>
 
         <div className={styles.navRight}>
-          <div
+          <nav
             id={menuId}
             className={`${styles.tabs} ${menuOpen ? styles.tabsOpen : ""}`}
+            aria-label="Primary"
           >
-            {NAV_ITEMS.map((item) =>
-              item.external ? (
-                <a
-                  key={item.href + item.label}
-                  href={item.href}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  onClick={closeMenu}
+            {TOP_NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Developers dropdown */}
+            <div
+              ref={dropdownRef}
+              className={`${styles.navGroup} ${isDevActive ? styles.navGroupCurrent : ""} ${dropdownOpen ? styles.navGroupOpen : ""}`}
+            >
+              <button
+                type="button"
+                className={styles.navGroupTrigger}
+                aria-expanded={dropdownOpen}
+                aria-controls={dropdownId}
+                onClick={() => setDropdownOpen((o) => !o)}
+              >
+                Developers
+                <svg
+                  className={styles.caret}
+                  width={11}
+                  height={11}
+                  viewBox="0 0 12 12"
+                  aria-hidden="true"
                 >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.href + item.label}
-                  href={item.href}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </div>
+                  <path
+                    d="M2.5 4.5 6 8l3.5-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <div id={dropdownId} className={styles.navMenu}>
+                {DEVELOPERS_ITEMS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => {
+                      closeMenu();
+                      closeDropdown();
+                    }}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {AFTER_DEV_NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
           <div className={styles.headerCta}>
-            <Button
-              variant="primary"
-              size="sm"
-              href={URL_ZENODO_WHITEPAPER}
-              external
-            >
-              Whitepaper
+            <Button variant="primary" size="sm" href="/get-tokens">
+              Get tokens
             </Button>
           </div>
 
@@ -166,7 +254,7 @@ export function SiteHeader() {
             )}
           </button>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

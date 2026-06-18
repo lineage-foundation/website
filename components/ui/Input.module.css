@@ -1,0 +1,61 @@
+/* Ported from design-prototype/css/lineage.css lines 684-693 */
+
+/* .input */
+.input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  transition: border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* Error state (prototype .field.is-invalid .input) */
+.invalid {
+  border-color: var(--color-danger);
+}
+
+.invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-danger) 45%, transparent);
+}
+
+/* .input--mono */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+
+/* .input-prefix */
+.prefixRow {
+  position: relative;
+}
+
+.prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  pointer-events: none;
+}
+
+.prefixRow .input {
+  padding-left: 30px;
+}

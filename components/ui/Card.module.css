@@ -8,18 +8,40 @@
   border: 1px solid var(--color-border);
   border-radius: var(--r-md);
   color: var(--color-text);
-  transition: border-color var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard),
-    transform var(--dur-fast) var(--ease-standard);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+/* Aurora top-rule — revealed on hover for rail variant */
+.rail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--grad-aurora);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
 }
 
 .clickable {
   cursor: pointer;
 }
 
-.clickable:hover {
+/* Prototype lifts every card on hover, not only clickable ones. */
+.card:hover {
   border-color: var(--color-border-strong);
   background: var(--color-surface-2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elev-1);
+}
+
+.rail:hover::before {
+  opacity: 1;
 }
 
 .clickable:has(a:focus-visible) {
@@ -39,7 +61,7 @@
 
 .title {
   margin: 0;
-  font-family: var(--font-family-display);
+  font-family: var(--font-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-heading);
   font-weight: 500;
@@ -49,8 +71,8 @@
 
 .body {
   color: var(--color-text-muted);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  font-size: var(--fs-small);
+  line-height: 1.6;
 }
 
 .body > :first-child {
@@ -59,6 +81,33 @@
 
 .body > :last-child {
   margin-bottom: 0;
+}
+
+/* Mono sequence number */
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+  letter-spacing: 0.06em;
+}
+
+/* Cyan-mono kicker rendered above the title (ported from prototype .card .num) */
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+  letter-spacing: 0.06em;
+}
+
+/* Inline link list */
+.links {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
 }
 
 /* Full-surface overlay link, so anywhere in the card is clickable while the
@@ -72,6 +121,14 @@
   overflow: hidden;
 }
 
+/* The overlay link is card-sized (inset:0), so its ring frames the whole card. */
 .overlayLink:focus-visible {
-  outline: none;
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Placeholder state — dashed border + dimmed background (prototype `.card.is-placeholder`) */
+.placeholder {
+  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+  border-style: dashed;
 }

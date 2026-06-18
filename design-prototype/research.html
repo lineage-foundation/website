@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Research — Lineage</title>
+<meta name="description" content="Lineage working papers on Zenodo — Universal Turing Market Machines, Dynamic Proof of Weighted Work, UTXO world state, and adaptive market evolution — plus the Fremen Forum for open research discussion." />
+<meta name="theme-color" content="#0b1a18" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/lineage.css" />
+</head>
+<body>
+
+<a class="skip-link btn--ghost" href="#content">Skip to content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Lineage home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+      Lineage
+    </a>
+
+    <div class="nav-right">
+      <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html" aria-current="page">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+
+<!-- ===================== PAGE HEAD ===================== -->
+<section class="page-head" data-od-id="research-head" aria-labelledby="research-title">
+  <div class="container">
+    <div class="page-head-inner" data-reveal>
+      <span class="eyebrow">Research</span>
+      <h1 class="page-title" id="research-title">A protocol that is also a <span class="accent">research</span> programme</h1>
+      <p class="page-lead">Lineage is a research project as much as a layer-one protocol. The work is published as open working papers on Zenodo under CC&nbsp;BY&nbsp;4.0 — newest first — covering market computation, consensus, and world state.</p>
+      <div class="page-head-actions">
+        <a class="btn btn--primary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the Whitepaper</a>
+        <a class="btn btn--secondary" href="https://lineage.discourse.group/" target="_blank" rel="noopener noreferrer">Open the Fremen Forum</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT + CITATION ASIDE ===================== -->
+<section class="section" data-od-id="research-abstract" aria-labelledby="abstract-title">
+  <div class="container">
+    <div class="split">
+      <div class="prose" data-reveal>
+        <h2 id="abstract-title">Abstract</h2>
+        <p>
+          Lineage proposes <strong>Universal Turing Market Machines (UTMMs)</strong>: a framework for
+          blockchain-based markets in which market policy is a programmable, adaptive object. Transaction
+          history is treated as an epistemic substrate, with deterministic feature extraction, evaluation
+          of policies in a constrained space, and improvement via bounded search — all while remaining
+          within classical computability limits.
+        </p>
+        <p>
+          The flagship whitepaper, <em>Universal Turing Market Machines (UTMMs)</em>, is archived on Zenodo
+          and anchors the reading list below. Surrounding papers develop the consensus layer that defends
+          these adaptive algorithms, the world-state model that carries context in a UTXO setting, and the
+          currency design that aims for low volatility without external collateral.
+        </p>
+
+        <h2>Research themes</h2>
+        <p>
+          The published work clusters into a few recurring questions. First, how a market can
+          <strong>compute</strong>: how to express market policy as an object that adapts at runtime rather
+          than being fully fixed at design time, and how to keep that adaptation deterministic and verifiable
+          inside consensus.
+        </p>
+        <p>
+          Second, how that computation is <strong>defended</strong>: the Dynamic Proof of Weighted Work
+          (DPoWW) family of papers studies a Nakamoto-style design that can move between fully distributed
+          and semi-decentralized modes for throughput, reverting to full distribution when fault conditions
+          require it — including parallelized Merkle-tree validation to scale miner workloads.
+        </p>
+        <p>
+          Third, how markets <strong>evolve</strong>: framing self-organizing market process through Hayek's
+          spontaneous order and Ashby's law of requisite variety, with adaptive resource-coordinated organisms
+          (ARCOs) combining sensory inputs, ledger signalling, and actuators. World state is carried in a UTXO
+          setting using monad-style composition to limit side effects, while coin scripts stay non–Turing
+          complete for value movement.
+        </p>
+      </div>
+
+      <aside class="aside-card" data-reveal aria-labelledby="cite-title">
+        <span class="eyebrow">Cite the whitepaper</span>
+        <h2 class="section-title" id="cite-title" style="font-size:var(--fs-h3);font-weight:600;margin-top:var(--space-3)">Universal Turing Market Machines (UTMMs)</h2>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:var(--space-3) 0 var(--space-2)">Archive · <strong style="color:var(--color-text);font-weight:600">Zenodo</strong> · CC&nbsp;BY&nbsp;4.0</p>
+        <p style="color:var(--color-text-subtle);font-family:var(--font-mono);font-size:var(--fs-caption);margin:0 0 var(--space-5)">Record 19203176 · Published 24 March 2026</p>
+        <a class="link-cta" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESEARCH PILLARS ===================== -->
+<section class="section section--band" data-od-id="research-pillars" aria-labelledby="pillars-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Research pillars</span>
+      <h2 class="section-title" id="pillars-title">Three lines of inquiry</h2>
+    </div>
+    <div class="grid">
+      <article class="card card--rail" data-reveal>
+        <div class="num">01</div>
+        <h3>Universal Turing Market Machines</h3>
+        <p>UTMMs frame market policy as a programmable, adaptive object. Transaction history becomes an epistemic substrate: deterministic operators extract features, policies are evaluated in a constrained space, and bounded search improves them — without leaving classical computability.</p>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">02</div>
+        <h3>Prime Radiant Consensus</h3>
+        <p>The Dynamic Proof of Weighted Work (DPoWW) papers describe a Nakamoto-style consensus that shifts between fully distributed and semi-decentralized modes for throughput, reverting under fault conditions, with parallelized Merkle-tree validation to scale miner workloads.</p>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">03</div>
+        <h3>Adaptive Market Evolution</h3>
+        <p>Self-organizing market process modelled through Hayek's spontaneous order and Ashby's law of requisite variety. Adaptive resource-coordinated organisms (ARCOs) combine sensory inputs, ledger signalling, and actuators so markets adapt at runtime rather than only at design time.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PUBLICATIONS ===================== -->
+<section class="section" data-od-id="research-publications" aria-labelledby="pubs-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Publications</span>
+      <h2 class="section-title" id="pubs-title">Papers and whitepapers on Zenodo</h2>
+    </div>
+    <p class="section-prose" data-reveal>Open working papers, reverse chronological order, newest first. Each links to its Zenodo record.</p>
+    <div class="grid">
+      <article class="card card--rail" data-reveal>
+        <div class="num">24 Mar 2026 · 19203176</div>
+        <h3>Universal Turing Market Machines (UTMMs)</h3>
+        <p>Sets out UTMMs as a framework for blockchain-based markets in which market policy is a programmable, adaptive object: transaction history as an epistemic substrate, deterministic feature extraction, evaluation of policies in a constrained space, and improvement via bounded search — while remaining within classical computability limits.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">01 Dec 2025 · 17777930</div>
+        <h3>Toward a Universal Turing Market Machine: Autonomous, Neuromorphic Market Infrastructure</h3>
+        <p>Introduces the Universal Turing Market Machine and ARCOs (adaptive resource-coordinated organisms): a neuromorphic-style market layer that combines sensory inputs, ledger signalling, and actuators, framed with Hayek's spontaneous order and Ashby's law of requisite variety for self-organizing market process.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/17777930" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">25 Jun 2025 · 15737849</div>
+        <h3>Smart Market White Paper</h3>
+        <p>Describes consensus-defended adaptive algorithms: systems in which "intelligence" is expressed through adaptation at runtime, rather than requiring it to be fully fixed at design time.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/15737849" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">24 Jun 2025 · 15730748</div>
+        <h3>Parallelized Merkle-Tree Validation in Proof-of-Work Mining</h3>
+        <p>On the DPoWW consensus model, how to parallelise validation payloads to scale miner throughput, including a deterministic treatment of fragmented Merkle coverage and a Steiner-triple style tradeoff between payload size and miner count for fault tolerance.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/15730748" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">24 Jun 2025 · 15730321</div>
+        <h3>Dynamic Proof of Weighted Work</h3>
+        <p>Introduces a Nakamoto-style design that can move between a fully distributed mode and a semi-decentralized one for higher throughput, reverting to full distribution when fault conditions require it — switching between pure proof-of-work and a hash rate–validated mode analogous to proof-of-stake, with suitable hash and parallelization choices for broader workloads.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/15730321" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">07 May 2025 · 15360914</div>
+        <h3>A Computational Model for World-State based contracts in UTXO PoW-Style Blockchains</h3>
+        <p>Proposes a way to carry world state in a UTXO setting using monad-style composition to limit side effects: more expressive, context-sensitive operation on data (item) transactions, with coin scripts kept safe and non–Turing complete for value movement.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/15360914" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+      <article class="card card--rail" data-reveal>
+        <div class="num">02 May 2025 · 15324203</div>
+        <h3>Peer-to-peer electronic cash revisited</h3>
+        <p>Revisits electronic cash design to aim for low volatility without relying on external collateral or game-theoretic levers, from the perspective of peer-to-peer currency design.</p>
+        <div class="card-cta"><a class="link-cta link-cta--muted" href="https://zenodo.org/records/15324203" target="_blank" rel="noopener noreferrer">Read on Zenodo <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FREMEN FORUM ===================== -->
+<section class="section section--band" data-od-id="research-forum" aria-labelledby="forum-title">
+  <div class="container">
+    <div class="split">
+      <div class="prose" data-reveal>
+        <h2 id="forum-title">Fremen Forum</h2>
+        <p>
+          The <strong>Fremen Forum</strong> is the public place for protocol, consensus, and economic-design
+          discussion — open threads, not a help desk for a single app, with room for working-group style
+          debate and ideas from the wider community.
+        </p>
+        <p>
+          Bring questions about UTMMs, DPoWW, and ongoing Lineage research. The conversation is open to
+          everyone, and contributions feed back into the published work.
+        </p>
+      </div>
+      <aside class="aside-card" data-reveal aria-labelledby="forum-card-title">
+        <span class="eyebrow">Community</span>
+        <h2 class="section-title" id="forum-card-title" style="font-size:var(--fs-h3);font-weight:600;margin-top:var(--space-3)">Open research discussion</h2>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:var(--space-3) 0 var(--space-5)">Open discussion of UTMMs, DPoWW, and ongoing Lineage research questions.</p>
+        <a class="link-cta" href="https://lineage.discourse.group/" target="_blank" rel="noopener noreferrer">Open the Fremen Forum <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section" data-od-id="research-cta" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Build on it</span>
+      <h2 class="section-title" id="cta-title">Move the research into code</h2>
+    </div>
+    <p class="section-prose" data-reveal>If the research is useful to you, the implementation is open for review and contribution.</p>
+    <div class="page-head-actions" data-reveal>
+      <a class="btn btn--primary" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Read the Whitepaper</a>
+      <a class="btn btn--secondary" href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="developers.html">Developers</a></li>
+          <li><a href="ecosystem.html">Ecosystem</a></li>
+          <li><a href="research.html">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Community</h2>
+        <ul>
+          <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span class="signal">Signal active · Genesis phase</span>
+      <span>A Layer-1 where markets become verifiable programs.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lineage.js"></script>
+</body>
+</html>

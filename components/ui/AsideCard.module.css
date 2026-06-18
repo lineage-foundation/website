@@ -1,0 +1,16 @@
+/* Ported from design-prototype/css/lineage.css line 410 */
+
+.aside {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  padding: var(--space-6);
+  position: sticky;
+  top: 88px;
+}
+
+@media (max-width: 820px) {
+  .aside {
+    position: static;
+  }
+}

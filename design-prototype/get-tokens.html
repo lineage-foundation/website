@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Get LNGX — Lineage</title>
+<meta name="description" content="Top up small amounts of LNGX for on-network utility, or request developer test tokens from the faucet." />
+<meta name="theme-color" content="#0b1a18" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/lineage-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/lineage.css" />
+</head>
+<body>
+
+<a class="skip-link btn--ghost" href="#content">Skip to content</a>
+
+<!--
+  ============================================================
+  BACKEND CONTRACT — this page is the front-end only.
+  Two server endpoints must be implemented for it to go live.
+  Full spec, env vars, and security requirements:
+      get-tokens-backend.md
+  Configurable values live in the CONFIG block of the inline
+  <script> at the bottom of this file (purchase cap, currency,
+  rate, faucet amount, cooldown).
+  ============================================================
+-->
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Lineage home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="lin-blade-c" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(92% 0.13 205)"/><stop offset="1" stop-color="oklch(72% 0.12 220)"/></radialGradient><radialGradient id="lin-blade-a" cx="50%" cy="50%" r="58%"><stop offset="0" stop-color="oklch(93% 0.16 167)"/><stop offset="1" stop-color="oklch(78% 0.15 160)"/></radialGradient></defs><path d="M6,7 L16,15 L26,7 L24.6,5.8 L16,13 L7.4,5.8 Z M6,25 L16,17 L26,25 L24.6,26.2 L16,19 L7.4,26.2 Z" fill="url(#lin-blade-c)"/><path d="M7,6 L15,16 L7,26 L5.4,24.6 L12,16 L5.4,7.4 Z M25,6 L17,16 L25,26 L26.6,24.6 L20,16 L26.6,7.4 Z" fill="url(#lin-blade-a)"/></svg>
+      Lineage
+    </a>
+
+    <div class="nav-right">
+      <nav class="tabs" id="tabs" aria-label="Primary">
+        <a href="technology.html">Technology</a>
+        <a href="tokenomics.html">Tokenomics</a>
+        <div class="nav-group">
+          <button type="button" class="nav-group-trigger" aria-expanded="false" aria-haspopup="true">Developers<svg class="caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu" role="menu">
+            <a href="developers.html" role="menuitem">Overview</a>
+            <a href="docs.html" role="menuitem">Docs</a>
+            <a href="roadmap.html" role="menuitem">Roadmap</a>
+          </div>
+        </div>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn--primary btn--sm" href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="tabs" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+
+  <!-- ===================== PAGE HEAD ===================== -->
+  <section class="page-head" data-od-id="get-head">
+    <div class="container">
+      <div class="page-head-inner" data-reveal>
+        <span class="eyebrow">Get LNGX</span>
+        <h1 class="page-title">Top up for utility, or <span class="accent">build</span> with test tokens</h1>
+        <p class="page-lead">
+          <span class="tok">LNGX</span> is the unit you spend to transact on the network. Buy a small amount for
+          everyday on-network utility, or — if you&rsquo;re building — pull a little test LNGX from the developer faucet.
+          These are utility top-ups, not an investment product.
+        </p>
+        <div class="segmented" role="tablist" aria-label="Choose what you need" style="margin-top:var(--space-5)">
+          <button role="tab" id="tab-buy" aria-selected="true" aria-controls="panel-buy">Buy LNGX</button>
+          <button role="tab" id="tab-faucet" aria-selected="false" aria-controls="panel-faucet">Developer faucet</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BUY PANEL ===================== -->
+  <section class="section" id="panel-buy" role="tabpanel" aria-labelledby="tab-buy" data-od-id="get-buy">
+    <div class="container">
+      <div class="tx-grid">
+
+        <!-- form -->
+        <div class="tx-card" data-reveal>
+          <h2>Buy LNGX with a card</h2>
+          <p class="tx-sub">For small, utility-purpose amounts. Capped per purchase to keep checkout simple and identity-light.</p>
+
+          <div class="field">
+            <span class="field-label">Choose an amount</span>
+            <div class="tiers" id="tiers" role="group" aria-label="Preset amounts"></div>
+          </div>
+
+          <label class="field" for="buy-amount">
+            <span class="field-label">Or enter an amount</span>
+            <span class="input-prefix">
+              <span class="sym" id="cur-sym">$</span>
+              <input class="input" id="buy-amount" type="number" inputmode="decimal" min="0" step="1" placeholder="0" autocomplete="off" />
+            </span>
+            <span class="field-hint" id="buy-amount-hint"></span>
+          </label>
+
+          <label class="field" id="buy-addr-field" for="buy-address">
+            <span class="field-label">Destination Lineage address</span>
+            <input class="input input--mono" id="buy-address" type="text" placeholder="Paste the address that will receive LNGX" autocomplete="off" spellcheck="false" />
+            <span class="field-error">That doesn&rsquo;t look like a valid Lineage address. Check and paste it again.</span>
+          </label>
+
+          <div class="quote" aria-live="polite">
+            <div class="quote-row"><span class="k">You pay</span><span class="v" id="q-pay">$0</span></div>
+            <div class="quote-row"><span class="k">Indicative rate</span><span class="v" id="q-rate">&mdash;</span></div>
+            <div class="quote-row is-total"><span class="k">You receive (est.)</span><span class="v" id="q-receive">0 LNGX</span></div>
+          </div>
+
+          <div class="statusbar" id="buy-status" aria-live="polite"><span class="dot"></span><span class="msg"></span></div>
+
+          <div class="tx-actions">
+            <button class="btn btn--primary" id="buy-pay" disabled>Pay with card</button>
+          </div>
+          <p class="tx-legal">
+            Card payments are handled by our payment processor; Lineage never sees your card details.
+            LNGX is a network utility token for transacting on Lineage, not a financial investment.
+            The receive amount is an estimate and settles at the network rate at the time of purchase.
+          </p>
+        </div>
+
+        <!-- aside -->
+        <aside class="tx-aside">
+          <div class="tx-fact" data-reveal>
+            <h3>Per-purchase cap</h3>
+            <p class="big" id="fact-cap">$250</p>
+            <p>Utility top-ups are limited per purchase to keep buying fast and identity-light. Need more? <a href="mailto:contact@lineage.foundation">Talk to us</a>.</p>
+          </div>
+          <div class="tx-fact" data-reveal>
+            <h3>What LNGX is for</h3>
+            <p>Paying network fees and transacting in apps built on Lineage. Supply is managed by the
+              <a href="technology.html#arco">ARCO</a> layer rather than a fixed cap.</p>
+          </div>
+          <div class="tx-fact" data-reveal>
+            <h3>Delivery</h3>
+            <p>Once payment clears, LNGX is sent to the address you provide. Make sure it&rsquo;s a
+              Lineage address you control — transfers can&rsquo;t be reversed.</p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- agents / programmatic -->
+      <div class="agent-note" data-reveal>
+        <h3>Transacting programmatically, or building an agent?</h3>
+        <p>
+          Automated clients don&rsquo;t pay by card. Agents and services transact directly against the
+          network APIs, and an MCP server is on the way so AI agents can read balances and move value as tools.
+        </p>
+        <div class="links">
+          <a class="link-cta" href="developers.html">Developer overview <span class="arrow">&rarr;</span></a>
+          <a class="link-cta" href="docs.html">API reference <span class="arrow">&rarr;</span></a>
+          <a class="link-cta" href="ecosystem.html#tooling">MCP server <span class="arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAUCET PANEL ===================== -->
+  <section class="section section--band" id="panel-faucet" role="tabpanel" aria-labelledby="tab-faucet" data-od-id="get-faucet" hidden>
+    <div class="container">
+      <div class="tx-grid">
+
+        <!-- form -->
+        <div class="tx-card" data-reveal>
+          <h2>Developer faucet</h2>
+          <p class="tx-sub">A small amount of test LNGX for building and integration work. One claim per address every <span id="cool-hours">24</span> hours.</p>
+
+          <label class="field" id="fau-addr-field" for="fau-address">
+            <span class="field-label">Your Lineage address</span>
+            <input class="input input--mono" id="fau-address" type="text" placeholder="Paste the address to fund" autocomplete="off" spellcheck="false" />
+            <span class="field-error">That doesn&rsquo;t look like a valid Lineage address. Check and paste it again.</span>
+          </label>
+
+          <div class="statusbar" id="fau-status" aria-live="polite"><span class="dot"></span><span class="msg"></span></div>
+
+          <div class="tx-actions">
+            <button class="btn btn--primary" id="fau-claim" disabled>Request test LNGX</button>
+          </div>
+          <p class="tx-legal">
+            Faucet tokens have no monetary value and exist only for development on the test network.
+            Please don&rsquo;t drain it — others are building too.
+          </p>
+        </div>
+
+        <!-- aside -->
+        <aside class="tx-aside">
+          <div class="tx-fact" data-reveal>
+            <h3>Per claim</h3>
+            <p class="big"><span id="fact-amount">10</span> LNGX</p>
+            <p>Enough to exercise transactions, items, and contract calls while you build.</p>
+          </div>
+          <div class="tx-fact" data-reveal>
+            <h3>Need a node or the SDKs?</h3>
+            <p>The quickstart shows install + your first call, and the fleet repo covers running a node.</p>
+            <p style="margin-top:10px"><a class="link-cta" href="docs.html#sdks">SDK quickstart <span class="arrow">&rarr;</span></a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h2>Project</h2>
+        <ul>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="get-tokens.html">Get tokens</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="https://zenodo.org/records/19203176" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="developers.html">Developers</a></li>
+          <li><a href="ecosystem.html">Ecosystem</a></li>
+          <li><a href="research.html">Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Community</h2>
+        <ul>
+          <li><a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://lineage.discourse.group/" title="Fremen Forum (Discourse)" target="_blank" rel="noopener noreferrer">Fremen Forum</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Wsbmx_SQjzc" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul><li><a href="about.html">About</a></li><li><a href="mailto:contact@lineage.foundation">Contact</a></li></ul>
+        <p style="color:var(--color-text-muted);font-size:var(--fs-small);margin:0">&copy; <span id="year">2026</span>&nbsp;<a href="index.html">Lineage Foundation</a></p>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span class="signal">Signal active · Genesis phase</span>
+      <span>A Layer-1 where markets become verifiable programs.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lineage.js"></script>
+<script>
+/* ============================================================
+   GET TOKENS — front-end interactions
+   CONFIG: every business value lives here. Compliance sets the
+   cap; engineering sets the rate/amount once the backend is live.
+   ============================================================ */
+(function () {
+  var CONFIG = {
+    CURRENCY: 'USD',
+    SYMBOL: '$',          // shown in the UI
+    MIN_PURCHASE: 5,           // smallest card purchase
+    MAX_PURCHASE: 250,         // *** KYC-threshold cap — set by compliance ***
+    LNGX_PER_UNIT: 20,         // indicative rate: LNGX per 1 currency unit (placeholder)
+    FAUCET_AMOUNT: 10,         // test LNGX dispensed per claim
+    COOLDOWN_HOURS: 24,        // faucet cooldown per address
+    TIERS: [5, 10, 25, 50]     // preset buy amounts
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  function fmtMoney(n) { return CONFIG.SYMBOL + (Math.round(n * 100) / 100).toLocaleString(); }
+  function fmtLngx(n) { return Math.round(n).toLocaleString() + ' LNGX'; }
+  // lightweight address sanity check — NOT a substitute for server-side validation
+  function looksLikeAddress(v) { return /^[0-9a-zA-Z]{24,}$/.test((v || '').trim()); }
+
+  function setStatus(el, kind, html, busy) {
+    el.className = 'statusbar is-on statusbar--' + kind + (busy ? ' is-busy' : '');
+    el.querySelector('.msg').innerHTML = html;
+  }
+  function clearStatus(el) { el.className = 'statusbar'; }
+
+  /* ---------- segmented tab switch ---------- */
+  var tabBuy = $('tab-buy'), tabFau = $('tab-faucet');
+  var panBuy = $('panel-buy'), panFau = $('panel-faucet');
+  function select(which) {
+    var buy = which === 'buy';
+    tabBuy.setAttribute('aria-selected', buy ? 'true' : 'false');
+    tabFau.setAttribute('aria-selected', buy ? 'false' : 'true');
+    panBuy.hidden = !buy; panFau.hidden = buy;
+    if (location.hash !== (buy ? '' : '#faucet')) {
+      history.replaceState(null, '', buy ? location.pathname : '#faucet');
+    }
+  }
+  tabBuy.addEventListener('click', function () { select('buy'); });
+  tabFau.addEventListener('click', function () { select('faucet'); });
+  if (location.hash === '#faucet') select('faucet');
+
+  /* ---------- labels from CONFIG ---------- */
+  $('cur-sym').textContent = CONFIG.SYMBOL;
+  $('fact-cap').textContent = fmtMoney(CONFIG.MAX_PURCHASE);
+  $('fact-amount').textContent = CONFIG.FAUCET_AMOUNT;
+  $('cool-hours').textContent = CONFIG.COOLDOWN_HOURS;
+  $('buy-amount-hint').textContent = 'Min ' + fmtMoney(CONFIG.MIN_PURCHASE) + ' · max ' + fmtMoney(CONFIG.MAX_PURCHASE) + ' per purchase.';
+  $('q-rate').textContent = CONFIG.SYMBOL + '1 ≈ ' + CONFIG.LNGX_PER_UNIT + ' LNGX';
+
+  /* ---------- buy: tiers + amount ---------- */
+  var amountEl = $('buy-amount'), tiersEl = $('tiers');
+  var addrBuy = $('buy-address'), addrBuyField = $('buy-addr-field');
+  var payBtn = $('buy-pay'), buyStatus = $('buy-status');
+  var amount = 0;
+
+  CONFIG.TIERS.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'tier'; b.setAttribute('aria-pressed', 'false');
+    b.dataset.amt = t; b.textContent = CONFIG.SYMBOL + t;
+    b.addEventListener('click', function () { amountEl.value = t; syncAmount(); });
+    tiersEl.appendChild(b);
+  });
+
+  function syncAmount() {
+    amount = parseFloat(amountEl.value) || 0;
+    Array.prototype.forEach.call(tiersEl.children, function (b) {
+      b.setAttribute('aria-pressed', parseFloat(b.dataset.amt) === amount ? 'true' : 'false');
+    });
+    $('q-pay').textContent = fmtMoney(amount);
+    $('q-receive').textContent = fmtLngx(amount * CONFIG.LNGX_PER_UNIT);
+
+    // limit enforcement
+    if (amount > CONFIG.MAX_PURCHASE) {
+      setStatus(buyStatus, 'warn',
+        'Utility purchases are capped at <strong>' + fmtMoney(CONFIG.MAX_PURCHASE) +
+        '</strong>. For a larger amount, <a href="mailto:contact@lineage.foundation">get in touch</a>.', false);
+    } else {
+      clearStatus(buyStatus);
+    }
+    refreshPay();
+  }
+  function buyValid() {
+    return amount >= CONFIG.MIN_PURCHASE &&
+           amount <= CONFIG.MAX_PURCHASE &&
+           looksLikeAddress(addrBuy.value);
+  }
+  function refreshPay() { payBtn.disabled = !buyValid(); }
+
+  amountEl.addEventListener('input', syncAmount);
+  addrBuy.addEventListener('input', function () {
+    addrBuyField.classList.remove('is-invalid');
+    refreshPay();
+  });
+  addrBuy.addEventListener('blur', function () {
+    if (addrBuy.value.trim() && !looksLikeAddress(addrBuy.value)) addrBuyField.classList.add('is-invalid');
+  });
+
+  payBtn.addEventListener('click', function () {
+    if (!buyValid()) return;
+    payBtn.disabled = true;
+    setStatus(buyStatus, 'info', 'Redirecting to secure checkout…', true);
+    // FRONT-END SIMULATION of the Stripe Checkout round-trip.
+    // Real flow: POST /api/checkout/session {amount, currency, address}
+    //   -> server creates a Stripe Checkout Session -> redirect to session.url
+    //   -> Stripe webhook confirms payment -> backend dispenses LNGX.
+    setTimeout(function () {
+      var ref = 'LNG-' + Math.abs(hash(addrBuy.value + ':' + amount)).toString(36).toUpperCase().slice(0, 8);
+      setStatus(buyStatus, 'ok',
+        '<strong>Preview only — no payment was taken.</strong><br>' +
+        'When live, this is where checkout returns and <strong>' + fmtLngx(amount * CONFIG.LNGX_PER_UNIT) +
+        '</strong> is sent to <code>' + shorten(addrBuy.value) + '</code>. Reference <code>' + ref + '</code>.', false);
+      payBtn.disabled = false;
+    }, 1300);
+  });
+
+  /* ---------- faucet ---------- */
+  var addrFau = $('fau-address'), addrFauField = $('fau-addr-field');
+  var claimBtn = $('fau-claim'), fauStatus = $('fau-status');
+  var ckey = function (a) { return 'lineage-faucet:' + a.trim().toLowerCase(); };
+  var countdownTimer = null;
+
+  function fauValid() { return looksLikeAddress(addrFau.value); }
+  function cooldownLeft(a) {
+    var last = parseInt(localStorage.getItem(ckey(a)) || '0', 10);
+    if (!last) return 0;
+    var ends = last + CONFIG.COOLDOWN_HOURS * 3600 * 1000;
+    return Math.max(0, ends - Date.now());
+  }
+  function fmtDur(ms) {
+    var s = Math.ceil(ms / 1000);
+    var h = Math.floor(s / 3600); s -= h * 3600;
+    var m = Math.floor(s / 60); s -= m * 60;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    return pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  function refreshClaim() {
+    if (!fauValid()) { claimBtn.disabled = true; return; }
+    var left = cooldownLeft(addrFau.value);
+    claimBtn.disabled = left > 0;
+  }
+  function tickCooldown() {
+    if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+    var left = cooldownLeft(addrFau.value);
+    if (left <= 0) return;
+    var render = function () {
+      var l = cooldownLeft(addrFau.value);
+      if (l <= 0) {
+        clearInterval(countdownTimer); countdownTimer = null;
+        clearStatus(fauStatus); refreshClaim(); return;
+      }
+      setStatus(fauStatus, 'warn',
+        'This address claimed recently. Try again in <span class="cooldown">' + fmtDur(l) + '</span>.', false);
+    };
+    render();
+    countdownTimer = setInterval(render, 1000);
+  }
+
+  addrFau.addEventListener('input', function () {
+    addrFauField.classList.remove('is-invalid');
+    refreshClaim(); tickCooldown();
+  });
+  addrFau.addEventListener('blur', function () {
+    if (addrFau.value.trim() && !fauValid()) addrFauField.classList.add('is-invalid');
+  });
+
+  claimBtn.addEventListener('click', function () {
+    if (!fauValid() || cooldownLeft(addrFau.value) > 0) return;
+    claimBtn.disabled = true;
+    setStatus(fauStatus, 'info', 'Sending ' + CONFIG.FAUCET_AMOUNT + ' test LNGX…', true);
+    // Real flow: POST /api/faucet/claim {address}
+    //   -> server checks cooldown -> signs + broadcasts from the faucet wallet
+    //   -> returns { txHash }.
+    setTimeout(function () {
+      localStorage.setItem(ckey(addrFau.value), String(Date.now()));
+      var tx = '0x' + Math.abs(hash(addrFau.value + ':' + Date.now())).toString(16).padStart(8, '0') + 'b3a1c9';
+      setStatus(fauStatus, 'ok',
+        '<strong>Sent ' + CONFIG.FAUCET_AMOUNT + ' test LNGX.</strong><br>' +
+        'Transaction <code>' + tx + '</code>. Explorer link coming soon.', false);
+      tickCooldown();
+    }, 1300);
+  });
+
+  /* ---------- tiny helpers ---------- */
+  function hash(str) { var h = 0; for (var i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; } return h; }
+  function shorten(a) { a = a.trim(); return a.length > 14 ? a.slice(0, 8) + '…' + a.slice(-4) : a; }
+
+  // init
+  syncAmount();
+  refreshClaim();
+})();
+</script>
+</body>
+</html>

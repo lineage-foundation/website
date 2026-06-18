@@ -1,0 +1,246 @@
+/* ===================================================================
+ * Get-tokens surface CSS — ported from design-prototype/css/lineage.css
+ * Lines 673-748 (.tx-grid, .tx-card, .tx-aside, .tx-fact, .tiers,
+ *   .quote, .tx-actions, .tx-legal, .agent-note).
+ * No legacy hex — tokens only.
+ * =================================================================== */
+
+/* ---- Transaction grid layout ---- */
+/* Prototype: .tx-grid */
+.txGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .txGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}
+
+/* ---- Main form card ---- */
+/* Prototype: .tx-card */
+.txCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  padding: clamp(var(--space-5), 3vw, var(--space-7));
+}
+
+.txCard h2 {
+  font-size: var(--fs-h3);
+  margin: 0;
+}
+
+/* Prototype: .tx-sub */
+.txSub {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  margin: 8px 0 0;
+}
+
+/* ---- Aside column (sticky on desktop) ---- */
+/* Prototype: .tx-aside */
+.txAside {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (max-width: 860px) {
+  .txAside {
+    position: static;
+  }
+}
+
+/* ---- Fact cards in aside ---- */
+/* Prototype: .tx-fact */
+.txFact {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  padding: var(--space-4) var(--space-5);
+}
+
+.txFact h3 {
+  font-size: var(--fs-small);
+  margin: 0 0 6px;
+}
+
+.txFact p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+/* Prototype: .tx-fact .big */
+.txFactBig {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  font-size: var(--fs-h3);
+}
+
+/* ---- Tier preset buttons ---- */
+/* Prototype: .tiers */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 520px) {
+  .tiers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Prototype: .tier */
+.tier {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  padding: 14px 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.tier:hover {
+  border-color: var(--color-border-strong);
+}
+
+/* Prototype: .tier[aria-pressed="true"] */
+.tierActive {
+  border-color: var(--color-accent);
+  background: color-mix(in oklab, var(--color-accent) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier {
+    transition: none;
+  }
+}
+
+/* ---- Quote summary box ---- */
+/* Prototype: .quote */
+.quote {
+  margin-top: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  background: var(--color-bg-raised);
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Prototype: .quote-row */
+.quoteRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 7px 0;
+}
+
+.quoteRow + .quoteRow {
+  border-top: 1px solid var(--color-border);
+}
+
+.quoteKey {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+
+.quoteVal {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+/* Prototype: .quote-row.is-total .v */
+.quoteTotalVal {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-h3);
+  color: var(--color-accent);
+}
+
+/* ---- Submit button row ---- */
+/* Prototype: .tx-actions */
+.txActions {
+  margin-top: var(--space-5);
+}
+
+/* Full-width button inside actions */
+.txActions > button,
+.txActions > a {
+  width: 100%;
+}
+
+/* ---- Legal small print ---- */
+/* Prototype: .tx-legal */
+.txLegal {
+  margin-top: var(--space-4);
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  line-height: 1.6;
+}
+
+/* ---- Agent / programmatic note ---- */
+/* Prototype: .agent-note */
+.agentNote {
+  margin-top: var(--space-6);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  background: color-mix(in oklab, var(--color-surface) 50%, transparent);
+}
+
+.agentNote h3 {
+  font-size: var(--fs-small);
+  margin: 0 0 8px;
+}
+
+.agentNote p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.agentLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-3);
+}
+
+/* ---- StatusBar within the card (spacing) ---- */
+.statusWrap {
+  margin-top: var(--space-5);
+}
+
+/* ---- Segmented tab row spacing ---- */
+.segmentedWrap {
+  margin-top: var(--space-5);
+}
+
+/* ---- Root section wrapper (replaces <Section spacing="tight">) ---- */
+/* Zero top padding so the toggle reads as continuation of the page-head lead.
+   Bottom padding preserves page rhythm. */
+.clientSection {
+  padding-block-start: 0;
+  padding-block-end: var(--section-py);
+}
