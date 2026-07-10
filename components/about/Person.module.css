@@ -21,6 +21,30 @@
   background: var(--color-surface-2);
 }
 
+/* Coming-soon member: dimmed + grayscale, no hover lift */
+.comingSoon {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.comingSoon:hover {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+}
+
+.comingSoonTag {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
 /* Avatar wrapper: monogram sits behind the photo */
 .avatar {
   position: relative;

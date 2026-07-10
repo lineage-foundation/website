@@ -10,6 +10,8 @@ export type PersonProps = {
   photo?: string; // path relative to public/, e.g. "/team/andrew-kessler.jpg"
   monogram: string; // 2-letter initials fallback
   linkedIn: string;
+  /** Dim + grayscale the card, show a "Coming soon" badge, hide the link. */
+  comingSoon?: boolean;
 };
 
 /** LinkedIn icon — inline so no extra import needed */
@@ -26,9 +28,19 @@ function LinkedInIcon() {
   );
 }
 
-export function Person({ name, role, bio, photo, monogram, linkedIn }: PersonProps) {
+export function Person({
+  name,
+  role,
+  bio,
+  photo,
+  monogram,
+  linkedIn,
+  comingSoon,
+}: PersonProps) {
   return (
-    <article className={styles.person}>
+    <article
+      className={`${styles.person} ${comingSoon ? styles.comingSoon : ""}`}
+    >
       {/* Avatar: headshot over monogram fallback. Only the monogram is
           aria-hidden; the photo keeps its alt so SR users get the name. */}
       <span className={styles.avatar}>
@@ -48,20 +60,25 @@ export function Person({ name, role, bio, photo, monogram, linkedIn }: PersonPro
 
       <h3 className={styles.name}>{name}</h3>
       <span className={styles.roleLabel}>{role}</span>
+      {comingSoon ? (
+        <span className={styles.comingSoonTag}>Coming soon</span>
+      ) : null}
       <p className={styles.bio}>{bio}</p>
 
-      <a
-        className={styles.link}
-        href={linkedIn}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <LinkedInIcon />
-        LinkedIn{" "}
-        <span aria-hidden="true" className={styles.arrow}>
-          &rarr;
-        </span>
-      </a>
+      {comingSoon ? null : (
+        <a
+          className={styles.link}
+          href={linkedIn}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <LinkedInIcon />
+          LinkedIn{" "}
+          <span aria-hidden="true" className={styles.arrow}>
+            &rarr;
+          </span>
+        </a>
+      )}
     </article>
   );
 }
