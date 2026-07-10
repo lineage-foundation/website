@@ -128,14 +128,6 @@ export default function AboutPage() {
               </>
             }
           />
-          <Person
-            name="Mervyn Eagles"
-            role="Co-founder · Non-Executive Director"
-            photo="/team/mervyn-eagles.jpg"
-            monogram="ME"
-            linkedIn="https://www.linkedin.com/in/mervyn-eagles-b341a12b0/"
-            bio="A co-founder of Lineage, Mervyn serves in a non-executive capacity, supporting the Foundation’s strategy and its path from genesis toward a fully decentralized network of Smart Markets."
-          />
         </TeamGrid>
       </Section>
 
@@ -165,6 +157,7 @@ export default function AboutPage() {
             photo="/team/claudio-tessone.jpg"
             monogram="CT"
             linkedIn="https://www.linkedin.com/in/claudiotessone/"
+            comingSoon
             bio="Professor of Blockchain and Distributed Ledger Technologies at the University of Zurich and co-founder and Chairman of the UZH Blockchain Center, Claudio studies blockchains as complex socio-economic systems: consensus, cryptoeconomics, and token-economy design. He advises Lineage on the incentive design behind Smart Markets."
           />
         </TeamGrid>
