@@ -112,21 +112,12 @@ export default function AboutPage() {
             }
           />
           <Person
-            name="Sabrina Wollenschläger"
+            name="Afsaneh Heyat"
             role="Director"
-            photo="/team/sabrina-wollenschlager.jpg"
-            monogram="SW"
-            linkedIn="https://www.linkedin.com/in/sabrinawllsg/"
-            bio={
-              <>
-                Deeply engaged in the DLT space for over nine years, Sabrina is
-                Co-Managing Director of Blockchain Zug, the joint
-                research hub at Lucerne University of Applied Sciences and Arts
-                (HSLU), and a Senior Research Associate in its Computer
-                Science &amp; Information Technology department. She also serves
-                as a Council Member of the Ethereum Switzerland Association.
-              </>
-            }
+            photo="/team/afsaneh-heyat.jpg"
+            monogram="AH"
+            linkedIn="https://www.linkedin.com/in/afsaneh-heyat-52bbb82/"
+            bio="Afsaneh is Head of Finance at GenLayer Labs and an experienced finance and compliance professional in the digital-asset industry. She has held CFO, board, and compliance roles across Web3 ventures including Toucan and Arianee, bringing deep expertise in crypto risk and compliance, financial operations, and capital markets. At Lineage she guides financial strategy and regulatory design."
           />
         </TeamGrid>
       </Section>
