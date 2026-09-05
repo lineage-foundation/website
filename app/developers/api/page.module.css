@@ -1,9 +1,0 @@
-/* Give the Scalar reference the full viewport width below the site header; it renders its
-   own three-panel layout and manages internal scrolling. */
-.page {
-  width: 100%;
-}
-
-.page :global(#scalar-api-reference) {
-  min-height: calc(100vh - var(--header-offset, 0px));
-}
