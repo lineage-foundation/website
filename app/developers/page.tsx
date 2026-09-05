@@ -19,6 +19,8 @@ import {
   DOCS_STORAGE_API_ORIGIN,
   SITE_ORIGIN,
   URL_GITHUB_ORG,
+  URL_SDK_JS_NPM,
+  URL_SDK_PY_PYPI,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
@@ -296,10 +298,10 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         heading="Skip the raw HTTP"
       >
         <p className={styles.sectionProse}>
-          Three official clients wrap the same API: wallet creation, key
-          management, asset issuance, two-way payments, and chain reads.
-          Configure each with a mempool base URL, a storage base URL, and a
-          passphrase for local key encryption.
+          Official clients wrap the same API: wallet creation, key management,
+          asset issuance, two-way payments, and chain reads — and they handle
+          transaction signing for you. Point each at a mempool base URL and a
+          storage base URL, with a passphrase for local key encryption.
         </p>
         <div className={styles.grid3}>
           <Card rail kicker="JavaScript / TypeScript" title="sdk-js">
@@ -308,7 +310,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               issue items and assets, run two-way payments, send and receive.
               Drop-in for web front-ends and Valence servers.
             </p>
+            <CodeBlock lang="shell">npm i @lineage-foundation/sdk-js</CodeBlock>
             <div className={styles.cardCta}>
+              <LinkCta href={URL_SDK_JS_NPM}>@lineage-foundation/sdk-js on npm</LinkCta>
               <LinkCta href="https://github.com/lineage-foundation/sdk-js">
                 lineage-foundation/sdk-js
               </LinkCta>
@@ -322,7 +326,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               two-way flows, the same surface as <code>sdk-js</code>, idiomatic
               for Python services and notebooks.
             </p>
+            <CodeBlock lang="shell">pip install lineage-sdk</CodeBlock>
             <div className={styles.cardCta}>
+              <LinkCta href={URL_SDK_PY_PYPI}>lineage-sdk on PyPI</LinkCta>
               <LinkCta href="https://github.com/lineage-foundation/sdk-python">
                 lineage-foundation/sdk-python
               </LinkCta>
@@ -330,10 +336,11 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
           </Card>
 
           <Card rail kicker="PHP" title="sdk-php">
+            <Pill tone="soon">Coming soon</Pill>
             <p>
-              The client for server-side web stacks: wallet creation, asset
-              issuance, payments, and chain reads from within PHP applications
-              and CMS integrations.
+              A server-side client for PHP web stacks — wallet creation, asset
+              issuance, payments, and chain reads — is planned. It is not yet
+              published against the current API.
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="https://github.com/lineage-foundation/sdk-php">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, Signal } from "@/components/ui";
 import {
   URL_DISCOURSE_RESEARCH,
+  URL_EXPLORER,
   URL_GITHUB_ORG,
   URL_YOUTUBE_VIDEO,
   URL_ZENODO_WHITEPAPER,
@@ -52,6 +53,14 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/developers">Developers</Link>
+              </li>
+              <li>
+                <Link href="/developers/api">API reference</Link>
+              </li>
+              <li>
+                <a href={URL_EXPLORER} rel="noopener noreferrer" target="_blank">
+                  Explorer
+                </a>
               </li>
               <li>
                 <Link href="/ecosystem">Ecosystem</Link>
