@@ -157,25 +157,22 @@ export default function DevelopersPage() {
       >
         <p className={styles.sectionProse}>
           Pick an HTTP client, point it at the public base URL for your node
-          class, and call the documented routes. Subsystems are exposed on
-          separate hosts: mempool calls use the mempool host, storage reads use
-          the storage host, and so on. A minimal connectivity check is a
-          read-only call such as <code>fetch_balance</code>.
+          class, and call the documented <code>/v1</code> routes. Subsystems are
+          exposed on separate hosts: mempool calls use the mempool host, storage
+          reads use the storage host, and so on. Reads are plain{" "}
+          <code>GET</code> requests and need no key — a minimal connectivity
+          check is <code>GET /v1/blocks/latest</code>.
         </p>
         <div className={styles.split}>
-          <CodeBlock lang="bash">{`# Read-only connectivity check against the mempool host
-curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
-  -H "Content-Type: application/json" \\
-  -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d '["<address-1>"]'
+          <CodeBlock lang="bash">{`# Read-only connectivity check — the latest stored block, no key required
+curl -sS "${DOCS_STORAGE_API_ORIGIN}/v1/blocks/latest"
 
-# Example success envelope
+# UTXO balances for one or more addresses (repeat ?address= per address)
+curl -sS "${DOCS_MEMPOOL_API_ORIGIN}/v1/balances?address=<address-1>&address=<address-2>"
+
+# Example balances response
 {
-  "id": "45v340cd2f8c4782a5b058832565afb1",
-  "status": "Success",
-  "reason": "Balance successfully fetched",
-  "route":  "fetch_balance",
-  "content": {
+  "balance": {
     "total": { "tokens": 5463669, "items": {} },
     "address_list": {
       "<address>": [
@@ -208,7 +205,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               Route names and JSON contracts stay the same across deployments.
               Swap in your own base for a private, staging, or alternate network.
             </p>
-            <LinkCta href="/docs">API quick start</LinkCta>
+            <LinkCta href="/developers/api">Full API reference</LinkCta>
           </AsideCard>
         </div>
       </Section>
@@ -220,9 +217,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         heading="Three node subsystems"
       >
         <p className={styles.sectionProse}>
-          The public HTTP API is organised by node class. Each subsystem is
-          documented route by route, with full request and response JSON, including
-          the standard error envelope.
+          The public <code>/v1</code> API is organised by node class. Each
+          subsystem is documented route by route, with full request and response
+          JSON and RFC&nbsp;7807 <code>problem+json</code> errors.
         </p>
         <div className={styles.grid3}>
           <Card rail kicker={DOCS_MEMPOOL_API_ORIGIN} title="Mempool API">
@@ -232,24 +229,24 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>fetch_balance</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/balances</code>
               </li>
               <li className={styles.pillRow}>
                 <Pill tone="post">POST</Pill>
-                <code>create_transactions</code>
+                <code>/v1/payments</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/supply</code>
               </li>
               <li className={styles.pillRow}>
                 <Pill tone="post">POST</Pill>
-                <code>total_supply</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>create_item_asset</code>
+                <code>/v1/items</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Mempool reference</LinkCta>
+              <LinkCta href="/developers/api">Mempool reference</LinkCta>
             </div>
           </Card>
 
@@ -260,36 +257,44 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>latest_block</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blocks/latest</code>
               </li>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>block_by_num</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blocks/{"{num}"}</code>
               </li>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>blockchain_entry</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blockchain-entries/{"{key}"}</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Storage reference</LinkCta>
+              <LinkCta href="/developers/api">Storage reference</LinkCta>
             </div>
           </Card>
 
           <Card rail kicker={DOCS_MINER_API_ORIGIN} title="Miner API">
             <p>
-              Operator-facing HTTP where a release exposes it, a small surface
-              compared to mempool and storage.
+              The miner runs a coupled user node, so its host also serves a
+              wallet and payments alongside the current mining block.
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
                 <Pill tone="get">GET</Pill>
-                <code>info</code>
+                <code>/v1/mining/current-block</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/wallet</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="post">POST</Pill>
+                <code>/v1/payments</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Miner reference</LinkCta>
+              <LinkCta href="/developers/api">Miner reference</LinkCta>
             </div>
           </Card>
         </div>
