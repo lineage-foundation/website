@@ -18,6 +18,7 @@ import {
   DOCS_MINER_API_ORIGIN,
   DOCS_STORAGE_API_ORIGIN,
   SITE_ORIGIN,
+  URL_EXPLORER,
   URL_GITHUB_ORG,
   URL_SDK_JS_NPM,
   URL_SDK_PY_PYPI,
@@ -357,6 +358,97 @@ curl -sS "${DOCS_MEMPOOL_API_ORIGIN}/v1/balances?address=<address-1>&address=<ad
             </div>
           </Card>
         </div>
+      </Section>
+
+      {/* FIRST PAYMENT */}
+      <Section
+        tone="band"
+        eyebrow="Quickstart"
+        heading="Send your first payment"
+      >
+        <p className={styles.sectionProse}>
+          The SDK keeps your keys local, signs transactions for you, and submits
+          them to the mempool — so the whole flow is a handful of calls. Point
+          the client at the mempool base URL with a passphrase for local key
+          encryption; balances and submitted transactions go through that host.
+        </p>
+        <div className={styles.split}>
+          <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
+
+const wallet = new Wallet();
+
+// 1. Create a wallet — store the returned seed phrase safely.
+const res = await wallet.initNew({
+  mempoolHost: '${DOCS_MEMPOOL_API_ORIGIN}',
+  passphrase: 'a secure passphrase',
+});
+console.log(res.content.initNewResponse.seedphrase);
+
+// 2. Generate an address to receive funds.
+const keypair = wallet.getNewKeypair([]).content.newKeypairResponse;
+console.log(keypair.address);
+
+// 3. Once funded, check the balance.
+const bal = await wallet.fetchBalance([keypair.address]);
+console.log(bal.content.fetchBalanceResponse.total);
+
+// 4. Send a payment — change returns to your own keypair.
+const receipt = await wallet.makeTokenPayment(
+  'recipient-address',
+  1000,
+  [keypair],
+  keypair,
+);
+// receipt carries the transaction hash, amount, and addresses used
+console.log(receipt);`}</CodeBlock>
+          <AsideCard>
+            <Eyebrow className={styles.asideEyebrow}>Get testnet funds</Eyebrow>
+            <p className={styles.endpointMuted} style={{ marginTop: 0 }}>
+              There is no public faucet yet. Generate an address (step 2), then
+              send it to the team to be seeded — or, if you run your own node,
+              request a donation from a funded peer over{" "}
+              <code>POST /v1/donation-requests</code>.
+            </p>
+            <p className={styles.endpointMuted}>
+              Every address payment returns a transaction hash. Look it up on
+              the block explorer to watch it confirm.
+            </p>
+            <LinkCta href={URL_EXPLORER}>Open the explorer</LinkCta>
+            <LinkCta href="/developers/api">Full API reference</LinkCta>
+          </AsideCard>
+        </div>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          The Python client mirrors the same flow:
+        </p>
+        <CodeBlock lang="python">{`from lineage.wallet import Wallet
+
+wallet = Wallet()
+
+# 1. Load your wallet from its seed phrase.
+wallet.from_seed(seed_phrase, {
+    'mempoolHost': '${DOCS_MEMPOOL_API_ORIGIN}',
+    'passphrase': 'your-secure-passphrase',
+})
+
+# 2. The address to receive funds.
+address = wallet.get_address()
+print(address)
+
+# 3. Once funded, check the balance.
+balance = wallet.fetch_balance([address])
+if balance.is_ok:
+    print(balance.get_ok())
+
+# 4. Send a payment.
+receipt = wallet.create_transactions(
+    destination_address='recipient-address',
+    amount=1000,
+)
+if receipt.is_ok:
+    print(receipt.get_ok())`}</CodeBlock>
       </Section>
 
       {/* DEVELOPER PATHS */}
