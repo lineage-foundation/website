@@ -24,6 +24,8 @@ import {
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
+import { NetworkStatus } from "@/components/NetworkStatus";
+
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -91,14 +93,15 @@ export default function DevelopersPage() {
           base URLs by node class, the current network status, and how to stand
           up your own stack.
         </p>
+        <NetworkStatus />
         <div className={styles.split}>
           <div>
             <Note kicker="Network status">
-              A managed public <strong>mainnet</strong> and{" "}
-              <strong>testnet</strong> are being ported and will be announced
-              here soon. Until then, point a client at the base URLs below, or
-              run your own mempool / storage / miner stack locally. The route
-              names and JSON contracts are identical either way.
+              A managed public <strong>testnet</strong> is live at the base URLs
+              below — the figures above read straight from it. A public{" "}
+              <strong>mainnet</strong> will be announced here. You can also run
+              your own mempool / storage / miner stack locally; the route names
+              and JSON contracts are identical either way.
             </Note>
             <ul className={styles.endpointList}>
               <li className={styles.endpointItem}>
