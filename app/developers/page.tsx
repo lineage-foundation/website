@@ -18,9 +18,14 @@ import {
   DOCS_MINER_API_ORIGIN,
   DOCS_STORAGE_API_ORIGIN,
   SITE_ORIGIN,
+  URL_EXPLORER,
   URL_GITHUB_ORG,
+  URL_SDK_JS_NPM,
+  URL_SDK_PY_PYPI,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
+
+import { NetworkStatus } from "@/components/NetworkStatus";
 
 import styles from "./page.module.css";
 
@@ -89,14 +94,15 @@ export default function DevelopersPage() {
           base URLs by node class, the current network status, and how to stand
           up your own stack.
         </p>
+        <NetworkStatus />
         <div className={styles.split}>
           <div>
             <Note kicker="Network status">
-              A managed public <strong>mainnet</strong> and{" "}
-              <strong>testnet</strong> are being ported and will be announced
-              here soon. Until then, point a client at the base URLs below, or
-              run your own mempool / storage / miner stack locally. The route
-              names and JSON contracts are identical either way.
+              A managed public <strong>testnet</strong> is live at the base URLs
+              below — the figures above read straight from it. A public{" "}
+              <strong>mainnet</strong> will be announced here. You can also run
+              your own mempool / storage / miner stack locally; the route names
+              and JSON contracts are identical either way.
             </Note>
             <ul className={styles.endpointList}>
               <li className={styles.endpointItem}>
@@ -152,25 +158,22 @@ export default function DevelopersPage() {
       >
         <p className={styles.sectionProse}>
           Pick an HTTP client, point it at the public base URL for your node
-          class, and call the documented routes. Subsystems are exposed on
-          separate hosts: mempool calls use the mempool host, storage reads use
-          the storage host, and so on. A minimal connectivity check is a
-          read-only call such as <code>fetch_balance</code>.
+          class, and call the documented <code>/v1</code> routes. Subsystems are
+          exposed on separate hosts: mempool calls use the mempool host, storage
+          reads use the storage host, and so on. Reads are plain{" "}
+          <code>GET</code> requests and need no key — a minimal connectivity
+          check is <code>GET /v1/blocks/latest</code>.
         </p>
         <div className={styles.split}>
-          <CodeBlock lang="bash">{`# Read-only connectivity check against the mempool host
-curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
-  -H "Content-Type: application/json" \\
-  -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d '["<address-1>"]'
+          <CodeBlock lang="bash">{`# Read-only connectivity check — the latest stored block, no key required
+curl -sS "${DOCS_STORAGE_API_ORIGIN}/v1/blocks/latest"
 
-# Example success envelope
+# UTXO balances for one or more addresses (repeat ?address= per address)
+curl -sS "${DOCS_MEMPOOL_API_ORIGIN}/v1/balances?address=<address-1>&address=<address-2>"
+
+# Example balances response
 {
-  "id": "45v340cd2f8c4782a5b058832565afb1",
-  "status": "Success",
-  "reason": "Balance successfully fetched",
-  "route":  "fetch_balance",
-  "content": {
+  "balance": {
     "total": { "tokens": 5463669, "items": {} },
     "address_list": {
       "<address>": [
@@ -203,7 +206,7 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               Route names and JSON contracts stay the same across deployments.
               Swap in your own base for a private, staging, or alternate network.
             </p>
-            <LinkCta href="/docs">API quick start</LinkCta>
+            <LinkCta href="/developers/api">Full API reference</LinkCta>
           </AsideCard>
         </div>
       </Section>
@@ -215,9 +218,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         heading="Three node subsystems"
       >
         <p className={styles.sectionProse}>
-          The public HTTP API is organised by node class. Each subsystem is
-          documented route by route, with full request and response JSON, including
-          the standard error envelope.
+          The public <code>/v1</code> API is organised by node class. Each
+          subsystem is documented route by route, with full request and response
+          JSON and RFC&nbsp;7807 <code>problem+json</code> errors.
         </p>
         <div className={styles.grid3}>
           <Card rail kicker={DOCS_MEMPOOL_API_ORIGIN} title="Mempool API">
@@ -227,24 +230,24 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>fetch_balance</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/balances</code>
               </li>
               <li className={styles.pillRow}>
                 <Pill tone="post">POST</Pill>
-                <code>create_transactions</code>
+                <code>/v1/payments</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/supply</code>
               </li>
               <li className={styles.pillRow}>
                 <Pill tone="post">POST</Pill>
-                <code>total_supply</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>create_item_asset</code>
+                <code>/v1/items</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Mempool reference</LinkCta>
+              <LinkCta href="/developers/api">Mempool reference</LinkCta>
             </div>
           </Card>
 
@@ -255,36 +258,44 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>latest_block</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blocks/latest</code>
               </li>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>block_by_num</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blocks/{"{num}"}</code>
               </li>
               <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>blockchain_entry</code>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/blockchain-entries/{"{key}"}</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Storage reference</LinkCta>
+              <LinkCta href="/developers/api">Storage reference</LinkCta>
             </div>
           </Card>
 
           <Card rail kicker={DOCS_MINER_API_ORIGIN} title="Miner API">
             <p>
-              Operator-facing HTTP where a release exposes it, a small surface
-              compared to mempool and storage.
+              The miner runs a coupled user node, so its host also serves a
+              wallet and payments alongside the current mining block.
             </p>
             <ul className={styles.pillList}>
               <li className={styles.pillRow}>
                 <Pill tone="get">GET</Pill>
-                <code>info</code>
+                <code>/v1/mining/current-block</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="get">GET</Pill>
+                <code>/v1/wallet</code>
+              </li>
+              <li className={styles.pillRow}>
+                <Pill tone="post">POST</Pill>
+                <code>/v1/payments</code>
               </li>
             </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Miner reference</LinkCta>
+              <LinkCta href="/developers/api">Miner reference</LinkCta>
             </div>
           </Card>
         </div>
@@ -296,10 +307,10 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         heading="Skip the raw HTTP"
       >
         <p className={styles.sectionProse}>
-          Three official clients wrap the same API: wallet creation, key
-          management, asset issuance, two-way payments, and chain reads.
-          Configure each with a mempool base URL, a storage base URL, and a
-          passphrase for local key encryption.
+          Official clients wrap the same API: wallet creation, key management,
+          asset issuance, two-way payments, and chain reads — and they handle
+          transaction signing for you. Point each at a mempool base URL and a
+          storage base URL, with a passphrase for local key encryption.
         </p>
         <div className={styles.grid3}>
           <Card rail kicker="JavaScript / TypeScript" title="sdk-js">
@@ -308,7 +319,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               issue items and assets, run two-way payments, send and receive.
               Drop-in for web front-ends and Valence servers.
             </p>
+            <CodeBlock lang="shell">npm i @lineage-foundation/sdk-js</CodeBlock>
             <div className={styles.cardCta}>
+              <LinkCta href={URL_SDK_JS_NPM}>@lineage-foundation/sdk-js on npm</LinkCta>
               <LinkCta href="https://github.com/lineage-foundation/sdk-js">
                 lineage-foundation/sdk-js
               </LinkCta>
@@ -322,7 +335,9 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
               two-way flows, the same surface as <code>sdk-js</code>, idiomatic
               for Python services and notebooks.
             </p>
+            <CodeBlock lang="shell">pip install lineage-sdk</CodeBlock>
             <div className={styles.cardCta}>
+              <LinkCta href={URL_SDK_PY_PYPI}>lineage-sdk on PyPI</LinkCta>
               <LinkCta href="https://github.com/lineage-foundation/sdk-python">
                 lineage-foundation/sdk-python
               </LinkCta>
@@ -330,10 +345,11 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
           </Card>
 
           <Card rail kicker="PHP" title="sdk-php">
+            <Pill tone="soon">Coming soon</Pill>
             <p>
-              The client for server-side web stacks: wallet creation, asset
-              issuance, payments, and chain reads from within PHP applications
-              and CMS integrations.
+              A server-side client for PHP web stacks — wallet creation, asset
+              issuance, payments, and chain reads — is planned. It is not yet
+              published against the current API.
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="https://github.com/lineage-foundation/sdk-php">
@@ -342,6 +358,97 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
         </div>
+      </Section>
+
+      {/* FIRST PAYMENT */}
+      <Section
+        tone="band"
+        eyebrow="Quickstart"
+        heading="Send your first payment"
+      >
+        <p className={styles.sectionProse}>
+          The SDK keeps your keys local, signs transactions for you, and submits
+          them to the mempool — so the whole flow is a handful of calls. Point
+          the client at the mempool base URL with a passphrase for local key
+          encryption; balances and submitted transactions go through that host.
+        </p>
+        <div className={styles.split}>
+          <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
+
+const wallet = new Wallet();
+
+// 1. Create a wallet — store the returned seed phrase safely.
+const res = await wallet.initNew({
+  mempoolHost: '${DOCS_MEMPOOL_API_ORIGIN}',
+  passphrase: 'a secure passphrase',
+});
+console.log(res.content.initNewResponse.seedphrase);
+
+// 2. Generate an address to receive funds.
+const keypair = wallet.getNewKeypair([]).content.newKeypairResponse;
+console.log(keypair.address);
+
+// 3. Once funded, check the balance.
+const bal = await wallet.fetchBalance([keypair.address]);
+console.log(bal.content.fetchBalanceResponse.total);
+
+// 4. Send a payment — change returns to your own keypair.
+const receipt = await wallet.makeTokenPayment(
+  'recipient-address',
+  1000,
+  [keypair],
+  keypair,
+);
+// receipt carries the transaction hash, amount, and addresses used
+console.log(receipt);`}</CodeBlock>
+          <AsideCard>
+            <Eyebrow className={styles.asideEyebrow}>Get testnet funds</Eyebrow>
+            <p className={styles.endpointMuted} style={{ marginTop: 0 }}>
+              There is no public faucet yet. Generate an address (step 2), then
+              send it to the team to be seeded — or, if you run your own node,
+              request a donation from a funded peer over{" "}
+              <code>POST /v1/donation-requests</code>.
+            </p>
+            <p className={styles.endpointMuted}>
+              Every address payment returns a transaction hash. Look it up on
+              the block explorer to watch it confirm.
+            </p>
+            <LinkCta href={URL_EXPLORER}>Open the explorer</LinkCta>
+            <LinkCta href="/developers/api">Full API reference</LinkCta>
+          </AsideCard>
+        </div>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          The Python client mirrors the same flow:
+        </p>
+        <CodeBlock lang="python">{`from lineage.wallet import Wallet
+
+wallet = Wallet()
+
+# 1. Load your wallet from its seed phrase.
+wallet.from_seed(seed_phrase, {
+    'mempoolHost': '${DOCS_MEMPOOL_API_ORIGIN}',
+    'passphrase': 'your-secure-passphrase',
+})
+
+# 2. The address to receive funds.
+address = wallet.get_address()
+print(address)
+
+# 3. Once funded, check the balance.
+balance = wallet.fetch_balance([address])
+if balance.is_ok:
+    print(balance.get_ok())
+
+# 4. Send a payment.
+receipt = wallet.create_transactions(
+    destination_address='recipient-address',
+    amount=1000,
+)
+if receipt.is_ok:
+    print(receipt.get_ok())`}</CodeBlock>
       </Section>
 
       {/* DEVELOPER PATHS */}

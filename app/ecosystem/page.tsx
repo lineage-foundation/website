@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
 };
 
-const NETWORK_READY = URL_NETWORK !== "#";
+const NETWORK_READY = true;
 
 export default function EcosystemPage() {
   return (

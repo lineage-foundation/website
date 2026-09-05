@@ -19,8 +19,15 @@ export const URL_YOUTUBE_VIDEO =
  */
 export const URL_DISCOURSE_RESEARCH = "https://lineage.discourse.group/";
 
-/** Placeholder until a concrete Network destination exists */
-export const URL_NETWORK = "#";
+/** Public block explorer for the network. */
+export const URL_EXPLORER = "https://explorer.lineage.to";
+
+/** "Network" destination (block explorer). */
+export const URL_NETWORK = URL_EXPLORER;
+
+/** Published client SDK packages. */
+export const URL_SDK_JS_NPM = "https://www.npmjs.com/package/@lineage-foundation/sdk-js";
+export const URL_SDK_PY_PYPI = "https://pypi.org/project/lineage-sdk/";
 
 /**
  * Public Lineage node HTTP API origins (documentation examples, curl, MethodPath).
