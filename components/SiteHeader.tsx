@@ -16,6 +16,7 @@ const TOP_NAV_ITEMS = [
 const DEVELOPERS_ITEMS = [
   { label: "Overview", href: "/developers" },
   { label: "Docs", href: "/docs" },
+  { label: "API", href: "/developers/api" },
   { label: "Roadmap", href: "/roadmap" },
 ] as const;
 
