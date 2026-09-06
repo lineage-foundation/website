@@ -1,6 +1,4 @@
-import { Pill } from "@/components/ui";
-import type { PillTone } from "@/components/ui/Pill";
-import { apiGroups } from "@/lib/openapi/spec";
+import { apiGroups, navEntries } from "@/lib/openapi/spec";
 
 import { OperationBlock } from "./OperationBlock";
 import styles from "./reference.module.css";
@@ -23,15 +21,10 @@ export function ApiReference() {
               {group.title}
             </a>
             <ul className={styles.navList}>
-              {group.operations.map((op) => (
-                <li key={op.slug}>
-                  <a href={`#${op.slug}`} className={styles.navLink}>
-                    <Pill tone={op.method as PillTone}>
-                      {op.method.toUpperCase()}
-                    </Pill>
-                    <span className={styles.navPath}>
-                      {op.path.replace(/^\/v1/, "") || "/"}
-                    </span>
+              {navEntries(group.operations).map((entry) => (
+                <li key={entry.slug}>
+                  <a href={`#${entry.slug}`} className={styles.navLink}>
+                    <span className={styles.navPath}>{entry.label || "/"}</span>
                   </a>
                 </li>
               ))}
@@ -56,7 +49,10 @@ export function ApiReference() {
                 ) : null}
               </h2>
               {group.host ? (
-                <code className={styles.groupHost}>{group.host}</code>
+                <span className={styles.groupHostWrap}>
+                  <code className={styles.groupHost}>{group.host}</code>
+                  <span className={styles.testnetTag}>Testnet</span>
+                </span>
               ) : null}
             </div>
             <p className={styles.groupBlurb}>{group.blurb}</p>
