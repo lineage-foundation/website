@@ -112,7 +112,11 @@ export default function EcosystemPage() {
         heading="Network information"
       >
         <p className={styles.sectionProse}>
-          Live network details and a public block explorer are on the way.
+          The testnet block explorer is live at{" "}
+          <a href={URL_NETWORK} target="_blank" rel="noopener noreferrer">
+            explorer.lineage.to
+          </a>
+          .
         </p>
         <div className={styles.grid2}>
           {NETWORK_READY ? (

@@ -269,7 +269,8 @@ broadcastToFarmers(FSM_opt.policy());`,
             </p>
             <p className={styles.simNote}>
               Want to run the simulation yourself? The UTMM repository ships
-              the model and setup instructions in its README.
+              the model and setup instructions in its{" "}
+              <a href="https://github.com/lineage-foundation/utmm#readme" target="_blank" rel="noopener noreferrer">README</a>.
             </p>
             <LinkCta href="https://github.com/lineage-foundation/utmm">
               Run the UTMM simulation
