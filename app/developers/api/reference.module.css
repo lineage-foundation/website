@@ -203,6 +203,15 @@
   padding: 1px 8px;
 }
 
+.exampleLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
 /* ---------- Property table ---------- */
 .propTable {
   border: var(--border-rule);

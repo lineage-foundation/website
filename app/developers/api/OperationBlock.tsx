@@ -1,10 +1,25 @@
-import { Pill } from "@/components/ui";
+import { CodeBlock, Pill } from "@/components/ui";
 import type { PillTone } from "@/components/ui/Pill";
 import { jsonSchema, typeLabel } from "@/lib/openapi/spec";
 import type { OperationView } from "@/lib/openapi/spec";
 
+import { exampleFor } from "./examples";
 import { SchemaView } from "./SchemaView";
 import styles from "./reference.module.css";
+
+function Example({ op }: { op: OperationView }) {
+  const example = exampleFor(op.method, op.path);
+  if (!example) return null;
+
+  return (
+    <div className={styles.subsection}>
+      <h4 className={styles.subhead}>Example</h4>
+      <CodeBlock lang="bash">{example.curl}</CodeBlock>
+      <p className={styles.exampleLabel}>Response</p>
+      <CodeBlock lang="json">{example.response}</CodeBlock>
+    </div>
+  );
+}
 
 function ParametersTable({ op }: { op: OperationView }) {
   const params = op.operation.parameters ?? [];
@@ -111,6 +126,7 @@ export function OperationBlock({ op }: { op: OperationView }) {
       {op.description && op.description !== op.summary ? (
         <p className={styles.blurb}>{op.description}</p>
       ) : null}
+      <Example op={op} />
       <ParametersTable op={op} />
       <RequestBody op={op} />
       <Responses op={op} />
