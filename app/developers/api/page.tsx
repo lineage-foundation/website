@@ -50,7 +50,10 @@ export default function ApiReferencePage() {
         lead="Read chain state, submit transactions, and query balances, supply, and blocks over plain HTTP. This page is generated from the OpenAPI specification, so it always matches the running nodes."
         actions={
           <div className={styles.headActions}>
-            <Button href="/openapi.json" variant="primary">
+            <Button href="/docs" variant="primary">
+              Guides &amp; concepts
+            </Button>
+            <Button href="/openapi.json" variant="secondary">
               Download OpenAPI
             </Button>
             <Button href={URL_GITHUB_ORG} variant="secondary" external>
