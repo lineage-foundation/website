@@ -293,8 +293,7 @@ curl -sS <span className="s">&quot;https://storage.lineage.to/v1/blocks/latest&q
                 <p>
                   The full <code>/v1</code> REST API — reading chain state, submitting
                   transactions, and querying balances, supply, blocks, and wallet operations —
-                  is documented in the interactive reference, generated from the OpenAPI
-                  specification so it stays in sync with the running nodes.
+                  is documented endpoint by endpoint, grouped by the node that serves each one.
                 </p>
                 <p>
                   <a href="/developers/api">Open the API reference</a>, or fetch the raw

@@ -10,13 +10,13 @@ import styles from "./reference.module.css";
 export const metadata: Metadata = {
   title: "API reference",
   description:
-    "Reference for the Lineage /v1 REST API — read chain state, submit transactions, and query balances, supply, and blocks. Generated from the OpenAPI specification.",
+    "Reference for the Lineage /v1 REST API — read chain state, submit transactions, and query balances, supply, and blocks, grouped by the node that serves each endpoint.",
   alternates: { canonical: "/developers/api" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "API reference | Lineage",
     description:
-      "Reference for the Lineage /v1 REST API, generated from the OpenAPI specification.",
+      "Reference for the Lineage /v1 REST API, grouped by the node that serves each endpoint.",
     url: `${SITE_ORIGIN}/developers/api`,
     type: "website",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "API reference | Lineage",
     description:
-      "Reference for the Lineage /v1 REST API, generated from the OpenAPI specification.",
+      "Reference for the Lineage /v1 REST API, grouped by the node that serves each endpoint.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -47,7 +47,7 @@ export default function ApiReferencePage() {
             The <Accent>/v1</Accent> REST API
           </>
         }
-        lead="Read chain state, submit transactions, and query balances, supply, and blocks over plain HTTP. This page is generated from the OpenAPI specification, so it always matches the running nodes."
+        lead="Read chain state, submit transactions, and query balances, supply, and blocks over plain HTTP. Every endpoint is grouped by the node that serves it, with its parameters, request and response shapes, and examples."
         actions={
           <div className={styles.headActions}>
             <Button href="/docs" variant="primary">
