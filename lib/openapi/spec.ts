@@ -50,6 +50,44 @@ export function operationSlug(method: string, path: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+export interface NavEntry {
+  label: string;
+  slug: string;
+}
+
+/** The resource segment of a path, e.g. `/v1/transactions/status:query` → `transactions`. */
+function resourceBase(path: string): string {
+  return path.replace(/^\/v1\//, "").split("/")[0].split(":")[0];
+}
+
+/**
+ * Condensed nav entries for a node group: one link per resource, so the transaction
+ * varieties (create, status, outgoing, serialize, …) roll up to a single `/transactions`
+ * entry pointing at the first operation. Callers still render every operation in the main
+ * pane. Single-operation resources keep their full path.
+ */
+export function navEntries(operations: OperationView[]): NavEntry[] {
+  const byBase = new Map<string, { entry: NavEntry; count: number }>();
+  const order: string[] = [];
+
+  for (const op of operations) {
+    const base = resourceBase(op.path);
+    const existing = byBase.get(base);
+    if (existing) {
+      existing.count += 1;
+      existing.entry.label = `/${base}`;
+    } else {
+      order.push(base);
+      byBase.set(base, {
+        entry: { label: op.path.replace(/^\/v1/, ""), slug: op.slug },
+        count: 1,
+      });
+    }
+  }
+
+  return order.map((base) => byBase.get(base)!.entry);
+}
+
 /** All operations, grouped by the node that serves them and ordered for display. */
 export function apiGroups(): ApiGroup[] {
   const groups = new Map<NodeType, OperationView[]>();

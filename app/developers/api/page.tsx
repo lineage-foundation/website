@@ -65,6 +65,11 @@ export default function ApiReferencePage() {
           <p className={styles.specMeta}>
             {spec.info.title} · v{spec.info.version} · OpenAPI {spec.openapi}
           </p>
+          <p className={styles.testnetNote}>
+            <span className={styles.testnetTag}>Testnet</span>
+            The <code>*.lineage.to</code> base URLs below point to the public
+            testnet. A mainnet will be announced separately.
+          </p>
           <ApiReference />
         </Container>
       </section>
