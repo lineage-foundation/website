@@ -403,6 +403,18 @@
   font-size: 0.9em;
 }
 
+.docsMain :global(.note) a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+
+.docsMain :global(.note) a:hover,
+.docsMain :global(.note) a:focus-visible {
+  color: var(--color-link-hover);
+}
+
 .docsMain :global(.note-inline) {
   font-size: var(--fs-small);
   color: var(--color-text-muted);
