@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Button, CodeBlock, Container, Eyebrow, LinkCta, Pill, Table } from "@/components/ui";
 import { DocsScroll } from "@/components/docs/DocsScroll";
-import { SITE_ORIGIN, URL_GITHUB_ORG } from "@/lib/constants";
+import { SITE_ORIGIN, URL_EXPLORER, URL_GITHUB_ORG } from "@/lib/constants";
 
 import styles from "./docs.module.css";
 
@@ -105,6 +105,7 @@ export default function DocsPage() {
                 <h2>SDKs &amp; tutorials</h2>
                 <ul>
                   <li><a href="#tut-overview">Overview</a></li>
+                  <li><a href="#tut-first-payment">Send your first payment</a></li>
                   <li><a href="#sdk-js">sdk-js</a></li>
                   <li><a href="#sdk-python">sdk-python</a></li>
                   <li><a href="#sdk-php">sdk-php</a></li>
@@ -137,11 +138,13 @@ export default function DocsPage() {
 
                 <h2 id="service-urls">Public service URLs</h2>
                 <p>
-                  These are the public reference hosts used in every example below.
+                  These are the public <strong>testnet</strong> hosts used in every
+                  example below. They point to the live testnet; a mainnet will be
+                  announced separately.
                 </p>
                 <Table>
                   <thead>
-                    <tr><th scope="col">Node class</th><th scope="col">Base URL</th><th scope="col">Use for</th></tr>
+                    <tr><th scope="col">Node class</th><th scope="col">Base URL (testnet)</th><th scope="col">Use for</th></tr>
                   </thead>
                   <tbody>
                     <tr><td>Mempool</td><td className="num">https://mempool.lineage.to</td><td>Transactions, balances, supply, mempool metadata</td></tr>
@@ -337,6 +340,72 @@ pip install lineage-sdk
 wallet.initNew(CONFIG).then((res) =&gt; {O}
   console.log(res.content.initNewResponse.seedphrase);
 {C});</CodeBlock>
+
+                <h3 id="tut-first-payment">Send your first payment</h3>
+                <p>
+                  The SDK keeps your keys local, signs transactions for you, and submits them to
+                  the mempool, so the whole flow is a handful of calls. There is no public faucet
+                  yet: generate an address, then send it to the team to be seeded, or, if you run
+                  your own node, request a donation from a funded peer over{" "}
+                  <code>POST /v1/donation-requests</code>. Every address payment returns a
+                  transaction hash you can follow on the{" "}
+                  <a href={URL_EXPLORER} target="_blank" rel="noopener noreferrer">block explorer</a>.
+                </p>
+                <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
+
+const wallet = new Wallet();
+
+// 1. Create a wallet — store the returned seed phrase safely.
+const res = await wallet.initNew({
+  mempoolHost: 'https://mempool.lineage.to',
+  passphrase: 'a secure passphrase',
+});
+console.log(res.content.initNewResponse.seedphrase);
+
+// 2. Generate an address to receive funds.
+const keypair = wallet.getNewKeypair([]).content.newKeypairResponse;
+console.log(keypair.address);
+
+// 3. Once funded, check the balance.
+const bal = await wallet.fetchBalance([keypair.address]);
+console.log(bal.content.fetchBalanceResponse.total);
+
+// 4. Send a payment — change returns to your own keypair.
+const receipt = await wallet.makeTokenPayment(
+  'recipient-address',
+  1000,
+  [keypair],
+  keypair,
+);
+// receipt carries the transaction hash, amount, and addresses used
+console.log(receipt);`}</CodeBlock>
+                <p>The Python client mirrors the same flow:</p>
+                <CodeBlock lang="python">{`from lineage.wallet import Wallet
+
+wallet = Wallet()
+
+# 1. Load your wallet from its seed phrase.
+wallet.from_seed(seed_phrase, {
+    'mempoolHost': 'https://mempool.lineage.to',
+    'passphrase': 'your-secure-passphrase',
+})
+
+# 2. The address to receive funds.
+address = wallet.get_address()
+print(address)
+
+# 3. Once funded, check the balance.
+balance = wallet.fetch_balance([address])
+if balance.is_ok:
+    print(balance.get_ok())
+
+# 4. Send a payment.
+receipt = wallet.create_transactions(
+    destination_address='recipient-address',
+    amount=1000,
+)
+if receipt.is_ok:
+    print(receipt.get_ok())`}</CodeBlock>
 
                 <div className="doc-cards">
                   <div className="doc-card" id="sdk-js">
