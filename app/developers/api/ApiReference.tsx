@@ -48,9 +48,18 @@ export function ApiReference() {
             className={styles.group}
             aria-labelledby={`${group.slug}-title`}
           >
-            <h2 id={`${group.slug}-title`} className={styles.groupTitle}>
-              {group.title}
-            </h2>
+            <div className={styles.groupHead}>
+              <h2 id={`${group.slug}-title`} className={styles.groupTitle}>
+                {group.title}
+                {group.slug !== "common" ? (
+                  <span className={styles.groupTitleSuffix}> API</span>
+                ) : null}
+              </h2>
+              {group.host ? (
+                <code className={styles.groupHost}>{group.host}</code>
+              ) : null}
+            </div>
+            <p className={styles.groupBlurb}>{group.blurb}</p>
             {group.operations.map((op) => (
               <OperationBlock key={op.slug} op={op} />
             ))}
