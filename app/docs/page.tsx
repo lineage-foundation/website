@@ -36,10 +36,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Brace helpers keep JSON code-block text verbatim without JSX parsing it.
-const O = "{";
-const C = "}";
-
 export default function DocsPage() {
   return (
     <>
@@ -165,13 +161,13 @@ export default function DocsPage() {
                   <code>title</code> and <code>detail</code> fields and a <code>request_id</code> for
                   correlation.
                 </p>
-                <CodeBlock lang="json">{O}
-  <span className="k">&quot;type&quot;</span>: <span className="s">&quot;about:blank&quot;</span>,
-  <span className="k">&quot;title&quot;</span>: <span className="s">&quot;Not Found&quot;</span>,
-  <span className="k">&quot;status&quot;</span>: <span className="n">404</span>,
-  <span className="k">&quot;detail&quot;</span>: <span className="s">&quot;No block at that height&quot;</span>,
-  <span className="k">&quot;request_id&quot;</span>: <span className="s">&quot;5eDtVyHFTE-6Fn2-21mRUA&quot;</span>
-{C}</CodeBlock>
+                <CodeBlock lang="json">{`{
+  "type": "about:blank",
+  "title": "Not Found",
+  "status": 404,
+  "detail": "No block at that height",
+  "request_id": "5eDtVyHFTE-6Fn2-21mRUA"
+}`}</CodeBlock>
 
                 <h2 id="quick-start">API quick start</h2>
                 <p>
@@ -179,12 +175,12 @@ export default function DocsPage() {
                   read-only <code>/v1</code> route before sending anything that writes. A good first
                   call is the chain head on the storage host.
                 </p>
-                <CodeBlock lang="shell"><span className="c"># check the chain head</span>
-curl -sS <span className="s">&quot;https://storage.lineage.to/v1/blocks/latest&quot;</span></CodeBlock>
+                <CodeBlock lang="shell">{`# check the chain head
+curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                 <div className="note">
                   <span className="note-k">Note</span>
-                  Browse every operation — with request and response shapes and a built-in console —
-                  in the <a href="/developers/api">API reference</a>. The SDKs below wrap the same
+                  Browse every operation, with its request and response shapes, in the{" "}
+                  <a href="/developers/api">API reference</a>. The SDKs below wrap the same
                   API and handle transaction signing for you.
                 </div>
               </article>
@@ -296,10 +292,11 @@ curl -sS <span className="s">&quot;https://storage.lineage.to/v1/blocks/latest&q
                   is documented endpoint by endpoint, grouped by the node that serves each one.
                 </p>
                 <p>
-                  <a href="/developers/api">Open the API reference</a>, or fetch the raw
-                  specification at{" "}
-                  <code>https://mempool.lineage.to/v1/openapi.json</code> to import it into
-                  Postman or any OpenAPI tool.
+                  <a href="/developers/api">Open the API reference</a>, or download the full
+                  OpenAPI document at <code>/openapi.json</code> to import into Postman or any
+                  OpenAPI tool. Each node also serves its own subset at{" "}
+                  <code>/v1/openapi.json</code> (for example{" "}
+                  <code>https://storage.lineage.to/v1/openapi.json</code>).
                 </p>
               </article>
 
@@ -317,28 +314,28 @@ curl -sS <span className="s">&quot;https://storage.lineage.to/v1/blocks/latest&q
 
                 <h3>Install</h3>
                 <p>Add the client for your stack.</p>
-                <CodeBlock lang="shell"><span className="c"># JavaScript / TypeScript</span>
+                <CodeBlock lang="shell">{`# JavaScript / TypeScript
 npm install @lineage-foundation/sdk-js
 
-<span className="c"># Python (imports as `lineage`)</span>
+# Python (imports as \`lineage\`)
 pip install lineage-sdk
 
-<span className="c"># PHP — coming soon</span></CodeBlock>
+# PHP — coming soon`}</CodeBlock>
 
                 <h3>First call</h3>
                 <p>Create a <code>Wallet</code>, point it at a mempool host with a passphrase for local key encryption, and initialise a new keypair. <code>initNew</code> returns the generated seed phrase. Store it securely; it is the only way to recover the wallet.</p>
-                <CodeBlock lang="javascript"><span className="k">import</span> {O} Wallet {C} <span className="k">from</span> <span className="s">&apos;@lineage-foundation/sdk-js&apos;</span>;
+                <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
 
-<span className="k">const</span> wallet = <span className="k">new</span> Wallet();
+const wallet = new Wallet();
 
-<span className="k">const</span> CONFIG = {O}
-  mempoolHost: <span className="s">&apos;https://mempool.lineage.to&apos;</span>,
-  passphrase: <span className="s">&apos;a secure passphrase&apos;</span>,
-{C};
+const CONFIG = {
+  mempoolHost: 'https://mempool.lineage.to',
+  passphrase: 'a secure passphrase',
+};
 
-wallet.initNew(CONFIG).then((res) =&gt; {O}
+wallet.initNew(CONFIG).then((res) => {
   console.log(res.content.initNewResponse.seedphrase);
-{C});</CodeBlock>
+});`}</CodeBlock>
 
                 <h3 id="tut-first-payment">Send your first payment</h3>
                 <p>
@@ -447,19 +444,19 @@ if receipt.is_ok:
 
                 <h3>Prerequisites</h3>
                 <p>A recent Rust toolchain and the Linux build dependencies. On Ubuntu:</p>
-                <CodeBlock lang="shell">sudo apt-get update &amp;&amp; sudo apt-get install -y \
-  build-essential m4 llvm libclang-dev clang cmake pkg-config \
-  git curl python3 libglfw3-dev libxrandr-dev libxinerama-dev \
-  libxcursor-dev libxi-dev</CodeBlock>
-                <CodeBlock lang="shell"><span className="c"># install Rust</span>
+                <CodeBlock lang="shell">{`sudo apt-get update && sudo apt-get install -y \\
+  build-essential m4 llvm libclang-dev clang cmake pkg-config \\
+  git curl python3 libglfw3-dev libxrandr-dev libxinerama-dev \\
+  libxcursor-dev libxi-dev`}</CodeBlock>
+                <CodeBlock lang="shell">{`# install Rust
 curl https://sh.rustup.rs -sSf | sh
-source <span className="s">&quot;$HOME/.cargo/env&quot;</span>
-rustc --version</CodeBlock>
+source "$HOME/.cargo/env"
+rustc --version`}</CodeBlock>
 
                 <h3>Docker Compose (recommended)</h3>
                 <p>Build and start the full multi-node stack from the repo root:</p>
-                <CodeBlock lang="shell">docker compose build
-docker compose up</CodeBlock>
+                <CodeBlock lang="shell">{`docker compose build
+docker compose up`}</CodeBlock>
                 <p>This brings up three services:</p>
                 <Table>
                   <thead>
@@ -480,12 +477,12 @@ docker compose up</CodeBlock>
                 <p>On Apple Silicon, select the ARM platform (default is <code>linux/amd64</code>):</p>
                 <CodeBlock lang="shell">FLEET_COMPOSE_PLATFORM=linux/arm64 docker compose up</CodeBlock>
                 <p>Rebuild a single service, or tear the stack down and remove volumes:</p>
-                <CodeBlock lang="shell">docker compose build mempool-node
-docker compose down -v</CodeBlock>
+                <CodeBlock lang="shell">{`docker compose build mempool-node
+docker compose down -v`}</CodeBlock>
 
                 <h3>Build from source</h3>
-                <CodeBlock lang="shell">cargo build --release
-cargo test</CodeBlock>
+                <CodeBlock lang="shell">{`cargo build --release
+cargo test`}</CodeBlock>
                 <p>Or build just the container image (distroless <code>cc-debian13</code>, runs as <code>nonroot</code>; binary at <code>/lineage/lineage</code>):</p>
                 <CodeBlock lang="shell">docker build -t fleet-node:local --platform linux/amd64 .</CodeBlock>
                 <div className="note">
