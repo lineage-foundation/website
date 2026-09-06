@@ -1,5 +1,6 @@
 import { CodeBlock, Pill } from "@/components/ui";
 import type { PillTone } from "@/components/ui/Pill";
+import { NODE_META } from "@/lib/openapi/nodes";
 import { jsonSchema, typeLabel } from "@/lib/openapi/spec";
 import type { OperationView } from "@/lib/openapi/spec";
 
@@ -121,6 +122,14 @@ export function OperationBlock({ op }: { op: OperationView }) {
             x-api-key
           </span>
         ) : null}
+      </div>
+      <div className={styles.opNodes}>
+        <span className={styles.opNodesLabel}>Served by</span>
+        {op.nodes.map((node) => (
+          <span key={node} className={styles.nodeBadge}>
+            {node === "common" ? "All nodes" : NODE_META[node].label}
+          </span>
+        ))}
       </div>
       {op.summary ? <p className={styles.opSummary}>{op.summary}</p> : null}
       {op.description && op.description !== op.summary ? (

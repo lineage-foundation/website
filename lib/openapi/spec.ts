@@ -8,6 +8,8 @@
 
 import openapiDoc from "@/public/openapi.json";
 
+import { NODE_META, NODE_ORDER, nodesForPath, primaryNode } from "./nodes";
+import type { NodeType } from "./nodes";
 import type {
   HttpMethod,
   OpenApiDocument,
@@ -19,21 +21,6 @@ export const spec = openapiDoc as unknown as OpenApiDocument;
 
 const METHOD_ORDER: HttpMethod[] = ["get", "post", "put", "delete", "patch"];
 
-/** Preferred group ordering; groups not listed here are appended alphabetically. */
-const GROUP_ORDER = [
-  "blocks",
-  "transactions",
-  "payments",
-  "balances",
-  "supply",
-  "items",
-  "wallet",
-  "mining",
-  "blockchain-entries",
-  "donation-requests",
-  "debug",
-];
-
 export interface OperationView {
   method: HttpMethod;
   path: string;
@@ -42,23 +29,17 @@ export interface OperationView {
   description?: string;
   operation: Operation;
   secured: boolean;
+  /** Node types that expose this route (mempool, storage, miner, user, or common). */
+  nodes: NodeType[];
 }
 
 export interface ApiGroup {
+  node: NodeType;
   title: string;
   slug: string;
+  host: string | null;
+  blurb: string;
   operations: OperationView[];
-}
-
-/** Resource key for a path, e.g. `/v1/transactions/status:query` → `transactions`. */
-function groupKey(path: string): string {
-  const seg = path.split("/").filter(Boolean)[1] ?? "root";
-  return seg.split(":")[0].split("{")[0];
-}
-
-function humanize(key: string): string {
-  const spaced = key.replace(/-/g, " ");
-  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
 
 /** A stable, unique anchor id for an operation. */
@@ -69,9 +50,9 @@ export function operationSlug(method: string, path: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** All operations, grouped by resource and ordered for display. */
+/** All operations, grouped by the node that serves them and ordered for display. */
 export function apiGroups(): ApiGroup[] {
-  const groups = new Map<string, OperationView[]>();
+  const groups = new Map<NodeType, OperationView[]>();
 
   for (const [path, item] of Object.entries(spec.paths)) {
     for (const method of METHOD_ORDER) {
@@ -86,28 +67,23 @@ export function apiGroups(): ApiGroup[] {
         description: operation.description,
         operation,
         secured: Boolean(operation.security && operation.security.length > 0),
+        nodes: nodesForPath(path),
       };
 
-      const key = groupKey(path);
+      const key = primaryNode(path);
       const bucket = groups.get(key);
       if (bucket) bucket.push(view);
       else groups.set(key, [view]);
     }
   }
 
-  const ordered = [...groups.entries()].sort(([a], [b]) => {
-    const ia = GROUP_ORDER.indexOf(a);
-    const ib = GROUP_ORDER.indexOf(b);
-    if (ia !== -1 && ib !== -1) return ia - ib;
-    if (ia !== -1) return -1;
-    if (ib !== -1) return 1;
-    return a.localeCompare(b);
-  });
-
-  return ordered.map(([key, operations]) => ({
-    title: humanize(key),
-    slug: key,
-    operations: operations.sort((a, b) => {
+  return NODE_ORDER.filter((node) => groups.has(node)).map((node) => ({
+    node,
+    title: NODE_META[node].label,
+    slug: node,
+    host: NODE_META[node].host,
+    blurb: NODE_META[node].blurb,
+    operations: (groups.get(node) ?? []).sort((a, b) => {
       if (a.path !== b.path) return a.path.localeCompare(b.path);
       return METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method);
     }),

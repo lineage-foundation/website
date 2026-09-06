@@ -115,16 +115,71 @@
   scroll-margin-top: 96px;
 }
 
+.groupHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-rule);
+  scroll-margin-top: 96px;
+}
+
 .groupTitle {
   font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: var(--lh-heading);
   letter-spacing: var(--ls-heading);
   color: var(--color-text);
-  margin: 0 0 var(--space-5);
-  padding-bottom: var(--space-3);
-  border-bottom: var(--border-rule);
-  scroll-margin-top: 96px;
+  margin: 0;
+}
+
+.groupTitleSuffix {
+  color: var(--color-text-subtle);
+  font-weight: 400;
+}
+
+.groupHost {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-accent);
+  border: 1px solid color-mix(in oklab, var(--color-accent) 35%, transparent);
+  border-radius: var(--r-sm);
+  padding: 2px 10px;
+}
+
+.groupBlurb {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.opNodes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.opNodesLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-right: var(--space-1);
+}
+
+.nodeBadge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+  border: var(--border-rule);
+  border-radius: 999px;
+  padding: 1px 10px;
 }
 
 /* ---------- Operation card ---------- */
