@@ -144,6 +144,25 @@ body {
   letter-spacing: var(--ls-body);
 }
 
+/* Inline prose links. Component links (Button, LinkCta) use their own classes,
+   which override these element-level rules; card-wrapping <a> elements are not
+   descendants of a <p>/<li>, so they are unaffected. */
+p a,
+li a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+p a:hover,
+p a:focus-visible,
+li a:hover,
+li a:focus-visible {
+  color: var(--color-link-hover);
+}
+
 /* Subtle static grain (CSS-only; no SVG filters) */
 body::before {
   content: "";
