@@ -439,7 +439,8 @@ if receipt.is_ok:
                   The fastest way to stand up a full Lineage stack (mempool, storage, and miner) is the
                   {" "}<a href="https://github.com/lineage-foundation/fleet" target="_blank" rel="noopener noreferrer">lineage-foundation/fleet</a>
                   {" "}repository, which ships a Docker Compose stack and a from-source build. The steps below
-                  mirror its README.
+                  mirror its{" "}
+                  <a href="https://github.com/lineage-foundation/fleet#readme" target="_blank" rel="noopener noreferrer">README</a>.
                 </p>
 
                 <h3>Prerequisites</h3>

@@ -560,8 +560,8 @@ export default function TokenomicsPage() {
           </Card>
           <Card rail title="Go deeper in the docs">
             <p>
-              Concepts, the HTTP API reference, and guides for building against
-              a Layer-1 where market policy itself is programmable.
+              Concepts, the <a href="/developers/api">HTTP API reference</a>, and guides
+              for building against a Layer-1 where market policy itself is programmable.
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="/docs">Open documentation</LinkCta>
