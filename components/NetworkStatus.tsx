@@ -58,7 +58,12 @@ export async function NetworkStatus() {
       : "—";
 
   return (
-    <dl className={styles.strip} aria-label="Live network status">
+    <div className={styles.wrap}>
+      <p className={styles.caption}>
+        <span className={styles.testnetTag}>Testnet</span>
+        Live network
+      </p>
+      <dl className={styles.strip} aria-label="Live testnet status">
       <div className={styles.stat}>
         <dt className={styles.label}>Latest block</dt>
         <dd className={styles.value}>{height}</dd>
@@ -75,6 +80,7 @@ export async function NetworkStatus() {
         <dt className={styles.label}>Issued</dt>
         <dd className={styles.value}>{issuedPct}</dd>
       </div>
-    </dl>
+      </dl>
+    </div>
   );
 }
