@@ -137,9 +137,6 @@ export default function TokenomicsPage() {
             <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
               Read the whitepaper
             </Button>
-            <Button href="/get-tokens" variant="secondary">
-              Get LNGX
-            </Button>
             <LinkCta href="/docs">Browse the docs</LinkCta>
           </>
         }

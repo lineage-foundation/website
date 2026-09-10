@@ -4,8 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
-import { Button } from "@/components/ui";
-
 import styles from "./SiteHeader.module.css";
 
 const TOP_NAV_ITEMS = [
@@ -208,12 +206,6 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-
-          <div className={styles.headerCta}>
-            <Button variant="primary" size="sm" href="/get-tokens">
-              Get tokens
-            </Button>
-          </div>
 
           <button
             type="button"

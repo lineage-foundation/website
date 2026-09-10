@@ -27,9 +27,6 @@ export function SiteFooter() {
                 <Link href="/tokenomics">Tokenomics</Link>
               </li>
               <li>
-                <Link href="/get-tokens">Get tokens</Link>
-              </li>
-              <li>
                 <Link href="/roadmap">Roadmap</Link>
               </li>
               <li>

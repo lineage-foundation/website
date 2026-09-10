@@ -46,11 +46,6 @@ const TILES: readonly Tile[] = [
     ],
   },
   {
-    title: "Get LNGX",
-    body: "Top up a small amount for on-network utility, or pull test LNGX from the developer faucet.",
-    links: [{ label: "Get tokens", href: "/get-tokens" }],
-  },
-  {
     title: "Start building",
     body: "Concepts, HTTP API reference, tutorials, and guides on this site.",
     links: [{ label: "Open documentation", href: "/docs" }],
