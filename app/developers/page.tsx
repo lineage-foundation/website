@@ -5,12 +5,10 @@ import {
   AsideCard,
   Button,
   Card,
-  CodeBlock,
   Eyebrow,
   LinkCta,
   Note,
   PageHead,
-  Pill,
   Section,
 } from "@/components/ui";
 import {
@@ -19,8 +17,12 @@ import {
   DOCS_STORAGE_API_ORIGIN,
   SITE_ORIGIN,
   URL_GITHUB_ORG,
+  URL_SDK_JS_NPM,
+  URL_SDK_PY_PYPI,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
+
+import { NetworkStatus } from "@/components/NetworkStatus";
 
 import styles from "./page.module.css";
 
@@ -89,14 +91,15 @@ export default function DevelopersPage() {
           base URLs by node class, the current network status, and how to stand
           up your own stack.
         </p>
+        <NetworkStatus />
         <div className={styles.split}>
           <div>
             <Note kicker="Network status">
-              A managed public <strong>mainnet</strong> and{" "}
-              <strong>testnet</strong> are being ported and will be announced
-              here soon. Until then, point a client at the base URLs below, or
-              run your own mempool / storage / miner stack locally. The route
-              names and JSON contracts are identical either way.
+              A managed public <strong>testnet</strong> is live at the base URLs
+              below — the figures above read straight from it. A public{" "}
+              <strong>mainnet</strong> will be announced here. You can also run
+              your own mempool / storage / miner stack locally; the route names
+              and JSON contracts are identical either way.
             </Note>
             <ul className={styles.endpointList}>
               <li className={styles.endpointItem}>
@@ -117,7 +120,7 @@ export default function DevelopersPage() {
                 <strong>Miner</strong>
                 <code>{DOCS_MINER_API_ORIGIN}</code>
                 <span className={styles.endpointMuted}>
-                  Operator-facing status where a release exposes it.
+                  Wallet, payments, and the current mining block.
                 </span>
               </li>
             </ul>
@@ -145,204 +148,65 @@ export default function DevelopersPage() {
         </div>
       </Section>
 
-      {/* QUICKSTART */}
-      <Section
-        eyebrow="Quickstart"
-        heading="Talk to a node in minutes"
-      >
+      {/* START HERE */}
+      <Section eyebrow="Start here" heading="Three ways in">
         <p className={styles.sectionProse}>
-          Pick an HTTP client, point it at the public base URL for your node
-          class, and call the documented routes. Subsystems are exposed on
-          separate hosts: mempool calls use the mempool host, storage reads use
-          the storage host, and so on. A minimal connectivity check is a
-          read-only call such as <code>fetch_balance</code>.
-        </p>
-        <div className={styles.split}>
-          <CodeBlock lang="bash">{`# Read-only connectivity check against the mempool host
-curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
-  -H "Content-Type: application/json" \\
-  -H "x-cache-id: 0123456789abcdef0123456789abcdef" \\
-  -d '["<address-1>"]'
-
-# Example success envelope
-{
-  "id": "45v340cd2f8c4782a5b058832565afb1",
-  "status": "Success",
-  "reason": "Balance successfully fetched",
-  "route":  "fetch_balance",
-  "content": {
-    "total": { "tokens": 5463669, "items": {} },
-    "address_list": {
-      "<address>": [
-        { "out_point": { "t_hash": "g9182e1e2a55b0ef36f1183602d74e63", "n": 0 },
-          "value": { "Token": 5463669 } }
-      ]
-    }
-  }
-}`}</CodeBlock>
-          <AsideCard>
-            <Eyebrow className={styles.asideEyebrow}>Public base URLs</Eyebrow>
-            <ul className={styles.endpointList} style={{ marginTop: 0 }}>
-              <li className={styles.endpointItem}>
-                <strong>Mempool</strong>
-                <code>{DOCS_MEMPOOL_API_ORIGIN}</code>
-              </li>
-              <li className={styles.endpointItem}>
-                <strong>Storage</strong>
-                <code>{DOCS_STORAGE_API_ORIGIN}</code>
-              </li>
-              <li className={styles.endpointItem}>
-                <strong>Miner</strong>
-                <code>{DOCS_MINER_API_ORIGIN}</code>
-              </li>
-            </ul>
-            <p
-              className={styles.endpointMuted}
-              style={{ margin: "var(--space-5) 0 var(--space-4)" }}
-            >
-              Route names and JSON contracts stay the same across deployments.
-              Swap in your own base for a private, staging, or alternate network.
-            </p>
-            <LinkCta href="/docs">API quick start</LinkCta>
-          </AsideCard>
-        </div>
-      </Section>
-
-      {/* THREE NODE SUBSYSTEMS */}
-      <Section
-        tone="band"
-        eyebrow="HTTP API"
-        heading="Three node subsystems"
-      >
-        <p className={styles.sectionProse}>
-          The public HTTP API is organised by node class. Each subsystem is
-          documented route by route, with full request and response JSON, including
-          the standard error envelope.
+          Pick the path that fits: learn the concepts, look up an endpoint, or
+          pull in a client library and start sending transactions.
         </p>
         <div className={styles.grid3}>
-          <Card rail kicker={DOCS_MEMPOOL_API_ORIGIN} title="Mempool API">
+          <Card rail kicker="Guides" title="Documentation">
             <p>
-              Transactions, balances, supply, and mempool metadata: the write
-              and query path for clients.
+              Concepts, running a node, the quickstart, and SDK tutorials: the
+              path from zero to your first transaction.
             </p>
-            <ul className={styles.pillList}>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>fetch_balance</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>create_transactions</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>total_supply</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>create_item_asset</code>
-              </li>
-            </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Mempool reference</LinkCta>
+              <LinkCta href="/docs">Read the docs</LinkCta>
             </div>
           </Card>
-
-          <Card rail kicker={DOCS_STORAGE_API_ORIGIN} title="Storage API">
+          <Card rail kicker="Reference" title="API reference">
             <p>
-              Full blockchain history. After blocks are mined and validated,
-              they are persisted for long-term read access.
+              Every <code>/v1</code> endpoint, grouped by the node that serves
+              it, with parameters, request and response shapes, and examples.
             </p>
-            <ul className={styles.pillList}>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>latest_block</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>block_by_num</code>
-              </li>
-              <li className={styles.pillRow}>
-                <Pill tone="post">POST</Pill>
-                <code>blockchain_entry</code>
-              </li>
-            </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Storage reference</LinkCta>
+              <LinkCta href="/developers/api">Browse the API</LinkCta>
             </div>
           </Card>
-
-          <Card rail kicker={DOCS_MINER_API_ORIGIN} title="Miner API">
+          <Card rail kicker="Libraries" title="SDKs">
             <p>
-              Operator-facing HTTP where a release exposes it, a small surface
-              compared to mempool and storage.
+              Official JavaScript and Python clients hold your keys locally,
+              sign transactions, and talk to the API for you. PHP is coming.
             </p>
-            <ul className={styles.pillList}>
-              <li className={styles.pillRow}>
-                <Pill tone="get">GET</Pill>
-                <code>info</code>
-              </li>
-            </ul>
             <div className={styles.cardCta}>
-              <LinkCta href="/docs">Miner reference</LinkCta>
+              <LinkCta href="/docs#tut-overview">SDK tutorials</LinkCta>
+              <LinkCta href={URL_SDK_JS_NPM}>sdk-js on npm</LinkCta>
+              <LinkCta href={URL_SDK_PY_PYPI}>sdk-python on PyPI</LinkCta>
             </div>
           </Card>
         </div>
-      </Section>
-
-      {/* CLIENT SDKs */}
-      <Section
-        eyebrow="Client SDKs"
-        heading="Skip the raw HTTP"
-      >
-        <p className={styles.sectionProse}>
-          Three official clients wrap the same API: wallet creation, key
-          management, asset issuance, two-way payments, and chain reads.
-          Configure each with a mempool base URL, a storage base URL, and a
-          passphrase for local key encryption.
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          New to the project? Read{" "}
+          <a
+            href={URL_ZENODO_WHITEPAPER}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <em>Lineage: The Living Economy</em>
+          </a>{" "}
+          for the full specification, or browse every repository on{" "}
+          <a href={URL_GITHUB_ORG} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          .
         </p>
-        <div className={styles.grid3}>
-          <Card rail kicker="JavaScript / TypeScript" title="sdk-js">
-            <p>
-              The client for browser and Node apps and wallets: create a wallet,
-              issue items and assets, run two-way payments, send and receive.
-              Drop-in for web front-ends and Valence servers.
-            </p>
-            <div className={styles.cardCta}>
-              <LinkCta href="https://github.com/lineage-foundation/sdk-js">
-                lineage-foundation/sdk-js
-              </LinkCta>
-            </div>
-          </Card>
-
-          <Card rail kicker="Python" title="sdk-python">
-            <p>
-              The client for backends, data tooling, and automation: key
-              management, balance and supply reads, transaction construction, and
-              two-way flows, the same surface as <code>sdk-js</code>, idiomatic
-              for Python services and notebooks.
-            </p>
-            <div className={styles.cardCta}>
-              <LinkCta href="https://github.com/lineage-foundation/sdk-python">
-                lineage-foundation/sdk-python
-              </LinkCta>
-            </div>
-          </Card>
-
-          <Card rail kicker="PHP" title="sdk-php">
-            <p>
-              The client for server-side web stacks: wallet creation, asset
-              issuance, payments, and chain reads from within PHP applications
-              and CMS integrations.
-            </p>
-            <div className={styles.cardCta}>
-              <LinkCta href="https://github.com/lineage-foundation/sdk-php">
-                lineage-foundation/sdk-php
-              </LinkCta>
-            </div>
-          </Card>
-        </div>
-        <p className={styles.sectionProse}>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
           Building against the network? Pull test LNGX from the developer
           faucet — one claim per address, no card required.
         </p>
@@ -351,61 +215,6 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
         </div>
       </Section>
 
-      {/* DEVELOPER PATHS */}
-      <Section
-        eyebrow="Developer paths"
-        heading="Where to start"
-      >
-        <div className={styles.split}>
-          <div className={styles.proseSection}>
-            <h3>Evaluate the protocol</h3>
-            <p>
-              Read <em>Lineage: The Living Economy</em>, the full technical and
-              economic specification archived on Zenodo, alongside the concepts
-              in the docs to understand how bounded policy search and
-              cryptographic verification fit together.
-            </p>
-            <h3>Clone the repos</h3>
-            <p>
-              Every repository is open for review, issues, and contributions.
-              The code that ships with the project lives on the Lineage
-              Foundation GitHub organisation.
-            </p>
-            <h3>Prototype against the API</h3>
-            <p>
-              Start with small, read-only calls from the storage or mempool
-              sections of the reference to confirm connectivity, then move on to
-              transactions. Each endpoint page documents the exact request and
-              response contract.
-            </p>
-          </div>
-          <AsideCard>
-            <Eyebrow className={styles.asideEyebrow}>Source material</Eyebrow>
-            <ul className={styles.asideLinks}>
-              <li>
-                <LinkCta href="/docs">Developer documentation</LinkCta>
-                <span className={styles.asideSubtext}>
-                  Concepts, HTTP API reference, tutorials, and mining guides.
-                </span>
-              </li>
-              <li>
-                <LinkCta href={URL_GITHUB_ORG}>GitHub organisation</LinkCta>
-                <span className={styles.asideSubtext}>
-                  Every repository, open for review and contributions.
-                </span>
-              </li>
-              <li>
-                <LinkCta href={URL_ZENODO_WHITEPAPER}>
-                  Whitepaper on Zenodo
-                </LinkCta>
-                <span className={styles.asideSubtext}>
-                  The full technical and economic specification.
-                </span>
-              </li>
-            </ul>
-          </AsideCard>
-        </div>
-      </Section>
 
       {/* HAVE QUESTIONS */}
       <Section

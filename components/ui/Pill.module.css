@@ -27,6 +27,20 @@
   background: color-mix(in oklab, var(--color-warning) 10%, transparent);
 }
 
+/* .pill--put */
+.put {
+  color: var(--color-link);
+  border-color: color-mix(in oklab, var(--color-link) 40%, transparent);
+  background: color-mix(in oklab, var(--color-link) 10%, transparent);
+}
+
+/* .pill--delete */
+.delete {
+  color: var(--color-danger);
+  border-color: color-mix(in oklab, var(--color-danger) 40%, transparent);
+  background: color-mix(in oklab, var(--color-danger) 10%, transparent);
+}
+
 /* .pill--soon */
 .soon {
   color: var(--color-text-subtle);
