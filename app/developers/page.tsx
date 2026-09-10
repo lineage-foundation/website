@@ -342,6 +342,13 @@ curl -sS -X POST "${DOCS_MEMPOOL_API_ORIGIN}/fetch_balance" \\
             </div>
           </Card>
         </div>
+        <p className={styles.sectionProse}>
+          Building against the network? Pull test LNGX from the developer
+          faucet — one claim per address, no card required.
+        </p>
+        <div className={styles.cardCta}>
+          <LinkCta href="/get-tokens">Developer faucet</LinkCta>
+        </div>
       </Section>
 
       {/* DEVELOPER PATHS */}
