@@ -203,6 +203,16 @@ export default function DevelopersPage() {
           </a>
           .
         </p>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          Building against the network? Pull test LNGX from the developer
+          faucet — one claim per address, no card required.
+        </p>
+        <div className={styles.cardCta}>
+          <LinkCta href="/get-tokens">Developer faucet</LinkCta>
+        </div>
       </Section>
 
 
