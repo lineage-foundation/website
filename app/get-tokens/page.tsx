@@ -6,10 +6,10 @@ import { SITE_ORIGIN } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Get tokens | Lineage",
+    absolute: "Developer faucet | Lineage",
   },
   description:
-    "Top up small amounts of LNGX for on-network utility, or request developer test tokens from the faucet.",
+    "Request a small amount of test LNGX from the developer faucet to build and integrate against the Lineage network.",
   alternates: {
     canonical: "/get-tokens",
   },
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Get tokens | Lineage",
+    title: "Developer faucet | Lineage",
     description:
-      "Top up small amounts of LNGX for on-network utility, or request developer test tokens from the faucet.",
+      "Request a small amount of test LNGX from the developer faucet to build and integrate against the Lineage network.",
     url: `${SITE_ORIGIN}/get-tokens`,
     type: "website",
     images: [
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Get tokens | Lineage",
+    title: "Developer faucet | Lineage",
     description:
-      "Top up small amounts of LNGX for on-network utility, or request developer test tokens from the faucet.",
+      "Request a small amount of test LNGX from the developer faucet to build and integrate against the Lineage network.",
     images: ["/images/open-graph-lineage-1200x630.png"],
   },
 };
@@ -46,14 +46,15 @@ export default function GetTokensPage() {
     <>
       {/* ── PAGE HEAD ── */}
       <PageHead
-        eyebrow="Get LNGX · Coming soon"
+        eyebrow="Developer faucet · Coming soon"
         title={
           <>
-            Top up for utility, or <Accent>build</Accent> with test tokens
+            <Accent>Build</Accent> with test LNGX
           </>
         }
         lead={
           <p>
+            Pull a small amount of test{" "}
             <span
               style={{
                 fontFamily: "var(--font-mono)",
@@ -62,15 +63,13 @@ export default function GetTokensPage() {
             >
               LNGX
             </span>{" "}
-            is the unit you spend to transact on the network. Buy a small amount
-            for everyday on-network utility, or pull a little test LNGX from
-            the developer faucet if you&rsquo;re building.
-            These are utility top-ups, not an investment product.
+            from the developer faucet to exercise transactions, items, and
+            contract calls while you build and integrate against the network.
           </p>
         }
       />
 
-      {/* ── BUY / FAUCET INTERACTIVE SECTION ── */}
+      {/* ── FAUCET INTERACTIVE SECTION ── */}
       <GetTokensClient />
     </>
   );
