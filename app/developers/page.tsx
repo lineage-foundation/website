@@ -174,13 +174,12 @@ export default function DevelopersPage() {
           </Card>
           <Card rail kicker="Libraries" title="SDKs">
             <p>
-              Official clients for JavaScript/TypeScript, Python, Go, Rust, PHP,
-              and Laravel hold your keys locally, sign transactions, and talk to
-              the API for you.
+              Official clients hold your keys locally, sign transactions, and
+              talk to the API for you — pick the one for your stack.
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="/docs#tut-overview">SDK tutorials</LinkCta>
-              <LinkCta href="#sdks">All six SDKs</LinkCta>
+              <LinkCta href="#sdks">Browse the SDKs</LinkCta>
             </div>
           </Card>
         </div>
@@ -218,7 +217,7 @@ export default function DevelopersPage() {
       <Section
         id="sdks"
         eyebrow="Client libraries"
-        heading="Six official SDKs"
+        heading="Official SDKs"
       >
         <p className={styles.sectionProse}>
           Every SDK shares the same wire format — keys and signatures are
