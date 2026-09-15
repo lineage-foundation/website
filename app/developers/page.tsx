@@ -15,10 +15,9 @@ import {
   DOCS_MEMPOOL_API_ORIGIN,
   DOCS_MINER_API_ORIGIN,
   DOCS_STORAGE_API_ORIGIN,
+  SDKS,
   SITE_ORIGIN,
   URL_GITHUB_ORG,
-  URL_SDK_JS_NPM,
-  URL_SDK_PY_PYPI,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
@@ -175,13 +174,13 @@ export default function DevelopersPage() {
           </Card>
           <Card rail kicker="Libraries" title="SDKs">
             <p>
-              Official JavaScript and Python clients hold your keys locally,
-              sign transactions, and talk to the API for you. PHP is coming.
+              Official clients for JavaScript/TypeScript, Python, Go, Rust, PHP,
+              and Laravel hold your keys locally, sign transactions, and talk to
+              the API for you.
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="/docs#tut-overview">SDK tutorials</LinkCta>
-              <LinkCta href={URL_SDK_JS_NPM}>sdk-js on npm</LinkCta>
-              <LinkCta href={URL_SDK_PY_PYPI}>sdk-python on PyPI</LinkCta>
+              <LinkCta href="#sdks">All six SDKs</LinkCta>
             </div>
           </Card>
         </div>
@@ -215,6 +214,31 @@ export default function DevelopersPage() {
         </div>
       </Section>
 
+      {/* SDKS */}
+      <Section
+        id="sdks"
+        eyebrow="Client libraries"
+        heading="Six official SDKs"
+      >
+        <p className={styles.sectionProse}>
+          Every SDK shares the same wire format — keys and signatures are
+          byte-for-byte compatible, so a wallet created in one works in all of
+          them. Each is published to its language&rsquo;s package registry.
+        </p>
+        <div className={styles.grid3}>
+          {SDKS.map((sdk) => (
+            <Card key={sdk.repoUrl} rail kicker={sdk.registry} title={sdk.lang}>
+              <p>
+                <code>{sdk.pkg}</code>
+              </p>
+              <div className={styles.cardCta}>
+                <LinkCta href={sdk.pkgUrl}>View on {sdk.registry}</LinkCta>
+                <LinkCta href={sdk.repoUrl}>GitHub repo</LinkCta>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
 
       {/* HAVE QUESTIONS */}
       <Section
