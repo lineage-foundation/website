@@ -179,7 +179,7 @@ export default function DevelopersPage() {
             </p>
             <div className={styles.cardCta}>
               <LinkCta href="/docs#tut-overview">SDK tutorials</LinkCta>
-              <LinkCta href="#sdks">Browse the SDKs</LinkCta>
+              <LinkCta href="/developers#sdks">Browse the SDKs</LinkCta>
             </div>
           </Card>
         </div>
