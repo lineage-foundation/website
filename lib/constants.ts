@@ -25,9 +25,59 @@ export const URL_EXPLORER = "https://explorer.lineage.to";
 /** "Network" destination (block explorer). */
 export const URL_NETWORK = URL_EXPLORER;
 
-/** Published client SDK packages. */
-export const URL_SDK_JS_NPM = "https://www.npmjs.com/package/@lineage-foundation/sdk-js";
-export const URL_SDK_PY_PYPI = "https://pypi.org/project/lineage-sdk/";
+/** Published client SDKs: registry package plus source repository. */
+export type SdkEntry = {
+  lang: string;
+  registry: string;
+  pkg: string;
+  pkgUrl: string;
+  repoUrl: string;
+};
+
+export const SDKS: SdkEntry[] = [
+  {
+    lang: "JavaScript / TypeScript",
+    registry: "npm",
+    pkg: "@lineage-foundation/sdk-js",
+    pkgUrl: "https://www.npmjs.com/package/@lineage-foundation/sdk-js",
+    repoUrl: "https://github.com/lineage-foundation/sdk-js",
+  },
+  {
+    lang: "Python",
+    registry: "PyPI",
+    pkg: "lineage-sdk",
+    pkgUrl: "https://pypi.org/project/lineage-sdk/",
+    repoUrl: "https://github.com/lineage-foundation/sdk-python",
+  },
+  {
+    lang: "Go",
+    registry: "pkg.go.dev",
+    pkg: "github.com/lineage-foundation/sdk-go",
+    pkgUrl: "https://pkg.go.dev/github.com/lineage-foundation/sdk-go",
+    repoUrl: "https://github.com/lineage-foundation/sdk-go",
+  },
+  {
+    lang: "Rust",
+    registry: "crates.io",
+    pkg: "lineage-sdk",
+    pkgUrl: "https://crates.io/crates/lineage-sdk",
+    repoUrl: "https://github.com/lineage-foundation/sdk-rust",
+  },
+  {
+    lang: "PHP",
+    registry: "Packagist",
+    pkg: "lineage/php",
+    pkgUrl: "https://packagist.org/packages/lineage/php",
+    repoUrl: "https://github.com/lineage-foundation/sdk-php",
+  },
+  {
+    lang: "Laravel",
+    registry: "Packagist",
+    pkg: "lineage/laravel",
+    pkgUrl: "https://packagist.org/packages/lineage/laravel",
+    repoUrl: "https://github.com/lineage-foundation/sdk-laravel",
+  },
+];
 
 /**
  * Public Lineage node HTTP API origins (documentation examples, curl, MethodPath).
