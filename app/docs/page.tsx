@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Button, CodeBlock, Container, Eyebrow, LinkCta, Pill, Table } from "@/components/ui";
+import { Button, CodeBlock, Container, Eyebrow, LinkCta, Table } from "@/components/ui";
 import { DocsScroll } from "@/components/docs/DocsScroll";
 import { SITE_ORIGIN, URL_EXPLORER, URL_GITHUB_ORG } from "@/lib/constants";
 
@@ -104,7 +104,10 @@ export default function DocsPage() {
                   <li><a href="#tut-first-payment">Send your first payment</a></li>
                   <li><a href="#sdk-js">sdk-js</a></li>
                   <li><a href="#sdk-python">sdk-python</a></li>
+                  <li><a href="#sdk-go">sdk-go</a></li>
+                  <li><a href="#sdk-rust">sdk-rust</a></li>
                   <li><a href="#sdk-php">sdk-php</a></li>
+                  <li><a href="#sdk-laravel">sdk-laravel</a></li>
                   <li><a href="#tut-valence">Valence node &amp; core</a></li>
                   <li><a href="#tut-api-usage">API usage</a></li>
                   <li><a href="#run-node">Running a node</a></li>
@@ -304,10 +307,10 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
               <article id="tut-overview" className={styles.prose}>
                 <h2>SDKs &amp; tutorials</h2>
                 <p>
-                  Beyond the raw endpoint reference, Lineage ships official client libraries in three
-                  languages plus node tooling. The full walkthroughs and runnable code live in the
+                  Beyond the raw endpoint reference, Lineage ships official client libraries across a
+                  range of languages plus node tooling. The full walkthroughs and runnable code live in the
                   {" "}<a href="https://github.com/lineage-foundation" target="_blank" rel="noopener noreferrer">published repositories</a>;
-                  the cards below summarise each SDK and where it fits. All three wrap the same HTTP API
+                  the cards below summarise each SDK and where it fits. They all wrap the same HTTP API
                   documented above; configure each with a mempool base URL, a storage base URL, and a
                   passphrase for local key encryption.
                 </p>
@@ -320,7 +323,17 @@ npm install @lineage-foundation/sdk-js
 # Python (imports as \`lineage\`)
 pip install lineage-sdk
 
-# PHP — coming soon`}</CodeBlock>
+# Go
+go get github.com/lineage-foundation/sdk-go
+
+# Rust
+cargo add lineage-sdk
+
+# PHP
+composer require lineage/php
+
+# Laravel
+composer require lineage/laravel`}</CodeBlock>
 
                 <h3>First call</h3>
                 <p>Create a <code>Wallet</code>, point it at a mempool host with a passphrase for local key encryption, and initialise a new keypair. <code>initNew</code> returns the generated seed phrase. Store it securely; it is the only way to recover the wallet.</p>
@@ -414,10 +427,25 @@ if receipt.is_ok:
                     <p>The Python client for backends, data tooling, and automation: key management, balance and supply reads, transaction construction, and two-way flows. It covers the same surface as <code>sdk-js</code>, idiomatic for Python services and notebooks.</p>
                     <LinkCta href="https://github.com/lineage-foundation/sdk-python" external>lineage-foundation/sdk-python</LinkCta>
                   </div>
+                  <div className="doc-card" id="sdk-go">
+                    <h3>sdk-go</h3>
+                    <p>The Go client for services, CLIs, and backends: a keyless read client and a key-holding wallet covering key management, balance and supply reads, transaction construction, payments, and two-way flows. Same surface as <code>sdk-js</code>, idiomatic for Go.</p>
+                    <LinkCta href="https://github.com/lineage-foundation/sdk-go" external>lineage-foundation/sdk-go</LinkCta>
+                  </div>
+                  <div className="doc-card" id="sdk-rust">
+                    <h3>sdk-rust</h3>
+                    <p>The Rust client for performance-sensitive services and tooling: key management, chain reads, transaction construction, payments, and two-way flows. Covers the same surface as <code>sdk-js</code>.</p>
+                    <LinkCta href="https://github.com/lineage-foundation/sdk-rust" external>lineage-foundation/sdk-rust</LinkCta>
+                  </div>
                   <div className="doc-card" id="sdk-php">
-                    <h3>sdk-php <Pill tone="soon">Coming soon</Pill></h3>
-                    <p>A PHP client for server-side web stacks — wallet creation, asset issuance, payments, and chain reads — is planned. It is not yet published against the current API.</p>
+                    <h3>sdk-php</h3>
+                    <p>The PHP client for server-side web stacks: wallet creation, asset issuance, payments, chain reads, and two-way flows. Covers the same surface as <code>sdk-js</code>, idiomatic for PHP services.</p>
                     <LinkCta href="https://github.com/lineage-foundation/sdk-php" external>lineage-foundation/sdk-php</LinkCta>
+                  </div>
+                  <div className="doc-card" id="sdk-laravel">
+                    <h3>sdk-laravel</h3>
+                    <p>The Laravel wrapper around <code>sdk-php</code>: wallets and keypairs backed by Eloquent models, plus Artisan commands for creating wallets, deriving keypairs, minting items, and making token and item payments.</p>
+                    <LinkCta href="https://github.com/lineage-foundation/sdk-laravel" external>lineage-foundation/sdk-laravel</LinkCta>
                   </div>
                   <div className="doc-card" id="tut-valence">
                     <h3>Valence node &amp; core</h3>
