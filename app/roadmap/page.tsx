@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { TWITTER_META } from "@/lib/constants";
 import { PhaseStrip } from "@/components/roadmap/PhaseStrip";
 import { Release } from "@/components/roadmap/Release";
 import { Timeline } from "@/components/roadmap/Timeline";
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Roadmap | Lineage",
     description:
       "The Lineage release roadmap: two initiatives delivered through three releases: Phoenix, Austria, and Nakamoto.",

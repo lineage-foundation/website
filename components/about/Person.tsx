@@ -9,7 +9,7 @@ export type PersonProps = {
   bio: ReactNode;
   photo?: string; // path relative to public/, e.g. "/team/andrew-kessler.jpg"
   monogram: string; // 2-letter initials fallback
-  linkedIn: string;
+  linkedIn?: string;
   /** Dim + grayscale the card, show a "Coming soon" badge, hide the link. */
   comingSoon?: boolean;
 };
@@ -65,7 +65,7 @@ export function Person({
       ) : null}
       <p className={styles.bio}>{bio}</p>
 
-      {comingSoon ? null : (
+      {comingSoon || !linkedIn ? null : (
         <a
           className={styles.link}
           href={linkedIn}

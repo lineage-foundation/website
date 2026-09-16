@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 
 import { Button, CodeBlock, Container, Eyebrow, LinkCta, Table } from "@/components/ui";
 import { DocsScroll } from "@/components/docs/DocsScroll";
-import { SITE_ORIGIN, URL_EXPLORER, URL_GITHUB_ORG } from "@/lib/constants";
+import {
+  SITE_ORIGIN,
+  TWITTER_META,
+  URL_EXPLORER,
+  URL_GITHUB_ORG,
+  URL_MCP_SERVER,
+} from "@/lib/constants";
 
 import styles from "./docs.module.css";
 
@@ -28,7 +34,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Documentation | Lineage",
     description:
       "Lineage documentation: node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
@@ -96,6 +102,7 @@ export default function DocsPage() {
                 <h2>API</h2>
                 <ul>
                   <li><a href="#api-reference">API reference</a></li>
+                  <li><a href="#mcp-server">MCP server</a></li>
                 </ul>
 
                 <h2>SDKs &amp; tutorials</h2>
@@ -300,6 +307,24 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                   OpenAPI tool. Each node also serves its own subset at{" "}
                   <code>/v1/openapi.json</code> (for example{" "}
                   <code>https://storage.lineage.to/v1/openapi.json</code>).
+                </p>
+              </article>
+
+              {/* ============ MCP SERVER ============ */}
+              <article id="mcp-server" className={styles.prose}>
+                <h2>MCP server</h2>
+                <p>
+                  A hosted <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol</a> endpoint
+                  lets AI agents and assistants use Lineage as tools: balances and
+                  transactions, keypair and seed generation, block / entry /
+                  transaction lookups, supply, and node health. It wraps the same
+                  HTTP API documented here.
+                </p>
+                <p>
+                  Endpoint:{" "}
+                  <a href={URL_MCP_SERVER} target="_blank" rel="noopener noreferrer">
+                    <code>{URL_MCP_SERVER.replace("https://", "")}</code>
+                  </a>
                 </p>
               </article>
 

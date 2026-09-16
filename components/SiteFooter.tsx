@@ -2,9 +2,11 @@ import Link from "next/link";
 
 import { Container, Signal } from "@/components/ui";
 import {
+  URL_DISCORD,
   URL_DISCOURSE_RESEARCH,
   URL_EXPLORER,
   URL_GITHUB_ORG,
+  URL_X,
   URL_YOUTUBE_VIDEO,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
@@ -65,6 +67,9 @@ export function SiteFooter() {
               <li>
                 <Link href="/research">Research</Link>
               </li>
+              <li>
+                <Link href="/brand">Brand kit</Link>
+              </li>
             </ul>
           </section>
 
@@ -97,6 +102,20 @@ export function SiteFooter() {
                   target="_blank"
                 >
                   YouTube
+                </a>
+              </li>
+              <li>
+                <a
+                  href={URL_DISCORD}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Discord
+                </a>
+              </li>
+              <li>
+                <a href={URL_X} rel="noopener noreferrer" target="_blank">
+                  X
                 </a>
               </li>
             </ul>

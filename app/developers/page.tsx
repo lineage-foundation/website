@@ -17,7 +17,10 @@ import {
   DOCS_STORAGE_API_ORIGIN,
   SDKS,
   SITE_ORIGIN,
+  TWITTER_META,
+  URL_DISCORD,
   URL_GITHUB_ORG,
+  URL_MCP_SERVER,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Developers | Lineage",
     description:
       "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
@@ -237,6 +240,19 @@ export default function DevelopersPage() {
             </Card>
           ))}
         </div>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          Building an AI agent? A hosted Model Context Protocol server exposes
+          balances, transactions, keypair and seed generation, block and
+          transaction lookups, supply, and node health as tools.
+        </p>
+        <div className={styles.cardCta}>
+          <LinkCta href={URL_MCP_SERVER}>
+            MCP server · {URL_MCP_SERVER.replace("https://", "")}
+          </LinkCta>
+        </div>
       </Section>
 
       {/* HAVE QUESTIONS */}
@@ -267,6 +283,16 @@ export default function DevelopersPage() {
             </p>
             <div className={styles.cardCta}>
               <LinkCta href={URL_GITHUB_ORG}>Open GitHub repos</LinkCta>
+            </div>
+          </Card>
+
+          <Card rail title="Discord">
+            <p>
+              Real-time chat with the community and the team for build questions
+              and quick help.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_DISCORD}>Join the Discord</LinkCta>
             </div>
           </Card>
         </div>

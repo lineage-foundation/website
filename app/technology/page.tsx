@@ -22,6 +22,7 @@ import {
   DOCS_MINER_API_ORIGIN,
   DOCS_STORAGE_API_ORIGIN,
   SITE_ORIGIN,
+  TWITTER_META,
   URL_YOUTUBE_VIDEO,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Technology | Lineage",
     description: "Interactive ARCO flow and market state visualization.",
     images: ["/images/open-graph-lineage-1200x630.png"],

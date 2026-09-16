@@ -3,7 +3,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SITE_ORIGIN } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META } from "@/lib/constants";
 
 import "./globals.css";
 
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
   },
   icons: {
     icon: [

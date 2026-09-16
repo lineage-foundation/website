@@ -4,11 +4,15 @@ import { Accent, PageHead } from "@/components/ui/PageHead";
 import { Button, Card, LinkCta, Section, Tag } from "@/components/ui";
 import {
   SITE_ORIGIN,
+  TWITTER_META,
+  URL_DISCORD,
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
+  URL_MCP_SERVER,
   URL_NETWORK,
   URL_PEERSTONE,
   URL_SE3KER,
+  URL_X,
 } from "@/lib/constants";
 
 import styles from "./page.module.css";
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Ecosystem | Lineage",
     description:
       "Wallets, network, and community around the Lineage Foundation. What exists today, with honest attribution.",
@@ -209,6 +213,41 @@ export default function EcosystemPage() {
               <LinkCta href={URL_GITHUB_ORG}>Browse the repos</LinkCta>
             </div>
           </Card>
+
+          <Card
+            rail
+            title="Discord"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+                <path d="M8 8.5a13 13 0 0 1 8 0M7.5 16a13 13 0 0 0 9 0M9 12h.01M15 12h.01M8 7l-.5-1M16 7l.5-1M6 8c-1.5 3-1.5 6-1 9 1.2 1 2.6 1.6 4 2l.8-1.6M18 8c1.5 3 1.5 6 1 9-1.2 1-2.6 1.6-4 2l-.8-1.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            }
+          >
+            <p>
+              Real-time community chat: questions, building, and coordination
+              with the Lineage community.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_DISCORD}>Join the Discord</LinkCta>
+            </div>
+          </Card>
+
+          <Card
+            rail
+            title="X"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+                <path d="M4 4l16 16M20 4L4 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            }
+          >
+            <p>
+              Announcements and updates from the Lineage Foundation.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_X}>Follow @lineagefndn</LinkCta>
+            </div>
+          </Card>
         </div>
       </Section>
 
@@ -218,9 +257,9 @@ export default function EcosystemPage() {
         heading="Build with published tooling"
       >
         <p className={styles.sectionProse}>
-          Client SDKs are published and ready to use today. An MCP server and
-          LLM agent skills are on the way, listed here with what they&apos;ll
-          expose, marked clearly until they ship.
+          Client SDKs and a hosted MCP server are live today. LLM agent skills
+          are on the way, listed here with what they expose, marked clearly
+          until they ship.
         </p>
         <div className={styles.gridMoat}>
           {/* 1 — Client SDKs (live) */}
@@ -269,7 +308,7 @@ export default function EcosystemPage() {
             <Tag status="live">Published</Tag>
           </Card>
 
-          {/* 2 — MCP server (coming soon) */}
+          {/* 2 — MCP server (live) */}
           <Card
             rail
             title="MCP server"
@@ -286,8 +325,15 @@ export default function EcosystemPage() {
               transactions, keypair &amp; seed generation, block / entry /
               transaction lookups, supply, and node health.
             </p>
-            <span className={styles.endpointUrl}>https://mcp.lineage.to</span>
-            <Tag status="soon">Coming soon</Tag>
+            <a
+              className={styles.endpointUrl}
+              href={URL_MCP_SERVER}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {URL_MCP_SERVER.replace("https://", "")}
+            </a>
+            <Tag status="live">Live</Tag>
           </Card>
 
           {/* 3 — LLM agent skills (coming soon) */}

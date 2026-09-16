@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { TeamGrid } from "@/components/about/TeamGrid";
 import { Person } from "@/components/about/Person";
 import { Accent, Button, LinkCta, PageHead, Section } from "@/components/ui";
-import { SITE_ORIGIN, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 
 import styles from "./page.module.css";
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "About | Lineage",
     description:
       "The people behind the Lineage Foundation, the founders building the protocol and the advisors guiding its economic design.",
@@ -122,6 +122,27 @@ export default function AboutPage() {
         </TeamGrid>
       </Section>
 
+      {/* MEMBERS */}
+      <Section
+        id="members"
+        eyebrow="Members"
+        heading="Members"
+        headingLevel={2}
+      >
+        <p className={styles.sectionProse}>
+          Members bring deep networks and hard-won experience across
+          decentralization, markets, and public life.
+        </p>
+        <TeamGrid variant="2">
+          <Person
+            name="Jesse Benton"
+            role="Member"
+            monogram="JB"
+            bio="Jesse is passionate about decentralization and was member of the original Bitcoin Center NYC, the first live crypto trading floor, and an advisor to the ZAP Protocol. He was also campaign manager for Ron Paul, Senator Rand Paul and Senate Leader Mitch McConnell."
+          />
+        </TeamGrid>
+      </Section>
+
       {/* ADVISORS */}
       <Section
         id="advisors"
@@ -148,7 +169,6 @@ export default function AboutPage() {
             photo="/team/claudio-tessone.jpg"
             monogram="CT"
             linkedIn="https://www.linkedin.com/in/claudiotessone/"
-            comingSoon
             bio="Professor of Blockchain and Distributed Ledger Technologies at the University of Zurich and co-founder and Chairman of the UZH Blockchain Center, Claudio studies blockchains as complex socio-economic systems: consensus, cryptoeconomics, and token-economy design. He advises Lineage on the incentive design behind Smart Markets."
           />
         </TeamGrid>
