@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage logo",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "About | Lineage",
     description:
       "The people behind the Lineage Foundation, the founders building the protocol and the advisors guiding its economic design.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 
@@ -131,7 +131,7 @@ export default function AboutPage() {
       >
         <p className={styles.sectionProse}>
           Members bring deep networks and hard-won experience across
-          decentralization, markets, and public life.
+          decentralization, markets, technology, and public life.
         </p>
         <TeamGrid variant="2">
           <Person
@@ -139,6 +139,13 @@ export default function AboutPage() {
             role="Member"
             monogram="JB"
             bio="Jesse is passionate about decentralization and was member of the original Bitcoin Center NYC, the first live crypto trading floor, and an advisor to the ZAP Protocol. He was also campaign manager for Ron Paul, Senator Rand Paul and Senate Leader Mitch McConnell."
+          />
+          <Person
+            name="Jamie Gilchrist"
+            role="Member"
+            monogram="JG"
+            linkedIn="https://www.linkedin.com/in/jamie-gilchrist-198a6585/"
+            bio="Jamie is CTO at Tunestamp and an engineer and researcher working at the intersection of distributed systems and cryptography. His work spans blockchain, applied cryptography, and fintech, from technical architecture through hands-on engineering leadership."
           />
         </TeamGrid>
       </Section>
