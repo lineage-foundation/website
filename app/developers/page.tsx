@@ -248,7 +248,9 @@ export default function DevelopersPage() {
           transaction lookups, supply, and node health as tools.
         </p>
         <div className={styles.cardCta}>
-          <LinkCta href={URL_MCP_SERVER}>MCP server · mcp.lineage.to</LinkCta>
+          <LinkCta href={URL_MCP_SERVER}>
+            MCP server · {URL_MCP_SERVER.replace("https://", "")}
+          </LinkCta>
         </div>
       </Section>
 

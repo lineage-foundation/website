@@ -317,7 +317,7 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                 <p>
                   Endpoint:{" "}
                   <a href={URL_MCP_SERVER} target="_blank" rel="noopener noreferrer">
-                    <code>mcp.lineage.to</code>
+                    <code>{URL_MCP_SERVER.replace("https://", "")}</code>
                   </a>
                 </p>
               </article>
