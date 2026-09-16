@@ -93,6 +93,9 @@ export const DOCS_MEMPOOL_API_ORIGIN = "https://mempool.lineage.to" as const;
 export const DOCS_STORAGE_API_ORIGIN = "https://storage.lineage.to" as const;
 export const DOCS_MINER_API_ORIGIN = "https://miner.lineage.to" as const;
 
+/** Hosted Model Context Protocol endpoint for AI agents. */
+export const URL_MCP_SERVER = "https://mcp.lineage.to";
+
 /** Mempool (default example base); prefer subsystem-specific constants in new code. */
 export const DOCS_API_BASE_URL = DOCS_MEMPOOL_API_ORIGIN;
 

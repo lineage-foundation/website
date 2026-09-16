@@ -7,6 +7,7 @@ import {
   URL_DISCORD,
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
+  URL_MCP_SERVER,
   URL_NETWORK,
   URL_PEERSTONE,
   URL_SE3KER,
@@ -255,9 +256,9 @@ export default function EcosystemPage() {
         heading="Build with published tooling"
       >
         <p className={styles.sectionProse}>
-          Client SDKs are published and ready to use today. An MCP server and
-          LLM agent skills are on the way, listed here with what they&apos;ll
-          expose, marked clearly until they ship.
+          Client SDKs and a hosted MCP server are live today. LLM agent skills
+          are on the way, listed here with what they expose, marked clearly
+          until they ship.
         </p>
         <div className={styles.gridMoat}>
           {/* 1 — Client SDKs (live) */}
@@ -306,7 +307,7 @@ export default function EcosystemPage() {
             <Tag status="live">Published</Tag>
           </Card>
 
-          {/* 2 — MCP server (coming soon) */}
+          {/* 2 — MCP server (live) */}
           <Card
             rail
             title="MCP server"
@@ -323,8 +324,15 @@ export default function EcosystemPage() {
               transactions, keypair &amp; seed generation, block / entry /
               transaction lookups, supply, and node health.
             </p>
-            <span className={styles.endpointUrl}>https://mcp.lineage.to</span>
-            <Tag status="soon">Coming soon</Tag>
+            <a
+              className={styles.endpointUrl}
+              href={URL_MCP_SERVER}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {URL_MCP_SERVER.replace("https://", "")}
+            </a>
+            <Tag status="live">Live</Tag>
           </Card>
 
           {/* 3 — LLM agent skills (coming soon) */}

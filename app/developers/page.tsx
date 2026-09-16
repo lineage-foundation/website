@@ -19,6 +19,7 @@ import {
   SITE_ORIGIN,
   URL_DISCORD,
   URL_GITHUB_ORG,
+  URL_MCP_SERVER,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
@@ -237,6 +238,17 @@ export default function DevelopersPage() {
               </div>
             </Card>
           ))}
+        </div>
+        <p
+          className={styles.sectionProse}
+          style={{ marginTop: "var(--space-6)" }}
+        >
+          Building an AI agent? A hosted Model Context Protocol server exposes
+          balances, transactions, keypair and seed generation, block and
+          transaction lookups, supply, and node health as tools.
+        </p>
+        <div className={styles.cardCta}>
+          <LinkCta href={URL_MCP_SERVER}>MCP server · mcp.lineage.to</LinkCta>
         </div>
       </Section>
 
