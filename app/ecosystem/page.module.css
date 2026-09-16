@@ -75,12 +75,13 @@
 
 /* ---------- Endpoint URL mono chip ---------- */
 .endpointUrl {
-  display: inline-block;
+  display: block;
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   color: var(--color-link);
   word-break: break-all;
   margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 /* ---------- SDK link list (prototype .card .links) ---------- */

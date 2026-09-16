@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage Foundation",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Brand | Lineage",
     description:
       "Download the Lineage brand kit: logo marks, colour and type tokens, and usage guidelines for people and AI.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 

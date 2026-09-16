@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage Foundation",

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage Foundation",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Lineage - The Living Economy",
     description:
       "Lineage is a Layer-1 for adaptive, trust-minimized smart markets.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 

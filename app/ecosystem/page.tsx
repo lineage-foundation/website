@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Accent, PageHead } from "@/components/ui/PageHead";
 import { Button, Card, LinkCta, Section, Tag } from "@/components/ui";
 import {
+  SDKS,
   SITE_ORIGIN,
   TWITTER_META,
   URL_DISCORD,
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage Foundation",
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     title: "Ecosystem | Lineage",
     description:
       "Wallets, network, and community around the Lineage Foundation. What exists today, with honest attribution.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 
@@ -277,33 +278,13 @@ export default function EcosystemPage() {
               balances, and node APIs in your language of choice.
             </p>
             <ul className={styles.sdkLinks}>
-              <li>
-                <a
-                  href="https://github.com/lineage-foundation/sdk-js"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  sdk-js
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/lineage-foundation/sdk-python"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  sdk-python
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/lineage-foundation/sdk-php"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  sdk-php
-                </a>
-              </li>
+              {SDKS.map((sdk) => (
+                <li key={sdk.repoUrl}>
+                  <a href={sdk.repoUrl} rel="noopener noreferrer" target="_blank">
+                    {sdk.repoUrl.split("/").pop()}
+                  </a>
+                </li>
+              ))}
             </ul>
             <Tag status="live">Published</Tag>
           </Card>
