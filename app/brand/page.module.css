@@ -125,3 +125,45 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-5);
 }
+
+.typeCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: var(--border-rule);
+  border-radius: var(--r-md);
+  transition: border-color var(--dur-base) var(--ease);
+}
+
+.typeCard:hover {
+  border-color: var(--color-border-strong);
+}
+
+.typeName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  font-weight: 500;
+  letter-spacing: var(--ls-heading);
+  color: var(--color-text);
+}
+
+.typeRole {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  color: var(--color-link);
+}
+
+.typeWeights {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+
+.typeCta {
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
