@@ -69,6 +69,7 @@ export default function BrandPage() {
           {brandKit.logos.map((logo) => (
             <Card key={logo.file} rail title={logo.file}>
               <span className={styles.logoTile}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- SVG brand marks are downloadable static assets, not photos to optimize */}
                 <img src={`/brand/${logo.file}`} alt={logo.file} className={styles.logoImg} />
               </span>
               <p className={styles.logoUse}>{logo.use}</p>
