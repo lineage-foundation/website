@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage logo",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     ...TWITTER_META,
     title: "Tokenomics | Lineage",
     description: "Token allocation, ARCO, and the distribution model.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 

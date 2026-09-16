@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/open-graph-lineage-1200x630.png",
+        url: "/images/open-graph-lineage-v2-1200x630.png",
         width: 1200,
         height: 630,
         alt: "Lineage Foundation",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "Developers | Lineage",
     description:
       "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",
-    images: ["/images/open-graph-lineage-1200x630.png"],
+    images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 
