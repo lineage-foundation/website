@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Accent, Button, Card, LinkCta, PageHead, Section } from "@/components/ui";
+import { Accent, Button, LinkCta, PageHead, Section } from "@/components/ui";
 import { SITE_ORIGIN, TWITTER_META } from "@/lib/constants";
 import brandKit from "@/public/brand/brand.json";
 
@@ -111,12 +111,14 @@ export default function BrandPage() {
         <div className={styles.typeGrid}>
           {[brandKit.typography.display, brandKit.typography.body, brandKit.typography.mono].map(
             (t) => (
-              <Card key={t.family} rail kicker={t.role} title={t.family}>
-                <p>Weights: {t.weights.join(", ")}</p>
-                <div className={styles.cardCta}>
+              <div key={t.family} className={styles.typeCard}>
+                <h3 className={styles.typeName}>{t.family}</h3>
+                <span className={styles.typeRole}>{t.role}</span>
+                <p className={styles.typeWeights}>Weights: {t.weights.join(", ")}</p>
+                <div className={styles.typeCta}>
                   <LinkCta href={t.url}>Google Fonts</LinkCta>
                 </div>
-              </Card>
+              </div>
             ),
           )}
         </div>
