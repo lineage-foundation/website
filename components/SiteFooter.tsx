@@ -67,6 +67,9 @@ export function SiteFooter() {
               <li>
                 <Link href="/research">Research</Link>
               </li>
+              <li>
+                <Link href="/brand">Brand kit</Link>
+              </li>
             </ul>
           </section>
 
