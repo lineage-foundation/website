@@ -67,18 +67,17 @@ export default function BrandPage() {
         </p>
         <div className={styles.logoGrid}>
           {brandKit.logos.map((logo) => (
-            <Card key={logo.file} rail title={logo.file}>
+            <div key={logo.file} className={styles.logoCard}>
               <span className={styles.logoTile}>
                 {/* eslint-disable-next-line @next/next/no-img-element -- SVG brand marks are downloadable static assets, not photos to optimize */}
                 <img src={`/brand/${logo.file}`} alt={`Lineage mark — ${logo.use}`} className={styles.logoImg} />
               </span>
+              <code className={styles.logoName}>{logo.file}</code>
               <p className={styles.logoUse}>{logo.use}</p>
-              <div className={styles.cardCta}>
-                <a href={`/brand/${logo.file}`} download className={styles.download}>
-                  Download SVG
-                </a>
-              </div>
-            </Card>
+              <a href={`/brand/${logo.file}`} download className={styles.download}>
+                Download SVG
+              </a>
+            </div>
           ))}
         </div>
       </Section>

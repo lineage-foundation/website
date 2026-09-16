@@ -25,6 +25,28 @@
   gap: var(--space-5);
 }
 
+.logoCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: var(--border-rule);
+  border-radius: var(--r-md);
+  transition: border-color var(--dur-base) var(--ease);
+}
+
+.logoCard:hover {
+  border-color: var(--color-border-strong);
+}
+
+.logoName {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-link);
+  word-break: break-all;
+}
+
 .logoTile {
   display: flex;
   align-items: center;
@@ -33,7 +55,6 @@
   background: var(--color-bg-canvas);
   border: var(--border-rule);
   border-radius: var(--r-md);
-  margin-bottom: var(--space-4);
 }
 
 .logoImg {
@@ -48,6 +69,7 @@
 }
 
 .download {
+  margin-top: auto;
   color: var(--color-link);
   font-family: var(--font-mono);
   font-size: var(--fs-small);
