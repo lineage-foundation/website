@@ -12,9 +12,15 @@ export const URL_GITHUB_ORG = "https://github.com/lineage-foundation";
 export const URL_YOUTUBE_VIDEO =
   "https://www.youtube.com/watch?v=Wsbmx_SQjzc";
 
+/** Community chat. User-facing label: "Discord". */
+export const URL_DISCORD = "https://discord.gg/5cwn7jZ7G";
+
+/** Social. User-facing label: "X"; handle @lineagefndn. */
+export const URL_X = "https://x.com/lineagefndn";
+
 /**
  * Public research and protocol discussion (Discourse). User-facing copy should
- * say **Fremen Forum**; use “Discourse” only for disambiguation (e.g. in a
+ * say **Fremen Forum**; use "Discourse" only for disambiguation (e.g. in a
  * `title` or once in a sentence).
  */
 export const URL_DISCOURSE_RESEARCH = "https://lineage.discourse.group/";

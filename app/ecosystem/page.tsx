@@ -4,11 +4,13 @@ import { Accent, PageHead } from "@/components/ui/PageHead";
 import { Button, Card, LinkCta, Section, Tag } from "@/components/ui";
 import {
   SITE_ORIGIN,
+  URL_DISCORD,
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
   URL_NETWORK,
   URL_PEERSTONE,
   URL_SE3KER,
+  URL_X,
 } from "@/lib/constants";
 
 import styles from "./page.module.css";
@@ -207,6 +209,41 @@ export default function EcosystemPage() {
             </p>
             <div className={styles.cardCta}>
               <LinkCta href={URL_GITHUB_ORG}>Browse the repos</LinkCta>
+            </div>
+          </Card>
+
+          <Card
+            rail
+            title="Discord"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+                <path d="M8 8.5a13 13 0 0 1 8 0M7.5 16a13 13 0 0 0 9 0M9 12h.01M15 12h.01M8 7l-.5-1M16 7l.5-1M6 8c-1.5 3-1.5 6-1 9 1.2 1 2.6 1.6 4 2l.8-1.6M18 8c1.5 3 1.5 6 1 9-1.2 1-2.6 1.6-4 2l-.8-1.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            }
+          >
+            <p>
+              Real-time community chat: questions, building, and coordination
+              with the Lineage community.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_DISCORD}>Join the Discord</LinkCta>
+            </div>
+          </Card>
+
+          <Card
+            rail
+            title="X"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+                <path d="M4 4l16 16M20 4L4 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            }
+          >
+            <p>
+              Announcements and updates from the Lineage Foundation.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_X}>Follow @lineagefndn</LinkCta>
             </div>
           </Card>
         </div>

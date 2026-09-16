@@ -56,6 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@lineagefndn",
+    creator: "@lineagefndn",
   },
   icons: {
     icon: [

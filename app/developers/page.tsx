@@ -17,6 +17,7 @@ import {
   DOCS_STORAGE_API_ORIGIN,
   SDKS,
   SITE_ORIGIN,
+  URL_DISCORD,
   URL_GITHUB_ORG,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
@@ -267,6 +268,16 @@ export default function DevelopersPage() {
             </p>
             <div className={styles.cardCta}>
               <LinkCta href={URL_GITHUB_ORG}>Open GitHub repos</LinkCta>
+            </div>
+          </Card>
+
+          <Card rail title="Discord">
+            <p>
+              Real-time chat with the community and the team for build questions
+              and quick help.
+            </p>
+            <div className={styles.cardCta}>
+              <LinkCta href={URL_DISCORD}>Join the Discord</LinkCta>
             </div>
           </Card>
         </div>
