@@ -1,0 +1,166 @@
+{
+  "name": "Lineage",
+  "generatedFrom": "app/globals.css :root (OKLCH source of truth)",
+  "colors": [
+    {
+      "token": "--color-bg-canvas",
+      "role": "Canvas — deepest surface",
+      "oklch": "oklch(13% 0.018 200)",
+      "hex": "#01090a"
+    },
+    {
+      "token": "--color-bg",
+      "role": "Background",
+      "oklch": "oklch(15% 0.018 200)",
+      "hex": "#030d0e"
+    },
+    {
+      "token": "--color-bg-raised",
+      "role": "Raised background",
+      "oklch": "oklch(18% 0.02 200)",
+      "hex": "#061415"
+    },
+    {
+      "token": "--color-surface",
+      "role": "Surface",
+      "oklch": "oklch(20% 0.022 200)",
+      "hex": "#09191a"
+    },
+    {
+      "token": "--color-surface-2",
+      "role": "Surface (2)",
+      "oklch": "oklch(25% 0.024 198)",
+      "hex": "#132526"
+    },
+    {
+      "token": "--color-text",
+      "role": "Text",
+      "oklch": "oklch(95% 0.01 195)",
+      "hex": "#e7f1f0"
+    },
+    {
+      "token": "--color-text-muted",
+      "role": "Text — muted",
+      "oklch": "oklch(73% 0.016 195)",
+      "hex": "#9dabab"
+    },
+    {
+      "token": "--color-text-subtle",
+      "role": "Text — subtle",
+      "oklch": "oklch(60% 0.016 195)",
+      "hex": "#768383"
+    },
+    {
+      "token": "--color-border",
+      "role": "Border",
+      "oklch": "oklch(29% 0.022 200)",
+      "hex": "#1e2f30"
+    },
+    {
+      "token": "--color-border-strong",
+      "role": "Border — strong",
+      "oklch": "oklch(38% 0.026 200)",
+      "hex": "#324748"
+    },
+    {
+      "token": "--color-accent",
+      "role": "Emerald — action",
+      "oklch": "oklch(82% 0.16 165)",
+      "hex": "#37e4aa"
+    },
+    {
+      "token": "--color-accent-strong",
+      "role": "Emerald — strong",
+      "oklch": "oklch(86% 0.15 167)",
+      "hex": "#55f0bc"
+    },
+    {
+      "token": "--color-link",
+      "role": "Cyan — interaction",
+      "oklch": "oklch(78% 0.12 218)",
+      "hex": "#47caea"
+    },
+    {
+      "token": "--color-link-hover",
+      "role": "Cyan — hover",
+      "oklch": "oklch(85% 0.11 218)",
+      "hex": "#70dffe"
+    },
+    {
+      "token": "--color-success",
+      "role": "Success",
+      "oklch": "oklch(83% 0.17 150)",
+      "hex": "#68e68a"
+    },
+    {
+      "token": "--color-warning",
+      "role": "Warning",
+      "oklch": "oklch(82% 0.14 80)",
+      "hex": "#f3b94c"
+    },
+    {
+      "token": "--color-danger",
+      "role": "Danger",
+      "oklch": "oklch(68% 0.18 18)",
+      "hex": "#f3606d"
+    }
+  ],
+  "typography": {
+    "display": {
+      "family": "Space Grotesk",
+      "role": "Display, headings, buttons, wordmark (600, -0.02em)",
+      "weights": [
+        500,
+        600,
+        700
+      ],
+      "url": "https://fonts.google.com/specimen/Space+Grotesk"
+    },
+    "body": {
+      "family": "Inter",
+      "role": "Body text",
+      "weights": [
+        400,
+        500,
+        600
+      ],
+      "url": "https://fonts.google.com/specimen/Inter"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "role": "Code, data, endpoint URLs",
+      "weights": [
+        400,
+        500
+      ],
+      "url": "https://fonts.google.com/specimen/JetBrains+Mono"
+    }
+  },
+  "logos": [
+    {
+      "file": "lineage-mark.svg",
+      "use": "Primary two-blade mark (use >=24px)"
+    },
+    {
+      "file": "lineage-mark-mono.svg",
+      "use": "One-colour knockout (print/etch/watermark)"
+    },
+    {
+      "file": "lineage-icon.svg",
+      "use": "Plated app icon (app store / touch icon)"
+    },
+    {
+      "file": "lineage-icon-min.svg",
+      "use": "16px minimum glyph (converged centre)"
+    },
+    {
+      "file": "favicon.svg",
+      "use": "Favicon tile"
+    }
+  ],
+  "links": {
+    "site": "https://lineage.foundation",
+    "guidelines": "https://lineage.foundation/brand/guidelines.md",
+    "brandDocs": "https://lineage.foundation/brand"
+  }
+}
