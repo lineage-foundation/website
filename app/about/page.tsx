@@ -137,12 +137,14 @@ export default function AboutPage() {
           <Person
             name="Jesse Benton"
             role="Member"
+            photo="/team/jesse-benton.jpg"
             monogram="JB"
             bio="Jesse is passionate about decentralization and was member of the original Bitcoin Center NYC, the first live crypto trading floor, and an advisor to the ZAP Protocol. He was also campaign manager for Ron Paul, Senator Rand Paul and Senate Leader Mitch McConnell."
           />
           <Person
             name="Jamie Gilchrist"
             role="Member"
+            photo="/team/jamie-gilchrist.jpg"
             monogram="JG"
             linkedIn="https://www.linkedin.com/in/jamie-gilchrist-198a6585/"
             bio="Jamie is CTO at Tunestamp and an engineer and researcher working at the intersection of distributed systems and cryptography. His work spans blockchain, applied cryptography, and fintech, from technical architecture through hands-on engineering leadership."
