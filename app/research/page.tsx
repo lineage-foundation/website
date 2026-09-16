@@ -12,6 +12,7 @@ import {
 } from "@/components/ui";
 import {
   SITE_ORIGIN,
+  TWITTER_META,
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
   URL_ZENODO_WHITEPAPER,
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Research | Lineage",
     description:
       "Zenodo publications and the Fremen Forum for Lineage research.",

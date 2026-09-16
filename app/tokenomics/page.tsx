@@ -10,7 +10,7 @@ import {
   Section,
   Table,
 } from "@/components/ui";
-import { SITE_ORIGIN, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
 import { ZENODO_P2P_ELECTRONIC_CASH } from "@/lib/research-zenodo";
 import styles from "./page.module.css";
 
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Tokenomics | Lineage",
     description: "Token allocation, ARCO, and the distribution model.",
     images: ["/images/open-graph-lineage-1200x630.png"],

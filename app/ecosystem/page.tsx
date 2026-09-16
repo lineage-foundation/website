@@ -4,6 +4,7 @@ import { Accent, PageHead } from "@/components/ui/PageHead";
 import { Button, Card, LinkCta, Section, Tag } from "@/components/ui";
 import {
   SITE_ORIGIN,
+  TWITTER_META,
   URL_DISCORD,
   URL_DISCOURSE_RESEARCH,
   URL_GITHUB_ORG,
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Ecosystem | Lineage",
     description:
       "Wallets, network, and community around the Lineage Foundation. What exists today, with honest attribution.",

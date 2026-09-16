@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Accent, Button, Container, PageHead } from "@/components/ui";
-import { SITE_ORIGIN, URL_GITHUB_ORG } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META, URL_GITHUB_ORG } from "@/lib/constants";
 import { spec } from "@/lib/openapi/spec";
 
 import { ApiReference } from "./ApiReference";
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "API reference | Lineage",
     description:
       "Reference for the Lineage /v1 REST API, grouped by the node that serves each endpoint.",

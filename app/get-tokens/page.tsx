@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { GetTokensClient } from "@/components/get-tokens/GetTokensClient";
 import { Accent, PageHead } from "@/components/ui/PageHead";
-import { SITE_ORIGIN } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Developer faucet | Lineage",
     description:
       "Request a small amount of test LNGX from the developer faucet to build and integrate against the Lineage network.",

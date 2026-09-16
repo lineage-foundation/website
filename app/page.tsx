@@ -6,7 +6,7 @@ import { FeatureGrid } from "@/components/home/FeatureGrid";
 import { GetStartedGrid } from "@/components/home/GetStartedGrid";
 import { Hero } from "@/components/home/Hero";
 import { LinkCta, Prose, Section } from "@/components/ui";
-import { SITE_ORIGIN, URL_YOUTUBE_VIDEO } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META, URL_YOUTUBE_VIDEO } from "@/lib/constants";
 
 import styles from "./page.module.css";
 
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Lineage - The Living Economy",
     description:
       "Lineage is a Layer-1 for adaptive, trust-minimized smart markets.",

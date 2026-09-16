@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Accent, Button, Card, LinkCta, PageHead, Section } from "@/components/ui";
-import { SITE_ORIGIN } from "@/lib/constants";
+import { SITE_ORIGIN, TWITTER_META } from "@/lib/constants";
 import brandKit from "@/public/brand/brand.json";
 
 import styles from "./page.module.css";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Brand | Lineage",
     description:
       "Download the Lineage brand kit: logo marks, colour and type tokens, and usage guidelines for people and AI.",
@@ -70,7 +70,7 @@ export default function BrandPage() {
             <Card key={logo.file} rail title={logo.file}>
               <span className={styles.logoTile}>
                 {/* eslint-disable-next-line @next/next/no-img-element -- SVG brand marks are downloadable static assets, not photos to optimize */}
-                <img src={`/brand/${logo.file}`} alt={logo.file} className={styles.logoImg} />
+                <img src={`/brand/${logo.file}`} alt={`Lineage mark — ${logo.use}`} className={styles.logoImg} />
               </span>
               <p className={styles.logoUse}>{logo.use}</p>
               <div className={styles.cardCta}>

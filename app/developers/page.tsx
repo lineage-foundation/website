@@ -17,6 +17,7 @@ import {
   DOCS_STORAGE_API_ORIGIN,
   SDKS,
   SITE_ORIGIN,
+  TWITTER_META,
   URL_DISCORD,
   URL_GITHUB_ORG,
   URL_MCP_SERVER,
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Developers | Lineage",
     description:
       "Build on Lineage: evaluate the protocol, clone the repos, and prototype against a Layer-1 where market policy is programmable.",

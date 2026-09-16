@@ -102,3 +102,11 @@ export const DOCS_API_BASE_URL = DOCS_MEMPOOL_API_ORIGIN;
 export const URL_SE3KER = "https://se3ker.com/";
 
 export const URL_PEERSTONE = "https://www.peerstone.io/";
+
+/** Shared Twitter card metadata. Spread into each page's `twitter` block so the
+ *  @lineagefndn handle survives Next.js's per-segment metadata replacement. */
+export const TWITTER_META = {
+  card: "summary_large_image",
+  site: "@lineagefndn",
+  creator: "@lineagefndn",
+} as const;

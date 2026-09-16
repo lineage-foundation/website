@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 
 import { Button, CodeBlock, Container, Eyebrow, LinkCta, Table } from "@/components/ui";
 import { DocsScroll } from "@/components/docs/DocsScroll";
-import { SITE_ORIGIN, URL_EXPLORER, URL_GITHUB_ORG, URL_MCP_SERVER } from "@/lib/constants";
+import {
+  SITE_ORIGIN,
+  TWITTER_META,
+  URL_EXPLORER,
+  URL_GITHUB_ORG,
+  URL_MCP_SERVER,
+} from "@/lib/constants";
 
 import styles from "./docs.module.css";
 
@@ -28,7 +34,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_META,
     title: "Documentation | Lineage",
     description:
       "Lineage documentation: node concepts, tutorials, and the public HTTP API reference for the mempool, storage, and miner subsystems.",
