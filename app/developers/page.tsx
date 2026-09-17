@@ -21,6 +21,7 @@ import {
   URL_DISCORD,
   URL_GITHUB_ORG,
   URL_MCP_SERVER,
+  URL_SKILLS,
   URL_ZENODO_WHITEPAPER,
 } from "@/lib/constants";
 
@@ -246,11 +247,16 @@ export default function DevelopersPage() {
         >
           Building an AI agent? A hosted Model Context Protocol server exposes
           balances, transactions, keypair and seed generation, block and
-          transaction lookups, supply, and node health as tools.
+          transaction lookups, supply, and node health as tools &mdash; and the{" "}
+          <code>lineage</code> AI Skills plugin makes Claude Code and Codex
+          expert in building on Lineage.
         </p>
         <div className={styles.cardCta}>
           <LinkCta href={URL_MCP_SERVER}>
             MCP server · {URL_MCP_SERVER.replace("https://", "")}
+          </LinkCta>
+          <LinkCta href={URL_SKILLS}>
+            AI Skills · {URL_SKILLS.replace("https://", "")}
           </LinkCta>
         </div>
       </Section>
