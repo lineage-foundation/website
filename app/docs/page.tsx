@@ -8,6 +8,7 @@ import {
   URL_EXPLORER,
   URL_GITHUB_ORG,
   URL_MCP_SERVER,
+  URL_SKILLS,
 } from "@/lib/constants";
 
 import styles from "./docs.module.css";
@@ -103,6 +104,7 @@ export default function DocsPage() {
                 <ul>
                   <li><a href="#api-reference">API reference</a></li>
                   <li><a href="#mcp-server">MCP server</a></li>
+                  <li><a href="#ai-skills">AI Skills</a></li>
                 </ul>
 
                 <h2>SDKs &amp; tutorials</h2>
@@ -325,6 +327,48 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                   <a href={URL_MCP_SERVER} target="_blank" rel="noopener noreferrer">
                     <code>{URL_MCP_SERVER.replace("https://", "")}</code>
                   </a>
+                </p>
+              </article>
+
+              {/* ============ AI SKILLS ============ */}
+              <article id="ai-skills" className={styles.prose}>
+                <h2>AI Skills</h2>
+                <p>
+                  The <code>lineage</code> plugin is a set of packaged skills that make an AI
+                  coding agent an expert in Lineage. It works in both{" "}
+                  <a href="https://claude.com/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>{" "}
+                  and Codex. There is nothing to invoke by hand: as you work on a Lineage task,
+                  the agent automatically pulls in the skill that matches it.
+                </p>
+                <p>
+                  The skills span three tracks &mdash; <strong>fundamentals</strong> (the base
+                  every other skill assumes), <strong>building on Lineage</strong> (SDK usage,
+                  the <code>/v1</code> API, two-way DRUID payments, and standing up a dev node),
+                  and <strong>core contributing</strong> (working inside the node codebase). The
+                  full catalogue lives in the{" "}
+                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">skills repository</a>.
+                  No credentials are needed, and the skills don&rsquo;t require the MCP server.
+                </p>
+
+                <h3>Install in Claude Code</h3>
+                <p>
+                  Add the marketplace, then install the <code>lineage</code> plugin from the{" "}
+                  <code>/plugin</code> menu.
+                </p>
+                <CodeBlock lang="shell">{`# In Claude Code
+/plugin marketplace add lineage-foundation/skills
+
+# then open the plugin menu and install "lineage"
+/plugin`}</CodeBlock>
+
+                <h3>Install in Codex</h3>
+                <p>
+                  The plugin also ships a Codex manifest. Register the{" "}
+                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">
+                    repository&rsquo;s generated <code>.codex-plugin/</code> directory
+                  </a>{" "}
+                  following your Codex environment&rsquo;s plugin-setup steps. A one-line
+                  Codex command isn&rsquo;t published yet.
                 </p>
               </article>
 
