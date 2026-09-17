@@ -363,10 +363,12 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
 
                 <h3>Install in Codex</h3>
                 <p>
-                  The plugin also ships a Codex manifest. Register the repository&rsquo;s
-                  generated <code>.codex-plugin/</code> directory following the{" "}
-                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">Codex plugin setup</a>{" "}
-                  for your environment. A one-line Codex command isn&rsquo;t published yet.
+                  The plugin also ships a Codex manifest. Register the{" "}
+                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">
+                    repository&rsquo;s generated <code>.codex-plugin/</code> directory
+                  </a>{" "}
+                  following your Codex environment&rsquo;s plugin-setup steps. A one-line
+                  Codex command isn&rsquo;t published yet.
                 </p>
               </article>
 

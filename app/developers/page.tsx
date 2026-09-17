@@ -247,7 +247,7 @@ export default function DevelopersPage() {
         >
           Building an AI agent? A hosted Model Context Protocol server exposes
           balances, transactions, keypair and seed generation, block and
-          transaction lookups, supply, and node health as tools &mdash; and the{" "}
+          transaction lookups, supply, and node health as tools. And the{" "}
           <code>lineage</code> AI Skills plugin makes Claude Code and Codex
           expert in building on Lineage.
         </p>
