@@ -13,6 +13,7 @@ import {
   URL_NETWORK,
   URL_PEERSTONE,
   URL_SE3KER,
+  URL_SKILLS,
   URL_X,
 } from "@/lib/constants";
 
@@ -258,9 +259,9 @@ export default function EcosystemPage() {
         heading="Build with published tooling"
       >
         <p className={styles.sectionProse}>
-          Client SDKs and a hosted MCP server are live today. LLM agent skills
-          are on the way, listed here with what they expose, marked clearly
-          until they ship.
+          Client SDKs, a hosted MCP server, and AI agent skills are live today.
+          Applications are on the way, listed here with what they expose, marked
+          clearly until they ship.
         </p>
         <div className={styles.gridMoat}>
           {/* 1 — Client SDKs (live) */}
@@ -317,10 +318,10 @@ export default function EcosystemPage() {
             <Tag status="live">Live</Tag>
           </Card>
 
-          {/* 3 — LLM agent skills (coming soon) */}
+          {/* 3 — AI agent skills (live) */}
           <Card
             rail
-            title="LLM agent skills"
+            title="AI agent skills"
             icon={
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
                 <path d="M12 3l2.2 4.6 5 .7-3.6 3.6.9 5-4.5-2.4-4.5 2.4.9-5L5.8 8.3l5-.7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -328,11 +329,20 @@ export default function EcosystemPage() {
             }
           >
             <p>
-              Packaged skills that teach AI coding agents how to build on
-              Lineage: SDK usage, node APIs, and common transaction flows,
-              ready to drop into agent workflows.
+              The <code>lineage</code> plugin: packaged skills that make an AI
+              coding agent (Claude Code or Codex) an expert on Lineage &mdash;
+              SDK usage, the /v1 API, two-way payments, and running a node.
+              Pulled in automatically as you work.
             </p>
-            <Tag status="soon">Coming soon</Tag>
+            <a
+              className={styles.endpointUrl}
+              href={URL_SKILLS}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {URL_SKILLS.replace("https://", "")}
+            </a>
+            <Tag status="live">Live</Tag>
           </Card>
 
           {/* 4 — Applications (coming soon) */}

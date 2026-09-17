@@ -96,6 +96,9 @@ export const DOCS_MINER_API_ORIGIN = "https://miner.lineage.to" as const;
 /** Hosted Model Context Protocol endpoint for AI agents. */
 export const URL_MCP_SERVER = "https://mcp.lineage.to";
 
+/** AI coding-agent skills plugin (Claude Code + Codex). */
+export const URL_SKILLS = "https://github.com/lineage-foundation/skills";
+
 /** Mempool (default example base); prefer subsystem-specific constants in new code. */
 export const DOCS_API_BASE_URL = DOCS_MEMPOOL_API_ORIGIN;
 
