@@ -134,9 +134,9 @@ export default function TechnologyPage() {
           <Card rail kicker="02" title="Intelligence at layer-1">
             <p>
               GPU proof-of-work does double duty: it secures the chain and
-              supplies the compute for analytics. A dedicated{" "}
-              <code>op-ai-evaluate</code> opcode runs AI evaluation directly
-              over transaction data, inside consensus.
+              supplies the compute for analytics. A planned{" "}
+              <code>op-ai-evaluate</code> opcode will run AI evaluation
+              directly over transaction data, inside consensus.
             </p>
           </Card>
           <Card rail kicker="03" title="Real-world data, no oracles">
@@ -290,7 +290,7 @@ broadcastToFarmers(FSM_opt.policy());`,
       >
         <p className={styles.sectionProse}>
           Prime Radiant Consensus is Lineage&rsquo;s consensus mechanism,
-          technically{" "}
+          built on{" "}
           <strong>Dynamic Proof of Weighted Work (DPoWW)</strong>, an evolution
           of ecoPoW. It secures not only transaction ordering but the integrity
           of adaptive market evolution, shifting between fully distributed and
@@ -365,8 +365,8 @@ broadcastToFarmers(FSM_opt.policy());`,
             <tr>
               <td>Mempool</td>
               <td>
-                Verifies inbound transactions and builds the nested Merkle root
-                for the next block.
+                Verifies inbound transactions and builds a Merkle root over
+                the block&rsquo;s transactions.
               </td>
               <td style={{ fontFamily: "var(--font-mono)", fontVariantNumeric: "tabular-nums" }}>
                 {DOCS_MEMPOOL_API_ORIGIN}
