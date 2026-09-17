@@ -94,7 +94,8 @@ export default function DocsPage() {
                   <li><a href="#c-keys">Keys, addresses &amp; wallets</a></li>
                   <li><a href="#c-transactions">Transactions</a></li>
                   <li><a href="#c-scripts">Scripts</a></li>
-                  <li><a href="#c-two-way">Two-way transactions</a></li>
+                  <li><a href="#c-two-way">Two-way (DRUID) payments</a></li>
+                  <li><a href="#c-valence">The valence relay</a></li>
                 </ul>
 
                 <h2>Concepts &mdash; Network &amp; consensus</h2>
@@ -488,12 +489,137 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
               </article>
 
               <article id="c-two-way" className={styles.prose}>
-                <h2>Two-way transactions</h2>
+                <h2>Two-way (DRUID) payments</h2>
                 <p>
-                  A two-way transaction lets two parties each contribute compatible halves to a single
-                  block, so an exchange or payment clears atomically without a smart-contract runtime.
-                  It is the mechanism for flows where both sides must sign before either side&apos;s funds
-                  move. Wallets and SDKs hide most of the wiring.
+                  A two-way payment is an <strong>atomic swap</strong>: two transaction halves,
+                  built and submitted independently by each party, either settle in the same
+                  block or neither does. There is no separate swap primitive at the protocol
+                  level &mdash; a two-way payment is an ordinary transaction (see{" "}
+                  <a href="#c-transactions">Transactions</a>) that additionally carries a{" "}
+                  <code>druid_info</code> field. As covered there, this is what actually signals
+                  a two-way payment &mdash; not a particular <code>version</code> number.
+                </p>
+                <p>
+                  <code>druid_info</code> is <code>Some(DdeValues)</code>, where:
+                </p>
+                <CodeBlock lang="rust">{`DdeValues {
+    druid: String,                        // shared id both halves match on
+    participants: usize,
+    expectations: Vec<DruidExpectation {
+        from: String,
+        to: String,
+        asset: Asset,
+    }>,
+    genesis_hash: Option<String>,
+}`}</CodeBlock>
+                <p>
+                  <code>druid_info</code> is <strong>unsigned</strong>: it is one of the fields
+                  excluded from the signable preimage described in{" "}
+                  <a href="#c-keys">Keys, addresses &amp; wallets</a>. So a two-way payment
+                  cannot be matched by checking a signature over the DRUID, and it is not
+                  matched by any version field either &mdash; matching is <strong>structural</strong>.
+                  For a given DRUID, the node collects every transaction carrying that
+                  <code>druid_info.druid</code> and checks that each declared expectation
+                  (<code>from</code>/<code>to</code>/<code>asset</code>) actually appears among
+                  the real outputs of that transaction set. Only if every expectation on both
+                  sides is met does the swap settle; matching halves sit in the mempool&apos;s
+                  DRUID pool until then, so a two-way payment that never gets its counterpart
+                  simply never clears.
+                </p>
+                <p>
+                  <strong>Flow (sdk-js)</strong>: the initiator calls{" "}
+                  <code>make2WayPayment</code>, which generates a DRUID, builds and signs its
+                  own transaction half, and drops an offer &mdash; the DRUID plus both parties&apos;
+                  expectations &mdash; into the counterparty&apos;s mailbox on{" "}
+                  <a href="#c-valence">valence</a>. The counterparty polls with{" "}
+                  <code>fetchPending2WayPayment</code>, and on <code>accept2WayPayment</code>{" "}
+                  builds its own matching half, submits it to the mempool, and marks the offer
+                  accepted on valence so the initiator&apos;s side can be sent in turn.
+                </p>
+                <CodeBlock lang="javascript">{`// Party A — offers to swap
+const offer = await wallet.make2WayPayment(
+  partyBAddress,     // Party B's address
+  sendingAsset,      // what A sends
+  receivingAsset,    // what A expects back
+  allKeypairs,
+  receiveKeypair,    // where A's incoming asset lands
+);
+const { druid } = offer.content.make2WayPaymentResponse;
+
+// Party B — checks its mailbox, then accepts
+const pending = await wallet.fetchPending2WayPayment(keypair, allEncryptedTxs);
+const details = pending.content.fetchPending2WResponse[druid];
+await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
+                <p>
+                  Offers ride on <a href="#c-valence">valence</a>, which is E2E-encrypted by
+                  design &mdash; but the reference sdk-js client currently posts the offer
+                  payload (the DRUID, both expectations, and status) to valence as{" "}
+                  <strong>plain JSON, unencrypted</strong>. Treat two-way offers relayed by the
+                  current SDK as visible to anyone who can read that mailbox entry, not as
+                  confidential.
+                </p>
+              </article>
+
+              <article id="c-valence" className={styles.prose}>
+                <h2>The valence relay</h2>
+                <p>
+                  <a href="https://github.com/lineage-foundation/valence" target="_blank" rel="noopener noreferrer">Valence</a>{" "}
+                  is a generic, opaque, end-to-end-encrypted relay for exchanging data between
+                  addresses &mdash; an axum service backed by Redis. It carries{" "}
+                  <a href="#c-two-way">two-way payment</a> offers, but it has no model of what a
+                  &ldquo;payment&rdquo; or a &ldquo;DRUID&rdquo; is: it stores opaque JSON blobs
+                  under a caller-supplied <code>id</code>, one mailbox per address, and returns
+                  them unchanged on read. Clients are expected to encrypt the data they store for
+                  the recipient before sending it, so valence itself never has to see plaintext.
+                </p>
+                <p>
+                  A <strong>mailbox is an address</strong>, and entries within it are keyed by
+                  whatever <code>id</code> the caller chooses &mdash; a DRUID is a common choice
+                  for two-way offers, but it is only ever that: an example id, not something
+                  valence understands. An entire mailbox expires after a TTL (600 seconds by
+                  default, refreshed on every write), so unread offers eventually disappear
+                  rather than accumulating forever.
+                </p>
+                <p>
+                  Every route under <code>/messages</code> requires three headers: <code>address</code>{" "}
+                  (the mailbox being read or written &mdash; not necessarily the caller&apos;s own),{" "}
+                  <code>public_key</code>, and <code>signature</code>, an{" "}
+                  <code>ed25519</code> signature over the raw UTF-8 bytes of the{" "}
+                  <code>address</code> string. Verification is deliberately{" "}
+                  <strong>verify-only</strong>: valence checks that <code>signature</code> is
+                  valid for <code>address</code> under <code>public_key</code>, but does not
+                  require <code>address</code> to be derived from <code>public_key</code>. That is
+                  by design, not an oversight &mdash; a sender addresses an offer to a{" "}
+                  <em>recipient&apos;s</em> mailbox while signing with their <em>own</em> key
+                  (exactly what <code>make2WayPayment</code> does above), so binding the two would
+                  reject every send. Confidentiality comes from client-side E2E encryption, not
+                  from mailbox access control.
+                </p>
+                <CodeBlock lang="json">{`{
+  "address": "76e…dd6",
+  "public_key": "a4c…e45",
+  "signature": "b9f…506"
+}`}</CodeBlock>
+                <Table>
+                  <thead>
+                    <tr><th scope="col">Route</th><th scope="col">Effect</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td className="num">POST /messages</td><td>Store <code>{`{ id, data }`}</code> in the caller-addressed mailbox; <code>201</code> with <code>{`{ id }`}</code>. Posting an existing <code>id</code> overwrites it.</td></tr>
+                    <tr><td className="num">GET /messages</td><td>The whole mailbox as an <code>id &rarr; data</code> map.</td></tr>
+                    <tr><td className="num">GET /messages/{`{id}`}</td><td>A single entry as <code>{`{ id, data }`}</code>, or <code>404</code>.</td></tr>
+                    <tr><td className="num">DELETE /messages/{`{id}`}</td><td>Removes one entry; <code>204</code>.</td></tr>
+                    <tr><td className="num">DELETE /messages</td><td>Clears the whole mailbox; <code>204</code>.</td></tr>
+                    <tr><td className="num">GET /healthz</td><td>Unauthenticated liveness check.</td></tr>
+                  </tbody>
+                </Table>
+                <p>
+                  Valence only stores and returns whatever JSON it is given &mdash; it does not
+                  know a two-way offer from any other message. The <em>pending &rarr; accepted</em>{" "}
+                  lifecycle described in <a href="#c-two-way">Two-way (DRUID) payments</a> (the{" "}
+                  <code>status</code> field, matching a DRUID back to a locally-encrypted
+                  transaction, deciding when to submit to the mempool) is logic that lives
+                  entirely in the SDK and wallet, not in valence.
                 </p>
               </article>
 
