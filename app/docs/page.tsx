@@ -88,15 +88,24 @@ export default function DocsPage() {
                   <li><a href="#quick-start">API quick start</a></li>
                 </ul>
 
-                <h2>Concepts</h2>
+                <h2>Concepts &mdash; Data &amp; transactions</h2>
+                <ul>
+                  <li><a href="#c-data-model">Data model</a></li>
+                  <li><a href="#c-keys">Keys, addresses &amp; wallets</a></li>
+                  <li><a href="#c-transactions">Transactions</a></li>
+                  <li><a href="#c-scripts">Scripts</a></li>
+                  <li><a href="#c-two-way">Two-way (DRUID) payments</a></li>
+                  <li><a href="#c-valence">The valence relay</a></li>
+                </ul>
+
+                <h2>Concepts &mdash; Network &amp; consensus</h2>
                 <ul>
                   <li><a href="#c-node-types">Node types</a></li>
                   <li><a href="#c-mempool">Mempool node</a></li>
                   <li><a href="#c-storage">Storage node</a></li>
                   <li><a href="#c-miner">Miner node</a></li>
-                  <li><a href="#c-block-mining">Block mining</a></li>
-                  <li><a href="#c-transactions">Transactions</a></li>
-                  <li><a href="#c-two-way">Two-way transactions</a></li>
+                  <li><a href="#c-block-mining">Consensus &amp; the block round</a></li>
+                  <li><a href="#c-blocks">Blocks &amp; headers</a></li>
                   <li><a href="#c-unicorn">UNiCORN randomness</a></li>
                 </ul>
 
@@ -197,101 +206,557 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                 </div>
               </article>
 
-              {/* ============ CONCEPTS ============ */}
-              <article id="c-node-types" className={styles.prose}>
-                <h2>Node types</h2>
+              {/* ============ CONCEPTS: DATA & TRANSACTIONS ============ */}
+              <article id="c-data-model" className={styles.prose}>
+                <h2>Data model</h2>
                 <p>
-                  Lineage separates three roles so that <em>who assembles a block</em>, <em>who stores
-                  history</em>, and <em>who expends hashrate this round</em> are independent jobs.
-                  <strong>Mempool nodes</strong> collect transactions and coordinate validation;
-                  <strong>miner nodes</strong> perform proof-of-work to produce block candidates and
-                  earn rewards; <strong>storage nodes</strong> retain full chain history and serve
-                  reads to clients. The split enables fast settlement, geographic resilience, and
-                  specialised hardware without forcing archival storage on every participant.
+                  Lineage is a <strong>UTXO ledger</strong>, in the Bitcoin lineage rather than an
+                  account/EVM model. There is no stored account balance anywhere in the protocol;
+                  a balance is a view computed over the set of transaction outputs an address has
+                  not yet spent. Every payment consumes one or more existing outputs and creates
+                  new ones for the next spend to reference (see <a href="#c-transactions">Transactions</a>).
+                </p>
+                <p>
+                  Every value a transaction moves is an <code>Asset</code>, and an asset is one of
+                  exactly two kinds:
+                </p>
+                <ul>
+                  <li><code>Token(amount)</code> &mdash; a plain integer quantity of the native token.</li>
+                  <li>
+                    <code>Item {`{ amount, genesis_hash, metadata }`}</code> &mdash; a fungible-by-type
+                    asset class. <code>genesis_hash</code> is the id stamped when the item is first
+                    created (its minting transaction); <code>metadata</code> is an optional string,
+                    capped at 800 bytes.
+                  </li>
+                </ul>
+                <p>
+                  The native token&apos;s brand name is <strong>LNGX</strong> &mdash; that&apos;s a
+                  network/brand identifier, not something the node code itself knows about; on the
+                  wire and in node source, it is only ever the integer <code>Token</code> amount.
+                  Display values divide that raw integer by a fixed base-unit divisor of{" "}
+                  <strong>72,072,000</strong>, and the protocol enforces a hard supply cap of{" "}
+                  72,072,000 &times; 5,000,000,000 raw units &mdash; 5,000,000,000 LNGX at that
+                  divisor. See <a href="/tokenomics">tokenomics</a> for the economics and issuance
+                  schedule; this page only covers how the value is represented on-chain.
+                </p>
+                <p>
+                  A read of an address&apos;s holdings reflects this directly: a token total, a map
+                  of item totals by <code>genesis_hash</code>, and the underlying outpoints backing
+                  them.
+                </p>
+                <CodeBlock lang="json">{`{
+  "balance": {
+    "total": {
+      "tokens": 100,
+      "items": { "g3b8f2a1…": 50 }
+    },
+    "address_list": {
+      "d0e7c9b4…": [
+        {
+          "out_point": { "t_hash": "g3b8f2a1…", "n": 0 },
+          "value": { "Token": 100 }
+        }
+      ]
+    }
+  }
+}`}</CodeBlock>
+                <p>
+                  Note the asset value here uses the wire form (capitalised keys like{" "}
+                  <code>{`{ "Token": 100 }`}</code>), which differs from the REST{" "}
+                  <code>ApiAsset</code> response shape (<code>{`{ "kind": "token", "amount": 100 }`}</code>)
+                  used elsewhere in the API &mdash; see the{" "}
+                  <a href="/developers/api">API reference</a> for exact response schemas.
                 </p>
               </article>
 
-              <article id="c-mempool" className={styles.prose}>
-                <h2>Mempool node</h2>
+              <article id="c-keys" className={styles.prose}>
+                <h2>Keys, addresses &amp; wallets</h2>
                 <p>
-                  A bounded set of long-lived components that accept user transactions, batch them into
-                  blocks, and work with the mining network. Each round, the mempool set advances valid
-                  transactions, agrees on ordering within protocol rules, hands a candidate to miners,
-                  then validates the winner&apos;s block and forwards it to storage. Mempool and miner
-                  responsibilities are interdependent, and both must make progress for the chain to
-                  advance.
+                  Lineage keypairs are <strong>ed25519</strong>. An address is derived from a public
+                  key as <code>hex(sha3_256(public_key))</code> &mdash; a 64-character hex string.
+                  Two legacy address schemes also exist in the node code for backward compatibility
+                  (a 32-character variant and an older temporary scheme); new wallets use the
+                  64-character form.
                 </p>
-              </article>
-
-              <article id="c-storage" className={styles.prose}>
-                <h2>Storage node</h2>
                 <p>
-                  Keeps full chain history, receives valid blocks (typically along the mempool path),
-                  and replicates them for durability and API consumers. Its core job is persisting
-                  blocks and building indices for header, transaction-id, and proof lookups.
-                  Distributed consensus between storage operators keeps replicas agreeing on the same
-                  head, and witness data is preserved so light clients and auditors can re-check
-                  proofs.
+                  Wallets generate a mnemonic seed phrase and derive keypairs from it through
+                  hierarchical (HD) derivation &mdash; the reference SDKs hold keys locally,
+                  encrypted at rest with a passphrase you supply, and never send private keys to a
+                  node.
                 </p>
-              </article>
-
-              <article id="c-miner" className={styles.prose}>
-                <h2>Miner node</h2>
                 <p>
-                  Miners compete to extend the chain when it is their turn. They receive work units
-                  from the mempool, find valid proofs, and return them so the mempool declares a winner
-                  and forwards the block to storage. The protocol does not require every miner to grind
-                  on the same block simultaneously; a subset is selected each round, keeping energy use
-                  proportionate. Rewards follow the network&apos;s token rules once a block is accepted.
+                  What you actually sign is narrower than the whole transaction. For each input, the
+                  signable message is the SHA3-256 hash of the JSON encoding of every output in the
+                  transaction, concatenated with the JSON encoding of that input&apos;s previous
+                  outpoint &mdash; hex-encoded. That is <em>outputs plus the input&apos;s previous
+                  outpoint, and nothing else</em>: the signature excludes <code>fees</code>,{" "}
+                  <code>druid_info</code>, and the input&apos;s own unlocking script (which is reset
+                  before the hash is computed). Two consequences follow directly: you sign exactly
+                  what you submit, and field order is load-bearing, since the JSON encoding is taken
+                  verbatim, in each struct&apos;s declared field order.
                 </p>
-              </article>
+                <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
 
-              <article id="c-block-mining" className={styles.prose}>
-                <h2>Block mining</h2>
+const wallet = new Wallet();
+await wallet.initNew({
+  mempoolHost: 'https://mempool.lineage.to',
+  passphrase: 'a secure passphrase',
+});
+
+// Derive a keypair; the address is hex(sha3_256(public_key)).
+const keypair = wallet.getNewKeypair([]).content.newKeypairResponse;
+console.log(keypair.address);`}</CodeBlock>
                 <p>
-                  Producing a block is a multi-step collaboration: (1) client transactions are queued by
-                  the mempool; (2) when a round starts, a block body is built from the queue and offered
-                  to selected miners; (3) miners produce proofs and return candidates; (4) the mempool
-                  picks a winner, validates the block, and sends it to storage. A single per-round
-                  randomness object (a UNiCORN), derived from agreed inputs such as the transactions,
-                  the eligible miner set, and prior-round metadata, drives who may mine and who wins.
+                  See <a href="#c-transactions">Transactions</a> for where these keys sign, and{" "}
+                  <a href="#c-scripts">Scripts</a> for how a spend is checked against an address at
+                  the protocol level.
                 </p>
               </article>
 
               <article id="c-transactions" className={styles.prose}>
                 <h2>Transactions</h2>
                 <p>
-                  Lineage uses a <strong>UTXO model</strong>: a transaction spends one or more previous
-                  outputs and creates new outputs that a later spend can refer to. There is no global
-                  account balance in the contract layer; a balance is a view over unspent outputs.
-                  Each input points at a previous transaction hash and output index with a script
-                  proving spend authorisation; each output states a locked value and its script (for
-                  example pay-to-pubkey-hash). Transactions carry a version and optional
-                  application-specific data (such as DRUID or item metadata) that higher layers
-                  interpret.
+                  A transaction is <code>{`{ inputs, outputs, version, fees, druid_info }`}</code>,
+                  in that declared field order &mdash; the order matters, because a transaction&apos;s
+                  id is the SHA3-256 hash of its <code>bincode</code> serialization (hex-encoded,
+                  prefixed with <code>g</code>, truncated to 32 characters), and serialization is
+                  order-sensitive.
+                </p>
+                <p>
+                  Each <strong>input</strong> (<code>TxIn</code>) carries an optional{" "}
+                  <code>previous_out</code> (an <code>OutPoint</code>: the previous transaction hash
+                  and output index) plus a <code>script_signature</code> that proves the right to
+                  spend it. An input with <code>previous_out: null</code> is a create/coinbase input
+                  &mdash; it mints rather than spends. Each <strong>output</strong> (<code>TxOut</code>)
+                  states the <code>value</code> (an <code>Asset</code>), a <code>locktime</code>, and
+                  an optional <code>script_public_key</code> that locks it.
+                </p>
+                <p>
+                  <code>version</code> is a plain integer the client stamps with the network version
+                  it is built against; the node does not branch protocol behaviour on it. In
+                  particular, a two-way (atomic swap) payment is <em>not</em> signalled by a
+                  particular version number &mdash; it is signalled by the presence of{" "}
+                  <code>druid_info</code> on the transaction. <code>fees</code> is a real list of
+                  outputs that inputs must fund alongside the visible outputs (inputs must balance
+                  against outputs plus fees); there is currently no fixed fee-rate or minimum-fee
+                  policy enforced by the node, so treat <code>fees</code> as a mechanism that exists
+                  in the format without an economic policy wired to it yet.
+                </p>
+                <p>
+                  A submission to <code>POST /v1/transactions</code> looks like this (the asset
+                  value uses the wire form, <code>{`{ "Token": n }`}</code>, not the REST{" "}
+                  <code>ApiAsset</code> shape used in read responses):
+                </p>
+                <CodeBlock lang="json">{`{
+  "transactions": [
+    {
+      "inputs": [
+        {
+          "previous_out": { "t_hash": "g3b8f2a1…", "n": 0 },
+          "script_signature": {
+            "Pay2PkH": {
+              "signable_data": "a1c4…",
+              "signature": "6f2e…",
+              "public_key": "5b8a…",
+              "address_version": null
+            }
+          }
+        }
+      ],
+      "outputs": [
+        { "value": { "Token": 10 }, "locktime": 0, "script_public_key": "d0e7…" },
+        { "value": { "Token": 90 }, "locktime": 0, "script_public_key": "a1b2…change" }
+      ],
+      "version": 6,
+      "druid_info": null,
+      "fees": null
+    }
+  ]
+}`}</CodeBlock>
+                <p>The SDKs build and sign this for you; a one-way token payment is a single call:</p>
+                <CodeBlock lang="javascript">{`// keypair: your own keypair, already funded
+const receipt = await wallet.makeTokenPayment(
+  'recipient-address',
+  10,
+  [keypair],   // keypairs available to cover the inputs
+  keypair,     // where change is returned
+);
+console.log(receipt.content.makePaymentResponse.transactionHash);`}</CodeBlock>
+                <p>
+                  See <a href="#c-keys">Keys, addresses &amp; wallets</a> for exactly what gets
+                  signed, and <a href="/developers/api">the API reference</a> for the full request
+                  and response schemas.
+                </p>
+              </article>
+
+              <article id="c-scripts" className={styles.prose}>
+                <h2>Scripts</h2>
+                <p>
+                  Spend authorisation is checked by a small <strong>stack-based script
+                  language</strong>, in the Bitcoin Script tradition: bounded and loop-free (no
+                  back-jumps), so every script terminates and its worst-case cost is easy to bound.
+                  A dedicated condition stack handles <code>IF</code>/<code>ELSE</code> branching
+                  without introducing loops. Hard limits keep scripts cheap to validate: a stack
+                  item is capped at 520 bytes, a script at 201 opcodes and 10,000 bytes total, the
+                  execution stack at 1,000 items, and a multisig script at 20 public keys.
+                </p>
+                <p>Opcodes fall into a few families:</p>
+                <ul>
+                  <li><strong>Constants</strong> &mdash; push small literal values (<code>OP_0</code>&ndash;<code>OP_16</code>).</li>
+                  <li><strong>Flow control</strong> &mdash; <code>OP_IF</code>, <code>OP_NOTIF</code>, <code>OP_ELSE</code>, <code>OP_ENDIF</code>, <code>OP_VERIFY</code>, <code>OP_BURN</code>.</li>
+                  <li><strong>Stack, splice, bitwise &amp; arithmetic</strong> &mdash; duplicate, drop, compare, and combine stack items.</li>
+                  <li><strong>Crypto</strong> &mdash; <code>OP_SHA3</code>, the <code>OP_HASH256</code> family, <code>OP_CHECKSIG</code> / <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKMULTISIG</code> / <code>OP_CHECKMULTISIGVERIFY</code>.</li>
+                  <li><strong>Smart data</strong> &mdash; <code>OP_CREATE</code>, which mints a new item asset.</li>
+                </ul>
+                <p>
+                  The standard lock is <strong>P2PKH</strong> (pay-to-pubkey-hash). The unlocking
+                  side pushes check data, a signature, and a public key; the locking side then runs{" "}
+                  <code>OP_DUP</code>, hashes the pushed public key, compares it against the address
+                  baked into the output (<code>OP_EQUALVERIFY</code>), and finally checks the
+                  signature against the public key (<code>OP_CHECKSIG</code>):
+                </p>
+                <CodeBlock lang="text">{`<check_data> <signature> <public_key>
+OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
+                <p>
+                  A spend is valid only if that combined script runs to a truthy result &mdash; so
+                  the signature has to verify against the pushed public key, <em>and</em> that public
+                  key has to hash to the address the output was locked to. See{" "}
+                  <a href="#c-keys">Keys, addresses &amp; wallets</a> for what the signature actually
+                  covers. Multisig locks and pay-to-script-hash (P2SH) addresses are also supported
+                  for flows where more than one signer must authorise a spend, such as{" "}
+                  <a href="#c-two-way">two-way payments</a>.
+                </p>
+              </article>
+
+              {/* ============ CONCEPTS: NETWORK & CONSENSUS ============ */}
+              <article id="c-node-types" className={styles.prose}>
+                <h2>Node types</h2>
+                <p>
+                  Lineage runs <strong>five</strong> node roles, each its own binary. Four serve the{" "}
+                  <code>/v1</code> HTTP API described in <a href="/developers/api">the API reference</a>;
+                  the fifth, <strong>pre_launch</strong>, is a one-shot helper that sends its startup
+                  requests and exits &mdash; it has no HTTP API of its own. See{" "}
+                  <a href="/technology#subsystems">Technology &rarr; Subsystems</a> for how the roles fit
+                  together at the network level.
+                </p>
+                <Table>
+                  <thead>
+                    <tr><th scope="col">Role</th><th scope="col">Job</th><th scope="col">Serves /v1?</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Mempool</td><td>Validates and pools transactions, drives the block round, coordinates miners and storage</td><td>Yes</td></tr>
+                    <tr><td>Storage</td><td>Persists the chain, serves blocks and history to clients</td><td>Yes</td></tr>
+                    <tr><td>Miner</td><td>Runs proof-of-work for the mempool it is paired with</td><td>Yes</td></tr>
+                    <tr><td>User</td><td>Wallet client &mdash; holds keys, builds and sends payments, reads UTXOs</td><td>Yes</td></tr>
+                    <tr><td>Pre-launch</td><td>One-shot bootstrap/upgrade helper; sends startup requests, then exits</td><td>No</td></tr>
+                  </tbody>
+                </Table>
+              </article>
+
+              <article id="c-mempool" className={styles.prose}>
+                <h2>Mempool node</h2>
+                <p>
+                  Mempool nodes accept transactions and replicate them through the mempool&apos;s own
+                  RAFT group, so every node in the group agrees on the same transaction pool, timestamp,
+                  and pipeline state before acting on it. Once a round starts, the group runs the mining
+                  round together (see <a href="#c-block-mining">Consensus &amp; the block round</a>), assembles the winning
+                  block once a miner&apos;s proof is chosen, and sends the assembled block on to storage.
+                  Because the replicated state must be deterministic &mdash; same inputs, same order,
+                  same result &mdash; every mempool node independently reaches the same outcome without
+                  needing to trust a single leader.
+                </p>
+              </article>
+
+              <article id="c-storage" className={styles.prose}>
+                <h2>Storage node</h2>
+                <p>
+                  Storage nodes receive a block from the mempool path and check its proof-of-work along
+                  with transaction and merkle-root consistency. Storage does not currently re-verify the
+                  UNiCORN randomness that selected the round&apos;s participants and winner &mdash; that
+                  check happens on the mempool side; storage&apos;s job is to confirm the block it
+                  received is internally valid, not to re-run mempool&apos;s selection logic.
+                </p>
+                <p>
+                  Blocks arrive in parts and are replicated through storage&apos;s own RAFT group before
+                  being reassembled into a complete block, persisted, and indexed for header,
+                  transaction-id, and proof lookups. Once a block is stored, storage notifies the
+                  mempool so it can seed the next round.
+                </p>
+              </article>
+
+              <article id="c-miner" className={styles.prose}>
+                <h2>Miner node</h2>
+                <p>
+                  Each round, a miner builds a coinbase transaction and searches for a SHA3-256
+                  proof-of-work over the block&apos;s merkle root. Not every registered miner grinds on
+                  every block: the round&apos;s <a href="#c-unicorn">UNiCORN</a> (see{" "}
+                  <a href="#c-block-mining">Consensus &amp; the block round</a>)
+                  selects both the participating subset of miners and, from the proofs submitted, the
+                  single winner &mdash; keeping energy use proportionate to what a round actually needs.
+                </p>
+                <p>
+                  The block reward follows a decaying formula rather than periodic halving, and is split
+                  across the mempool quorum that produced the block. Coinbase outputs mature &mdash;
+                  become spendable &mdash; 100 blocks after they are mined.
+                </p>
+              </article>
+
+              <article id="c-block-mining" className={styles.prose}>
+                <h2>Consensus &amp; the block round</h2>
+                <p>
+                  Lineage&apos;s consensus mechanism is named <strong>Prime Radiant Consensus</strong>{" "}
+                  in the whitepaper. See <a href="/technology#consensus">Technology &rarr;
+                  Consensus</a> for the proof-of-work economics; this article covers the mechanics of
+                  how a block round actually runs.
+                </p>
+                <p>
+                  A deployment runs on <strong>two RAFT groups</strong> &mdash; one across the mempool
+                  nodes, one across the storage nodes. Whatever a group replicates has to be
+                  deterministic: same inputs, same order, same result, or member nodes would silently
+                  fork. Only local state, such as caches and metrics, is allowed to differ between
+                  nodes. Even the round&apos;s <strong>timestamp</strong> is itself a replicated log
+                  item rather than something each node reads off its own clock, precisely to keep that
+                  determinism.
+                </p>
+                <p><strong>A round, phase by phase:</strong></p>
+                <ul>
+                  <li><strong>Tx intake</strong> &mdash; incoming transactions are replicated to every node in the mempool group.</li>
+                  <li><strong>Block body &amp; UNiCORN</strong> &mdash; a block body is built from the replicated pool, and the round&apos;s <a href="#c-unicorn">UNiCORN</a> is constructed from it.</li>
+                  <li><strong>Participant intake</strong> &mdash; registered miners apply to the round; the UNiCORN selects which of them actually get to participate.</li>
+                  <li><strong>PoW intake</strong> &mdash; the selected miners submit their proofs.</li>
+                  <li><strong>Winner selection</strong> &mdash; the UNiCORN picks the winning proof from the submissions.</li>
+                  <li><strong>Assemble &amp; commit</strong> &mdash; the mempool group stamps the winning nonce and coinbase hash into the header, assembles the block, and sends it to storage; storage commits it and notifies the mempool, which seeds the next round.</li>
+                </ul>
+                <p>
+                  <strong>Difficulty</strong> is set by <strong>ASERT</strong> (an in-repo port of
+                  ASERT3-2D). Classic ASERT assumes a fixed number of winning hashes per block and lets
+                  the timestamp vary; Lineage inverts that: the block interval is fixed and the number
+                  of hashes floats, so a surplus or shortfall of hashing power over a round is mapped
+                  onto a synthetic elapsed time that feeds ASERT&apos;s usual retarget math. The
+                  interval is fixed at <strong>30 seconds</strong> &mdash; block height tracks UTC time
+                  directly, 2,880 blocks per UTC day &mdash; from an epoch of{" "}
+                  <strong>2026-08-28T00:00:00Z</strong>.
+                </p>
+                <p>
+                  Proof-of-work hashes with <strong>SHA3-256</strong>, via CPU, OpenGL, or Vulkan
+                  mining backends, so GPU mining is supported today through those backends. A separate,
+                  purpose-built Lineage hash (SandWorm) exists but is not yet wired into the mining
+                  fleet &mdash; see <a href="/technology">Technology</a> for that direction.
+                </p>
+              </article>
+
+              <article id="c-blocks" className={styles.prose}>
+                <h2>Blocks &amp; headers</h2>
+                <p>A block is a header plus the hashes of the transactions it contains:</p>
+                <CodeBlock lang="rust">{`struct Block {
+    header: BlockHeader,
+    transactions: Vec<String>,   // transaction hashes
+}`}</CodeBlock>
+                <p>
+                  The header carries everything needed to identify, order, and validate the block
+                  without touching the transactions themselves:
+                </p>
+                <CodeBlock lang="rust">{`struct BlockHeader {
+    version: u32,
+    bits: usize,                                  // ASERT compact target; 0 = legacy leading-zeroes PoW
+    nonce_and_mining_tx_hash: (Vec<u8>, String),   // winning PoW nonce + coinbase tx hash
+    b_num: u64,                                    // block height
+    timestamp: i64,
+    seed_value: Vec<u8>,                           // UNiCORN "{seed}-{witness}"
+    previous_hash: Option<String>,
+    txs_merkle_root_and_hash: (String, String),    // MerkleLog root + flat SHA3 digest of the tx-hash list
+}`}</CodeBlock>
+                <p>
+                  <code>txs_merkle_root_and_hash</code> is a <strong>pair</strong>, not a nested tree:
+                  the first element is a MerkleLog root over the block&apos;s transaction hashes, the
+                  second is a flat SHA3-256 digest of that same hash list. <code>seed_value</code>{" "}
+                  carries the round&apos;s <a href="#c-unicorn">UNiCORN</a> seed and witness, joined as{" "}
+                  <code>{`"{seed}-{witness}"`}</code>. <code>bits</code> holds the ASERT compact target
+                  for the round; a value of <code>0</code> marks the legacy leading-zeroes
+                  proof-of-work scheme instead.
+                </p>
+                <p>
+                  Read blocks over HTTP with <code>GET /v1/blocks/latest</code> or{" "}
+                  <code>GET /v1/blocks/{`{num}`}</code> &mdash; see{" "}
+                  <a href="/developers/api">the API reference</a> for full request and response
+                  shapes. Both return the block as opaque JSON rather than a typed schema (a{" "}
+                  <code>block</code> field on <code>/latest</code>; a <code>data</code> field
+                  alongside storage metadata on <code>/{`{num}`}</code>), so treat the struct above as
+                  the underlying shape, not a guaranteed response contract.
                 </p>
               </article>
 
               <article id="c-two-way" className={styles.prose}>
-                <h2>Two-way transactions</h2>
+                <h2>Two-way (DRUID) payments</h2>
                 <p>
-                  A two-way transaction lets two parties each contribute compatible halves to a single
-                  block, so an exchange or payment clears atomically without a smart-contract runtime.
-                  It is the mechanism for flows where both sides must sign before either side&apos;s funds
-                  move. Wallets and SDKs hide most of the wiring.
+                  A two-way payment is an <strong>atomic swap</strong>: two transaction halves,
+                  built and submitted independently by each party, either settle in the same
+                  block or neither does. There is no separate swap primitive at the protocol
+                  level &mdash; a two-way payment is an ordinary transaction (see{" "}
+                  <a href="#c-transactions">Transactions</a>) that additionally carries a{" "}
+                  <code>druid_info</code> field. As covered there, this is what actually signals
+                  a two-way payment &mdash; not a particular <code>version</code> number.
+                </p>
+                <p>
+                  <code>druid_info</code> is <code>Some(DdeValues)</code>, where:
+                </p>
+                <CodeBlock lang="rust">{`DdeValues {
+    druid: String,                        // shared id both halves match on
+    participants: usize,
+    expectations: Vec<DruidExpectation {
+        from: String,
+        to: String,
+        asset: Asset,
+    }>,
+    genesis_hash: Option<String>,
+}`}</CodeBlock>
+                <p>
+                  <code>druid_info</code> is <strong>unsigned</strong>: it is one of the fields
+                  excluded from the signable preimage described in{" "}
+                  <a href="#c-keys">Keys, addresses &amp; wallets</a>. So a two-way payment
+                  cannot be matched by checking a signature over the DRUID, and it is not
+                  matched by any version field either &mdash; matching is <strong>structural</strong>.
+                  For a given DRUID, the node collects every transaction carrying that
+                  <code>druid_info.druid</code> and checks that each declared expectation
+                  (<code>from</code>/<code>to</code>/<code>asset</code>) actually appears among
+                  the real outputs of that transaction set. Only if every expectation on both
+                  sides is met does the swap settle; matching halves sit in the mempool&apos;s
+                  DRUID pool until then, so a two-way payment that never gets its counterpart
+                  simply never clears.
+                </p>
+                <p>
+                  <strong>Flow (sdk-js)</strong>: the initiator calls{" "}
+                  <code>make2WayPayment</code>, which generates a DRUID, builds and signs its
+                  own transaction half, and drops an offer &mdash; the DRUID plus both parties&apos;
+                  expectations &mdash; into the counterparty&apos;s mailbox on{" "}
+                  <a href="#c-valence">valence</a>. The counterparty polls with{" "}
+                  <code>fetchPending2WayPayment</code>, and on <code>accept2WayPayment</code>{" "}
+                  builds its own matching half, submits it to the mempool, and marks the offer
+                  accepted on valence so the initiator&apos;s side can be sent in turn.
+                </p>
+                <CodeBlock lang="javascript">{`// Party A — offers to swap
+const offer = await wallet.make2WayPayment(
+  partyBAddress,     // Party B's address
+  sendingAsset,      // what A sends
+  receivingAsset,    // what A expects back
+  allKeypairs,
+  receiveKeypair,    // where A's incoming asset lands
+);
+const { druid } = offer.content.make2WayPaymentResponse;
+
+// Party B — checks its mailbox, then accepts
+const pending = await wallet.fetchPending2WayPayment(keypair, allEncryptedTxs);
+const details = pending.content.fetchPending2WResponse[druid];
+await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
+                <p>
+                  Offers ride on <a href="#c-valence">valence</a>, which is E2E-encrypted by
+                  design &mdash; but the reference sdk-js client currently posts the offer
+                  payload (the DRUID, both expectations, and status) to valence as{" "}
+                  <strong>plain JSON, unencrypted</strong>. Treat two-way offers relayed by the
+                  current SDK as visible to anyone who can read that mailbox entry, not as
+                  confidential.
+                </p>
+              </article>
+
+              <article id="c-valence" className={styles.prose}>
+                <h2>The valence relay</h2>
+                <p>
+                  <a href="https://github.com/lineage-foundation/valence" target="_blank" rel="noopener noreferrer">Valence</a>{" "}
+                  is a generic, opaque, end-to-end-encrypted relay for exchanging data between
+                  addresses &mdash; an axum service backed by Redis. It carries{" "}
+                  <a href="#c-two-way">two-way payment</a> offers, but it has no model of what a
+                  &ldquo;payment&rdquo; or a &ldquo;DRUID&rdquo; is: it stores opaque JSON blobs
+                  under a caller-supplied <code>id</code>, one mailbox per address, and returns
+                  them unchanged on read. Clients are expected to encrypt the data they store for
+                  the recipient before sending it, so valence itself never has to see plaintext.
+                </p>
+                <p>
+                  A <strong>mailbox is an address</strong>, and entries within it are keyed by
+                  whatever <code>id</code> the caller chooses &mdash; a DRUID is a common choice
+                  for two-way offers, but it is only ever that: an example id, not something
+                  valence understands. An entire mailbox expires after a TTL (600 seconds by
+                  default, refreshed on every write), so unread offers eventually disappear
+                  rather than accumulating forever.
+                </p>
+                <p>
+                  Every route under <code>/messages</code> requires three headers: <code>address</code>{" "}
+                  (the mailbox being read or written &mdash; not necessarily the caller&apos;s own),{" "}
+                  <code>public_key</code>, and <code>signature</code>, an{" "}
+                  <code>ed25519</code> signature over the raw UTF-8 bytes of the{" "}
+                  <code>address</code> string. Verification is deliberately{" "}
+                  <strong>verify-only</strong>: valence checks that <code>signature</code> is
+                  valid for <code>address</code> under <code>public_key</code>, but does not
+                  require <code>address</code> to be derived from <code>public_key</code>. That is
+                  by design, not an oversight &mdash; a sender addresses an offer to a{" "}
+                  <em>recipient&apos;s</em> mailbox while signing with their <em>own</em> key
+                  (exactly what <code>make2WayPayment</code> does above), so binding the two would
+                  reject every send. Confidentiality comes from client-side E2E encryption, not
+                  from mailbox access control.
+                </p>
+                <CodeBlock lang="json">{`{
+  "address": "76e…dd6",
+  "public_key": "a4c…e45",
+  "signature": "b9f…506"
+}`}</CodeBlock>
+                <Table>
+                  <thead>
+                    <tr><th scope="col">Route</th><th scope="col">Effect</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td className="num">POST /messages</td><td>Store <code>{`{ id, data }`}</code> in the caller-addressed mailbox; <code>201</code> with <code>{`{ id }`}</code>. Posting an existing <code>id</code> overwrites it.</td></tr>
+                    <tr><td className="num">GET /messages</td><td>The whole mailbox as an <code>id &rarr; data</code> map.</td></tr>
+                    <tr><td className="num">GET /messages/{`{id}`}</td><td>A single entry as <code>{`{ id, data }`}</code>, or <code>404</code>.</td></tr>
+                    <tr><td className="num">DELETE /messages/{`{id}`}</td><td>Removes one entry; <code>204</code>.</td></tr>
+                    <tr><td className="num">DELETE /messages</td><td>Clears the whole mailbox; <code>204</code>.</td></tr>
+                    <tr><td className="num">GET /healthz</td><td>Unauthenticated liveness check.</td></tr>
+                  </tbody>
+                </Table>
+                <p>
+                  Valence only stores and returns whatever JSON it is given &mdash; it does not
+                  know a two-way offer from any other message. The <em>pending &rarr; accepted</em>{" "}
+                  lifecycle described in <a href="#c-two-way">Two-way (DRUID) payments</a> (the{" "}
+                  <code>status</code> field, matching a DRUID back to a locally-encrypted
+                  transaction, deciding when to submit to the mempool) is logic that lives
+                  entirely in the SDK and wallet, not in valence.
                 </p>
               </article>
 
               <article id="c-unicorn" className={styles.prose}>
                 <h2>UNiCORN randomness</h2>
                 <p>
-                  A UNiCORN, an <strong>UN-COntestable Random Number</strong>, is a
-                  randomness-and-witness object generated so that no single participant can steer it toward
-                  anything but a random result. It depends on the transactions in the block, which miners
-                  are eligible, and recent chain state, so winner selection is hard to bias without breaking
-                  consensus. The protocol uses it to restrict which miners may attempt work in a round, to
-                  choose the winning valid proof, and to supply the data storage nodes re-check during
-                  validation.
+                  A UNiCORN is a <strong>Sloth VDF</strong> (Verifiable Delay Function, after Lenstra
+                  &amp; Wesolowski) &mdash; slow to evaluate, fast to verify. Evaluating it forward
+                  takes a fixed run of iterations that cannot be meaningfully parallelised or
+                  shortcut, but anyone holding the seed and the resulting witness can verify the
+                  output almost instantly. The whitepaper describes the result as{" "}
+                  <strong>uncontestable</strong>: the seed is fixed before the VDF runs, so the only
+                  way to steer the outcome is to steer the round&apos;s replicated inputs themselves
+                  &mdash; and those are agreed by consensus before the UNiCORN is ever constructed.
+                </p>
+                <p>
+                  The seed is a SHA3 hash over three inputs, each already agreed by the mempool
+                  group&apos;s RAFT log: the round&apos;s <strong>transaction inputs</strong>, the{" "}
+                  <strong>participating-miner list</strong>, and the <strong>winning proof-of-work
+                  hashes from two blocks ago</strong>. Because all three are RAFT-replicated before
+                  the VDF runs, every mempool node computes the identical UNiCORN independently
+                  &mdash; there is no leader to trust and nothing to distribute after the fact.
+                </p>
+                <p>
+                  The result seeds a <strong>Fortuna</strong> CSPRNG, which the round draws from
+                  twice: once to select which registered miners actually get to mine this round (the
+                  participating subset), and again to pick the winner among the proofs they submit.
+                  The seed and witness are stamped into the block header&apos;s{" "}
+                  <code>seed_value</code> field (see <a href="#c-blocks">Blocks &amp; headers</a>) as{" "}
+                  <code>{`"{seed}-{witness}"`}</code>, so the choice is auditable from the stored
+                  block alone. The whitepaper additionally describes rotating the mempool triple used
+                  to source this entropy on a daily basis.
+                </p>
+                <p>
+                  Because every mempool node evaluates the identical seed independently from the same
+                  replicated inputs, there is nothing left to check after the fact on that side.
+                  Downstream, <a href="#c-storage">storage nodes</a> do not currently re-check the
+                  UNiCORN at all &mdash; they validate the assembled block&apos;s proof-of-work and
+                  transaction/merkle consistency instead.
                 </p>
               </article>
 
