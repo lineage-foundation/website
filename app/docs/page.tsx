@@ -335,10 +335,11 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                 <h2>AI Skills</h2>
                 <p>
                   The <code>lineage</code> plugin is a set of packaged skills that make an AI
-                  coding agent an expert in Lineage. It works in both{" "}
-                  <a href="https://claude.com/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>{" "}
-                  and Codex. There is nothing to invoke by hand: as you work on a Lineage task,
-                  the agent automatically pulls in the skill that matches it.
+                  coding agent an expert in Lineage. It works across{" "}
+                  <a href="https://claude.com/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>,
+                  Codex, Cursor, the Gemini CLI, opencode, and any tool that reads an{" "}
+                  <code>AGENTS.md</code> index. There is nothing to invoke by hand: as you work on
+                  a Lineage task, the agent automatically pulls in the skill that matches it.
                 </p>
                 <p>
                   The skills span three tracks &mdash; <strong>fundamentals</strong> (the base
@@ -361,15 +362,35 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
 # then open the plugin menu and install "lineage"
 /plugin`}</CodeBlock>
 
-                <h3>Install in Codex</h3>
+                <h3>Other agents</h3>
                 <p>
-                  The plugin also ships a Codex manifest. Register the{" "}
-                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">
-                    repository&rsquo;s generated <code>.codex-plugin/</code> directory
-                  </a>{" "}
-                  following your Codex environment&rsquo;s plugin-setup steps. A one-line
-                  Codex command isn&rsquo;t published yet.
+                  The same skills ship as adapters for other tools, generated into the{" "}
+                  <a href={URL_SKILLS} target="_blank" rel="noopener noreferrer">repository</a>{" "}
+                  and discovered automatically:
                 </p>
+                <ul>
+                  <li>
+                    <strong>Codex</strong> &mdash; register the generated{" "}
+                    <code>.codex-plugin/</code> directory per your Codex environment&rsquo;s
+                    plugin-setup steps (no one-line command is published yet).
+                  </li>
+                  <li>
+                    <strong>Cursor</strong> &mdash; the <code>.cursor/skills/</code> directory
+                    is auto-discovered when you open the repository in Cursor.
+                  </li>
+                  <li>
+                    <strong>Gemini CLI</strong> &mdash; the <code>.gemini/skills/</code>{" "}
+                    directory is picked up as workspace skills.
+                  </li>
+                  <li>
+                    <strong>opencode</strong> &mdash; the <code>.opencode/skills/</code>{" "}
+                    directory is discovered automatically.
+                  </li>
+                  <li>
+                    <strong>Copilot, Aider, Zed, and similar</strong> &mdash; read the root{" "}
+                    <code>AGENTS.md</code> index, which lists every skill.
+                  </li>
+                </ul>
               </article>
 
               {/* ============ TUTORIALS & SDKs ============ */}

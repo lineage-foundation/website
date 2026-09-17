@@ -330,9 +330,10 @@ export default function EcosystemPage() {
           >
             <p>
               The <code>lineage</code> plugin: packaged skills that make an AI
-              coding agent (Claude Code or Codex) an expert on Lineage &mdash;
-              SDK usage, the /v1 API, two-way payments, and running a node.
-              Pulled in automatically as you work.
+              coding agent an expert on Lineage &mdash; SDK usage, the /v1 API,
+              two-way payments, and running a node. Works in Claude Code, Codex,
+              Cursor, Gemini, opencode, and more, pulled in automatically as you
+              work.
             </p>
             <a
               className={styles.endpointUrl}
