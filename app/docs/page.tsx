@@ -182,11 +182,11 @@ export default function DocsPage() {
                 <p>
                   The API is REST over HTTPS under <code>/v1</code>. Resources use standard verbs —
                   <code>GET</code> to read, <code>POST</code> to create or submit — with JSON request
-                  and response bodies. Routes that require authorization take an
+                  and response bodies. Routes that require authorization take an{" "}
                   <code>x-api-key</code> header; read-only routes are public.
                 </p>
                 <p>
-                  Errors use <code>application/problem+json</code> (RFC 7807): an HTTP status with
+                  Errors use <code>application/problem+json</code> (RFC 7807): an HTTP status with{" "}
                   <code>title</code> and <code>detail</code> fields and a <code>request_id</code> for
                   correlation.
                 </p>
@@ -245,7 +245,7 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                   <strong>72,072,000</strong>, and the protocol currently enforces a hard supply
                   cap of 72,072,000 &times; 5,000,000,000 raw units &mdash; 5,000,000,000 LNGX at
                   that divisor. This fixed cap reflects the model in place today; the network is
-                  moving to a <strong>managed supply</strong> that adjusts issuance to target price
+                  moving to a <strong>managed supply</strong>{" "}that adjusts issuance to target price
                   stability &mdash; see{" "}
                   <a href={URL_ZENODO_MANAGED_SUPPLY} target="_blank" rel="noopener noreferrer">
                     Peer-to-peer electronic cash revisited
@@ -339,7 +339,7 @@ console.log(keypair.address);`}</CodeBlock>
                   Each <strong>input</strong> (<code>TxIn</code>) carries an optional{" "}
                   <code>previous_out</code> (an <code>OutPoint</code>: the previous transaction hash
                   and output index) plus a <code>script_signature</code> that proves the right to
-                  spend it. An input with <code>previous_out: null</code> is a create/coinbase input
+                  spend it. An input with <code>previous_out: null</code>{" "}is a create/coinbase input
                   &mdash; it mints rather than spends. Each <strong>output</strong> (<code>TxOut</code>)
                   states the <code>value</code> (an <code>Asset</code>), a <code>locktime</code>, and
                   an optional <code>script_public_key</code> that locks it.
@@ -347,7 +347,7 @@ console.log(keypair.address);`}</CodeBlock>
                 <p>
                   <code>version</code> is a plain integer the client stamps with the network version
                   it is built against; the node does not branch protocol behaviour on it. In
-                  particular, a two-way (atomic swap) payment is <em>not</em> signalled by a
+                  particular, a two-way (atomic swap) payment is <em>not</em>{" "}signalled by a
                   particular version number &mdash; it is signalled by the presence of{" "}
                   <code>druid_info</code> on the transaction. <code>fees</code> is a real list of
                   outputs that inputs must fund alongside the visible outputs (inputs must balance
@@ -607,7 +607,7 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
                   block or neither does. There is no separate swap primitive at the protocol
                   level &mdash; a two-way payment is an ordinary transaction (see{" "}
                   <a href="#c-transactions">Transactions</a>) that additionally carries a{" "}
-                  <code>druid_info</code> field. As covered there, this is what actually signals
+                  <code>druid_info</code>{" "}field. As covered there, this is what actually signals
                   a two-way payment &mdash; not a particular <code>version</code> number.
                 </p>
                 <p>
@@ -629,7 +629,7 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
                   <a href="#c-keys">Keys, addresses &amp; wallets</a>. So a two-way payment
                   cannot be matched by checking a signature over the DRUID, and it is not
                   matched by any version field either &mdash; matching is <strong>structural</strong>.
-                  For a given DRUID, the node collects every transaction carrying that
+                  For a given DRUID, the node collects every transaction carrying that{" "}
                   <code>druid_info.druid</code> and checks that each declared expectation
                   (<code>from</code>/<code>to</code>/<code>asset</code>) actually appears among
                   the real outputs of that transaction set. Only if every expectation on both
@@ -677,7 +677,7 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                   <a href="https://github.com/lineage-foundation/valence" target="_blank" rel="noopener noreferrer">Valence</a>{" "}
                   is a generic, opaque, end-to-end-encrypted relay for exchanging data between
                   addresses &mdash; an axum service backed by Redis. It carries{" "}
-                  <a href="#c-two-way">two-way payment</a> offers, but it has no model of what a
+                  <a href="#c-two-way">two-way payment</a>{" "}offers, but it has no model of what a
                   &ldquo;payment&rdquo; or a &ldquo;DRUID&rdquo; is: it stores opaque JSON blobs
                   under a caller-supplied <code>id</code>, one mailbox per address, and returns
                   them unchanged on read. Clients are expected to encrypt the data they store for
@@ -685,7 +685,7 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                 </p>
                 <p>
                   A <strong>mailbox is an address</strong>, and entries within it are keyed by
-                  whatever <code>id</code> the caller chooses &mdash; a DRUID is a common choice
+                  whatever <code>id</code>{" "}the caller chooses &mdash; a DRUID is a common choice
                   for two-way offers, but it is only ever that: an example id, not something
                   valence understands. An entire mailbox expires after a TTL (600 seconds by
                   default, refreshed on every write), so unread offers eventually disappear
@@ -755,7 +755,7 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                   &mdash; there is no leader to trust and nothing to distribute after the fact.
                 </p>
                 <p>
-                  The result seeds a <strong>Fortuna</strong> CSPRNG, which the round draws from
+                  The result seeds a <strong>Fortuna</strong>{" "}CSPRNG, which the round draws from
                   twice: once to select which registered miners actually get to mine this round (the
                   participating subset), and again to pick the winner among the proofs they submit.
                   The seed and witness are stamped into the block header&apos;s{" "}
@@ -767,7 +767,7 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                 <p>
                   Because every mempool node evaluates the identical seed independently from the same
                   replicated inputs, there is nothing left to check after the fact on that side.
-                  Downstream, <a href="#c-storage">storage nodes</a> do not currently re-check the
+                  Downstream, <a href="#c-storage">storage nodes</a>{" "}do not currently re-check the
                   UNiCORN at all &mdash; they validate the assembled block&apos;s proof-of-work and
                   transaction/merkle consistency instead.
                 </p>
@@ -849,7 +849,7 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                 <ul>
                   <li>
                     <strong>Codex</strong> &mdash; register the generated{" "}
-                    <code>.codex-plugin/</code> directory per your Codex environment&rsquo;s
+                    <code>.codex-plugin/</code>{" "}directory per your Codex environment&rsquo;s
                     plugin-setup steps (no one-line command is published yet).
                   </li>
                   <li>
