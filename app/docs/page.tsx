@@ -431,48 +431,71 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
               <article id="c-node-types" className={styles.prose}>
                 <h2>Node types</h2>
                 <p>
-                  Lineage separates three roles so that <em>who assembles a block</em>, <em>who stores
-                  history</em>, and <em>who expends hashrate this round</em> are independent jobs.
-                  <strong>Mempool nodes</strong> collect transactions and coordinate validation;
-                  <strong>miner nodes</strong> perform proof-of-work to produce block candidates and
-                  earn rewards; <strong>storage nodes</strong> retain full chain history and serve
-                  reads to clients. The split enables fast settlement, geographic resilience, and
-                  specialised hardware without forcing archival storage on every participant.
+                  Lineage runs <strong>five</strong> node roles, each its own binary. Four serve the{" "}
+                  <code>/v1</code> HTTP API described in <a href="/developers/api">the API reference</a>;
+                  the fifth, <strong>pre_launch</strong>, is a one-shot helper that sends its startup
+                  requests and exits &mdash; it has no HTTP API of its own. See{" "}
+                  <a href="/technology#subsystems">Technology &rarr; Subsystems</a> for how the roles fit
+                  together at the network level.
                 </p>
+                <Table>
+                  <thead>
+                    <tr><th scope="col">Role</th><th scope="col">Job</th><th scope="col">Serves /v1?</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Mempool</td><td>Validates and pools transactions, drives the block round, coordinates miners and storage</td><td>Yes</td></tr>
+                    <tr><td>Storage</td><td>Persists the chain, serves blocks and history to clients</td><td>Yes</td></tr>
+                    <tr><td>Miner</td><td>Runs proof-of-work for the mempool it is paired with</td><td>Yes</td></tr>
+                    <tr><td>User</td><td>Wallet client &mdash; holds keys, builds and sends payments, reads UTXOs</td><td>Yes</td></tr>
+                    <tr><td>Pre-launch</td><td>One-shot bootstrap/upgrade helper; sends startup requests, then exits</td><td>No</td></tr>
+                  </tbody>
+                </Table>
               </article>
 
               <article id="c-mempool" className={styles.prose}>
                 <h2>Mempool node</h2>
                 <p>
-                  A bounded set of long-lived components that accept user transactions, batch them into
-                  blocks, and work with the mining network. Each round, the mempool set advances valid
-                  transactions, agrees on ordering within protocol rules, hands a candidate to miners,
-                  then validates the winner&apos;s block and forwards it to storage. Mempool and miner
-                  responsibilities are interdependent, and both must make progress for the chain to
-                  advance.
+                  Mempool nodes accept transactions and replicate them through the mempool&apos;s own
+                  RAFT group, so every node in the group agrees on the same transaction pool, timestamp,
+                  and pipeline state before acting on it. Once a round starts, the group runs the mining
+                  round together (see <a href="#c-block-mining">Block mining</a>), assembles the winning
+                  block once a miner&apos;s proof is chosen, and sends the assembled block on to storage.
+                  Because the replicated state must be deterministic &mdash; same inputs, same order,
+                  same result &mdash; every mempool node independently reaches the same outcome without
+                  needing to trust a single leader.
                 </p>
               </article>
 
               <article id="c-storage" className={styles.prose}>
                 <h2>Storage node</h2>
                 <p>
-                  Keeps full chain history, receives valid blocks (typically along the mempool path),
-                  and replicates them for durability and API consumers. Its core job is persisting
-                  blocks and building indices for header, transaction-id, and proof lookups.
-                  Distributed consensus between storage operators keeps replicas agreeing on the same
-                  head, and witness data is preserved so light clients and auditors can re-check
-                  proofs.
+                  Storage nodes receive a block from the mempool path and check its proof-of-work along
+                  with transaction and merkle-root consistency. Storage does not currently re-verify the
+                  UNiCORN randomness that selected the round&apos;s participants and winner &mdash; that
+                  check happens on the mempool side; storage&apos;s job is to confirm the block it
+                  received is internally valid, not to re-run mempool&apos;s selection logic.
+                </p>
+                <p>
+                  Blocks arrive in parts and are replicated through storage&apos;s own RAFT group before
+                  being reassembled into a complete block, persisted, and indexed for header,
+                  transaction-id, and proof lookups. Once a block is stored, storage notifies the
+                  mempool so it can seed the next round.
                 </p>
               </article>
 
               <article id="c-miner" className={styles.prose}>
                 <h2>Miner node</h2>
                 <p>
-                  Miners compete to extend the chain when it is their turn. They receive work units
-                  from the mempool, find valid proofs, and return them so the mempool declares a winner
-                  and forwards the block to storage. The protocol does not require every miner to grind
-                  on the same block simultaneously; a subset is selected each round, keeping energy use
-                  proportionate. Rewards follow the network&apos;s token rules once a block is accepted.
+                  Each round, a miner builds a coinbase transaction and searches for a SHA3-256
+                  proof-of-work over the block&apos;s merkle root. Not every registered miner grinds on
+                  every block: the round&apos;s UNiCORN (see <a href="#c-block-mining">Block mining</a>)
+                  selects both the participating subset of miners and, from the proofs submitted, the
+                  single winner &mdash; keeping energy use proportionate to what a round actually needs.
+                </p>
+                <p>
+                  The block reward follows a decaying formula rather than periodic halving, and is split
+                  across the mempool quorum that produced the block. Coinbase outputs mature &mdash;
+                  become spendable &mdash; 100 blocks after they are mined.
                 </p>
               </article>
 
@@ -630,9 +653,10 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
                   randomness-and-witness object generated so that no single participant can steer it toward
                   anything but a random result. It depends on the transactions in the block, which miners
                   are eligible, and recent chain state, so winner selection is hard to bias without breaking
-                  consensus. The protocol uses it to restrict which miners may attempt work in a round, to
-                  choose the winning valid proof, and to supply the data storage nodes re-check during
-                  validation.
+                  consensus. The protocol uses it to restrict which miners may attempt work in a round and to
+                  choose the winning valid proof; storage does not currently re-verify this step, only
+                  the resulting block&apos;s proof-of-work and transaction/merkle consistency (see{" "}
+                  <a href="#c-storage">Storage node</a>).
                 </p>
               </article>
 
