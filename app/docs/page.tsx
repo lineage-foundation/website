@@ -105,6 +105,7 @@ export default function DocsPage() {
                   <li><a href="#c-storage">Storage node</a></li>
                   <li><a href="#c-miner">Miner node</a></li>
                   <li><a href="#c-block-mining">Consensus &amp; the block round</a></li>
+                  <li><a href="#c-blocks">Blocks &amp; headers</a></li>
                   <li><a href="#c-unicorn">UNiCORN randomness</a></li>
                 </ul>
 
@@ -458,7 +459,7 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
                   Mempool nodes accept transactions and replicate them through the mempool&apos;s own
                   RAFT group, so every node in the group agrees on the same transaction pool, timestamp,
                   and pipeline state before acting on it. Once a round starts, the group runs the mining
-                  round together (see <a href="#c-block-mining">Block mining</a>), assembles the winning
+                  round together (see <a href="#c-block-mining">Consensus &amp; the block round</a>), assembles the winning
                   block once a miner&apos;s proof is chosen, and sends the assembled block on to storage.
                   Because the replicated state must be deterministic &mdash; same inputs, same order,
                   same result &mdash; every mempool node independently reaches the same outcome without
@@ -488,7 +489,8 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
                 <p>
                   Each round, a miner builds a coinbase transaction and searches for a SHA3-256
                   proof-of-work over the block&apos;s merkle root. Not every registered miner grinds on
-                  every block: the round&apos;s UNiCORN (see <a href="#c-block-mining">Block mining</a>)
+                  every block: the round&apos;s <a href="#c-unicorn">UNiCORN</a> (see{" "}
+                  <a href="#c-block-mining">Consensus &amp; the block round</a>)
                   selects both the participating subset of miners and, from the proofs submitted, the
                   single winner &mdash; keeping energy use proportionate to what a round actually needs.
                 </p>
@@ -500,14 +502,87 @@ OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
               </article>
 
               <article id="c-block-mining" className={styles.prose}>
-                <h2>Block mining</h2>
+                <h2>Consensus &amp; the block round</h2>
                 <p>
-                  Producing a block is a multi-step collaboration: (1) client transactions are queued by
-                  the mempool; (2) when a round starts, a block body is built from the queue and offered
-                  to selected miners; (3) miners produce proofs and return candidates; (4) the mempool
-                  picks a winner, validates the block, and sends it to storage. A single per-round
-                  randomness object (a UNiCORN), derived from agreed inputs such as the transactions,
-                  the eligible miner set, and prior-round metadata, drives who may mine and who wins.
+                  Lineage&apos;s consensus mechanism is named <strong>Prime Radiant Consensus</strong>{" "}
+                  in the whitepaper. See <a href="/technology#consensus">Technology &rarr;
+                  Consensus</a> for the proof-of-work economics; this article covers the mechanics of
+                  how a block round actually runs.
+                </p>
+                <p>
+                  A deployment runs on <strong>two RAFT groups</strong> &mdash; one across the mempool
+                  nodes, one across the storage nodes. Whatever a group replicates has to be
+                  deterministic: same inputs, same order, same result, or member nodes would silently
+                  fork. Only local state, such as caches and metrics, is allowed to differ between
+                  nodes. Even the round&apos;s <strong>timestamp</strong> is itself a replicated log
+                  item rather than something each node reads off its own clock, precisely to keep that
+                  determinism.
+                </p>
+                <p><strong>A round, phase by phase:</strong></p>
+                <ul>
+                  <li><strong>Tx intake</strong> &mdash; incoming transactions are replicated to every node in the mempool group.</li>
+                  <li><strong>Block body &amp; UNiCORN</strong> &mdash; a block body is built from the replicated pool, and the round&apos;s <a href="#c-unicorn">UNiCORN</a> is constructed from it.</li>
+                  <li><strong>Participant intake</strong> &mdash; registered miners apply to the round; the UNiCORN selects which of them actually get to participate.</li>
+                  <li><strong>PoW intake</strong> &mdash; the selected miners submit their proofs.</li>
+                  <li><strong>Winner selection</strong> &mdash; the UNiCORN picks the winning proof from the submissions.</li>
+                  <li><strong>Assemble &amp; commit</strong> &mdash; the mempool group stamps the winning nonce and coinbase hash into the header, assembles the block, and sends it to storage; storage commits it and notifies the mempool, which seeds the next round.</li>
+                </ul>
+                <p>
+                  <strong>Difficulty</strong> is set by <strong>ASERT</strong> (an in-repo port of
+                  ASERT3-2D). Classic ASERT assumes a fixed number of winning hashes per block and lets
+                  the timestamp vary; Lineage inverts that: the block interval is fixed and the number
+                  of hashes floats, so a surplus or shortfall of hashing power over a round is mapped
+                  onto a synthetic elapsed time that feeds ASERT&apos;s usual retarget math. The
+                  interval is fixed at <strong>30 seconds</strong> &mdash; block height tracks UTC time
+                  directly, 2,880 blocks per UTC day &mdash; from an epoch of{" "}
+                  <strong>2026-08-28T00:00:00Z</strong>.
+                </p>
+                <p>
+                  Proof-of-work hashes with <strong>SHA3-256</strong>, via CPU, OpenGL, or Vulkan
+                  mining backends, so GPU mining is supported today through those backends. A separate,
+                  purpose-built Lineage hash (SandWorm) exists but is not yet wired into the mining
+                  fleet &mdash; see <a href="/technology">Technology</a> for that direction.
+                </p>
+              </article>
+
+              <article id="c-blocks" className={styles.prose}>
+                <h2>Blocks &amp; headers</h2>
+                <p>A block is a header plus the hashes of the transactions it contains:</p>
+                <CodeBlock lang="rust">{`struct Block {
+    header: BlockHeader,
+    transactions: Vec<String>,   // transaction hashes
+}`}</CodeBlock>
+                <p>
+                  The header carries everything needed to identify, order, and validate the block
+                  without touching the transactions themselves:
+                </p>
+                <CodeBlock lang="rust">{`struct BlockHeader {
+    version: u32,
+    bits: usize,                                  // ASERT compact target; 0 = legacy leading-zeroes PoW
+    nonce_and_mining_tx_hash: (Vec<u8>, String),   // winning PoW nonce + coinbase tx hash
+    b_num: u64,                                    // block height
+    timestamp: i64,
+    seed_value: Vec<u8>,                           // UNiCORN "{seed}-{witness}"
+    previous_hash: Option<String>,
+    txs_merkle_root_and_hash: (String, String),    // MerkleLog root + flat SHA3 digest of the tx-hash list
+}`}</CodeBlock>
+                <p>
+                  <code>txs_merkle_root_and_hash</code> is a <strong>pair</strong>, not a nested tree:
+                  the first element is a MerkleLog root over the block&apos;s transaction hashes, the
+                  second is a flat SHA3-256 digest of that same hash list. <code>seed_value</code>{" "}
+                  carries the round&apos;s <a href="#c-unicorn">UNiCORN</a> seed and witness, joined as{" "}
+                  <code>{`"{seed}-{witness}"`}</code>. <code>bits</code> holds the ASERT compact target
+                  for the round; a value of <code>0</code> marks the legacy leading-zeroes
+                  proof-of-work scheme instead.
+                </p>
+                <p>
+                  Read blocks over HTTP with <code>GET /v1/blocks/latest</code> or{" "}
+                  <code>GET /v1/blocks/{`{num}`}</code> &mdash; see{" "}
+                  <a href="/developers/api">the API reference</a> for full request and response
+                  shapes. Both return the block as opaque JSON rather than a typed schema (a{" "}
+                  <code>block</code> field on <code>/latest</code>; a <code>data</code> field
+                  alongside storage metadata on <code>/{`{num}`}</code>), so treat the struct above as
+                  the underlying shape, not a guaranteed response contract.
                 </p>
               </article>
 
@@ -649,14 +724,39 @@ await wallet.accept2WayPayment(druid, details, allKeypairs);`}</CodeBlock>
               <article id="c-unicorn" className={styles.prose}>
                 <h2>UNiCORN randomness</h2>
                 <p>
-                  A UNiCORN, an <strong>UN-COntestable Random Number</strong>, is a
-                  randomness-and-witness object generated so that no single participant can steer it toward
-                  anything but a random result. It depends on the transactions in the block, which miners
-                  are eligible, and recent chain state, so winner selection is hard to bias without breaking
-                  consensus. The protocol uses it to restrict which miners may attempt work in a round and to
-                  choose the winning valid proof; storage does not currently re-verify this step, only
-                  the resulting block&apos;s proof-of-work and transaction/merkle consistency (see{" "}
-                  <a href="#c-storage">Storage node</a>).
+                  A UNiCORN is a <strong>Sloth VDF</strong> (Verifiable Delay Function, after Lenstra
+                  &amp; Wesolowski) &mdash; slow to evaluate, fast to verify. Evaluating it forward
+                  takes a fixed run of iterations that cannot be meaningfully parallelised or
+                  shortcut, but anyone holding the seed and the resulting witness can verify the
+                  output almost instantly. The whitepaper describes the result as{" "}
+                  <strong>uncontestable</strong>: the seed is fixed before the VDF runs, so the only
+                  way to steer the outcome is to steer the round&apos;s replicated inputs themselves
+                  &mdash; and those are agreed by consensus before the UNiCORN is ever constructed.
+                </p>
+                <p>
+                  The seed is a SHA3 hash over three inputs, each already agreed by the mempool
+                  group&apos;s RAFT log: the round&apos;s <strong>transaction inputs</strong>, the{" "}
+                  <strong>participating-miner list</strong>, and the <strong>winning proof-of-work
+                  hashes from two blocks ago</strong>. Because all three are RAFT-replicated before
+                  the VDF runs, every mempool node computes the identical UNiCORN independently
+                  &mdash; there is no leader to trust and nothing to distribute after the fact.
+                </p>
+                <p>
+                  The result seeds a <strong>Fortuna</strong> CSPRNG, which the round draws from
+                  twice: once to select which registered miners actually get to mine this round (the
+                  participating subset), and again to pick the winner among the proofs they submit.
+                  The seed and witness are stamped into the block header&apos;s{" "}
+                  <code>seed_value</code> field (see <a href="#c-blocks">Blocks &amp; headers</a>) as{" "}
+                  <code>{`"{seed}-{witness}"`}</code>, so the choice is auditable from the stored
+                  block alone. The whitepaper additionally describes rotating the mempool triple used
+                  to source this entropy on a daily basis.
+                </p>
+                <p>
+                  Because every mempool node evaluates the identical seed independently from the same
+                  replicated inputs, there is nothing left to check after the fact on that side.
+                  Downstream, <a href="#c-storage">storage nodes</a> do not currently re-check the
+                  UNiCORN at all &mdash; they validate the assembled block&apos;s proof-of-work and
+                  transaction/merkle consistency instead.
                 </p>
               </article>
 
