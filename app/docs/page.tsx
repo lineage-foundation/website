@@ -88,15 +88,22 @@ export default function DocsPage() {
                   <li><a href="#quick-start">API quick start</a></li>
                 </ul>
 
-                <h2>Concepts</h2>
+                <h2>Concepts &mdash; Data &amp; transactions</h2>
+                <ul>
+                  <li><a href="#c-data-model">Data model</a></li>
+                  <li><a href="#c-keys">Keys, addresses &amp; wallets</a></li>
+                  <li><a href="#c-transactions">Transactions</a></li>
+                  <li><a href="#c-scripts">Scripts</a></li>
+                  <li><a href="#c-two-way">Two-way transactions</a></li>
+                </ul>
+
+                <h2>Concepts &mdash; Network &amp; consensus</h2>
                 <ul>
                   <li><a href="#c-node-types">Node types</a></li>
                   <li><a href="#c-mempool">Mempool node</a></li>
                   <li><a href="#c-storage">Storage node</a></li>
                   <li><a href="#c-miner">Miner node</a></li>
-                  <li><a href="#c-block-mining">Block mining</a></li>
-                  <li><a href="#c-transactions">Transactions</a></li>
-                  <li><a href="#c-two-way">Two-way transactions</a></li>
+                  <li><a href="#c-block-mining">Consensus &amp; the block round</a></li>
                   <li><a href="#c-unicorn">UNiCORN randomness</a></li>
                 </ul>
 
@@ -197,7 +204,229 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                 </div>
               </article>
 
-              {/* ============ CONCEPTS ============ */}
+              {/* ============ CONCEPTS: DATA & TRANSACTIONS ============ */}
+              <article id="c-data-model" className={styles.prose}>
+                <h2>Data model</h2>
+                <p>
+                  Lineage is a <strong>UTXO ledger</strong>, in the Bitcoin lineage rather than an
+                  account/EVM model. There is no stored account balance anywhere in the protocol;
+                  a balance is a view computed over the set of transaction outputs an address has
+                  not yet spent. Every payment consumes one or more existing outputs and creates
+                  new ones for the next spend to reference (see <a href="#c-transactions">Transactions</a>).
+                </p>
+                <p>
+                  Every value a transaction moves is an <code>Asset</code>, and an asset is one of
+                  exactly two kinds:
+                </p>
+                <ul>
+                  <li><code>Token(amount)</code> &mdash; a plain integer quantity of the native token.</li>
+                  <li>
+                    <code>Item {`{ amount, genesis_hash, metadata }`}</code> &mdash; a fungible-by-type
+                    asset class. <code>genesis_hash</code> is the id stamped when the item is first
+                    created (its minting transaction); <code>metadata</code> is an optional string,
+                    capped at 800 bytes.
+                  </li>
+                </ul>
+                <p>
+                  The native token&apos;s brand name is <strong>LNGX</strong> &mdash; that&apos;s a
+                  network/brand identifier, not something the node code itself knows about; on the
+                  wire and in node source, it is only ever the integer <code>Token</code> amount.
+                  Display values divide that raw integer by a fixed base-unit divisor of{" "}
+                  <strong>72,072,000</strong>, and the protocol enforces a hard supply cap of{" "}
+                  72,072,000 &times; 5,000,000,000 raw units &mdash; 5,000,000,000 LNGX at that
+                  divisor. See <a href="/tokenomics">tokenomics</a> for the economics and issuance
+                  schedule; this page only covers how the value is represented on-chain.
+                </p>
+                <p>
+                  A read of an address&apos;s holdings reflects this directly: a token total, a map
+                  of item totals by <code>genesis_hash</code>, and the underlying outpoints backing
+                  them.
+                </p>
+                <CodeBlock lang="json">{`{
+  "balance": {
+    "total": {
+      "tokens": 100,
+      "items": { "g3b8f2a1…": 50 }
+    },
+    "address_list": {
+      "d0e7c9b4…": [
+        {
+          "out_point": { "t_hash": "g3b8f2a1…", "n": 0 },
+          "value": { "Token": 100 }
+        }
+      ]
+    }
+  }
+}`}</CodeBlock>
+                <p>
+                  Note the asset value here uses the wire form (capitalised keys like{" "}
+                  <code>{`{ "Token": 100 }`}</code>), which differs from the REST{" "}
+                  <code>ApiAsset</code> response shape (<code>{`{ "kind": "token", "amount": 100 }`}</code>)
+                  used elsewhere in the API &mdash; see the{" "}
+                  <a href="/developers/api">API reference</a> for exact response schemas.
+                </p>
+              </article>
+
+              <article id="c-keys" className={styles.prose}>
+                <h2>Keys, addresses &amp; wallets</h2>
+                <p>
+                  Lineage keypairs are <strong>ed25519</strong>. An address is derived from a public
+                  key as <code>hex(sha3_256(public_key))</code> &mdash; a 64-character hex string.
+                  Two legacy address schemes also exist in the node code for backward compatibility
+                  (a 32-character variant and an older temporary scheme); new wallets use the
+                  64-character form.
+                </p>
+                <p>
+                  Wallets generate a mnemonic seed phrase and derive keypairs from it through
+                  hierarchical (HD) derivation &mdash; the reference SDKs hold keys locally,
+                  encrypted at rest with a passphrase you supply, and never send private keys to a
+                  node.
+                </p>
+                <p>
+                  What you actually sign is narrower than the whole transaction. For each input, the
+                  signable message is the SHA3-256 hash of the JSON encoding of every output in the
+                  transaction, concatenated with the JSON encoding of that input&apos;s previous
+                  outpoint &mdash; hex-encoded. That is <em>outputs plus the input&apos;s previous
+                  outpoint, and nothing else</em>: the signature excludes <code>fees</code>,{" "}
+                  <code>druid_info</code>, and the input&apos;s own unlocking script (which is reset
+                  before the hash is computed). Two consequences follow directly: you sign exactly
+                  what you submit, and field order is load-bearing, since the JSON encoding is taken
+                  verbatim, in each struct&apos;s declared field order.
+                </p>
+                <CodeBlock lang="javascript">{`import { Wallet } from '@lineage-foundation/sdk-js';
+
+const wallet = new Wallet();
+await wallet.initNew({
+  mempoolHost: 'https://mempool.lineage.to',
+  passphrase: 'a secure passphrase',
+});
+
+// Derive a keypair; the address is hex(sha3_256(public_key)).
+const keypair = wallet.getNewKeypair([]).content.newKeypairResponse;
+console.log(keypair.address);`}</CodeBlock>
+                <p>
+                  See <a href="#c-transactions">Transactions</a> for where these keys sign, and{" "}
+                  <a href="#c-scripts">Scripts</a> for how a spend is checked against an address at
+                  the protocol level.
+                </p>
+              </article>
+
+              <article id="c-transactions" className={styles.prose}>
+                <h2>Transactions</h2>
+                <p>
+                  A transaction is <code>{`{ inputs, outputs, version, fees, druid_info }`}</code>,
+                  in that declared field order &mdash; the order matters, because a transaction&apos;s
+                  id is the SHA3-256 hash of its <code>bincode</code> serialization (hex-encoded,
+                  prefixed with <code>g</code>, truncated to 32 characters), and serialization is
+                  order-sensitive.
+                </p>
+                <p>
+                  Each <strong>input</strong> (<code>TxIn</code>) carries an optional{" "}
+                  <code>previous_out</code> (an <code>OutPoint</code>: the previous transaction hash
+                  and output index) plus a <code>script_signature</code> that proves the right to
+                  spend it. An input with <code>previous_out: null</code> is a create/coinbase input
+                  &mdash; it mints rather than spends. Each <strong>output</strong> (<code>TxOut</code>)
+                  states the <code>value</code> (an <code>Asset</code>), a <code>locktime</code>, and
+                  an optional <code>script_public_key</code> that locks it.
+                </p>
+                <p>
+                  <code>version</code> is a plain integer the client stamps with the network version
+                  it is built against; the node does not branch protocol behaviour on it. In
+                  particular, a two-way (atomic swap) payment is <em>not</em> signalled by a
+                  particular version number &mdash; it is signalled by the presence of{" "}
+                  <code>druid_info</code> on the transaction. <code>fees</code> is a real list of
+                  outputs that inputs must fund alongside the visible outputs (inputs must balance
+                  against outputs plus fees); there is currently no fixed fee-rate or minimum-fee
+                  policy enforced by the node, so treat <code>fees</code> as a mechanism that exists
+                  in the format without an economic policy wired to it yet.
+                </p>
+                <p>
+                  A submission to <code>POST /v1/transactions</code> looks like this (the asset
+                  value uses the wire form, <code>{`{ "Token": n }`}</code>, not the REST{" "}
+                  <code>ApiAsset</code> shape used in read responses):
+                </p>
+                <CodeBlock lang="json">{`{
+  "transactions": [
+    {
+      "inputs": [
+        {
+          "previous_out": { "t_hash": "g3b8f2a1…", "n": 0 },
+          "script_signature": {
+            "Pay2PkH": {
+              "signable_data": "a1c4…",
+              "signature": "6f2e…",
+              "public_key": "5b8a…",
+              "address_version": null
+            }
+          }
+        }
+      ],
+      "outputs": [
+        { "value": { "Token": 10 }, "locktime": 0, "script_public_key": "d0e7…" },
+        { "value": { "Token": 90 }, "locktime": 0, "script_public_key": "a1b2…change" }
+      ],
+      "version": 6,
+      "druid_info": null,
+      "fees": null
+    }
+  ]
+}`}</CodeBlock>
+                <p>The SDKs build and sign this for you; a one-way token payment is a single call:</p>
+                <CodeBlock lang="javascript">{`// keypair: your own keypair, already funded
+const receipt = await wallet.makeTokenPayment(
+  'recipient-address',
+  10,
+  [keypair],   // keypairs available to cover the inputs
+  keypair,     // where change is returned
+);
+console.log(receipt.content.makePaymentResponse.transactionHash);`}</CodeBlock>
+                <p>
+                  See <a href="#c-keys">Keys, addresses &amp; wallets</a> for exactly what gets
+                  signed, and <a href="/developers/api">the API reference</a> for the full request
+                  and response schemas.
+                </p>
+              </article>
+
+              <article id="c-scripts" className={styles.prose}>
+                <h2>Scripts</h2>
+                <p>
+                  Spend authorisation is checked by a small <strong>stack-based script
+                  language</strong>, in the Bitcoin Script tradition: bounded and loop-free (no
+                  back-jumps), so every script terminates and its worst-case cost is easy to bound.
+                  A dedicated condition stack handles <code>IF</code>/<code>ELSE</code> branching
+                  without introducing loops. Hard limits keep scripts cheap to validate: a stack
+                  item is capped at 520 bytes, a script at 201 opcodes and 10,000 bytes total, the
+                  execution stack at 1,000 items, and a multisig script at 20 public keys.
+                </p>
+                <p>Opcodes fall into a few families:</p>
+                <ul>
+                  <li><strong>Constants</strong> &mdash; push small literal values (<code>OP_0</code>&ndash;<code>OP_16</code>).</li>
+                  <li><strong>Flow control</strong> &mdash; <code>OP_IF</code>, <code>OP_NOTIF</code>, <code>OP_ELSE</code>, <code>OP_ENDIF</code>, <code>OP_VERIFY</code>, <code>OP_BURN</code>.</li>
+                  <li><strong>Stack, splice, bitwise &amp; arithmetic</strong> &mdash; duplicate, drop, compare, and combine stack items.</li>
+                  <li><strong>Crypto</strong> &mdash; <code>OP_SHA3</code>, the <code>OP_HASH256</code> family, <code>OP_CHECKSIG</code> / <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKMULTISIG</code> / <code>OP_CHECKMULTISIGVERIFY</code>.</li>
+                  <li><strong>Smart data</strong> &mdash; <code>OP_CREATE</code>, which mints a new item asset.</li>
+                </ul>
+                <p>
+                  The standard lock is <strong>P2PKH</strong> (pay-to-pubkey-hash). The unlocking
+                  side pushes check data, a signature, and a public key; the locking side then runs{" "}
+                  <code>OP_DUP</code>, hashes the pushed public key, compares it against the address
+                  baked into the output (<code>OP_EQUALVERIFY</code>), and finally checks the
+                  signature against the public key (<code>OP_CHECKSIG</code>):
+                </p>
+                <CodeBlock lang="text">{`<check_data> <signature> <public_key>
+OP_DUP OP_HASH256 <address> OP_EQUALVERIFY OP_CHECKSIG`}</CodeBlock>
+                <p>
+                  A spend is valid only if that combined script runs to a truthy result &mdash; so
+                  the signature has to verify against the pushed public key, <em>and</em> that public
+                  key has to hash to the address the output was locked to. See{" "}
+                  <a href="#c-keys">Keys, addresses &amp; wallets</a> for what the signature actually
+                  covers. Multisig locks and pay-to-script-hash (P2SH) addresses are also supported
+                  for flows where more than one signer must authorise a spend, such as{" "}
+                  <a href="#c-two-way">two-way payments</a>.
+                </p>
+              </article>
+
+              {/* ============ CONCEPTS: NETWORK & CONSENSUS ============ */}
               <article id="c-node-types" className={styles.prose}>
                 <h2>Node types</h2>
                 <p>
@@ -255,20 +484,6 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                   picks a winner, validates the block, and sends it to storage. A single per-round
                   randomness object (a UNiCORN), derived from agreed inputs such as the transactions,
                   the eligible miner set, and prior-round metadata, drives who may mine and who wins.
-                </p>
-              </article>
-
-              <article id="c-transactions" className={styles.prose}>
-                <h2>Transactions</h2>
-                <p>
-                  Lineage uses a <strong>UTXO model</strong>: a transaction spends one or more previous
-                  outputs and creates new outputs that a later spend can refer to. There is no global
-                  account balance in the contract layer; a balance is a view over unspent outputs.
-                  Each input points at a previous transaction hash and output index with a script
-                  proving spend authorisation; each output states a locked value and its script (for
-                  example pay-to-pubkey-hash). Transactions carry a version and optional
-                  application-specific data (such as DRUID or item metadata) that higher layers
-                  interpret.
                 </p>
               </article>
 
