@@ -7,6 +7,10 @@ export const SITE_ORIGIN = "https://lineage.foundation";
 export const URL_ZENODO_WHITEPAPER =
   "https://zenodo.org/records/19203176";
 
+/** "Peer-to-peer electronic cash revisited" — the managed-supply / monetary-policy paper. */
+export const URL_ZENODO_MANAGED_SUPPLY =
+  "https://zenodo.org/records/15324203";
+
 export const URL_GITHUB_ORG = "https://github.com/lineage-foundation";
 
 export const URL_YOUTUBE_VIDEO =
