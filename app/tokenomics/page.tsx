@@ -488,7 +488,7 @@ export default function TokenomicsPage() {
           <Card title="Supply is managed by ARCO">
             <p>
               The working model starts from a supply on the order of{" "}
-              <strong>300&nbsp;million tokens</strong>, after which{" "}
+              <strong>330&nbsp;million tokens</strong>, after which{" "}
               <strong>effective supply and circulation adapt over time</strong>{" "}
               in response to demand and on-chain state, through the same
               ARCO (adaptive resource-coordinated) loop used elsewhere in the
