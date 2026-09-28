@@ -135,13 +135,6 @@ export default function AboutPage() {
         </p>
         <TeamGrid variant="2">
           <Person
-            name="Jesse Benton"
-            role="Member"
-            photo="/team/jesse-benton.jpg"
-            monogram="JB"
-            bio="Jesse is passionate about decentralization and was member of the original Bitcoin Center NYC, the first live crypto trading floor, and an advisor to the ZAP Protocol. He was also campaign manager for Ron Paul, Senator Rand Paul and Senate Leader Mitch McConnell."
-          />
-          <Person
             name="Jamie Gilchrist"
             role="Member"
             photo="/team/jamie-gilchrist.jpg"
