@@ -97,6 +97,13 @@
   color: var(--color-text-muted);
 }
 
+.legalEntity {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  line-height: 1.5;
+}
+
 /* ---------- Meta row ---------- */
 
 .meta {
