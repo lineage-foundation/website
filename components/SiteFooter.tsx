@@ -135,6 +135,9 @@ export function SiteFooter() {
               &copy; {year}&nbsp;
               <Link href="/">Lineage Foundation</Link>
             </p>
+            <p className={styles.legalEntity}>
+              Lineage Association · Company No.&nbsp;CHE415.771.048
+            </p>
           </section>
         </div>
 
