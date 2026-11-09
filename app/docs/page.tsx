@@ -9,7 +9,6 @@ import {
   URL_GITHUB_ORG,
   URL_MCP_SERVER,
   URL_SKILLS,
-  URL_ZENODO_MANAGED_SUPPLY,
 } from "@/lib/constants";
 
 import styles from "./docs.module.css";
@@ -242,14 +241,10 @@ curl -sS "https://storage.lineage.to/v1/blocks/latest"`}</CodeBlock>
                   network/brand identifier, not something the node code itself knows about; on the
                   wire and in node source, it is only ever the integer <code>Token</code> amount.
                   Display values divide that raw integer by a fixed base-unit divisor of{" "}
-                  <strong>72,072,000</strong>, and the protocol currently enforces a hard supply
-                  cap of 72,072,000 &times; 5,000,000,000 raw units &mdash; 5,000,000,000 LNGX at
-                  that divisor. This fixed cap reflects the model in place today; the network is
-                  moving to a <strong>managed supply</strong>{" "}that adjusts issuance to target price
-                  stability &mdash; see{" "}
-                  <a href={URL_ZENODO_MANAGED_SUPPLY} target="_blank" rel="noopener noreferrer">
-                    Peer-to-peer electronic cash revisited
-                  </a>. See <a href="/tokenomics">tokenomics</a> for the economics and issuance
+                  <strong>72,072,000</strong>, and the protocol enforces a hard supply cap of
+                  72,072,000 &times; 1,000,000,000 raw units, which is{" "}
+                  <strong>1,000,000,000 LNGX</strong> at that divisor. 280 million LNGX of that
+                  supply is issued as block rewards. See <a href="/tokenomics">tokenomics</a> for the economics and issuance
                   schedule; this page only covers how the value is represented on-chain.
                 </p>
                 <p>

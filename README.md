@@ -53,7 +53,7 @@ Open [http://localhost:3000](http://localhost:3000). The dev server hot-reloads 
 | `/ecosystem` | Ecosystem landing — wallets, Discourse, research partners, video |
 | `/research` | Research landing — whitepaper, research repo, contact |
 | `/technology` | ARCO interactive simulation (`/learn` and `/arco` redirect here — see `next.config.ts`) |
-| `/tokenomics` | Interactive tokenomics chart |
+| `/tokenomics` | LNGX tokenomics: supply, allocation, release schedules, mining |
 | `/robots.txt` | Generated from `app/robots.ts` |
 | `/sitemap.xml` | Generated from `app/sitemap.ts` |
 
