@@ -6,20 +6,23 @@ import {
   Button,
   Card,
   LinkCta,
+  Note,
   PageHead,
   Section,
+  Stat,
   Table,
 } from "@/components/ui";
-import { SITE_ORIGIN, TWITTER_META, URL_ZENODO_WHITEPAPER } from "@/lib/constants";
-import { ZENODO_P2P_ELECTRONIC_CASH } from "@/lib/research-zenodo";
+import { SITE_ORIGIN, TWITTER_META, URL_DISCORD } from "@/lib/constants";
 import styles from "./page.module.css";
+
+const DESCRIPTION =
+  "LNGX is the fixed-supply utility currency of Lineage smart markets: a 1,000,000,000 LNGX hard cap, the allocation and release schedules, mining rewards, and the 1 May 2027 TGE.";
 
 export const metadata: Metadata = {
   title: {
     absolute: "Tokenomics | Lineage",
   },
-  description:
-    "LNGX and FIAT Replacement Technology (FReT): the phased allocation schedule, dynamic supply via the ARCO layer, and Lineage’s distribution model.",
+  description: DESCRIPTION,
   alternates: {
     canonical: "/tokenomics",
   },
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Tokenomics | Lineage",
-    description: "Token allocation, ARCO, and the distribution model.",
+    description: "LNGX: 1 billion fixed supply, allocation, release schedules and mining.",
     url: `${SITE_ORIGIN}/tokenomics`,
     type: "website",
     images: [
@@ -44,68 +47,126 @@ export const metadata: Metadata = {
   twitter: {
     ...TWITTER_META,
     title: "Tokenomics | Lineage",
-    description: "Token allocation, ARCO, and the distribution model.",
+    description: "LNGX: 1 billion fixed supply, allocation, release schedules and mining.",
     images: ["/images/open-graph-lineage-v2-1200x630.png"],
   },
 };
 
-const PHASES = [
+const MAX_SUPPLY = 1_000_000_000;
+
+const ALLOCATION = [
   {
-    kicker: "PHASE 01 · 2026",
-    heading: "Genesis",
-    body: (
-      <>
-        Widest category mix: Treasury (140), Founders (50), Grants (50),
-        Stakeholders (20), Marketing (20), AI airdrop incentives (15), and a
-        starting Miners allocation (35). Phase total: 330 model units.
-      </>
-    ),
+    category: "Mining rewards",
+    lngx: 280_000_000,
+    purpose: "Programmed miner rewards",
+    release: "Block rewards from TGE, about 6.6 years",
   },
   {
-    kicker: "PHASE 02 · 2027",
-    heading: "Early network",
-    body: (
-      <>
-        Miners rise to 45 and Grants to 60 while Founders and Treasury taper
-        (35&nbsp;/&nbsp;120). The AI airdrop incentives are complete. Phase
-        total: 300 model units.
-      </>
-    ),
+    category: "Foundation / Treasury",
+    lngx: 195_000_000,
+    purpose: "Network development, infrastructure and operations",
+    release: "39M LNGX a year over 5 years",
   },
   {
-    kicker: "PHASE 03 · 2028",
-    heading: "Maturing issuance",
-    body: (
-      <>
-        Treasury contracts to 80 and Marketing winds down; Miners continue
-        climbing to 54 alongside steady Grants and Founders. Phase total: 239
-        model units.
-      </>
-    ),
+    category: "Stakeholders",
+    lngx: 110_000_000,
+    purpose: "Stakeholder allocation",
+    release: "Not yet published",
   },
   {
-    kicker: "PHASE 04 · 2029",
-    heading: "Miner-led supply",
-    body: (
-      <>
-        Miners reach 101, the largest single category, as Stakeholder
-        allocation phases out and issuance concentrates on proof-of-work. Phase
-        total: 266 model units.
-      </>
-    ),
+    category: "Liquidity provision",
+    lngx: 110_000_000,
+    purpose: "Exchange liquidity and future liquidity deployment",
+    release: "10M at TGE, 100M reserve as needed",
   },
   {
-    kicker: "BEYOND · ARCO-governed",
-    heading: "Adaptive steady state",
+    category: "Founders",
+    lngx: 90_000_000,
+    purpose: "Long-term founder alignment",
+    release: "1.5M LNGX a month over 5 years",
+  },
+  {
+    category: "Grants",
+    lngx: 50_000_000,
+    purpose: "Ecosystem development and approved grants",
+    release: "Up to 12.5M LNGX a year",
+  },
+  {
+    category: "Marketing",
+    lngx: 50_000_000,
+    purpose: "Adoption, communications and ecosystem growth",
+    release: "20M, 20M, 10M over 3 years",
+  },
+  {
+    category: "Public sale",
+    lngx: 50_000_000,
+    purpose: "Public distribution",
+    release: "Set out in the sale documentation",
+  },
+  {
+    category: "Agentic airdrops",
+    lngx: 45_000_000,
+    purpose: "Agentic ecosystem participation",
+    release: "10M in year 1, 35M in year 2",
+  },
+  {
+    category: "Private sale",
+    lngx: 20_000_000,
+    purpose: "Presale distribution",
+    release: "10% at TGE, then 22.5% a quarter",
+  },
+];
+
+const MINING_YEARS = [
+  { year: "1", days: 366, issued: "114.759", cumulative: "114.759" },
+  { year: "2", days: 365, issued: "69.276", cumulative: "184.035" },
+  { year: "3", days: 365, issued: "41.966", cumulative: "226.001" },
+  { year: "4", days: 365, issued: "25.422", cumulative: "251.423" },
+  { year: "5", days: 366, issued: "15.432", cumulative: "266.855" },
+  { year: "6", days: 365, issued: "9.316", cumulative: "276.171" },
+  { year: "7 (partial)", days: 227, issued: "3.829", cumulative: "280.000" },
+];
+
+const PRESALE_RELEASES = [
+  {
+    kicker: "1 MAY 2027 · TGE",
+    heading: "10% transferable",
+    body: <>2,000,000 LNGX across the full presale allocation. Mining also begins at TGE.</>,
+  },
+  {
+    kicker: "1 AUG 2027 · QUARTER 1",
+    heading: "22.5% released, 32.5% cumulative",
+    body: <>4,500,000 LNGX across the full presale allocation.</>,
+  },
+  {
+    kicker: "1 NOV 2027 · QUARTER 2",
+    heading: "22.5% released, 55% cumulative",
+    body: <>4,500,000 LNGX across the full presale allocation.</>,
+  },
+  {
+    kicker: "1 FEB 2028 · QUARTER 3",
+    heading: "22.5% released, 77.5% cumulative",
+    body: <>4,500,000 LNGX across the full presale allocation.</>,
+  },
+  {
+    kicker: "1 MAY 2028 · QUARTER 4",
+    heading: "100% released",
     body: (
       <>
-        Past the scheduled phases, effective supply and circulation are
-        coordinated by the ARCO layer in response to demand and on-chain state,
-        within protocol policy. There is no fixed forward calendar.
+        The final 4,500,000 LNGX, plus any rounding remainder from the
+        quarterly calculation in fractions.
       </>
     ),
   },
 ];
+
+function formatLngx(n: number) {
+  return n.toLocaleString("en-US");
+}
+
+function formatShare(n: number) {
+  return `${((n / MAX_SUPPLY) * 100).toFixed(1)}%`;
+}
 
 export default function TokenomicsPage() {
   return (
@@ -115,443 +176,439 @@ export default function TokenomicsPage() {
         eyebrow="Economic design"
         title={
           <>
-            Token allocation, release, and <Accent>supply</Accent>
+            The currency that powers <Accent>smart markets</Accent>
           </>
         }
         lead={
           <>
-            <span
-              style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
-            >
-              LNGX
-            </span>{" "}
-            is the network&rsquo;s unit of value. The economic stack is described
-            as <strong>FIAT Replacement Technology (FReT)</strong>: a phased
-            allocation schedule paired with the ARCO layer&rsquo;s ability to
-            adjust effective supply over time. The full specification lives in{" "}
-            <em>Lineage: The Living Economy</em> on Zenodo.
+            <span className={styles.mono}>LNGX</span> is the fixed-supply
+            utility currency of the Lineage network. It is required to take
+            part in smart markets, settles network fees and rewards the miners
+            who secure the network. The maximum supply is{" "}
+            <strong>1,000,000,000 LNGX</strong>, and no allocation or mining
+            reward can take it past that cap.
           </>
         }
         actions={
           <>
-            <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
-              Read the whitepaper
+            <Button href="/docs" variant="primary">
+              Browse the docs
             </Button>
-            <LinkCta href="/docs">Browse the docs</LinkCta>
+            <LinkCta href="/roadmap">See the roadmap</LinkCta>
           </>
         }
       />
 
-      {/* ── TWO LAYERS, ONE ECONOMY ── */}
+      {/* ── KEY PARAMETERS ── */}
       <Section
-        eyebrow="Two layers, one economy"
-        heading="FReT and LNGX"
+        eyebrow="Key parameters"
+        heading="LNGX at a glance"
+        headingLevel={2}
+        spacing="loose"
+      >
+        <div className={styles.statsGrid}>
+          <Stat value="1B" label="Maximum supply (1,000,000,000 LNGX)" />
+          <Stat value="280M" label="Mining allocation (28% of supply)" />
+          <Stat value="1 May 2027" label="Token Generation Event" />
+          <Stat value="$0.075" label="Presale price per LNGX" />
+          <Stat value="$0.30" label="Planned listing price per LNGX" />
+          <Stat value="30s" label="Assumed block interval" />
+        </div>
+        <Note kicker="Status">
+          These are the proposed LNGX token economics. Implementation remains
+          subject to technical validation, governance approval and applicable
+          legal and regulatory review.
+        </Note>
+      </Section>
+
+      {/* ── WHY LNGX (band) ── */}
+      <Section
+        tone="band"
+        eyebrow="The smart-market economy"
+        heading="Why LNGX is required"
         headingLevel={2}
         spacing="loose"
       >
         <p className={styles.sectionProse}>
-          The token model separates the <strong>unit of value</strong> from the{" "}
-          <strong>policy that governs it</strong>. LNGX is what moves on the
-          ledger; FReT is the framework that decides how much of it circulates
-          and on what terms.
+          Smart markets are programmable economic environments that bring
+          producers, consumers and financiers together, so production, demand,
+          capital and risk can be coordinated through market mechanisms. LNGX
+          is the common currency that activity runs on.
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
-            gap: "var(--space-4)",
-          }}
-        >
-          <Card rail title="LNGX">
+        <div className={styles.gridNarrow}>
+          <Card rail kicker="01" title="Market participation">
             <p>
-              LNGX is the native asset of the Lineage Layer-1, the token
-              miners earn, holders carry, and applications transact in. Its
-              release into circulation follows the phased allocation schedule
-              below, spanning the project&rsquo;s genesis and early network
-              years.
+              Participants need LNGX to access and engage with smart markets,
+              under each market&rsquo;s rules.
             </p>
           </Card>
-          <Card rail title="FReT">
+          <Card rail kicker="02" title="Network fees">
             <p>
-              FReT is the economic stack around LNGX. It pairs the phased
-              allocation you see below with the ARCO layer&rsquo;s ability to
-              adjust <strong>effective supply and circulation</strong> over
-              time, aiming for low volatility without external collateral
-              or game-theoretic levers.
+              LNGX settles the fees for smart-market operations and network
+              services.
+            </p>
+          </Card>
+          <Card rail kicker="03" title="Mining rewards">
+            <p>
+              Miners earn LNGX through the programmed block reward for
+              operating and securing the network.
+            </p>
+          </Card>
+          <Card rail kicker="04" title="Market financing">
+            <p>
+              Financing activity, its fees and market-denominated obligations
+              are coordinated and settled in LNGX.
+            </p>
+          </Card>
+          <Card rail kicker="05" title="Economic coordination">
+            <p>
+              One utility asset connects producers, consumers, financiers and
+              other participants across the network.
             </p>
           </Card>
         </div>
-        <p style={{ marginTop: "var(--space-7)" }}>
-          <LinkCta href="/technology">
-            See the ARCO loop on Technology
-          </LinkCta>
+        <h3 className={styles.subheading}>First applications: commodities</h3>
+        <p className={styles.sectionProse}>
+          Lineage is developing pilots in <strong>energy</strong> and{" "}
+          <strong>agriculture</strong>, and exploring supply chains, commodity
+          risk management and commodity financing. Any financing yield in these
+          markets depends on real market activity, underlying assets and
+          participant performance. It is not a guaranteed return.
         </p>
       </Section>
 
-      {/* ── ALLOCATION SCHEDULE (band) ── */}
+      {/* ── ALLOCATION ── */}
       <Section
-        tone="band"
-        eyebrow="Allocation schedule"
-        heading="How LNGX is distributed"
+        eyebrow="Allocation"
+        heading="How the one billion LNGX is allocated"
         headingLevel={2}
         spacing="loose"
       >
         <p className={styles.sectionProse}>
-          Allocation is modelled per phase across the early network years
-          (2026-2029). The values below are the Foundation&rsquo;s working
-          distribution model: the{" "}
-          <span
-            style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
-          >
-            Miners
-          </span>{" "}
-          share grows as treasury-funded categories taper, shifting issuance
-          toward the network&rsquo;s proof-of-work base over time. Figures are
-          in model units, not a final on-chain supply commitment.
+          Every category, mining included, sits inside the fixed maximum
+          supply. Being allocated does not mean tokens are circulating: most
+          categories are released over time under the schedules below.
         </p>
 
-        {/* Bar chart card */}
-        <div
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--r-lg)",
-            padding: "var(--space-6)",
-            marginBottom: "var(--space-5)",
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 500,
-              fontSize: "var(--fs-h3)",
-              color: "var(--color-text)",
-              margin: "0 0 var(--space-2)",
-            }}
-          >
-            Total modelled allocation by phase
-          </h3>
-          <p
-            style={{
-              color: "var(--color-text-muted)",
-              fontSize: "var(--fs-small)",
-              margin: "0 0 var(--space-5)",
-            }}
-          >
-            Sum of all categories per phase, in model units. Source: Lineage
-            Foundation working distribution model.
+        <div className={styles.chartCard}>
+          <h3 className={styles.chartTitle}>Share of maximum supply</h3>
+          <p className={styles.chartLead}>
+            1,000,000,000 LNGX across ten categories.
           </p>
-          <svg
-            viewBox="0 0 520 220"
-            role="img"
-            width="100%"
-            height="auto"
-            aria-label="Bar chart of total modelled LNGX allocation per phase: 2026 is 330 units, 2027 is 300 units, 2028 is 239 units, 2029 is 266 units (model units)."
-          >
-            {/* baseline */}
-            <line
-              x1="48"
-              y1="180"
-              x2="500"
-              y2="180"
-              stroke="var(--color-border-strong)"
-              strokeWidth="1"
-            />
-            {/* y gridlines / labels (max 330) */}
-            <g
-              fontFamily="var(--font-mono)"
-              fontSize="10"
-              fill="var(--color-text-subtle)"
-            >
-              <line
-                x1="48"
-                y1="40"
-                x2="500"
-                y2="40"
-                stroke="var(--color-border)"
-                strokeWidth="1"
-              />
-              <text x="42" y="44" textAnchor="end">
-                330
-              </text>
-              <line
-                x1="48"
-                y1="110"
-                x2="500"
-                y2="110"
-                stroke="var(--color-border)"
-                strokeWidth="1"
-              />
-              <text x="42" y="114" textAnchor="end">
-                165
-              </text>
-              <text x="42" y="184" textAnchor="end">
-                0
-              </text>
-            </g>
-            {/* bars: scale 330 units → 140px tall (y from 180 up to 40) */}
-            <g>
-              {/* 2026: 330 → 140 */}
-              <rect
-                x="78"
-                y="40"
-                width="56"
-                height="140"
-                rx="3"
-                fill="var(--color-accent)"
-              />
-              {/* 2027: 300 → 127 */}
-              <rect
-                x="190"
-                y="53"
-                width="56"
-                height="127"
-                rx="3"
-                fill="var(--color-link)"
-              />
-              {/* 2028: 239 → 101 */}
-              <rect
-                x="302"
-                y="79"
-                width="56"
-                height="101"
-                rx="3"
-                fill="var(--color-link)"
-              />
-              {/* 2029: 266 → 113 */}
-              <rect
-                x="414"
-                y="67"
-                width="56"
-                height="113"
-                rx="3"
-                fill="var(--color-link)"
-              />
-            </g>
-            {/* value + x labels */}
-            <g
-              fontFamily="var(--font-mono)"
-              fontSize="11"
-              fill="var(--color-text)"
-              textAnchor="middle"
-            >
-              <text x="106" y="32">
-                330
-              </text>
-              <text x="218" y="45">
-                300
-              </text>
-              <text x="330" y="71">
-                239
-              </text>
-              <text x="442" y="59">
-                266
-              </text>
-            </g>
-            <g
-              fontFamily="var(--font-mono)"
-              fontSize="11"
-              fill="var(--color-text-muted)"
-              textAnchor="middle"
-            >
-              <text x="106" y="200">
-                2026
-              </text>
-              <text x="218" y="200">
-                2027
-              </text>
-              <text x="330" y="200">
-                2028
-              </text>
-              <text x="442" y="200">
-                2029
-              </text>
-            </g>
-          </svg>
+          <ul className={styles.bars}>
+            {ALLOCATION.map((row) => (
+              <li key={row.category} className={styles.bar}>
+                <span className={styles.barLabel}>{row.category}</span>
+                <span className={styles.barTrack} aria-hidden="true">
+                  <span
+                    className={`${styles.barFill} ${
+                      row.category === "Mining rewards" ? styles.barFillMining : ""
+                    }`}
+                    style={{ width: `${(row.lngx / ALLOCATION[0].lngx) * 100}%` }}
+                  />
+                </span>
+                <span className={styles.barValue}>{formatShare(row.lngx)}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Full per-category breakdown table */}
         <Table>
           <thead>
             <tr>
               <th scope="col">Category</th>
-              <th scope="col">2026</th>
-              <th scope="col">2027</th>
-              <th scope="col">2028</th>
-              <th scope="col">2029</th>
+              <th scope="col">LNGX</th>
+              <th scope="col">Share</th>
+              <th scope="col">Purpose</th>
+              <th scope="col">Release</th>
             </tr>
           </thead>
           <tbody>
+            {ALLOCATION.map((row) => (
+              <tr key={row.category}>
+                <td>
+                  <span className="tok">{row.category}</span>
+                </td>
+                <td className="num">{formatLngx(row.lngx)}</td>
+                <td className="num">{formatShare(row.lngx)}</td>
+                <td>{row.purpose}</td>
+                <td>{row.release}</td>
+              </tr>
+            ))}
             <tr>
               <td>
-                <span className="tok">Miners</span>
+                <strong>Total</strong>
               </td>
-              <td className="num">35</td>
-              <td className="num">45</td>
-              <td className="num">54</td>
-              <td className="num">101</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">Treasury</span>
-              </td>
-              <td className="num">140</td>
-              <td className="num">120</td>
-              <td className="num">80</td>
-              <td className="num">80</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">Founders</span>
-              </td>
-              <td className="num">50</td>
-              <td className="num">35</td>
-              <td className="num">35</td>
-              <td className="num">35</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">Grants</span>
-              </td>
-              <td className="num">50</td>
-              <td className="num">60</td>
-              <td className="num">50</td>
-              <td className="num">50</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">Stakeholders</span>
-              </td>
-              <td className="num">20</td>
-              <td className="num">20</td>
-              <td className="num">20</td>
-              <td className="num">—</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">Marketing</span>
-              </td>
-              <td className="num">20</td>
-              <td className="num">20</td>
-              <td className="num">—</td>
-              <td className="num">—</td>
-            </tr>
-            <tr>
-              <td>
-                <span className="tok">AI Airdrop Incentives</span>
-              </td>
-              <td className="num">15</td>
-              <td className="num">—</td>
-              <td className="num">—</td>
-              <td className="num">—</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Phase total</strong>
-              </td>
-              <td className="num">330</td>
-              <td className="num">300</td>
-              <td className="num">239</td>
-              <td className="num">266</td>
+              <td className="num">{formatLngx(MAX_SUPPLY)}</td>
+              <td className="num">100.0%</td>
+              <td>Fixed maximum supply</td>
+              <td></td>
             </tr>
           </tbody>
         </Table>
-        <p
-          style={{
-            color: "var(--color-text-subtle)",
-            fontSize: "var(--fs-caption)",
-            fontFamily: "var(--font-mono)",
-            marginTop: "var(--space-4)",
-          }}
-        >
-          Model units from the Lineage Foundation working distribution model.
-          The Miners share can be scaled by a market-demand factor; categories
-          phase out as the schedule progresses (shown here as &ldquo;—&rdquo;).
-          Final on-chain allocations are governed by protocol policy.
+        <p className={styles.caption}>
+          Release periods are measured from TGE on 1 May 2027 unless stated
+          otherwise.
         </p>
       </Section>
 
-      {/* ── DYNAMIC SUPPLY / ARCO ── */}
+      {/* ── RELEASE SCHEDULES (band) ── */}
       <Section
-        eyebrow="Economic model"
-        heading="Dynamic supply and ARCO"
+        tone="band"
+        eyebrow="Release schedules"
+        heading="When each allocation is released"
         headingLevel={2}
         spacing="loose"
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
-            gap: "var(--space-4)",
-          }}
-        >
-          <Card title="Supply is managed by ARCO">
+        <div className={styles.grid}>
+          <Card title="Foundation / Treasury · 195M">
             <p>
-              The working model starts from a supply on the order of{" "}
-              <strong>330&nbsp;million tokens</strong>, after which{" "}
-              <strong>effective supply and circulation adapt over time</strong>{" "}
-              in response to demand and on-chain state, through the same
-              ARCO (adaptive resource-coordinated) loop used elsewhere in the
-              network: sensor, relay, compute, actuator. The allocation table
-              above is expressed in proportional model units; ARCO governs how
-              the live supply moves from that starting point as markets grow.
+              Released over five years from TGE, a budget of{" "}
+              <strong>39,000,000 LNGX a year</strong>. Transfers and spending
+              follow approved Treasury procedures, with documentation and
+              reporting.
             </p>
           </Card>
-          <Card title="Designed for low volatility">
+          <Card title="Founders · 90M">
             <p>
-              The design goals are set out in the working paper{" "}
-              <em>Peer-to-peer electronic cash revisited</em> (Andrew Kessler,
-              2025-05-02, Zenodo), which revisits peer-to-peer electronic cash
-              to aim for <strong>low volatility</strong>{" "}
-              <strong>without</strong> relying on external collateral or
-              game-theoretic levers. Lineage encodes that stance in on-chain
-              policy and ARCO-driven adjustment rather than off-chain promise
-              alone.
+              Vests linearly in monthly releases over five years from TGE:{" "}
+              <strong>1,500,000 LNGX a month</strong>. There is no separate
+              founder cliff.
             </p>
-            <div className={styles.cardCta}>
-              <LinkCta href={ZENODO_P2P_ELECTRONIC_CASH.href}>
-                Read the paper on Zenodo
-              </LinkCta>
-            </div>
+          </Card>
+          <Card title="Grants · 50M">
+            <p>
+              No more than <strong>12.5M LNGX</strong> in any TGE year. The
+              model assumes the full ceiling is used in each of the first four
+              years. Grants are subject to approval and award conditions.
+            </p>
+          </Card>
+          <Card title="Marketing · 50M">
+            <p>
+              <strong>20M</strong> in TGE year 1, <strong>20M</strong> in year
+              2 and <strong>10M</strong> in year 3, released against approved
+              campaign budgets and reporting.
+            </p>
+          </Card>
+          <Card title="Agentic airdrops · 45M">
+            <p>
+              <strong>10M</strong> in TGE year 1 and <strong>35M</strong> in
+              year 2, under published eligibility and claim rules covering
+              Sybil resistance, duplicate claims, claim windows and unclaimed
+              tokens.
+            </p>
+          </Card>
+          <Card title="Liquidity provision · 110M">
+            <p>
+              <strong>10M LNGX</strong> for liquidity at TGE, with{" "}
+              <strong>100M</strong> held in reserve and deployed as liquidity
+              needs require. The reserve has no fixed annual schedule.
+            </p>
           </Card>
         </div>
+
+        <h3 className={styles.subheading}>Private sale: 20M LNGX at $0.075</h3>
+        <p className={styles.sectionProse}>
+          Indicative gross proceeds are US$1,500,000 if fully subscribed.
+          Holders receive 10% at TGE and the remaining 90% in four equal
+          quarterly releases, so the presale is fully released 12 months after
+          TGE.
+        </p>
+        <Phases items={PRESALE_RELEASES} />
       </Section>
 
-      {/* ── PHASED RELEASE MODEL (band) ── */}
+      {/* ── MINING ── */}
       <Section
-        tone="band"
-        eyebrow="Release model"
-        heading="The phased release model"
+        eyebrow="Mining rewards"
+        heading="280 million LNGX for miners"
         headingLevel={2}
         spacing="loose"
       >
         <p className={styles.sectionProse}>
-          Allocation is released across distinct phases. Early phases lean on
-          treasury, grants, founder and community categories to bootstrap the
-          network; later phases shift weight toward miners as proof-of-work
-          issuance becomes the dominant source.
+          Mining begins at TGE. Each block reward is a share of the mining
+          allocation still remaining plus a flat five LNGX, so rewards decline
+          as the allocation is used up. All reward arithmetic is integer, in
+          fractions of 1/72,072,000 LNGX.
         </p>
-        <Phases items={PHASES} />
+        <pre className={styles.formula}>
+          R<sub>n</sub>{" "}= min(D<sub>n</sub>, (D<sub>n</sub>{" "}&gt;&gt; 21) + 5F)
+        </pre>
+        <div className={styles.grid}>
+          <Card title="Constants">
+            <ul className={styles.list}>
+              <li>
+                <strong>F</strong>{" "}= 72,072,000 fractions per LNGX
+              </li>
+              <li>
+                <strong>M</strong>{" "}= 280,000,000 &times; F, the mining
+                allocation in fractions
+              </li>
+              <li>
+                <strong>D<sub>n</sub></strong>{" "}= M &minus; I<sub>n</sub>, the
+                allocation remaining before block n
+              </li>
+              <li>
+                <strong>&gt;&gt; 21</strong> is an unsigned right shift by 21
+                bits
+              </li>
+            </ul>
+          </Card>
+          <Card title="The cap is enforced">
+            <p>
+              The outer minimum caps every reward at the remaining allocation,
+              so cumulative issuance can never exceed M. Once the allocation is
+              exhausted, block rewards are zero.
+            </p>
+          </Card>
+        </div>
+
+        <h3 className={styles.subheading}>Reference simulation</h3>
+        <p className={styles.sectionProse}>
+          At one block every 30 seconds (2,880 a day), the allocation is
+          exhausted after about 6,965,766 reward-bearing blocks: roughly 2,419
+          days, or 6.6 years.
+        </p>
+        <Table>
+          <thead>
+            <tr>
+              <th scope="col">TGE year</th>
+              <th scope="col">Days</th>
+              <th scope="col">Mined (M LNGX)</th>
+              <th scope="col">Cumulative (M LNGX)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MINING_YEARS.map((row) => (
+              <tr key={row.year}>
+                <td>{row.year}</td>
+                <td className="num">{row.days}</td>
+                <td className="num">{row.issued}</td>
+                <td className="num">{row.cumulative}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <p className={styles.caption}>
+          Simulation results under the stated assumptions. Actual issuance
+          depends on block production and the final consensus implementation.
+        </p>
+      </Section>
+
+      {/* ── TGE AND LISTING (band) ── */}
+      <Section
+        tone="band"
+        eyebrow="Launch"
+        heading="Token Generation Event and listing"
+        headingLevel={2}
+        spacing="loose"
+      >
+        <div className={styles.grid}>
+          <Card rail kicker="1 MAY 2027" title="Token Generation Event">
+            <p>
+              Mining starts at TGE, and vesting and release periods are
+              measured from it. The public sale allocation is 50M LNGX, with
+              terms set out in the sale documentation.
+            </p>
+          </Card>
+          <Card rail kicker="1 MAY 2027" title="Decentralised exchange listing">
+            <p>
+              LNGX is planned to list on <strong>Raydium</strong> (Solana) and{" "}
+              <strong>Uniswap</strong> (Ethereum) at a target reference price of{" "}
+              <strong>US$0.30</strong>. This is not a guarantee of the price at
+              which LNGX can be bought or sold.
+            </p>
+          </Card>
+        </div>
+      </Section>
+
+      {/* ── TRANSPARENCY ── */}
+      <Section
+        eyebrow="Transparency"
+        heading="Supply reporting"
+        headingLevel={2}
+        spacing="loose"
+      >
+        <p className={styles.sectionProse}>
+          The Foundation will keep a public supply and allocation ledger.
+          Treasury movements require multi-signature authorisation, and any
+          change to the published schedules is disclosed and approved through
+          governance.
+        </p>
+        <div className={styles.grid}>
+          <Card title="What is reported">
+            <ul className={styles.list}>
+              <li>Maximum supply and total protocol-issued supply</li>
+              <li>Category allocations and remaining balances</li>
+              <li>Mining issued and mining allocation remaining</li>
+              <li>Locked, vested and released balances</li>
+              <li>Actual releases against the published schedule</li>
+            </ul>
+          </Card>
+          <Card title="Category detail">
+            <ul className={styles.list}>
+              <li>Treasury releases and actual expenditure</li>
+              <li>Grants awarded and amounts transferred</li>
+              <li>Airdrop allocations, claims and unclaimed balances</li>
+              <li>Liquidity reserved, deployed or withdrawn</li>
+            </ul>
+          </Card>
+        </div>
+      </Section>
+
+      {/* ── RISKS (band) ── */}
+      <Section
+        tone="band"
+        eyebrow="Risks"
+        heading="Risks and limitations"
+        headingLevel={2}
+        spacing="loose"
+      >
+        <div className={styles.gridNarrow}>
+          <Card title="Market and liquidity">
+            <p>
+              LNGX has no guaranteed price or redemption value. A listing or
+              liquidity allocation does not guarantee market depth or execution
+              at any price.
+            </p>
+          </Card>
+          <Card title="Adoption">
+            <p>
+              LNGX utility depends on smart markets attracting producers,
+              consumers and financiers. Pilots do not guarantee commercial
+              activity.
+            </p>
+          </Card>
+          <Card title="Financing and commodities">
+            <p>
+              Smart-market financing carries asset, counterparty, price and
+              delivery risk. No yield or return is guaranteed.
+            </p>
+          </Card>
+          <Card title="Distribution and regulation">
+            <p>
+              Circulating supply may differ from the schedules, and the legal
+              treatment of LNGX and its sale can vary by jurisdiction.
+            </p>
+          </Card>
+        </div>
+        <p className={styles.caption}>
+          This page is for information only and is not an offer to sell, or a
+          solicitation to buy, any financial instrument or investment product.
+          LNGX is designed as a utility currency for the Lineage network.
+        </p>
       </Section>
 
       {/* ── CTA BAND ── */}
       <Section spacing="loose">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
-            gap: "var(--space-4)",
-          }}
-        >
-          <Card rail title="Read the full specification">
+        <div className={styles.grid}>
+          <Card rail title="Questions about LNGX?">
             <p>
-              <em>Lineage: The Living Economy</em> sets out FReT, LNGX, the
-              allocation schedule and the ARCO layer in detail, archived
-              on Zenodo.
+              Talk to the Foundation and the community about the token, the
+              launch and smart markets.
             </p>
             <div className={styles.cardCta}>
-              <Button href={URL_ZENODO_WHITEPAPER} variant="primary" external>
-                Read the whitepaper
+              <Button href={URL_DISCORD} variant="primary" external>
+                Join the Discord
               </Button>
             </div>
           </Card>

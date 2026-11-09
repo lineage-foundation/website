@@ -34,7 +34,7 @@ const TILES: readonly Tile[] = [
   },
   {
     title: "Tokenomics",
-    body: "FReT, LNGX, and the phased release model: overview and chart.",
+    body: "LNGX: the 1 billion fixed supply, allocation, release schedules and mining.",
     links: [{ label: "Open tokenomics", href: "/tokenomics" }],
   },
   {
